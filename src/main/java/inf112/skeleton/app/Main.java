@@ -6,9 +6,10 @@ public class Main {
     public static void main(String[] args) {
         Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
         cfg.setTitle("Robo Rally");
-        cfg.setWindowedMode(600, 600);
+        cfg.setWindowedMode(576, 576);
+        cfg.setResizable(false);
         //new Lwjgl3Application(new HelloWorld(), cfg);
-        new Lwjgl3Application(new RoboRallyExampleWorld(), cfg);
+        new Lwjgl3Application(new RoboRallyWorld(), cfg);
     }
 }
 
