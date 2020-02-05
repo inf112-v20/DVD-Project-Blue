@@ -8,7 +8,6 @@ public class Main {
         cfg.setTitle("Robo Rally");
         cfg.setWindowedMode(576, 576);
         cfg.setResizable(false);
-        //new Lwjgl3Application(new HelloWorld(), cfg);
         new Lwjgl3Application(new RoboRallyWorld(), cfg);
     }
 }

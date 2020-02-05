@@ -23,16 +23,8 @@ public class RoboRallyWorld extends InputAdapter implements ApplicationListener 
     // map variables
     private TmxMapLoader mapLoader;
     private TiledMap map;
-    private TiledMapTileLayer groundLayer;
-    private TiledMapTileLayer cogLayer;
-    private TiledMapTileLayer yellowArrowsLayer;
-    private TiledMapTileLayer blueArrowsLayer;
-    private TiledMapTileLayer holeLayer;
-    private TiledMapTileLayer flagLayer;
-    private TiledMapTileLayer fixLayer;
-    private TiledMapTileLayer wallLayer;
-    private TiledMapTileLayer pusherLayer;
-    private Vector2 holeVector, flagVector;
+    private TiledMapTileLayer groundLayer, cogLayer, yellowArrowsLayer,
+            blueArrowsLayer, holeLayer, flagLayer, fixLayer, wallLayer, pusherLayer;
 
     // camera variables
     private OrthogonalTiledMapRenderer mapRenderer;
@@ -66,9 +58,6 @@ public class RoboRallyWorld extends InputAdapter implements ApplicationListener 
         pusherLayer = (TiledMapTileLayer) map.getLayers().get("pusher");
         flagLayer = (TiledMapTileLayer) map.getLayers().get("flag");
         holeLayer = (TiledMapTileLayer) map.getLayers().get("hole");
-
-        holeVector = new Vector2().set(3,2);
-
 
         // player code
         playerLayer = (TiledMapTileLayer) map.getLayers().get("Player");
