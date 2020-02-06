@@ -9,6 +9,7 @@ public class Main {
         cfg.setWindowedMode(576, 576);
         cfg.setResizable(false);
         new Lwjgl3Application(new RoboRallyWorld(), cfg);
+        // TODO Create explosions
     }
 }
 
