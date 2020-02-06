@@ -1,14 +1,15 @@
 package inf112.skeleton.app;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 public class Main {
     public static void main(String[] args) {
-        Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
-        cfg.setTitle("Robo Rally");
-        cfg.setWindowedMode(576, 576);
-        cfg.setResizable(false);
-        new Lwjgl3Application(new RoboRallyWorld(), cfg);
+        LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
+        cfg.title = "Robo Rally";
+        cfg.height = 576;
+        cfg.width = 576;
+        cfg.resizable = false;
+        new LwjglApplication(new RoboRallyWorld(), cfg);
     }
 }
 
