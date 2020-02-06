@@ -3,21 +3,26 @@ Feature: Board logic works
   Scenario: Robot can move
     Given an empty 2x2 board
     Given a robot "0" placed at (0, 0), facing right
-    When the robot "0" moves forward
-    Then the robot "0" has position (1, 0)
+    When robot "0" moves forward
+    Then robot "0" has position (1, 0)
 
-  Scenario: Robot can't move through walls
+  Scenario Outline: Robot can't move through walls
     Given a 2x2 board with the following objects:
-      | wall | right of (0, 0) |
-    Given a robot placed at (0, 0), facing right
-    When the robot moves forward
-    Then the robot has position (0, 0)
+      | Wall | <Position> |
+    Given a robot "0" placed at (0, 0), facing right
+    When robot "0" moves forward
+    Then robot "0" has position (0, 0)
+
+    Examples:
+      | Position        |
+      | right of (0, 0) |
+      | left of (1, 0)  |
 
   Scenario: Robot is removed after moving off board
     Given an empty 1x1 board
-    Given a robot placed at (0, 0), facing right
-    When the robot moves forward
-    Then the robot does not exist
+    Given a robot "0" placed at (0, 0), facing right
+    When robot "0" moves forward
+    Then robot "0" does not exist
 
   Scenario: Robot can push other robot
     Given an empty 4x4 board

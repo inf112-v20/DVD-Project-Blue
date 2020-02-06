@@ -21,8 +21,8 @@ public class Board {
     // @throws If position is out of bounds.
     public void placeRobot(int robotId, Position position, Direction facingDirection) {}
 
-    public Position getRobotPosition(int robotId) {
-        return robots[robotId].position;
+    public Robot getRobot(int robotId) {
+        return robots[robotId];
     }
 
     // Move robot (forward or backward).
