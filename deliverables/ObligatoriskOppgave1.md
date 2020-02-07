@@ -149,7 +149,7 @@ _Akseptansekrav_
  * Man må kunne gå inn i innstillinger menyen og endre på spillets utseende
 
 
-**Oppsummering**  
+# Oppsummering   
 
 Vi har opplevd både positive og negative elementer knyttet til gruppearbeidet frem til nå. Det er konkrete problemer med hensyn til samarbeid som må tas tak i. Gruppen er enige i hva slags type problemer dette er, og hva som må til for å løse problemene.
 
