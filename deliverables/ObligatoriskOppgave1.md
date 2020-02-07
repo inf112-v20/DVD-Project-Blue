@@ -51,6 +51,13 @@ Vi ønsker å lage en digital versjon av brettspillet Roborally, som er mer forn
 **Nice-to-have:**  
 * LAN/Lokalnett funksjonalitet med en lobby system
 
+**Mål for første iterasjon**  
+Vi har følgende mål for første leveranse av spillet:
+ * Enkel grafikk/tileset.
+ * Brett vises.
+ * Brikke/robot vises på brettet og kan beveges med piltastene
+ * Brikke/robot beveger seg ved å bli flyttet én og én plass i retningen brikken blir styrt -
+på samme måte som brikken blir beveget av kortene som angir hver brikkes bevegelse.
 
 # DELOPPGAVE 3
 
