@@ -1,4 +1,4 @@
-package inf112.skeleton.app;
+package inf112.RoboRally.app;
 
 import io.cucumber.junit.CucumberOptions;
 import io.cucumber.junit.Cucumber;

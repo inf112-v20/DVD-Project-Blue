@@ -1,8 +1,8 @@
-package inf112.skeleton.app;
+package inf112.RoboRally.app;
 
-import inf112.skeleton.app.models.board.Board;
-import inf112.skeleton.app.models.board.Direction;
-import inf112.skeleton.app.models.board.Position;
+import inf112.RoboRally.app.models.board.Board;
+import inf112.RoboRally.app.models.board.Direction;
+import inf112.RoboRally.app.models.board.Position;
 import io.cucumber.java8.En;
 
 import java.util.ArrayList;

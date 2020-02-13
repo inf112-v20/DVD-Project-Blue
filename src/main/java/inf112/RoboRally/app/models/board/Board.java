@@ -1,4 +1,4 @@
-package inf112.skeleton.app.models.board;
+package inf112.RoboRally.app.models.board;
 
 import java.util.Optional;
 

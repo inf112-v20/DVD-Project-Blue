@@ -1,4 +1,4 @@
-package inf112.skeleton.app;
+package inf112.RoboRally.app;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
