@@ -5,4 +5,6 @@ public class Robot {
     public Position position;
     public Direction facing_direction;
     int damage;
+
+    // TODO - Tord her
 }
