@@ -18,7 +18,6 @@ public class Robot {
         damage = 1;
 
 
-
         //if (bot1) {
         //  set pos.x
         //  set pos.y
@@ -36,12 +35,15 @@ public class Robot {
     public int moveRight(int x) {
         return x++;
     }
+
     public int moveLeft(int x) {
         return x--;
     }
+
     public int moveUp(int y) {
         return y++;
     }
+
     public int moveDown(int y) {
         return y--;
     }
@@ -55,19 +57,22 @@ public class Robot {
     public int looseHP(int HP) {
         return HP--;
     }
+
     public int gainHP(int HP) {
         return HP++;
     }
-    public int getHP(){
+
+    public int getHP() {
         return HP;
     }
+
     public int getDamage() {
         return damage;
     }
-    public String getDirection(){
+
+    public String getDirection() {
         return direction;
     }
-
 
 
 }
