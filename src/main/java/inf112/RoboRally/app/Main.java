@@ -12,4 +12,3 @@ public class Main {
         new LwjglApplication(new gameScreen(), cfg);
     }
 }
-
