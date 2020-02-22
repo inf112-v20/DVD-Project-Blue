@@ -39,4 +39,3 @@ public class Board {
         return Optional.empty();
     }
 }
-
