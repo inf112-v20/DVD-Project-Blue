@@ -24,8 +24,8 @@ public class classicBoard extends InputAdapter implements Screen {
     // map variables
     private TmxMapLoader mapLoader;
     private TiledMap map;
-    private TiledMapTileLayer groundLayer, cogLayer, yellowArrowsLayer,
-            blueArrowsLayer, holeLayer, flagLayer, fixLayer, wallLayer, pusherLayer;
+//    private TiledMapTileLayer groundLayer, cogLayer, yellowArrowsLayer,
+//            blueArrowsLayer, holeLayer, flagLayer, fixLayer, wallLayer, pusherLayer;
 
     // camera variables
     private OrthogonalTiledMapRenderer mapRenderer;
@@ -49,36 +49,34 @@ public class classicBoard extends InputAdapter implements Screen {
     public void show() {
         // map code
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("GameBoard/GameBoard1.tmx");
-        groundLayer = (TiledMapTileLayer) map.getLayers().get("ground");
-        cogLayer = (TiledMapTileLayer) map.getLayers().get("cog");
-        wallLayer = (TiledMapTileLayer) map.getLayers().get("walls");
-        yellowArrowsLayer = (TiledMapTileLayer) map.getLayers().get("yellowArrows");
-        blueArrowsLayer = (TiledMapTileLayer) map.getLayers().get("blueArrows");
-        fixLayer = (TiledMapTileLayer) map.getLayers().get("fix");
-        pusherLayer = (TiledMapTileLayer) map.getLayers().get("pusher");
-        flagLayer = (TiledMapTileLayer) map.getLayers().get("flag");
-        holeLayer = (TiledMapTileLayer) map.getLayers().get("hole");
+        map = mapLoader.load("Boards/classicBoard.tmx");
+//        groundLayer = (TiledMapTileLayer) map.getLayers().get("ground");
+//        cogLayer = (TiledMapTileLayer) map.getLayers().get("cog");
+//        wallLayer = (TiledMapTileLayer) map.getLayers().get("walls");
+//        yellowArrowsLayer = (TiledMapTileLayer) map.getLayers().get("yellowArrows");
+//        blueArrowsLayer = (TiledMapTileLayer) map.getLayers().get("blueArrows");
+//        fixLayer = (TiledMapTileLayer) map.getLayers().get("fix");
+//        pusherLayer = (TiledMapTileLayer) map.getLayers().get("pusher");
+//        flagLayer = (TiledMapTileLayer) map.getLayers().get("flag");
+//        holeLayer = (TiledMapTileLayer) map.getLayers().get("hole");
 
         // player code
-        playerLayer = (TiledMapTileLayer) map.getLayers().get("player");
-        playerTexture = new Texture("Tiles/ExampleRobots.png");
-        playerTextureRegion = new TextureRegion[3];
-        playerTextureRegion[0] = new TextureRegion(playerTexture, 0, 0, 48, 48);
-        playerTextureRegion[1] = new TextureRegion(playerTexture, 48, 0, 48, 48);
-        playerTextureRegion[2] = new TextureRegion(playerTexture, 96, 0, 48, 48);
-        playerCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(playerTextureRegion[0]));
-        playerCellDead = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(playerTextureRegion[1]));
-        playerCellWon = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(playerTextureRegion[2]));
-        playerVector = new Vector2();
-        playerVector.set(0, 0);
+//        playerLayer = (TiledMapTileLayer) map.getLayers().get("player");
+//        playerTexture = new Texture("Tiles/ExampleRobots.png");
+//        playerTextureRegion = new TextureRegion[3];
+//        playerTextureRegion[0] = new TextureRegion(playerTexture, 0, 0, 48, 48);
+//        playerTextureRegion[1] = new TextureRegion(playerTexture, 48, 0, 48, 48);
+//        playerTextureRegion[2] = new TextureRegion(playerTexture, 96, 0, 48, 48);
+//        playerCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(playerTextureRegion[0]));
+//        playerCellDead = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(playerTextureRegion[1]));
+//        playerCellWon = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(playerTextureRegion[2]));
+//        playerVector = new Vector2();
+//        playerVector.set(0, 0);
 
         // mapRenderer anc camera code
-        mapRenderer = new OrthogonalTiledMapRenderer(map);
+        mapRenderer = new OrthogonalTiledMapRenderer(map, 1/256f);
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 576, 576);
-        camera.position.x = 288;
-        camera.position.y = 288;
+        camera.setToOrtho(false, 28, 16);
         camera.update();
         mapRenderer.setView(camera);
     }
