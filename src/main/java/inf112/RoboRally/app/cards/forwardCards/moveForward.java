@@ -1,11 +1,14 @@
-package inf112.RoboRally.app.cards;
+package inf112.RoboRally.app.cards.forwardCards;
 
 import inf112.RoboRally.app.models.board.Robot;
 
 public class moveForward {
 
-    private int priority;
     private int stepsToTake;
+
+    public moveForward(int stepsToTake) {
+        this.stepsToTake = stepsToTake;
+    }
 
     public void moveRobotForward(Robot robot) {
         String direction = robot.getDirection();
@@ -19,6 +22,4 @@ public class moveForward {
             robot.moveLeft(stepsToTake);
         }
     }
-
-
 }

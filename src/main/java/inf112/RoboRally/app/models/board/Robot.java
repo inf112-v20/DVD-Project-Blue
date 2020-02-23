@@ -11,6 +11,8 @@ public class Robot {
     int HP;
     int lives;
     String direction;
+    String[] dir = {"down", "left", "up", "right"};
+    private int directionIndex;
 
     public void init() {
         HP = 9;
@@ -72,6 +74,20 @@ public class Robot {
 
     public String getDirection() {
         return direction;
+    }
+
+    public int getDirectionIndex() {
+        return directionIndex;
+    }
+
+    public void rotateRight() {
+        if (directionIndex == 3) directionIndex = 0;
+        else directionIndex ++;
+    }
+
+    public void rotateLeft() {
+        if (directionIndex == 0) directionIndex = 3;
+        else directionIndex--;
     }
 
 

@@ -1,6 +1,6 @@
-package inf112.RoboRally.app.board;
+package inf112.RoboRally.app.player;
 
-public class playerBar {
+public class playerHud {
 
     //TODO - Håkon
 

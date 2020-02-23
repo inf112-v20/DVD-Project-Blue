@@ -61,7 +61,7 @@ public class classicBoard extends InputAdapter implements Screen {
         holeLayer = (TiledMapTileLayer) map.getLayers().get("hole");
 
         // player code
-        playerLayer = (TiledMapTileLayer) map.getLayers().get("Player");
+        playerLayer = (TiledMapTileLayer) map.getLayers().get("player");
         playerTexture = new Texture("Tiles/ExampleRobots.png");
         playerTextureRegion = new TextureRegion[3];
         playerTextureRegion[0] = new TextureRegion(playerTexture, 0, 0, 48, 48);
@@ -88,7 +88,10 @@ public class classicBoard extends InputAdapter implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         mapRenderer.render();
-        playerLayer.setCell((int) playerVector.x, (int) playerVector.y, playerCell);
+
+//        Commented out line below because it lead to error when rendering map
+//        playerLayer.setCell((int) playerVector.x, (int) playerVector.y, playerCell);
+
     }
 
     @Override
@@ -116,5 +119,4 @@ public class classicBoard extends InputAdapter implements Screen {
         map.dispose();
         mapRenderer.dispose();
     }
-
 }

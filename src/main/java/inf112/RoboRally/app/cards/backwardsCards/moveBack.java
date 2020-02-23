@@ -1,14 +1,10 @@
-package inf112.RoboRally.app.cards;
+package inf112.RoboRally.app.cards.backwardsCards;
 
 import inf112.RoboRally.app.models.board.Robot;
 
 public class moveBack {
 
-    private int stepsToTake;
-
-    public moveBack(int stepsToTake) {
-        this.stepsToTake = stepsToTake;
-    }
+    private final int stepsToTake = 1;
 
     public void reverseRobot(Robot robot) {
         String direction = robot.getDirection();

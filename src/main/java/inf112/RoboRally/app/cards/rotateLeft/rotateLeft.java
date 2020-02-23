@@ -1,7 +1,11 @@
-package inf112.RoboRally.app.cards;
+package inf112.RoboRally.app.cards.rotateLeft;
+
+import inf112.RoboRally.app.models.board.Robot;
 
 public class rotateLeft {
 
-    // moveForward according to class and value received
+    public void rotateRobotLeft(Robot robot) {
+        robot.rotateLeft();
+    }
 
 }
