@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import inf112.RoboRally.app.board.classicBoard;
+import inf112.RoboRally.app.board.showBoard;
 import inf112.RoboRally.app.gameScreen;
 
 public class mainMenu implements Screen {
@@ -50,7 +50,7 @@ public class mainMenu implements Screen {
         play.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                gameScreen.setScreen(new classicBoard(gameScreen));
+                gameScreen.setScreen(new showBoard(gameScreen));
             }
         });
 
