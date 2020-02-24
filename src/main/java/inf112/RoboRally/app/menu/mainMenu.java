@@ -18,6 +18,11 @@ public class mainMenu implements Screen {
     private gameScreen gameScreen;
     private Stage stage;
 
+    TextButton play;
+    TextButton lan;
+    TextButton settings;
+    TextButton quit;
+
     public mainMenu (gameScreen game) {
         this.gameScreen = game;
         stage = new Stage(new ScreenViewport());
@@ -29,22 +34,32 @@ public class mainMenu implements Screen {
     public void show() {
         Table table = new Table();
         table.setFillParent(true);
-        stage.addActor(table);
+        table.center();
 
         //Theme for button
         Skin skin = new Skin(Gdx.files.internal("neonSkin/neon-ui.json"));
 
         //Play, settings, quit button
-        TextButton play = new TextButton("Play", skin);
-        TextButton settings = new TextButton("Settings", skin);
-        TextButton quit = new TextButton("Quit", skin);
+        play = new TextButton("Play", skin);
+        play.setTransform(true);
+        play.scaleBy(2f);
+        lan = new TextButton("LAN", skin);
+        lan.setTransform(true);
+        lan.scaleBy(2f);
+        settings = new TextButton("Settings", skin);
+        settings.setTransform(true);
+        settings.scaleBy(2f);
+        quit = new TextButton("Quit", skin);
+        quit.setTransform(true);
+        quit.scaleBy(2f);
 
-        table.add(play).fillX().uniform();
-        table.row().pad(20, 0, 10, 0);
-        table.add(settings).fillX().uniform();
-        table.row().pad(20, 0, 10, 0);
-        table.add(quit).fillX().uniform();
-        table.add().row();
+        table.add(play).padRight(125);
+        table.row().padTop(50);
+        table.add(lan).padRight(125);
+        table.row().padTop(50);
+        table.add(settings).padRight(175);
+        table.row().padTop(50);
+        table.add(quit).padRight(125);
 
         //Button actions
         play.addListener(new ChangeListener() {
@@ -67,6 +82,7 @@ public class mainMenu implements Screen {
                 Gdx.app.exit();
             }
         });
+        stage.addActor(table);
     }
 
     @Override
@@ -74,31 +90,26 @@ public class mainMenu implements Screen {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         gameScreen.batch.begin();
-
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1));
         stage.draw();
-
         gameScreen.batch.end();
     }
 
     @Override
     public void resize(int i, int i1) {
-
     }
+
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
     public void hide() {
-
     }
 
     @Override

@@ -10,11 +10,13 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import inf112.RoboRally.app.player.playerHud;
 
 public class showBoard extends InputAdapter implements Screen {
 
     private gameScreen gameScreen;
     private Stage stage;
+    private playerHud playerHud;
 
     private TmxMapLoader mapLoader;
     private TiledMap map;
@@ -24,6 +26,7 @@ public class showBoard extends InputAdapter implements Screen {
 
     public showBoard (gameScreen game) {
         this.gameScreen = game;
+        playerHud = new playerHud(gameScreen.batch);
     }
 
     @Override
@@ -44,6 +47,8 @@ public class showBoard extends InputAdapter implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         mapRenderer.render();
+        gameScreen.batch.setProjectionMatrix(playerHud.stage.getCamera().combined);
+        playerHud.stage.draw();
     }
 
     @Override
