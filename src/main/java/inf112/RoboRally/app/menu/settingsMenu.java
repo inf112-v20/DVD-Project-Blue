@@ -10,21 +10,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import inf112.RoboRally.app.board.showBoard;
 import inf112.RoboRally.app.gameScreen;
 
-public class mainMenu implements Screen {
+public class settingsMenu implements Screen {
 
     private gameScreen gameScreen;
     private Stage stage;
     private Skin buttonStyle = new buttonStyle().getButtonSkin();
 
-    TextButton play;
-    TextButton lan;
-    TextButton settings;
-    TextButton quit;
+    TextButton changeResolution;
+    TextButton soundOn;
+    TextButton back;
 
-    public mainMenu (gameScreen game) {
+    public settingsMenu (gameScreen game) {
         this.gameScreen = game;
         stage = new Stage(new ScreenViewport());
         //User input
@@ -37,50 +35,40 @@ public class mainMenu implements Screen {
         table.setFillParent(true);
         table.center();
 
-        play = new TextButton("Play", buttonStyle);
-        play.setTransform(true);
-        lan = new TextButton("LAN", buttonStyle);
-        lan.setTransform(true);
-        settings = new TextButton("Settings", buttonStyle);
-        settings.setTransform(true);
-        quit = new TextButton("Quit", buttonStyle);
-        quit.setTransform(true);
-        table.add(play);
+        changeResolution = new TextButton("Change Resolution", buttonStyle);
+        changeResolution.setTransform(true);
+        soundOn = new TextButton("Sound ON", buttonStyle);
+        soundOn.setTransform(true);
+        back = new TextButton("Back", buttonStyle);
+        back.setTransform(true);
+        table.add(changeResolution);
         table.row().padTop(10);
-        table.add(lan);
+        table.add(soundOn);
         table.row().padTop(10);
-        table.add(settings);
-        table.row().padTop(10);
-        table.add(quit);
+        table.add(back);
 
         //Button actions
-        play.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
-                gameScreen.setScreen(new showBoard(gameScreen));
-            }
-        });
-
-        lan.addListener(new ChangeListener() {
+        changeResolution.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 Gdx.app.exit();
             }
         });
 
-        settings.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
-                gameScreen.setScreen(new settingsMenu(gameScreen));
-            }
-        });
-
-        quit.addListener(new ChangeListener() {
+        soundOn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 Gdx.app.exit();
             }
         });
+
+        back.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+                gameScreen.setScreen(new mainMenu(gameScreen));
+            }
+        });
+
         stage.addActor(table);
     }
 
