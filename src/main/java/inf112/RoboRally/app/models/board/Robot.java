@@ -1,18 +1,16 @@
 package inf112.RoboRally.app.models.board;
 
 public class Robot {
-    // TODO Check out gdb.math before duplicating too much code.
-    public Position position;
-    public Direction facing_direction;
+
+    Position pos;
+    Direction direction;
 
     // Få robot koden av Gytis
 
     int damage;
     int HP;
     int lives;
-    String direction;
-    String[] dir = {"down", "left", "up", "right"};
-    private int directionIndex;
+
 
     public void init() {
         HP = 9;
@@ -30,24 +28,30 @@ public class Robot {
 
     }
 
-    // TODO - Tord her
 
-    //private
-
-    public int moveRight(int x) {
-        return x++;
+    public void move(int stepsToTake) {
+        if (direction == Direction.UP) {
+            pos.moveVertical(stepsToTake);
+        } else if (direction == Direction.DOWN) {
+            pos.moveVertical(-stepsToTake);
+        } else if (direction == Direction.RIGHT) {
+            pos.moveHorizontal(stepsToTake);
+        } else {
+            pos.moveHorizontal(-stepsToTake);
+        }
     }
 
-    public int moveLeft(int x) {
-        return x--;
+    public void rotateDirectionLeft() {
+        direction = direction.rotateLeft();
     }
 
-    public int moveUp(int y) {
-        return y++;
+    public void rotateDirectionRight() {
+        direction = direction.rotateRight();
     }
 
-    public int moveDown(int y) {
-        return y--;
+    public void uTurn() {
+        direction = direction.rotateRight();
+        direction = direction.rotateRight();
     }
 
     public void shoot() {
@@ -72,23 +76,7 @@ public class Robot {
         return damage;
     }
 
-    public String getDirection() {
+    public Direction getDirection() {
         return direction;
     }
-
-    public int getDirectionIndex() {
-        return directionIndex;
-    }
-
-    public void rotateRight() {
-        if (directionIndex == 3) directionIndex = 0;
-        else directionIndex ++;
-    }
-
-    public void rotateLeft() {
-        if (directionIndex == 0) directionIndex = 3;
-        else directionIndex--;
-    }
-
-
 }
