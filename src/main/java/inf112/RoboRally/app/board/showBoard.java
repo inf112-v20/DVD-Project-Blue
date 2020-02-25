@@ -27,10 +27,16 @@ public class showBoard extends InputAdapter implements Screen {
     private playerHud playerHud;
     private cardHud cardHud;
 
+    //player1
     private Sprite playerSprite;
     public TiledMapTileLayer playerLayer;
     public TiledMapTileLayer.Cell playerCell;
     public Vector2 playerVector;
+    //player2
+    private Sprite playerSprite2;
+    public TiledMapTileLayer playerLayer2;
+    public TiledMapTileLayer.Cell playerCell2;
+    public Vector2 playerVector2;
 
     private TmxMapLoader mapLoader;
     private TiledMap map;
@@ -52,12 +58,18 @@ public class showBoard extends InputAdapter implements Screen {
         classicBoard classicBoard = new classicBoard();
         map = mapLoader.load(classicBoard.getFileName());
 
+        //player1
         playerLayer = (TiledMapTileLayer) map.getLayers().get("player");
         playerSprite = new Sprite(new Texture("Robots/emojiBots/angryBot.png"));
-        playerSprite.setRotation(45);
         playerCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(playerSprite));
         playerVector = new Vector2();
-        playerVector.set(10, 8);
+        playerVector.set(6, 8);
+        //player2
+        playerLayer2 = (TiledMapTileLayer) map.getLayers().get("player");
+        playerSprite2 = new Sprite(new Texture("Robots/emojiBots/loveBot.png"));
+        playerCell2 = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(playerSprite2));
+        playerVector2 = new Vector2();
+        playerVector2.set(6, 7);
 
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1/256f);
         camera = new OrthographicCamera();
@@ -192,6 +204,7 @@ public class showBoard extends InputAdapter implements Screen {
         gameScreen.batch.setProjectionMatrix(playerHud.stage.getCamera().combined);
         playerHud.stage.draw();
         playerLayer.setCell((int)playerVector.x, (int)playerVector.y, playerCell);
+        playerLayer2.setCell((int)playerVector2.x, (int)playerVector2.y, playerCell2);
     }
 
     @Override
