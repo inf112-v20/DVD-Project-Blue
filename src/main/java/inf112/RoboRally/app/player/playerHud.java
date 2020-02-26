@@ -9,14 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import inf112.RoboRally.app.Main;
 
 public class playerHud {
 
     public Stage stage;
     private Viewport viewport;
-
-    private Texture background;
     private Image powerDownImg;
     private Image damageTokenImg;
     private Image damageTokenImg2;
@@ -42,7 +39,7 @@ public class playerHud {
         table.bottom().padLeft(150);
         table.setFillParent(true);
 
-        background = new Texture("Images/PlayerHudBackground.png");
+        Texture background = new Texture("Images/PlayerHudBackground.png");
         background.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         table.setBackground(new TextureRegionDrawable(background));
 

@@ -20,9 +20,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import inf112.RoboRally.app.interfaces.IBoard;
 import inf112.RoboRally.app.menu.buttonStyle;
-import inf112.RoboRally.app.models.board.Robot;
 import inf112.RoboRally.app.player.cardHud;
 import inf112.RoboRally.app.player.playerHud;
 
@@ -32,7 +30,6 @@ public class showBoard extends InputAdapter implements Screen {
     public Stage stage;
     private playerHud playerHud;
     private cardHud cardHud;
-    private TextButton quit;
     private Skin buttonStyle = new buttonStyle().getButtonSkin();
 
     //player1
@@ -78,7 +75,7 @@ public class showBoard extends InputAdapter implements Screen {
         playerVector2 = new Vector2();
         playerVector2.set(6, 7);
 
-        quit = new TextButton("QUIT", buttonStyle);
+        TextButton quit = new TextButton("QUIT", buttonStyle);
         quit.setPosition(Main.SCREEN_WIDTH-350, Main.SCREEN_HEIGHT-150);
 
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1/256f);

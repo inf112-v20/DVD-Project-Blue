@@ -4,11 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -20,7 +18,6 @@ public class mainMenu implements Screen {
     private gameScreen gameScreen;
     private Stage stage;
 
-    private Texture background;
     private Skin buttonStyle = new buttonStyle().getButtonSkin();
 
     TextButton play;
@@ -40,7 +37,7 @@ public class mainMenu implements Screen {
         table.setFillParent(true);
         table.center();
 
-        background = new Texture("Images/Background.png");
+        Texture background = new Texture("Images/Background.png");
         background.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         table.setBackground(new TextureRegionDrawable(background));
 

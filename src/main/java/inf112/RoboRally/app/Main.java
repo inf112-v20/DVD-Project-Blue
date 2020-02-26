@@ -1,6 +1,5 @@
 package inf112.RoboRally.app;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics;
+
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
