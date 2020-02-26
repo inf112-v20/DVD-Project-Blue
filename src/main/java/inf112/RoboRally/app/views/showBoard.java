@@ -65,7 +65,6 @@ public class showBoard extends InputAdapter implements Screen {
 
 
         Player player1 = new Player(classicBoard.getPlayer1StartPosition(), classicBoard.getPlayer1StartDirection(), 1);
-        Player player2 = new Player(classicBoard.getPlayer2StartPosition(), classicBoard.getPlayer2StartDirection(), 2);
 
         //player1
         playerLayer = (TiledMapTileLayer) map.getLayers().get("player");
