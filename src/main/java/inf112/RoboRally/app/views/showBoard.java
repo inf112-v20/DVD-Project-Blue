@@ -15,16 +15,12 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import inf112.RoboRally.app.Main;
 import inf112.RoboRally.app.models.cards.Rotation;
 import inf112.RoboRally.app.models.cards.forwardCard;
 import inf112.RoboRally.app.models.cards.reverseCard;
 import inf112.RoboRally.app.models.cards.rotateCard;
 import inf112.RoboRally.app.gameScreen;
-import inf112.RoboRally.app.views.menu.buttonStyle;
 import inf112.RoboRally.app.models.game.Player;
 /*
 God class that currently holds initializes and renders all views, and where thus far achieved connection between view
@@ -37,7 +33,6 @@ public class showBoard extends InputAdapter implements Screen {
     public Stage stage;
     private playerHud playerHud;
     private cardButtonsForMovementDemo cardHud;
-    private Skin buttonStyle = new buttonStyle().getButtonSkin();
 
     /*
     Hardcoded player views will be abstracted in a player view soon
@@ -47,11 +42,6 @@ public class showBoard extends InputAdapter implements Screen {
     public TiledMapTileLayer playerLayer;
     public TiledMapTileLayer.Cell playerCell;
     public Vector2 playerVector;
-    //player2
-    private Sprite playerSprite2;
-    public TiledMapTileLayer playerLayer2;
-    public TiledMapTileLayer.Cell playerCell2;
-    public Vector2 playerVector2;
 
     private TmxMapLoader mapLoader;
     private TiledMap map;
@@ -84,16 +74,6 @@ public class showBoard extends InputAdapter implements Screen {
         playerVector = new Vector2();
         playerVector.set(player1.getRobot().getX(), player1.getRobot().getY());
         playerCell.setRotation(player1.getRobot().getDirection().CellDirectionNumber());
-        //player2
-        playerLayer2 = (TiledMapTileLayer) map.getLayers().get("player");
-        playerSprite2 = new Sprite(new Texture("Robots/emojiBots/loveBot.png"));
-        playerCell2 = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(playerSprite2));
-        playerVector2 = new Vector2();
-        playerVector2.set(player2.getRobot().getX(), player2.getRobot().getY());
-        playerCell2.setRotation(player2.getRobot().getDirection().CellDirectionNumber());
-
-        TextButton quit = new TextButton("QUIT", buttonStyle);
-        quit.setPosition(Main.SCREEN_WIDTH-350, Main.SCREEN_HEIGHT-150);
 
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1/256f);
         camera = new OrthographicCamera();
@@ -101,17 +81,7 @@ public class showBoard extends InputAdapter implements Screen {
         camera.update();
         mapRenderer.setView(camera);
 
-        stage.addActor(quit);
         stage.addActor(cardHud.create());
-
-        // Setting up input for buttons in movement demo.
-        quit.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.exit();
-                super.clicked(event, x, y);
-            }
-        });
 
         // Button for card that moves robot one step forward
         cardHud.move1.addListener(new ClickListener() {
@@ -229,7 +199,6 @@ public class showBoard extends InputAdapter implements Screen {
         gameScreen.batch.setProjectionMatrix(playerHud.stage.getCamera().combined);
         playerHud.stage.draw();
         playerLayer.setCell((int)playerVector.x, (int)playerVector.y, playerCell);
-        playerLayer2.setCell((int)playerVector2.x, (int)playerVector2.y, playerCell2);
     }
 
     @Override
