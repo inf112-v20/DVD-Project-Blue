@@ -26,7 +26,11 @@ import inf112.RoboRally.app.models.cards.rotateCard;
 import inf112.RoboRally.app.gameScreen;
 import inf112.RoboRally.app.views.menu.buttonStyle;
 import inf112.RoboRally.app.models.game.Player;
-
+/*
+God class that currently holds initializes and renders all views, and where thus far achieved connection between view
+ and logic where robot model is being moved by card model is programmed. The hard focus of the next delivery will be
+separating rendering, and initialization of maps, tiles and models.
+ */
 public class showBoard extends InputAdapter implements Screen {
 
     private gameScreen gameScreen;
@@ -36,7 +40,7 @@ public class showBoard extends InputAdapter implements Screen {
     private Skin buttonStyle = new buttonStyle().getButtonSkin();
 
     /*
-    / These hardcoded player views will be abstracted in a player view soon
+    Hardcoded player views will be abstracted in a player view soon
     */
     //player1
     private Sprite playerSprite;
@@ -100,6 +104,7 @@ public class showBoard extends InputAdapter implements Screen {
         stage.addActor(quit);
         stage.addActor(cardHud.create());
 
+        // Setting up input for buttons in movement demo.
         quit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -108,6 +113,7 @@ public class showBoard extends InputAdapter implements Screen {
             }
         });
 
+        // Button for card that moves robot one step forward
         cardHud.move1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -122,6 +128,7 @@ public class showBoard extends InputAdapter implements Screen {
             }
         });
 
+        // Button for card that moves robot two steps forward
         cardHud.move2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -136,6 +143,7 @@ public class showBoard extends InputAdapter implements Screen {
             }
         });
 
+        // Button for card that moves robot three steps forward
         cardHud.move3.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -150,6 +158,7 @@ public class showBoard extends InputAdapter implements Screen {
             }
         });
 
+        // Button for card that moves robot one step back
         cardHud.moveBack.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -164,6 +173,7 @@ public class showBoard extends InputAdapter implements Screen {
             }
         });
 
+        // Button for card that rotates robot to the left
         cardHud.rotateLeft.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -178,6 +188,7 @@ public class showBoard extends InputAdapter implements Screen {
             }
         });
 
+        // Button for card that rotates robot to the right
         cardHud.rotateRight.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -192,6 +203,7 @@ public class showBoard extends InputAdapter implements Screen {
             }
         });
 
+        // Button for card that turns robot around
         cardHud.uTurn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

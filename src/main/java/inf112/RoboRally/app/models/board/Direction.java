@@ -1,5 +1,7 @@
 package inf112.RoboRally.app.models.board;
-
+/*
+Enum class direction defines the directions in the game.
+ */
 public enum Direction {
     DOWN {
         public Direction rotateLeft() {

@@ -1,5 +1,7 @@
 package inf112.RoboRally.app.views;
-
+/*
+Class that holds information about how to initialize layers, the focus of the next delivery.
+ */
 public class testingStuff {
 
 //        groundLayer = (TiledMapTileLayer) map.getLayers().get("ground");

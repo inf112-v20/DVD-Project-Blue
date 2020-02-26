@@ -1,5 +1,8 @@
 package inf112.RoboRally.app.models.board;
-
+/*
+Model of a robot. Initialized with position and direction. This information is passed on by
+the board it is initialized on.
+ */
 public class Robot {
 
     Position pos;
@@ -43,6 +46,19 @@ public class Robot {
         direction = direction.rotateRight();
     }
 
+    public int getX() {
+        return pos.getX();
+    }
+
+    public int getY() {
+        return pos.getY();
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    // models for these functions are not yet implemented
     public void shoot() {
         // Do the shooting thing
         // For loop to check for potentioal targets
@@ -63,17 +79,5 @@ public class Robot {
 
     public int getDamage() {
         return damage;
-    }
-
-    public int getX() {
-        return pos.getX();
-    }
-
-    public int getY() {
-        return pos.getY();
-    }
-
-    public Direction getDirection() {
-        return direction;
     }
 }

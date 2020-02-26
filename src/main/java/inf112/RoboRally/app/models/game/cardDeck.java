@@ -1,8 +1,13 @@
-package inf112.RoboRally.app.models.cards;
+package inf112.RoboRally.app.models.game;
+
+import inf112.RoboRally.app.models.cards.*;
 
 import java.util.ArrayList;
 import java.util.Random;
-
+/*
+Class that holds all the cards in the game, which will be used when dealing cards to players.
+Not used at this moment.
+ */
 public class cardDeck {
 
     private ArrayList<Card> deck = new ArrayList<>();

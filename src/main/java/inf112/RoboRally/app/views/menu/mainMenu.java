@@ -12,7 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import inf112.RoboRally.app.views.showBoard;
 import inf112.RoboRally.app.gameScreen;
-
+/*
+Class for the main menu. This is where the game starts when built.
+ */
 public class mainMenu implements Screen {
 
     private gameScreen gameScreen;
