@@ -11,5 +11,8 @@ Some of the psd files had to be splitted
 since their file size was too big.
 
 -- Extra --  
-neonSkin is found on the github repository, which is owned by "czyzby"  
-Link -> https://github.com/czyzby/gdx-skins
+buttonSkin is found on the github repository, which is owned by "czyzby"  
+Link -> https://github.com/czyzby/gdx-skins  
+Repository states that these are free to use skins.  
+Real skin name is "Neon". Our skin got some adjustments on coloring,  
+to suit our theme better.

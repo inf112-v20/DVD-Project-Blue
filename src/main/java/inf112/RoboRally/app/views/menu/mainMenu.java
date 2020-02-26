@@ -20,13 +20,6 @@ public class mainMenu implements Screen {
     private gameScreen gameScreen;
     private Stage stage;
 
-    private Skin buttonStyle = new buttonStyle().getButtonSkin();
-
-    TextButton play;
-    TextButton lan;
-    TextButton quit;
-
-
     public mainMenu (gameScreen game) {
         this.gameScreen = game;
         stage = new Stage(new ScreenViewport());
@@ -43,12 +36,9 @@ public class mainMenu implements Screen {
         background.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         table.setBackground(new TextureRegionDrawable(background));
 
-        play = new TextButton("Play", buttonStyle);
-        play.setTransform(true);
-        lan = new TextButton("LAN", buttonStyle);
-        lan.setTransform(true);
-        quit = new TextButton("Quit", buttonStyle);
-        quit.setTransform(true);
+        TextButton play = new button().createTextButton("PLAY");
+        TextButton lan = new button().createTextButton("LAN");
+        TextButton quit = new button().createTextButton("QUIT");
         table.add(play);
         table.row().padTop(10);
         table.add(lan);
