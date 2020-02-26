@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.cards;
+package inf112.RoboRally.app.models.cards;
 
 public enum Rotation {
     LEFT,

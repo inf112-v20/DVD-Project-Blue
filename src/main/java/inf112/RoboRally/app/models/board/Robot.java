@@ -5,8 +5,6 @@ public class Robot {
     Position pos;
     Direction direction;
 
-    // Få robot koden av Gytis
-
     int damage;
     int HP;
     int lives;
@@ -17,22 +15,6 @@ public class Robot {
         damage = 1;
         this.pos = pos;
         this.direction = direction;
-    }
-
-    public void init() {
-        HP = 9;
-        lives = 3;
-        damage = 1;
-
-
-        //if (bot1) {
-        //  set pos.x
-        //  set pos.y
-        //  set direction "north"
-        //
-        //}
-
-
     }
 
 

@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.cards;
+package inf112.RoboRally.app.models.cards;
 
 import java.util.ArrayList;
 import java.util.Random;

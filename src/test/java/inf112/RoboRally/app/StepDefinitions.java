@@ -1,8 +1,8 @@
 //package inf112.RoboRally.app;
 //
-//import inf112.RoboRally.app.models.board.Board;
-//import inf112.RoboRally.app.models.board.Direction;
-//import inf112.RoboRally.app.models.board.Position;
+//import Board;
+//import Direction;
+//import Position;
 //import io.cucumber.java8.En;
 //
 //import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package inf112.RoboRally.app.models.board;
 
-import inf112.RoboRally.app.cards.Rotation;
+import inf112.RoboRally.app.models.cards.Rotation;
 
 import java.util.Optional;
 
