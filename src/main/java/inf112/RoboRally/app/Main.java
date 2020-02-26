@@ -12,9 +12,9 @@ public class Main {
     public static void main(String[] args) {
         config = new LwjglApplicationConfiguration();
         config.title = "Robo Rally";
-        config.width = SCREEN_WIDTH;
-        config.height = SCREEN_HEIGHT;
-        config.fullscreen = true;
+        config.width = 1366;
+        config.height = 768;
+        config.fullscreen = false;
         config.resizable = false;
         config.backgroundFPS = 60;
         config.foregroundFPS = 60;

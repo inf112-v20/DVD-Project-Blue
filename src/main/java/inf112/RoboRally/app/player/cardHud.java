@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 public class cardHud {
 
     public Texture moveButton, moveButton2, moveButton3, moveBackButton, rotateLeftButton, rotateRightButton, uTurnButton;
-    public ImageButton move, move2, move3, moveBack, rotateLeft, rotateRight, uTurn;
+    public ImageButton move1, move2, move3, moveBack, rotateLeft, rotateRight, uTurn;
 
     public Table create () {
         Table cardTable = new Table();
@@ -16,8 +16,8 @@ public class cardHud {
         cardTable.setFillParent(true);
 
         moveButton = new Texture("Cards/SMALL/Move1.png");
-        move = new ImageButton(new TextureRegionDrawable(new TextureRegion(moveButton)));
-        move.setTransform(true);
+        move1 = new ImageButton(new TextureRegionDrawable(new TextureRegion(moveButton)));
+        move1.setTransform(true);
 
         moveButton2 = new Texture("Cards/SMALL/Move2.png");
         move2 = new ImageButton(new TextureRegionDrawable(new TextureRegion(moveButton2)));
@@ -43,7 +43,7 @@ public class cardHud {
         uTurn = new ImageButton(new TextureRegionDrawable(new TextureRegion(uTurnButton)));
         uTurn.setTransform(true);
 
-        cardTable.add(move);
+        cardTable.add(move1);
         cardTable.add(move2);
         cardTable.row();
         cardTable.add(move3);

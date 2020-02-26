@@ -1,26 +1,31 @@
 package inf112.RoboRally.app.board;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import inf112.RoboRally.app.Main;
+import inf112.RoboRally.app.cards.Rotation;
+import inf112.RoboRally.app.cards.forwardCard;
+import inf112.RoboRally.app.cards.reverseCard;
+import inf112.RoboRally.app.cards.rotateCard;
 import inf112.RoboRally.app.gameScreen;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import inf112.RoboRally.app.menu.buttonStyle;
+import inf112.RoboRally.app.player.Player;
 import inf112.RoboRally.app.player.cardHud;
 import inf112.RoboRally.app.player.playerHud;
 
@@ -32,6 +37,9 @@ public class showBoard extends InputAdapter implements Screen {
     private cardHud cardHud;
     private Skin buttonStyle = new buttonStyle().getButtonSkin();
 
+    /*
+    / These hardcoded player views will be abstracted in a player view soon
+    */
     //player1
     private Sprite playerSprite;
     public TiledMapTileLayer playerLayer;
@@ -62,18 +70,25 @@ public class showBoard extends InputAdapter implements Screen {
         mapLoader = new TmxMapLoader();
         classicBoard classicBoard = new classicBoard();
         map = mapLoader.load(classicBoard.getFileName());
+
+
+        Player player1 = new Player(classicBoard.getPlayer1StartPosition(), classicBoard.getPlayer1StartDirection(), 1);
+        Player player2 = new Player(classicBoard.getPlayer2StartPosition(), classicBoard.getPlayer2StartDirection(), 2);
+
         //player1
         playerLayer = (TiledMapTileLayer) map.getLayers().get("player");
         playerSprite = new Sprite(new Texture("Robots/emojiBots/angryBot.png"));
         playerCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(playerSprite));
         playerVector = new Vector2();
-        playerVector.set(6, 8);
+        playerVector.set(player1.getRobot().getX(), player1.getRobot().getY());
+        playerCell.setRotation(player1.getRobot().getDirection().CellDirectionNumber());
         //player2
         playerLayer2 = (TiledMapTileLayer) map.getLayers().get("player");
         playerSprite2 = new Sprite(new Texture("Robots/emojiBots/loveBot.png"));
         playerCell2 = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(playerSprite2));
         playerVector2 = new Vector2();
-        playerVector2.set(6, 7);
+        playerVector2.set(player2.getRobot().getX(), player2.getRobot().getY());
+        playerCell2.setRotation(player2.getRobot().getDirection().CellDirectionNumber());
 
         TextButton quit = new TextButton("QUIT", buttonStyle);
         quit.setPosition(Main.SCREEN_WIDTH-350, Main.SCREEN_HEIGHT-150);
@@ -95,22 +110,16 @@ public class showBoard extends InputAdapter implements Screen {
             }
         });
 
-        cardHud.move.addListener(new ClickListener() {
+        cardHud.move1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                // removing the layer at the location the robot is moving from
                 playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
-                if (playerCell.getRotation() == 0){
-                    playerVector.y += 1;
-                }
-                if (playerCell.getRotation() == 1){
-                    playerVector.x -= 1;
-                }
-                if (playerCell.getRotation() == 2){
-                    playerVector.y -= 1;
-                }
-                if (playerCell.getRotation() == 3){
-                    playerVector.x += 1;
-                }
+
+                forwardCard move1Forward = new forwardCard(1000, 1);
+                move1Forward.moveRobot(player1.getRobot());
+                playerVector.set(player1.getRobot().getX(), player1.getRobot().getY());
+
                 super.clicked(event, x, y);
             }
         });
@@ -118,19 +127,13 @@ public class showBoard extends InputAdapter implements Screen {
         cardHud.move2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                // removing the layer at the location the robot is moving from
                 playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
-                if (playerCell.getRotation() == 0){
-                    playerVector.y += 2;
-                }
-                if (playerCell.getRotation() == 1){
-                    playerVector.x -= 2;
-                }
-                if (playerCell.getRotation() == 2){
-                    playerVector.y -= 2;
-                }
-                if (playerCell.getRotation() == 3){
-                    playerVector.x += 2;
-                }
+
+                forwardCard move2Forward = new forwardCard(800, 2);
+                move2Forward.moveRobot(player1.getRobot());
+                playerVector.set(player1.getRobot().getX(), player1.getRobot().getY());
+
                 super.clicked(event, x, y);
             }
         });
@@ -138,19 +141,13 @@ public class showBoard extends InputAdapter implements Screen {
         cardHud.move3.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                // removing the layer at the location the robot is moving from
                 playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
-                if (playerCell.getRotation() == 0){
-                    playerVector.y += 3;
-                }
-                if (playerCell.getRotation() == 1){
-                    playerVector.x -= 3;
-                }
-                if (playerCell.getRotation() == 2){
-                    playerVector.y -= 3;
-                }
-                if (playerCell.getRotation() == 3){
-                    playerVector.x += 3;
-                }
+
+                forwardCard move3Forward = new forwardCard(1100, 3);
+                move3Forward.moveRobot(player1.getRobot());
+                playerVector.set(player1.getRobot().getX(), player1.getRobot().getY());
+
                 super.clicked(event, x, y);
             }
         });
@@ -158,19 +155,13 @@ public class showBoard extends InputAdapter implements Screen {
         cardHud.moveBack.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                // removing the layer at the location the robot is moving from
                 playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
-                if (playerCell.getRotation() == 0){
-                    playerVector.y -= 1;
-                }
-                if (playerCell.getRotation() == 1){
-                    playerVector.x += 1;
-                }
-                if (playerCell.getRotation() == 2){
-                    playerVector.y += 1;
-                }
-                if (playerCell.getRotation() == 3){
-                    playerVector.x -= 1;
-                }
+
+                reverseCard moveBack = new reverseCard(550);
+                moveBack.moveRobot(player1.getRobot());
+                playerVector.set(player1.getRobot().getX(), player1.getRobot().getY());
+
                 super.clicked(event, x, y);
             }
         });
@@ -178,11 +169,13 @@ public class showBoard extends InputAdapter implements Screen {
         cardHud.rotateLeft.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                // removing the layer at the location the robot is moving from
                 playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
-                if (playerCell.getRotation() >= 4) {
-                    playerCell.setRotation(0);
-                }
-                playerCell.setRotation(playerCell.getRotation()+1);
+
+                rotateCard rotateLeft = new rotateCard(1300, Rotation.LEFT);
+                rotateLeft.moveRobot(player1.getRobot());
+                playerCell.setRotation(player1.getRobot().getDirection().CellDirectionNumber());
+
                 super.clicked(event, x, y);
             }
         });
@@ -190,11 +183,13 @@ public class showBoard extends InputAdapter implements Screen {
         cardHud.rotateRight.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                // removing the layer at the location the robot is moving from
                 playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
-                if (playerCell.getRotation() == 0) {
-                    playerCell.setRotation(4);
-                }
-                playerCell.setRotation(playerCell.getRotation()-1);
+
+                rotateCard rotateRight = new rotateCard(900, Rotation.RIGHT);
+                rotateRight.moveRobot(player1.getRobot());
+                playerCell.setRotation(player1.getRobot().getDirection().CellDirectionNumber());
+
                 super.clicked(event, x, y);
             }
         });
@@ -202,8 +197,13 @@ public class showBoard extends InputAdapter implements Screen {
         cardHud.uTurn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                // removing the layer at the location the robot is moving from
                 playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
-                playerCell.setRotation(playerCell.getRotation()+2);
+
+                rotateCard uTurn = new rotateCard(750, Rotation.UTURN);
+                uTurn.moveRobot(player1.getRobot());
+                playerCell.setRotation(player1.getRobot().getDirection().CellDirectionNumber());
+
                 super.clicked(event, x, y);
             }
         });

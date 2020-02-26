@@ -11,6 +11,14 @@ public class Robot {
     int HP;
     int lives;
 
+    public Robot(Position pos, Direction direction) {
+        HP = 9;
+        lives = 3;
+        damage = 1;
+        this.pos = pos;
+        this.direction = direction;
+    }
+
     public void init() {
         HP = 9;
         lives = 3;
@@ -73,6 +81,14 @@ public class Robot {
 
     public int getDamage() {
         return damage;
+    }
+
+    public int getX() {
+        return pos.getX();
+    }
+
+    public int getY() {
+        return pos.getY();
     }
 
     public Direction getDirection() {

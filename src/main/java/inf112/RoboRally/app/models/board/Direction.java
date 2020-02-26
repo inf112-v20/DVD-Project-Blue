@@ -8,6 +8,10 @@ public enum Direction {
         public Direction rotateRight() {
             return LEFT;
         }
+        // the corresponding direction of a cell holding the player in the view
+        public int CellDirectionNumber() {
+            return 2;
+        }
     },
     LEFT {
         public Direction rotateLeft() {
@@ -15,6 +19,10 @@ public enum Direction {
         }
         public Direction rotateRight() {
             return UP;
+        }
+        // the corresponding direction of a cell holding the player in the view
+        public int CellDirectionNumber() {
+            return 1;
         }
     },
     UP {
@@ -24,6 +32,11 @@ public enum Direction {
         public Direction rotateRight() {
             return RIGHT;
         }
+        // the corresponding direction of a cell holding the player in the view
+        public int CellDirectionNumber() {
+            return 4;
+        }
+
     },
     RIGHT {
         public Direction rotateLeft() {
@@ -32,9 +45,14 @@ public enum Direction {
         public Direction rotateRight() {
             return DOWN;
         }
+        // the corresponding direction of a cell holding the player in the view
+        public int CellDirectionNumber() {
+            return 3;
+        }
     };
 
     public abstract Direction rotateLeft();
     public abstract Direction rotateRight();
+    public abstract int CellDirectionNumber();
 }
 
