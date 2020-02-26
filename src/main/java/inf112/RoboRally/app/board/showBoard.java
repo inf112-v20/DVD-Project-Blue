@@ -8,7 +8,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import inf112.RoboRally.app.Main;
 import inf112.RoboRally.app.gameScreen;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
@@ -17,6 +20,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import inf112.RoboRally.app.interfaces.IBoard;
+import inf112.RoboRally.app.menu.buttonStyle;
+import inf112.RoboRally.app.models.board.Robot;
 import inf112.RoboRally.app.player.cardHud;
 import inf112.RoboRally.app.player.playerHud;
 
@@ -26,6 +32,8 @@ public class showBoard extends InputAdapter implements Screen {
     public Stage stage;
     private playerHud playerHud;
     private cardHud cardHud;
+    private TextButton quit;
+    private Skin buttonStyle = new buttonStyle().getButtonSkin();
 
     //player1
     private Sprite playerSprite;
@@ -57,7 +65,6 @@ public class showBoard extends InputAdapter implements Screen {
         mapLoader = new TmxMapLoader();
         classicBoard classicBoard = new classicBoard();
         map = mapLoader.load(classicBoard.getFileName());
-
         //player1
         playerLayer = (TiledMapTileLayer) map.getLayers().get("player");
         playerSprite = new Sprite(new Texture("Robots/emojiBots/angryBot.png"));
@@ -71,13 +78,25 @@ public class showBoard extends InputAdapter implements Screen {
         playerVector2 = new Vector2();
         playerVector2.set(6, 7);
 
+        quit = new TextButton("QUIT", buttonStyle);
+        quit.setPosition(Main.SCREEN_WIDTH-350, Main.SCREEN_HEIGHT-150);
+
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1/256f);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 28, 16);
         camera.update();
         mapRenderer.setView(camera);
 
+        stage.addActor(quit);
         stage.addActor(cardHud.create());
+
+        quit.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+                super.clicked(event, x, y);
+            }
+        });
 
         cardHud.move.addListener(new ClickListener() {
             @Override
@@ -191,7 +210,6 @@ public class showBoard extends InputAdapter implements Screen {
                 super.clicked(event, x, y);
             }
         });
-
     }
 
     @Override

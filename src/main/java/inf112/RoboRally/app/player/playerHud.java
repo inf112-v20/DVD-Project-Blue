@@ -6,18 +6,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import inf112.RoboRally.app.Main;
 
 public class playerHud {
 
     public Stage stage;
     private Viewport viewport;
 
-    //power down img
+    private Texture background;
     private Image powerDownImg;
-
-    //dmg token imgs
     private Image damageTokenImg;
     private Image damageTokenImg2;
     private Image damageTokenImg3;
@@ -27,23 +27,24 @@ public class playerHud {
     private Image damageTokenImg7;
     private Image damageTokenImg8;
     private Image damageTokenImg9;
-
-    //life token imgs
     private Image lifeTokenImg;
     private Image lifeTokenImg2;
     private Image lifeTokenImg3;
 
-    //img scale
-    private static final float imgScaleX = 1/3f;
-    private static final float imgScaleY = 1/7f;
+    private static final float imgScaleX = 1/5.8f;
+    private static final float imgScaleY = 1/6.8f;
 
     public playerHud (SpriteBatch sb) {
-        viewport = new FitViewport(1366, 768, new OrthographicCamera());
+        viewport = new ScreenViewport(new OrthographicCamera());
         stage = new Stage();
 
         Table table = new Table();
-        table.bottom().padLeft(50);
+        table.bottom().padLeft(150);
         table.setFillParent(true);
+
+        background = new Texture("Images/PlayerHudBackground.png");
+        background.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        table.setBackground(new TextureRegionDrawable(background));
 
         powerDownImg = new Image(new Texture("PlayerHud/PowerDown.png"));
         powerDownImg.setScale(imgScaleX, imgScaleY);
@@ -74,19 +75,19 @@ public class playerHud {
         lifeTokenImg3 = new Image(new Texture("PlayerHud/LifeToken.png"));
         lifeTokenImg3.setScale(imgScaleX, imgScaleY);
 
-        table.add(powerDownImg).expandX();
-        table.add(damageTokenImg).expandX();
-        table.add(damageTokenImg2).expandX();
-        table.add(damageTokenImg3).expandX();
-        table.add(damageTokenImg4).expandX();
-        table.add(damageTokenImg5).expandX();
-        table.add(damageTokenImg6).expandX();
-        table.add(damageTokenImg7).expandX();
-        table.add(damageTokenImg8).expandX();
-        table.add(damageTokenImg9).expandX();
-        table.add(lifeTokenImg).expandX();
-        table.add(lifeTokenImg2).expandX();
-        table.add(lifeTokenImg3).expandX();
+        table.add(powerDownImg);
+        table.add(damageTokenImg);
+        table.add(damageTokenImg2);
+        table.add(damageTokenImg3);
+        table.add(damageTokenImg4);
+        table.add(damageTokenImg5);
+        table.add(damageTokenImg6);
+        table.add(damageTokenImg7);
+        table.add(damageTokenImg8);
+        table.add(damageTokenImg9);
+        table.add(lifeTokenImg);
+        table.add(lifeTokenImg2);
+        table.add(lifeTokenImg3);
 
         stage.addActor(table);
     }

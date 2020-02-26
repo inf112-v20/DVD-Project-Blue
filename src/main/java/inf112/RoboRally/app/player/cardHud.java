@@ -1,6 +1,5 @@
 package inf112.RoboRally.app.player;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -12,8 +11,6 @@ public class cardHud {
     public ImageButton move, move2, move3, moveBack, rotateLeft, rotateRight, uTurn;
 
     public Table create () {
-        Skin skin = new Skin(Gdx.files.internal("neonSkin/neon-ui.json"));
-
         Table cardTable = new Table();
         cardTable.left();
         cardTable.setFillParent(true);

@@ -30,8 +30,7 @@ public class buttonStyle {
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.up = buttonSkin.newDrawable("style");
         textButtonStyle.down = buttonSkin.newDrawable("style", Color.RED);
-        textButtonStyle.checked = buttonSkin.newDrawable("style", Color.YELLOW);
-        textButtonStyle.over = buttonSkin.newDrawable("style", Color.BLUE);
+        textButtonStyle.over = buttonSkin.newDrawable("style", Color.CYAN);
         textButtonStyle.font = arialFont;
         buttonSkin.add("default", textButtonStyle);
     }

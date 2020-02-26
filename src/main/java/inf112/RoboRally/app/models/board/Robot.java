@@ -11,7 +11,6 @@ public class Robot {
     int HP;
     int lives;
 
-
     public void init() {
         HP = 9;
         lives = 3;

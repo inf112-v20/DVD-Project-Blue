@@ -1,14 +1,24 @@
 package inf112.RoboRally.app;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 public class Main {
+
+    private static LwjglApplicationConfiguration config;
+    public static final int SCREEN_WIDTH = LwjglApplicationConfiguration.getDesktopDisplayMode().width;
+    public static final int SCREEN_HEIGHT = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
+
     public static void main(String[] args) {
-        LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-        cfg.title = "Robo Rally";
-        cfg.width = 1366;
-        cfg.height = 768;
-        cfg.resizable = false;
-        new LwjglApplication(new gameScreen(), cfg);
+        config = new LwjglApplicationConfiguration();
+        config.title = "Robo Rally";
+        config.width = SCREEN_WIDTH;
+        config.height = SCREEN_HEIGHT;
+        config.fullscreen = true;
+        config.resizable = false;
+        config.backgroundFPS = 60;
+        config.foregroundFPS = 60;
+        new LwjglApplication(new gameScreen(), config);
     }
 }
