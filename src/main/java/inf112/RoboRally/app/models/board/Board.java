@@ -18,8 +18,8 @@ public class Board {
         this.robots = new Robot[numRobots];
     }
 
-    // Place robot on board.
-    // @throws If the robot already exists on the board.
+    // Place robot on views.
+    // @throws If the robot already exists on the views.
     // @throws If position is out of bounds.
     public void placeRobot(int robotId, Position position, Direction facingDirection) {}
 
@@ -28,11 +28,11 @@ public class Board {
     }
 
     // Move robot (forward or backward).
-    // @throws If the robot does not exist on the board.
+    // @throws If the robot does not exist on the views.
     public void moveRobot(int robotId, boolean backward) {}
 
     // Rotate robot
-    // @throws If the robot does not exist on the board.
+    // @throws If the robot does not exist on the views.
     public void rotateRobot(int robotId, Rotation rotation) {}
 
     // Fire laser

@@ -1,11 +1,11 @@
-package inf112.RoboRally.app.player;
+package inf112.RoboRally.app.views;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-public class cardHud {
+public class cardButtonsForMovementDemo {
 
     public Texture moveButton, moveButton2, moveButton3, moveBackButton, rotateLeftButton, rotateRightButton, uTurnButton;
     public ImageButton move1, move2, move3, moveBack, rotateLeft, rotateRight, uTurn;

@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.board;
+package inf112.RoboRally.app.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
@@ -24,17 +24,15 @@ import inf112.RoboRally.app.models.cards.forwardCard;
 import inf112.RoboRally.app.models.cards.reverseCard;
 import inf112.RoboRally.app.models.cards.rotateCard;
 import inf112.RoboRally.app.gameScreen;
-import inf112.RoboRally.app.menu.buttonStyle;
-import inf112.RoboRally.app.player.Player;
-import inf112.RoboRally.app.player.cardHud;
-import inf112.RoboRally.app.player.playerHud;
+import inf112.RoboRally.app.views.menu.buttonStyle;
+import inf112.RoboRally.app.models.game.Player;
 
 public class showBoard extends InputAdapter implements Screen {
 
     private gameScreen gameScreen;
     public Stage stage;
     private playerHud playerHud;
-    private cardHud cardHud;
+    private cardButtonsForMovementDemo cardHud;
     private Skin buttonStyle = new buttonStyle().getButtonSkin();
 
     /*
@@ -61,7 +59,7 @@ public class showBoard extends InputAdapter implements Screen {
         this.gameScreen = game;
         stage = new Stage();
         playerHud = new playerHud(gameScreen.batch);
-        cardHud = new cardHud();
+        cardHud = new cardButtonsForMovementDemo();
         Gdx.input.setInputProcessor(stage);
     }
 

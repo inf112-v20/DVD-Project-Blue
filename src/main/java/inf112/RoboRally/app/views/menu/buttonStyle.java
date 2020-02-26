@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.menu;
+package inf112.RoboRally.app.views.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;

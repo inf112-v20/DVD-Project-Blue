@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.board;
+package inf112.RoboRally.app.views;
 
 import inf112.RoboRally.app.models.board.Direction;
 import inf112.RoboRally.app.models.board.Position;

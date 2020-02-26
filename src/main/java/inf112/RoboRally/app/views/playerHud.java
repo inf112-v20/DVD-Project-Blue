@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.player;
+package inf112.RoboRally.app.views;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;

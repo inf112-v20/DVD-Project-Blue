@@ -1,8 +1,9 @@
-package inf112.RoboRally.app.player;
+package inf112.RoboRally.app.models.game;
 
 import inf112.RoboRally.app.models.board.Direction;
 import inf112.RoboRally.app.models.board.Position;
 import inf112.RoboRally.app.models.board.Robot;
+import inf112.RoboRally.app.views.playerHud;
 
 public class Player {
 

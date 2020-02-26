@@ -2,7 +2,7 @@ package inf112.RoboRally.app;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import inf112.RoboRally.app.menu.mainMenu;
+import inf112.RoboRally.app.views.menu.mainMenu;
 
 public class gameScreen extends Game {
 

@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.board;
+package inf112.RoboRally.app.views;
 
 public class testingStuff {
 
