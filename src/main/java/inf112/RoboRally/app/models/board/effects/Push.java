@@ -1,4 +1,6 @@
 package inf112.RoboRally.app.models.board.effects;
 
-public class flag {
+public class Push {
+
+
 }

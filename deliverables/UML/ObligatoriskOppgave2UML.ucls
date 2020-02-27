@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="inf112.RoboRally.app.views.cardButtonsForMovementDemo" project="INF112" 
+  <class id="1" language="java" name="inf112.RoboRally.app.views.CardButtonsForMovementDemo" project="INF112"
     file="/INF112/src/main/java/inf112/RoboRally/app/views/cardButtonsForMovementDemo.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="438" y="248"/>    
@@ -11,7 +11,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="inf112.RoboRally.app.views.classicBoard" project="INF112" 
+  <class id="2" language="java" name="inf112.RoboRally.app.views.ClassicBoard" project="INF112"
     file="/INF112/src/main/java/inf112/RoboRally/app/views/classicBoard.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="363" y="487"/>    
     <display autosize="true" stereotype="true" package="false" initial-value="false" signature="true" 
@@ -20,7 +20,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="inf112.RoboRally.app.views.showBoard" project="INF112" 
+  <class id="3" language="java" name="inf112.RoboRally.app.views.ShowBoard" project="INF112"
     file="/INF112/src/main/java/inf112/RoboRally/app/views/showBoard.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="834" y="207"/>    
     <display autosize="true" stereotype="true" package="false" initial-value="false" signature="true" 
@@ -29,7 +29,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="inf112.RoboRally.app.views.menu.mainMenu" project="INF112" 
+  <class id="4" language="java" name="inf112.RoboRally.app.views.menu.MainMenu" project="INF112"
     file="/INF112/src/main/java/inf112/RoboRally/app/views/menu/mainMenu.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1068" y="422"/>    
     <display autosize="true" stereotype="true" package="false" initial-value="false" signature="true" 
@@ -65,7 +65,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="inf112.RoboRally.app.models.cards.rotateCard" project="INF112" 
+  <class id="8" language="java" name="inf112.RoboRally.app.models.cards.RotateCard" project="INF112"
     file="/INF112/src/main/java/inf112/RoboRally/app/models/cards/rotateCard.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="611" y="944"/>    
     <display autosize="true" stereotype="true" package="false" initial-value="false" signature="true" 
@@ -74,7 +74,7 @@
       <operations public="true" package="true" protected="true" private="true" static="false"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="inf112.RoboRally.app.models.cards.reverseCard" project="INF112" 
+  <class id="9" language="java" name="inf112.RoboRally.app.models.cards.ReverseCard" project="INF112"
     file="/INF112/src/main/java/inf112/RoboRally/app/models/cards/reverseCard.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1040" y="791"/>    
     <display autosize="true" stereotype="true" package="false" initial-value="false" signature="true" 
@@ -83,7 +83,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="inf112.RoboRally.app.models.cards.forwardCard" project="INF112" 
+  <class id="10" language="java" name="inf112.RoboRally.app.models.cards.ForwardCard" project="INF112"
     file="/INF112/src/main/java/inf112/RoboRally/app/models/cards/forwardCard.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1104" y="640"/>    
     <display autosize="true" stereotype="true" package="false" initial-value="false" signature="true" 
@@ -119,7 +119,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </enumeration>  
-  <class id="14" language="java" name="inf112.RoboRally.app.gameScreen" project="INF112" 
+  <class id="14" language="java" name="inf112.RoboRally.app.GameScreen" project="INF112"
     file="/INF112/src/main/java/inf112/RoboRally/app/gameScreen.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="827" y="435"/>    
     <display autosize="true" stereotype="true" package="false" initial-value="false" signature="true" 

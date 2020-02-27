@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 /*
 Class that views a players' life tokens, damage tokens, and power down button.
  */
-public class playerHud {
+public class PlayerHud {
 
     public Stage stage;
     private Viewport viewport;
@@ -30,20 +30,16 @@ public class playerHud {
     private Image lifeTokenImg2;
     private Image lifeTokenImg3;
 
-    private static final float imgScaleX = 1/5.8f;
-    private static final float imgScaleY = 1/6.8f;
+    private static final float imgScaleX = 1/3f;
+    private static final float imgScaleY = 1/6f;
 
-    public playerHud (SpriteBatch sb) {
+    public PlayerHud(SpriteBatch sb) {
         viewport = new ScreenViewport(new OrthographicCamera());
         stage = new Stage();
 
         Table table = new Table();
         table.bottom().padLeft(150);
         table.setFillParent(true);
-
-        Texture background = new Texture("Images/PlayerHudBackground.png");
-        background.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        table.setBackground(new TextureRegionDrawable(background));
 
         powerDownImg = new Image(new Texture("PlayerHud/PowerDown.png"));
         powerDownImg.setScale(imgScaleX, imgScaleY);

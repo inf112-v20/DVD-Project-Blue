@@ -4,11 +4,11 @@ import inf112.RoboRally.app.models.board.Robot;
 /*
 Card to do all rotations of robots: right, left and right two times (uturn).
  */
-public class rotateCard extends Card {
+public class RotateCard extends Card {
     private Rotation rotation;
     // filename variable for picture will be here
 
-    public rotateCard(int priority, Rotation rotation) {
+    public RotateCard(int priority, Rotation rotation) {
         super(priority = priority);
         this.rotation = rotation;
     }

@@ -10,17 +10,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import inf112.RoboRally.app.views.showBoard;
-import inf112.RoboRally.app.gameScreen;
+import inf112.RoboRally.app.GameScreen;
+import inf112.RoboRally.app.views.ShowBoard;
+
 /*
 Class for the main menu. This is where the game starts when built.
  */
-public class mainMenu implements Screen {
+public class MainMenu implements Screen {
 
-    private gameScreen gameScreen;
+    private GameScreen gameScreen;
     private Stage stage;
 
-    public mainMenu (gameScreen game) {
+    public MainMenu(GameScreen game) {
         this.gameScreen = game;
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -36,9 +37,9 @@ public class mainMenu implements Screen {
         background.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         table.setBackground(new TextureRegionDrawable(background));
 
-        TextButton play = new button().createTextButton("PLAY");
-        TextButton lan = new button().createTextButton("LAN");
-        TextButton quit = new button().createTextButton("QUIT");
+        TextButton play = new Button().createTextButton("PLAY");
+        TextButton lan = new Button().createTextButton("LAN");
+        TextButton quit = new Button().createTextButton("QUIT");
         table.add(play);
         table.row().padTop(10);
         table.add(lan);
@@ -48,7 +49,7 @@ public class mainMenu implements Screen {
         play.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gameScreen.setScreen(new showBoard(gameScreen));
+                gameScreen.setScreen(new ShowBoard(gameScreen));
                 super.clicked(event, x, y);
             }
         });

@@ -5,7 +5,7 @@ import inf112.RoboRally.app.models.board.Position;
 /*
 Passes on information about the board to showBard. This structure will change soon.
  */
-public class classicBoard {
+public class ClassicBoard {
 
     private Position player1StartPosition = new Position(6, 8);
     private Direction player1StartDirection = Direction.RIGHT;
