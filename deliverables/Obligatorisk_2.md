@@ -14,3 +14,5 @@ Within the group, the skill in programming differs. Håkon is considered to be t
 
 As of now, we have managed to create a well-design board displaying cards and robots and also decided the structure of code.
 We have decided on which interfaces and what classes the game should have. Until the next time 
+
+Retrospective:
