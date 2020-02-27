@@ -1,4 +1,4 @@
 package inf112.RoboRally.app.models.board.effects;
 
-public class repair {
+public class Repair {
 }

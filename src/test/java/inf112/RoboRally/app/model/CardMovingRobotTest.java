@@ -22,12 +22,12 @@ public class CardMovingRobotTest {
     @Before
     public void setup() {
         robot = new Robot(new Position(4,4), Direction.RIGHT);
-        threeStepsForward = new forwardCard(1000, 3);
-        oneStepForward = new forwardCard(900, 1);
-        oneStepBack = new reverseCard(800);
-        rotateLeft = new rotateCard(1300, Rotation.LEFT);
-        rotateRight = new rotateCard(750, Rotation.RIGHT);
-        uTurn = new rotateCard(500, Rotation.UTURN);
+        threeStepsForward = new ForwardCard(1000, 3);
+        oneStepForward = new ForwardCard(900, 1);
+        oneStepBack = new ReverseCard(800);
+        rotateLeft = new RotateCard(1300, Rotation.LEFT);
+        rotateRight = new RotateCard(750, Rotation.RIGHT);
+        uTurn = new RotateCard(500, Rotation.UTURN);
     }
 
     @Test

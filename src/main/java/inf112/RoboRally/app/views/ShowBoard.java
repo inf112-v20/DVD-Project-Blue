@@ -16,23 +16,23 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import inf112.RoboRally.app.GameScreen;
+import inf112.RoboRally.app.models.cards.ForwardCard;
+import inf112.RoboRally.app.models.cards.ReverseCard;
+import inf112.RoboRally.app.models.cards.RotateCard;
 import inf112.RoboRally.app.models.cards.Rotation;
-import inf112.RoboRally.app.models.cards.forwardCard;
-import inf112.RoboRally.app.models.cards.reverseCard;
-import inf112.RoboRally.app.models.cards.rotateCard;
-import inf112.RoboRally.app.gameScreen;
 import inf112.RoboRally.app.models.game.Player;
 /*
 God class that currently holds initializes and renders all views, and where thus far achieved connection between view
  and logic where robot model is being moved by card model is programmed. The hard focus of the next delivery will be
 separating rendering, and initialization of maps, tiles and models.
  */
-public class showBoard extends InputAdapter implements Screen {
+public class ShowBoard extends InputAdapter implements Screen {
 
-    private gameScreen gameScreen;
+    private GameScreen gameScreen;
     public Stage stage;
-    private playerHud playerHud;
-    private cardButtonsForMovementDemo cardHud;
+    private PlayerHud playerHud;
+    private CardButtonsForMovementDemo cardHud;
 
     /*
     Hardcoded player views will be abstracted in a player view soon
@@ -49,18 +49,18 @@ public class showBoard extends InputAdapter implements Screen {
     private OrthogonalTiledMapRenderer mapRenderer;
     private OrthographicCamera camera;
 
-    public showBoard (gameScreen game) {
+    public ShowBoard(GameScreen game) {
         this.gameScreen = game;
         stage = new Stage();
-        playerHud = new playerHud(gameScreen.batch);
-        cardHud = new cardButtonsForMovementDemo();
+        playerHud = new PlayerHud(gameScreen.batch);
+        cardHud = new CardButtonsForMovementDemo();
         Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void show() {
         mapLoader = new TmxMapLoader();
-        classicBoard classicBoard = new classicBoard();
+        ClassicBoard classicBoard = new ClassicBoard();
         map = mapLoader.load(classicBoard.getFileName());
 
 
@@ -89,7 +89,7 @@ public class showBoard extends InputAdapter implements Screen {
                 // removing the layer at the location the robot is moving from
                 playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
 
-                forwardCard move1Forward = new forwardCard(1000, 1);
+                ForwardCard move1Forward = new ForwardCard(1000, 1);
                 move1Forward.moveRobot(player1.getRobot());
                 playerVector.set(player1.getRobot().getX(), player1.getRobot().getY());
 
@@ -104,7 +104,7 @@ public class showBoard extends InputAdapter implements Screen {
                 // removing the layer at the location the robot is moving from
                 playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
 
-                forwardCard move2Forward = new forwardCard(800, 2);
+                ForwardCard move2Forward = new ForwardCard(800, 2);
                 move2Forward.moveRobot(player1.getRobot());
                 playerVector.set(player1.getRobot().getX(), player1.getRobot().getY());
 
@@ -119,7 +119,7 @@ public class showBoard extends InputAdapter implements Screen {
                 // removing the layer at the location the robot is moving from
                 playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
 
-                forwardCard move3Forward = new forwardCard(1100, 3);
+                ForwardCard move3Forward = new ForwardCard(1100, 3);
                 move3Forward.moveRobot(player1.getRobot());
                 playerVector.set(player1.getRobot().getX(), player1.getRobot().getY());
 
@@ -134,7 +134,7 @@ public class showBoard extends InputAdapter implements Screen {
                 // removing the layer at the location the robot is moving from
                 playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
 
-                reverseCard moveBack = new reverseCard(550);
+                ReverseCard moveBack = new ReverseCard(550);
                 moveBack.moveRobot(player1.getRobot());
                 playerVector.set(player1.getRobot().getX(), player1.getRobot().getY());
 
@@ -149,7 +149,7 @@ public class showBoard extends InputAdapter implements Screen {
                 // removing the layer at the location the robot is moving from
                 playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
 
-                rotateCard rotateLeft = new rotateCard(1300, Rotation.LEFT);
+                RotateCard rotateLeft = new RotateCard(1300, Rotation.LEFT);
                 rotateLeft.moveRobot(player1.getRobot());
                 playerCell.setRotation(player1.getRobot().getDirection().CellDirectionNumber());
 
@@ -164,7 +164,7 @@ public class showBoard extends InputAdapter implements Screen {
                 // removing the layer at the location the robot is moving from
                 playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
 
-                rotateCard rotateRight = new rotateCard(900, Rotation.RIGHT);
+                RotateCard rotateRight = new RotateCard(900, Rotation.RIGHT);
                 rotateRight.moveRobot(player1.getRobot());
                 playerCell.setRotation(player1.getRobot().getDirection().CellDirectionNumber());
 
@@ -179,7 +179,7 @@ public class showBoard extends InputAdapter implements Screen {
                 // removing the layer at the location the robot is moving from
                 playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
 
-                rotateCard uTurn = new rotateCard(750, Rotation.UTURN);
+                RotateCard uTurn = new RotateCard(750, Rotation.UTURN);
                 uTurn.moveRobot(player1.getRobot());
                 playerCell.setRotation(player1.getRobot().getDirection().CellDirectionNumber());
 

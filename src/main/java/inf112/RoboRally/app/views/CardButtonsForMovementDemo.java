@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 /*
 Card buttons made for manual testing of connection between view and model in showBoard
  */
-public class cardButtonsForMovementDemo {
+public class CardButtonsForMovementDemo {
 
     public Texture moveButton, moveButton2, moveButton3, moveBackButton, rotateLeftButton, rotateRightButton, uTurnButton;
     public ImageButton move1, move2, move3, moveBack, rotateLeft, rotateRight, uTurn;

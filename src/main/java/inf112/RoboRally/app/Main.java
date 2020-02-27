@@ -10,14 +10,16 @@ public class Main {
     public static final int SCREEN_HEIGHT = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
 
     public static void main(String[] args) {
+        System.setProperty("org.lwjgl.opengl.Display.enableHighDPI", "true");
         config = new LwjglApplicationConfiguration();
         config.title = "Robo Rally";
-        config.width = 1366;
-        config.height = 768;
+        config.width = SCREEN_WIDTH-267;
+        config.height = SCREEN_HEIGHT-150;
+        config.useHDPI = true;
         config.fullscreen = false;
         config.resizable = false;
         config.backgroundFPS = 60;
         config.foregroundFPS = 60;
-        new LwjglApplication(new gameScreen(), config);
+        new LwjglApplication(new GameScreen(), config);
     }
 }

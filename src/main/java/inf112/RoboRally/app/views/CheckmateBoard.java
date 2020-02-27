@@ -6,7 +6,7 @@ import inf112.RoboRally.app.models.board.Position;
 /*
 Passes on information about the board to showBard. This structure will change soon.
  */
-public class checkmateBoard {
+public class CheckmateBoard {
 
     private Position player1StartPosition = new Position(7, 8);
     private Direction player1StartDirection = Direction.RIGHT;
