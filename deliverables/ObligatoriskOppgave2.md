@@ -136,7 +136,6 @@ The user can then manually test the robots’ movement by mouse clicking cards p
 
 ![code snippet](https://github.com/inf112-v20/DVD-Project-Blue/blob/master/deliverables/UML/code_snippet_delivery_2.png?raw=true)
 
-
 The card model object is initialized at line 122 in the picture above. It then takes the robot model object as input, to its method ‘moveRobot’ at line 123. The view/cell that is visibly moving around is never performing any logic, it is only asking questions about the robot models’ state, and setting its position accordingly. This is happening at line 124 in the picture above. All the buttons are programmed like in the example code in the picture, and can be viewed in the ‘ShowBoard’ class, highlighted by comments. The view is currently hardcoded in the ‘ShowBoard’ class, which was fine for the purposes of manually testing an established control between model and view, but will be abstracted abruptly in future progress. 
 
 **Automated tests**
