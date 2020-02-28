@@ -1,4 +1,4 @@
-## Obligatorisk oppgave 2 
+# Obligatorisk oppgave 2 
  
 ### Part 1
  
@@ -8,19 +8,19 @@ Just at the start of this sprint our group lost a member. Our teamleder, Jørn, 
 
 Following Jørns departure, we chose Tård as our new leader. We also discussed all our roles in more detail because we felt disorganized, and because we received feedback from our tutor assistants that our roles were too vague. These roles, as well as the reasons for choosing Tård as our new leader are outlined below.
  
-_Tård_
+**_Tård_**
 
 Tård is chosen as a new leader because of his experience working on bigger projects intended to have long life spans. He has insight when it comes to the bigger questions such as architecture, design patterns and dependencies. The architectural decisions must be approved by him, and he also formalizes strategy for architecture long term, as well as overseeing that team members adhere to this strategy. He is also the main lead working on networking.
 
-_Gytis_
+**_Gytis_**
 
 Gytis is responsible for the master branch in our git repository, and thus the final delivery of each sprint. Being responsible for the master branch means overseeing commits and merges to the master branch. Because of this, Gytis will have more commits than other team members. Gytis is also responsible for game design and user experience, using photoshop and tiles, and programming the views for the end user.
 
-_Henrik_
+**_Henrik_**
 
 Henrik is responsible for rules being implemented correctly as game logic, and for implementing model-view-controller (MVC) design patterns. He is thus responsible for implementing the programmatic models that represent the game logic, which goes hand-in-hand with being responsible for rules being implemented correctly. Being responsible for MVC, he is also responsible for implementing the controllers that connect  models with the views that Gytis develops. Henrik and Tård work close together since Tård is overseeing the architecture of the project.
 
-_Håkon_
+**_Håkon_**
 
 Håkon has the role of administering meetings, responsible for the reports, overseeing deadlines and task completion. Since Håkons’ level of programming differs quite from the rest of the group, he will have less of a role as developer in this team. However, he will contribute where he can and learn from the others.
 
