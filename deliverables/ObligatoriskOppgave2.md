@@ -2,7 +2,8 @@
  
 ### Part 1
  
-Changes in team members and new roles
+**Changes in team members and new roles**
+
 Just at the start of this sprint our group lost a member. Our teamleder, Jørn, chose to withdraw from the course. Jørn had a lot of experience with creating larger systems and was therefore the natural choice as a leader. His departure was unexpected and skewed our agreed upon team processes while working on this delivery. We realized that this could also happen in professional scenarios. We were therefore quick to adopt a mindset of professionalism when handling the situation.
 
 Following Jørns departure, we chose Tård as our new leader. We also discussed all our roles in more detail because we felt disorganized, and because we received feedback from our tutor assistants that our roles were too vague. These roles, as well as the reasons for choosing Tård as our new leader are outlined below.
@@ -21,14 +22,11 @@ Henrik is responsible for rules being implemented correctly as game logic, and f
 
 _Håkon_
 
-Role of administering meetings, responsible for the reports and the communication with the group leaders. Since Håkons’ level of programming differs quite from the rest of the group, he will have less of a role as developer in this team. However, he will contribute where he can and learn from the others.
+Håkon has the role of administering meetings, responsible for the reports, overseeing deadlines and task completion. Since Håkons’ level of programming differs quite from the rest of the group, he will have less of a role as developer in this team. However, he will contribute where he can and learn from the others.
 
 **Group dynamics and team processes**
 
 Daily communication goes through Slack, where we help each other and discuss progress pertaining to already delegated tasks and deadlines we agree upon within each delivery. The project board on GitHub servers as an overview of what is going on at each particular moment. We typically meet two times a week, including the mandatory session as specified in the course. Task delegation and deadlines within the team are decided upon in these meetings. Team members also meet to perform couples programming, which is something that is often done when larger commits to the master branch are done, where Gytis’ laptop is often used for the final commit.
-
-Within the group, the skill in programming differs. Håkon is considered to be the person with least experience in Java but is willing to learn from the others and contribute where he can. This also means that Håkon commits less than the other team members. Tård has also made fewer commits this sprint because his work on networking has still been in the research stages.
-
 
 **Retrospective**
 
@@ -36,7 +34,7 @@ At this point a menu is designed, the design protocol for further development is
 
 The workload in the group has changed due to Jørn's absence. However, we all agree that the communication has been good and that we have been able to distribute the workload quite equally among the four of us. The meetings are held in an efficient way, where problems are made more clear so that team members look forward to the next meeting.
 
-We are not experienced with working on a Git repository with multiple team members, and our experience with creating and merging branches are poor. There is therefore some unnecessary communication taking place where commits to the master branch are coordinated. Sometimes team members must wait to start working because another team member is soon commiting to the master branch. One big potential improvement there lies in the successful management of merges to the master branch. 
+We are not experienced with working on a Git repository with multiple team members, and our experience with creating and merging branches are poor. There is therefore some unnecessary communication taking place where commits to the master branch are coordinated. Sometimes team members must wait to start working because another team member is soon commiting to the master branch. One big potential improvement there lies in the successful management of merges of branches to the master branch. 
 
 ### Part 2
 **This delivery**
@@ -68,10 +66,10 @@ _Task_
 * Create functionality where user can move the robot around using cards. With the first delivery, a demonstration of movement will be implemented via buttons that represent cards that can be chosen in a sequence.
 
 _Acceptance_ 
-*  player can move the robot around according to cards represented by buttons.
+*  A player can move the robot around according to cards represented by buttons.
 
 _Know bugs in completion_
- * the robot is able to move outside the board and the screen.
+ * The robot is able to move outside the board and the screen.
 
 **User story no. 3** 
 
@@ -116,7 +114,7 @@ _Task_
 _Acceptance requirements_ 
 * A player can only choose his/hers cards in the specified time, which counts down visibly on the screen.
 
-We consider the user history 2,3 and 4 as the most important parts of a MVP as this is what makes the game fun; to strategize better than other players in a short amount of time, choosing cards that outmaneuvers the opponent.
+We consider the user history 2,3 and 4 as the most important parts of a MVP as this is what makes the game fun; to strategize better than other players in a short amount of time, choosing cards that outmaneuver other players in the context of fun elements on the board.
 
 
 ### Part 3
@@ -125,6 +123,7 @@ We consider the user history 2,3 and 4 as the most important parts of a MVP as t
 
 The code builds and runs by running ‘Main’ which is located in the inf112.RoboRally.app folder - the outermost folder in our package hierarchy. A LwgjApplication is initialized, with the ‘GameScreen’ class, which sets the screen to the ‘MainMenu’ class. From the ‘MainMenu’ class ‘ShowBoard’ is initialized, where current models for cards and robots are initialized manually within the class, and views are hardcoded. Refer to the UML diagram below ,which contains only the most important dependencies with regards to the focus of this delivery.
 
+UML HER
 
 **Navigating the menu**
 
