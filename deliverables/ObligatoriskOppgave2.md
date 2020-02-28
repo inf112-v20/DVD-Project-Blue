@@ -123,7 +123,7 @@ We consider the user history 2,3 and 4 as the most important parts of a MVP as t
 
 The code builds and runs by running ‘Main’ which is located in the inf112.RoboRally.app folder - the outermost folder in our package hierarchy. A LwgjApplication is initialized, with the ‘GameScreen’ class, which sets the screen to the ‘MainMenu’ class. From the ‘MainMenu’ class ‘ShowBoard’ is initialized, where current models for cards and robots are initialized manually within the class, and views are hardcoded. Refer to the UML diagram below ,which contains only the most important dependencies with regards to the focus of this delivery.
 
-UML HER
+![UML diagram](https://github.com/inf112-v20/DVD-Project-Blue/blob/master/deliverables/UML/ObligatoriskOppgave2UML.png?raw=true)
 
 **Navigating the menu**
 
@@ -134,9 +134,7 @@ The user is then taken to a menu, where he can choose between the buttons ‘PLA
 
 The user can then manually test the robots’ movement by mouse clicking cards placed at the left hand side of the board. What is important to note in this test is that the placeholder card buttons represent actual card model objects that move a robot model around, and a view of these movements connected via the controllers ‘Position’ and ‘Direction’. Here is a picture of how this is programmed, in the case of the card that moves that moves the robot three steps forward:
 
-BILDE HER HÅKON
-
-![Image description](https://github.com/inf112-v20/DVD-Project-Blue/blob/master/deliverables/UML/ObligatoriskOppgave2UML.png?raw=true)
+![code snippet](Link here)
 
 The card model object is initialized at line 122 in the picture above. It then takes the robot model object as input, to its method ‘moveRobot’ at line 123. The view/cell that is visibly moving around is never performing any logic, it is only asking questions about the robot models’ state, and setting its position accordingly. This is happening at line 124 in the picture above. All the buttons are programmed like in the example code in the picture, and can be viewed in the ‘ShowBoard’ class, highlighted by comments. The view is currently hardcoded in the ‘ShowBoard’ class, which was fine for the purposes of manually testing an established control between model and view, but will be abstracted abruptly in future progress. 
 
