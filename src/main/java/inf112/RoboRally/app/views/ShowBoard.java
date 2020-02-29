@@ -77,7 +77,7 @@ public class ShowBoard extends InputAdapter implements Screen {
         playerCell.setRotation(player1.getRobot().getDirection().CellDirectionNumber());
 
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1/256f);
-        camera.setToOrtho(false, 30, 18);
+        camera.setToOrtho(false, 26, 15);
         camera.update();
         mapRenderer.setView(camera);
         //stage.addActor(card.move1(1));

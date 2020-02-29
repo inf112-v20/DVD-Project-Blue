@@ -36,7 +36,8 @@ public class PlayerHUD {
         playerTable.bottom().padLeft(150);
         playerTable.setFillParent(true);
 
-        Texture img = new Texture("Images/PlayerHudBackground2.png");
+        Texture img = new Texture("Images/PlayerUI.png");
+        img.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         playerTable.setBackground(new TextureRegionDrawable(img));
 
         powerDownImg = new Image(new Texture("PlayerHud/PowerDown.png"));
@@ -68,19 +69,19 @@ public class PlayerHUD {
         lifeTokenImg3 = new Image(new Texture("PlayerHud/LifeToken.png"));
         lifeTokenImg3.setScale(imgScaleX, imgScaleY);
 
-        playerTable.add(powerDownImg);
-        playerTable.add(damageTokenImg);
-        playerTable.add(damageTokenImg2);
-        playerTable.add(damageTokenImg3);
-        playerTable.add(damageTokenImg4);
-        playerTable.add(damageTokenImg5);
-        playerTable.add(damageTokenImg6);
-        playerTable.add(damageTokenImg7);
-        playerTable.add(damageTokenImg8);
-        playerTable.add(damageTokenImg9);
-        playerTable.add(lifeTokenImg);
-        playerTable.add(lifeTokenImg2);
-        playerTable.add(lifeTokenImg3);
+//        playerTable.add(powerDownImg);
+//        playerTable.add(damageTokenImg);
+//        playerTable.add(damageTokenImg2);
+//        playerTable.add(damageTokenImg3);
+//        playerTable.add(damageTokenImg4);
+//        playerTable.add(damageTokenImg5);
+//        playerTable.add(damageTokenImg6);
+//        playerTable.add(damageTokenImg7);
+//        playerTable.add(damageTokenImg8);
+//        playerTable.add(damageTokenImg9);
+//        playerTable.add(lifeTokenImg);
+//        playerTable.add(lifeTokenImg2);
+//        playerTable.add(lifeTokenImg3);
 
         return playerTable;
 
