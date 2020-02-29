@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class Button {
 
-    private Skin skin = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
+    final private Skin skin = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
 
     public TextButton createTextButton (String buttonName) {
         TextButton textButton = new TextButton(buttonName, skin);

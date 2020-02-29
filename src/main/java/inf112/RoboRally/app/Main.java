@@ -6,8 +6,6 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 public class Main {
 
     private static LwjglApplicationConfiguration config;
-//    public static final int SCREEN_WIDTH = LwjglApplicationConfiguration.getDesktopDisplayMode().width;
-//    public static final int SCREEN_HEIGHT = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
     public static final int SCREEN_WIDTH = LwjglApplicationConfiguration.getDesktopDisplayMode().width;
     public static final int SCREEN_HEIGHT = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
 

@@ -26,6 +26,8 @@ import inf112.RoboRally.app.models.cards.ReverseCard;
 import inf112.RoboRally.app.models.cards.RotateCard;
 import inf112.RoboRally.app.models.cards.Rotation;
 import inf112.RoboRally.app.models.game.Player;
+import inf112.RoboRally.app.views.cards.card;
+
 /*
 God class that currently holds initializes and renders all views, and where thus far achieved connection between view
  and logic where robot model is being moved by card model is programmed. The hard focus of the next delivery will be
@@ -38,6 +40,7 @@ public class ShowBoard extends InputAdapter implements Screen {
     private Viewport viewport;
     public Stage stage;
     private PlayerUI playerUI;
+    private card card;
 
     /*
     Hardcoded player views will be abstracted in a player view soon
@@ -59,6 +62,7 @@ public class ShowBoard extends InputAdapter implements Screen {
         viewport = new FitViewport(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT, camera);
         stage = new Stage(viewport);
         playerUI = new PlayerUI(gameScreen.batch);
+        card = new card();
         Gdx.input.setInputProcessor(playerUI.stage);
     }
 
@@ -80,10 +84,10 @@ public class ShowBoard extends InputAdapter implements Screen {
         playerCell.setRotation(player1.getRobot().getDirection().CellDirectionNumber());
 
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1/256f);
-        //camera = new OrthographicCamera();
         camera.setToOrtho(false, 28, 16);
         camera.update();
         mapRenderer.setView(camera);
+        stage.addActor(card.move1(1));
 
     }
 
