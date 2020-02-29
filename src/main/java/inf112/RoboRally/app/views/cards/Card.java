@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import java.awt.*;
 
-public class card {
+public class Card {
 
     final private Skin skin = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
 

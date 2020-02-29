@@ -13,20 +13,13 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameScreen;
 import inf112.RoboRally.app.Main;
-import inf112.RoboRally.app.models.cards.ForwardCard;
-import inf112.RoboRally.app.models.cards.ReverseCard;
-import inf112.RoboRally.app.models.cards.RotateCard;
-import inf112.RoboRally.app.models.cards.Rotation;
 import inf112.RoboRally.app.models.game.Player;
-import inf112.RoboRally.app.views.cards.card;
+import inf112.RoboRally.app.views.cards.Card;
 
 /*
 God class that currently holds initializes and renders all views, and where thus far achieved connection between view
@@ -40,7 +33,7 @@ public class ShowBoard extends InputAdapter implements Screen {
     private Viewport viewport;
     public Stage stage;
     private PlayerUI playerUI;
-    private card card;
+    private Card card;
 
     /*
     Hardcoded player views will be abstracted in a player view soon
@@ -62,7 +55,7 @@ public class ShowBoard extends InputAdapter implements Screen {
         viewport = new FitViewport(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT, camera);
         stage = new Stage(viewport);
         playerUI = new PlayerUI(gameScreen.batch);
-        card = new card();
+        card = new Card();
         Gdx.input.setInputProcessor(playerUI.stage);
     }
 
@@ -87,7 +80,7 @@ public class ShowBoard extends InputAdapter implements Screen {
         camera.setToOrtho(false, 28, 16);
         camera.update();
         mapRenderer.setView(camera);
-        stage.addActor(card.move1(1));
+        //stage.addActor(card.move1(1));
 
     }
 
