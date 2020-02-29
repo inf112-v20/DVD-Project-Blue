@@ -16,7 +16,7 @@ public class PlayerUI {
         cardUI = new CardUI();
         player = new PlayerHUD();
         stage.addActor(player.create());
-        stage.addActor(cardUI.show());
+        //stage.addActor(cardUI.show());
     }
 
 }

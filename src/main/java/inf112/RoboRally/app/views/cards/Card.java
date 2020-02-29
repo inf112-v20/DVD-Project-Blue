@@ -40,6 +40,7 @@ public class Card {
         Texture cardTexture = new Texture(texturePath);
         cardTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         Image card = new Image(cardTexture);
+        card.setOrigin(cardTexture.getWidth()/2, card.getHeight()/2);
         card.setScale(1/4f);
 
         card.addListener(new ClickListener() {
