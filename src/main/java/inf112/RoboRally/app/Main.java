@@ -6,6 +6,8 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 public class Main {
 
     private static LwjglApplicationConfiguration config;
+//    public static final int SCREEN_WIDTH = LwjglApplicationConfiguration.getDesktopDisplayMode().width;
+//    public static final int SCREEN_HEIGHT = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
     public static final int SCREEN_WIDTH = LwjglApplicationConfiguration.getDesktopDisplayMode().width;
     public static final int SCREEN_HEIGHT = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
 
@@ -17,7 +19,7 @@ public class Main {
         config.height = SCREEN_HEIGHT-150;
         config.useHDPI = true;
         config.fullscreen = false;
-        config.resizable = false;
+        config.resizable = true;
         config.backgroundFPS = 60;
         config.foregroundFPS = 60;
         new LwjglApplication(new GameScreen(), config);

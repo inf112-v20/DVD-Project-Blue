@@ -1,20 +1,19 @@
 package inf112.RoboRally.app.views;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
-/*
-Class that views a players' life tokens, damage tokens, and power down button.
- */
-public class PlayerHud {
 
-    public Stage stage;
-    private Viewport viewport;
+/*
+Card buttons made for manual testing of connection between view and model in showBoard
+ */
+public class PlayerHUD {
+
     private Image powerDownImg;
     private Image damageTokenImg;
     private Image damageTokenImg2;
@@ -32,13 +31,10 @@ public class PlayerHud {
     private static final float imgScaleX = 1/3f;
     private static final float imgScaleY = 1/6f;
 
-    public PlayerHud(SpriteBatch sb) {
-        viewport = new ScreenViewport(new OrthographicCamera());
-        stage = new Stage();
-
-        Table table = new Table();
-        table.bottom().padLeft(150);
-        table.setFillParent(true);
+    public Table create () {
+        Table playerTable = new Table();
+        playerTable.bottom().padLeft(150);
+        playerTable.setFillParent(true);
 
         powerDownImg = new Image(new Texture("PlayerHud/PowerDown.png"));
         powerDownImg.setScale(imgScaleX, imgScaleY);
@@ -69,20 +65,22 @@ public class PlayerHud {
         lifeTokenImg3 = new Image(new Texture("PlayerHud/LifeToken.png"));
         lifeTokenImg3.setScale(imgScaleX, imgScaleY);
 
-        table.add(powerDownImg);
-        table.add(damageTokenImg);
-        table.add(damageTokenImg2);
-        table.add(damageTokenImg3);
-        table.add(damageTokenImg4);
-        table.add(damageTokenImg5);
-        table.add(damageTokenImg6);
-        table.add(damageTokenImg7);
-        table.add(damageTokenImg8);
-        table.add(damageTokenImg9);
-        table.add(lifeTokenImg);
-        table.add(lifeTokenImg2);
-        table.add(lifeTokenImg3);
+        playerTable.add(powerDownImg);
+        playerTable.add(damageTokenImg);
+        playerTable.add(damageTokenImg2);
+        playerTable.add(damageTokenImg3);
+        playerTable.add(damageTokenImg4);
+        playerTable.add(damageTokenImg5);
+        playerTable.add(damageTokenImg6);
+        playerTable.add(damageTokenImg7);
+        playerTable.add(damageTokenImg8);
+        playerTable.add(damageTokenImg9);
+        playerTable.add(lifeTokenImg);
+        playerTable.add(lifeTokenImg2);
+        playerTable.add(lifeTokenImg3);
 
-        stage.addActor(table);
+        return playerTable;
+
     }
+
 }

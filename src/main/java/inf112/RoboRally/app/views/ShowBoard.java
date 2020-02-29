@@ -15,8 +15,12 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameScreen;
+import inf112.RoboRally.app.Main;
 import inf112.RoboRally.app.models.cards.ForwardCard;
 import inf112.RoboRally.app.models.cards.ReverseCard;
 import inf112.RoboRally.app.models.cards.RotateCard;
@@ -30,9 +34,10 @@ separating rendering, and initialization of maps, tiles and models.
 public class ShowBoard extends InputAdapter implements Screen {
 
     private GameScreen gameScreen;
+    private OrthographicCamera camera;
+    private Viewport viewport;
     public Stage stage;
-    private PlayerHud playerHud;
-    private CardButtonsForMovementDemo cardHud;
+    private PlayerUI playerUI;
 
     /*
     Hardcoded player views will be abstracted in a player view soon
@@ -47,14 +52,14 @@ public class ShowBoard extends InputAdapter implements Screen {
     private TiledMap map;
 
     private OrthogonalTiledMapRenderer mapRenderer;
-    private OrthographicCamera camera;
 
     public ShowBoard(GameScreen game) {
         this.gameScreen = game;
-        stage = new Stage();
-        playerHud = new PlayerHud(gameScreen.batch);
-        cardHud = new CardButtonsForMovementDemo();
-        Gdx.input.setInputProcessor(stage);
+        camera = new OrthographicCamera();
+        viewport = new FitViewport(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT, camera);
+        stage = new Stage(viewport);
+        playerUI = new PlayerUI(gameScreen.batch);
+        Gdx.input.setInputProcessor(playerUI.stage);
     }
 
     @Override
@@ -75,134 +80,34 @@ public class ShowBoard extends InputAdapter implements Screen {
         playerCell.setRotation(player1.getRobot().getDirection().CellDirectionNumber());
 
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1/256f);
-        camera = new OrthographicCamera();
+        //camera = new OrthographicCamera();
         camera.setToOrtho(false, 28, 16);
         camera.update();
         mapRenderer.setView(camera);
 
-        stage.addActor(cardHud.create());
-
-        // Button for card that moves robot one step forward
-        cardHud.move1.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                // removing the layer at the location the robot is moving from
-                playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
-
-                ForwardCard move1Forward = new ForwardCard(1000, 1);
-                move1Forward.moveRobot(player1.getRobot());
-                playerVector.set(player1.getRobot().getX(), player1.getRobot().getY());
-
-                super.clicked(event, x, y);
-            }
-        });
-
-        // Button for card that moves robot two steps forward
-        cardHud.move2.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                // removing the layer at the location the robot is moving from
-                playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
-
-                ForwardCard move2Forward = new ForwardCard(800, 2);
-                move2Forward.moveRobot(player1.getRobot());
-                playerVector.set(player1.getRobot().getX(), player1.getRobot().getY());
-
-                super.clicked(event, x, y);
-            }
-        });
-
-        // Button for card that moves robot three steps forward
-        cardHud.move3.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                // removing the layer at the location the robot is moving from
-                playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
-
-                ForwardCard move3Forward = new ForwardCard(1100, 3);
-                move3Forward.moveRobot(player1.getRobot());
-                playerVector.set(player1.getRobot().getX(), player1.getRobot().getY());
-
-                super.clicked(event, x, y);
-            }
-        });
-
-        // Button for card that moves robot one step back
-        cardHud.moveBack.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                // removing the layer at the location the robot is moving from
-                playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
-
-                ReverseCard moveBack = new ReverseCard(550);
-                moveBack.moveRobot(player1.getRobot());
-                playerVector.set(player1.getRobot().getX(), player1.getRobot().getY());
-
-                super.clicked(event, x, y);
-            }
-        });
-
-        // Button for card that rotates robot to the left
-        cardHud.rotateLeft.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                // removing the layer at the location the robot is moving from
-                playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
-
-                RotateCard rotateLeft = new RotateCard(1300, Rotation.LEFT);
-                rotateLeft.moveRobot(player1.getRobot());
-                playerCell.setRotation(player1.getRobot().getDirection().CellDirectionNumber());
-
-                super.clicked(event, x, y);
-            }
-        });
-
-        // Button for card that rotates robot to the right
-        cardHud.rotateRight.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                // removing the layer at the location the robot is moving from
-                playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
-
-                RotateCard rotateRight = new RotateCard(900, Rotation.RIGHT);
-                rotateRight.moveRobot(player1.getRobot());
-                playerCell.setRotation(player1.getRobot().getDirection().CellDirectionNumber());
-
-                super.clicked(event, x, y);
-            }
-        });
-
-        // Button for card that turns robot around
-        cardHud.uTurn.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                // removing the layer at the location the robot is moving from
-                playerLayer.setCell((int)playerVector.x, (int)playerVector.y, null);
-
-                RotateCard uTurn = new RotateCard(750, Rotation.UTURN);
-                uTurn.moveRobot(player1.getRobot());
-                playerCell.setRotation(player1.getRobot().getDirection().CellDirectionNumber());
-
-                super.clicked(event, x, y);
-            }
-        });
     }
 
     @Override
     public void render(float v) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        gameScreen.batch.begin();
+
+
+        gameScreen.batch.setProjectionMatrix(camera.combined);
         mapRenderer.render();
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1));
         stage.draw();
-        gameScreen.batch.setProjectionMatrix(playerHud.stage.getCamera().combined);
-        playerHud.stage.draw();
+        playerUI.stage.draw();
         playerLayer.setCell((int)playerVector.x, (int)playerVector.y, playerCell);
+
+
+        gameScreen.batch.end();
     }
 
     @Override
-    public void resize(int i, int i1) {
-
+    public void resize(int width, int height) {
+        viewport.update(width, height);
     }
 
     @Override
@@ -222,8 +127,8 @@ public class ShowBoard extends InputAdapter implements Screen {
 
     @Override
     public void dispose() {
+        gameScreen.batch.dispose();
         map.dispose();
         mapRenderer.dispose();
-        playerHud.stage.dispose();
     }
 }
