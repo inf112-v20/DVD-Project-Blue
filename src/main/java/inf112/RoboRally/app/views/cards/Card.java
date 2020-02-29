@@ -2,10 +2,12 @@ package inf112.RoboRally.app.views.cards;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
 
 public class Card {
 
@@ -30,20 +32,32 @@ public class Card {
             texturePath += "U-Turn.png";
         }
 
-        Group move1Group = new Group();
+        Group cardGroup = new Group();
 
         Label priority = new Label(String.format("%04d", priorityNum), skin);
         priority.setFontScale(1/2.5f);
         priority.setPosition(101, 191);
-        Texture move1Texture = new Texture(texturePath);
-        move1Texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        Image move1 = new Image(move1Texture);
-        move1.setScale(1/4f);
+        Texture cardTexture = new Texture(texturePath);
+        cardTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        Image card = new Image(cardTexture);
+        card.setScale(1/4f);
 
-        move1Group.addActor(move1);
-        move1Group.addActor(priority);
+        card.addListener(new ClickListener() {
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                card.setScale(1/2f);
+            }
 
-        return move1Group;
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                card.setScale(1/4f);
+            }
+        });
+
+        cardGroup.addActor(card);
+        cardGroup.addActor(priority);
+
+        return cardGroup;
     }
 
 }

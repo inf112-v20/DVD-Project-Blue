@@ -96,6 +96,7 @@ public class ShowBoard extends InputAdapter implements Screen {
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1));
         stage.draw();
         playerUI.stage.draw();
+        playerUI.stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1));
         playerLayer.setCell((int)playerVector.x, (int)playerVector.y, playerCell);
 
 

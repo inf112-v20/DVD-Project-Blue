@@ -28,13 +28,16 @@ public class PlayerHUD {
     private Image lifeTokenImg2;
     private Image lifeTokenImg3;
 
-    private static final float imgScaleX = 1/3f;
-    private static final float imgScaleY = 1/6f;
+    private static final float imgScaleX = 1/5f;
+    private static final float imgScaleY = 1/7f;
 
     public Table create () {
         Table playerTable = new Table();
         playerTable.bottom().padLeft(150);
         playerTable.setFillParent(true);
+
+        Texture img = new Texture("Images/PlayerHudBackground2.png");
+        playerTable.setBackground(new TextureRegionDrawable(img));
 
         powerDownImg = new Image(new Texture("PlayerHud/PowerDown.png"));
         powerDownImg.setScale(imgScaleX, imgScaleY);
