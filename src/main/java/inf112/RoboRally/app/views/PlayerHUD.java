@@ -14,6 +14,8 @@ Card buttons made for manual testing of connection between view and model in sho
  */
 public class PlayerHUD {
 
+    public Table playerTable, playerCards;
+
     private Image powerDownImg;
     private Image damageTokenImg;
     private Image damageTokenImg2;
@@ -32,42 +34,42 @@ public class PlayerHUD {
     private static final float imgScaleY = 1/7f;
 
     public Table create () {
-        Table playerTable = new Table();
+        playerTable = new Table();
         playerTable.bottom().padLeft(150);
         playerTable.setFillParent(true);
 
-        Texture img = new Texture("Images/PlayerUI.png");
+        Texture img = new Texture("PlayerHud/PlayerHUD.png");
         img.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         playerTable.setBackground(new TextureRegionDrawable(img));
 
-        powerDownImg = new Image(new Texture("PlayerHud/PowerDown.png"));
-        powerDownImg.setScale(imgScaleX, imgScaleY);
-
-        damageTokenImg = new Image(new Texture("PlayerHud/DamageTokenNoDmg.png"));
-        damageTokenImg.setScale(imgScaleX, imgScaleY);
-        damageTokenImg2 = new Image(new Texture("PlayerHud/DamageTokenNoDmg.png"));
-        damageTokenImg2.setScale(imgScaleX, imgScaleY);
-        damageTokenImg3 = new Image(new Texture("PlayerHud/DamageTokenNoDmg.png"));
-        damageTokenImg3.setScale(imgScaleX, imgScaleY);
-        damageTokenImg4 = new Image(new Texture("PlayerHud/DamageTokenNoDmg.png"));
-        damageTokenImg4.setScale(imgScaleX, imgScaleY);
-        damageTokenImg5 = new Image(new Texture("PlayerHud/DamageTokenNoDmg.png"));
-        damageTokenImg5.setScale(imgScaleX, imgScaleY);
-        damageTokenImg6 = new Image(new Texture("PlayerHud/DamageTokenNoDmg.png"));
-        damageTokenImg6.setScale(imgScaleX, imgScaleY);
-        damageTokenImg7 = new Image(new Texture("PlayerHud/DamageTokenNoDmg.png"));
-        damageTokenImg7.setScale(imgScaleX, imgScaleY);
-        damageTokenImg8 = new Image(new Texture("PlayerHud/DamageTokenNoDmg.png"));
-        damageTokenImg8.setScale(imgScaleX, imgScaleY);
-        damageTokenImg9 = new Image(new Texture("PlayerHud/DamageTokenNoDmg.png"));
-        damageTokenImg9.setScale(imgScaleX, imgScaleY);
-
-        lifeTokenImg = new Image(new Texture("PlayerHud/LifeToken.png"));
-        lifeTokenImg.setScale(imgScaleX, imgScaleY);
-        lifeTokenImg2 = new Image(new Texture("PlayerHud/LifeToken.png"));
-        lifeTokenImg2.setScale(imgScaleX, imgScaleY);
-        lifeTokenImg3 = new Image(new Texture("PlayerHud/LifeToken.png"));
-        lifeTokenImg3.setScale(imgScaleX, imgScaleY);
+//        powerDownImg = new Image(new Texture("PlayerHud/PowerDown.png"));
+//        powerDownImg.setScale(imgScaleX, imgScaleY);
+//
+//        damageTokenImg = new Image(new Texture("PlayerHud/DamageTokenNoDmg.png"));
+//        damageTokenImg.setScale(imgScaleX, imgScaleY);
+//        damageTokenImg2 = new Image(new Texture("PlayerHud/DamageTokenNoDmg.png"));
+//        damageTokenImg2.setScale(imgScaleX, imgScaleY);
+//        damageTokenImg3 = new Image(new Texture("PlayerHud/DamageTokenNoDmg.png"));
+//        damageTokenImg3.setScale(imgScaleX, imgScaleY);
+//        damageTokenImg4 = new Image(new Texture("PlayerHud/DamageTokenNoDmg.png"));
+//        damageTokenImg4.setScale(imgScaleX, imgScaleY);
+//        damageTokenImg5 = new Image(new Texture("PlayerHud/DamageTokenNoDmg.png"));
+//        damageTokenImg5.setScale(imgScaleX, imgScaleY);
+//        damageTokenImg6 = new Image(new Texture("PlayerHud/DamageTokenNoDmg.png"));
+//        damageTokenImg6.setScale(imgScaleX, imgScaleY);
+//        damageTokenImg7 = new Image(new Texture("PlayerHud/DamageTokenNoDmg.png"));
+//        damageTokenImg7.setScale(imgScaleX, imgScaleY);
+//        damageTokenImg8 = new Image(new Texture("PlayerHud/DamageTokenNoDmg.png"));
+//        damageTokenImg8.setScale(imgScaleX, imgScaleY);
+//        damageTokenImg9 = new Image(new Texture("PlayerHud/DamageTokenNoDmg.png"));
+//        damageTokenImg9.setScale(imgScaleX, imgScaleY);
+//
+//        lifeTokenImg = new Image(new Texture("PlayerHud/LifeToken.png"));
+//        lifeTokenImg.setScale(imgScaleX, imgScaleY);
+//        lifeTokenImg2 = new Image(new Texture("PlayerHud/LifeToken.png"));
+//        lifeTokenImg2.setScale(imgScaleX, imgScaleY);
+//        lifeTokenImg3 = new Image(new Texture("PlayerHud/LifeToken.png"));
+//        lifeTokenImg3.setScale(imgScaleX, imgScaleY);
 
 //        playerTable.add(powerDownImg);
 //        playerTable.add(damageTokenImg);
@@ -87,4 +89,18 @@ public class PlayerHUD {
 
     }
 
+    public Table handCards () {
+
+        playerCards = new Table();
+        playerCards.bottom();
+        playerCards.setFillParent(true);
+
+        Texture txt = new Texture("Images/testImg.png");
+        txt.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        Image img = new Image(txt);
+        playerCards.add(img);
+
+        return playerCards;
+
+    }
 }
