@@ -30,7 +30,7 @@ public class ShowBoard extends InputAdapter implements Screen {
 
     private GameScreen gameScreen;
     private OrthographicCamera camera;
-    private Viewport viewport;
+    public Viewport viewport;
     public Stage stage;
     private PlayerUI playerUI;
     private Card card;

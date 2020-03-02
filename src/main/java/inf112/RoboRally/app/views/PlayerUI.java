@@ -1,63 +1,39 @@
 package inf112.RoboRally.app.views;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-import inf112.RoboRally.app.views.cards.Card;
 import inf112.RoboRally.app.views.cards.CardSlotUI;
 import inf112.RoboRally.app.views.cards.CardUI;
+
+import java.security.Key;
 
 public class PlayerUI {
 
     public Stage stage;
     private CardUI cardUI;
     private PlayerHUD player;
-    private Table playerC;
-    private CardSlotUI cardSlotUIx;
-    private Table cardtable;
+    private CardSlotUI cardSlot;
 
     public PlayerUI (SpriteBatch spriteBatch) {
         stage = new Stage();
-
-        playerC = new Table();
-        playerC.bottom();
-        playerC.setFillParent(true);
-        //playerC.setPosition(100, 0);
-
         cardUI = new CardUI();
         player = new PlayerHUD();
-        cardSlotUIx = new CardSlotUI();
+        cardSlot = new CardSlotUI();
         stage.addActor(player.create());
-
-
-
-        Texture txt = new Texture("Images/cardslot.png");
-        txt.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        Image img3 = new Image(txt);
-        playerC.add(img3);
-        playerC.setDebug(true);
-
-        //stage.addActor(playerC);
-
-        //stage.addActor(cardSlotUI.init());
-        cardtable = new CardSlotUI().init();
-        stage.addActor(cardtable);
+        stage.addActor(cardSlot.cardSlot);
         stage.addActor(cardUI.show());
 
-        cardtable.add(img3);
-        //cardSlotUIx.addimg(img3);
-
-        Texture txt2 = new Texture("Images/cardslot2.png");
-        txt.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        Image img4 = new Image(txt2);
-
-        //cardSlotUI.changeImg(cardSlotUI.img, txt2);
+        Texture emptyCardTexture = new Texture("Images/MoveBackSmallCard.png");
+        emptyCardTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        Image test = new Image(emptyCardTexture);
 
         DragAndDrop dnd = new DragAndDrop();
         dnd.addSource(new DragAndDrop.Source(cardUI.cards) {
@@ -70,7 +46,7 @@ public class PlayerUI {
             }
         });
 
-        dnd.addTarget(new DragAndDrop.Target(cardtable) {
+        dnd.addTarget(new DragAndDrop.Target(cardSlot.cardSlot) {
             @Override
             public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
                 return true;
@@ -79,16 +55,9 @@ public class PlayerUI {
             @Override
             public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
                 System.out.println("Added");
-                cardtable.getCell(img3).clearActor().setActor(cardUI.card);
-                //payload.getDragActor().setScale(1/1.5f);
-//                if (Gdx.input.getX() == cardSlotUIx.img.getX()) {
-//
-//                    cardSlotUI.changeImg(cardSlotUI.img);
-//                }
-//                cardSlotUIx.changeImg(cardSlotUIx.img);
+                cardSlot.changeImage(cardSlot.cardImage, test);
             }
         });
-
 
     }
 
