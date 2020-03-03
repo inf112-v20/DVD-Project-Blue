@@ -39,7 +39,7 @@ public class SmallCard extends Group {
 
         Label priorityNumber = new Label(String.format("%04d", priority), skin);
         priorityNumber.setFontScale(1/5f);
-        priorityNumber.setPosition(46, 73);
+        priorityNumber.setPosition(52, 83);
 
         Group cardGroup = new Group();
 
