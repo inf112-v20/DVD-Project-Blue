@@ -7,6 +7,8 @@ import inf112.RoboRally.app.views.menu.MainMenu;
 
 public class GameScreen extends Game {
 
+    public static final int GAME_WIDTH = 2560;
+    public static final int GAME_HEIGHT = 1440;
     public SpriteBatch batch;
 
     @Override

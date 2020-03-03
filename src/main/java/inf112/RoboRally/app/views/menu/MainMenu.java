@@ -31,7 +31,7 @@ public class MainMenu implements Screen {
     public MainMenu(GameScreen game) {
         this.gameScreen = game;
         camera = new OrthographicCamera();
-        viewport = new FitViewport(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT, camera);
+        viewport = new FitViewport(GameScreen.GAME_WIDTH, GameScreen.GAME_HEIGHT, camera);
         stage = new Stage(viewport);
         Gdx.input.setInputProcessor(stage);
     }

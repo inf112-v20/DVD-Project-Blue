@@ -1,32 +1,31 @@
 package inf112.RoboRally.app.views;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import inf112.RoboRally.app.GameScreen;
 import inf112.RoboRally.app.views.cards.CardSlotUI;
 import inf112.RoboRally.app.views.cards.CardUI;
 import inf112.RoboRally.app.views.cards.SmallCard;
 
-import java.security.Key;
-
 public class PlayerUI {
 
-    public Stage stage;
+    private Stage stage;
+    private Viewport viewport;
     private CardUI cardUI;
     private PlayerHUD player;
     private CardSlotUI cardSlot;
     private Group smallCard, smallCard2;
 
     public PlayerUI (SpriteBatch spriteBatch) {
-        stage = new Stage();
+        viewport = new FitViewport(GameScreen.GAME_WIDTH, GameScreen.GAME_HEIGHT);
+        stage = new Stage(viewport);
         cardUI = new CardUI();
         player = new PlayerHUD();
         cardSlot = new CardSlotUI();
@@ -65,6 +64,14 @@ public class PlayerUI {
             }
         });
 
+    }
+
+    public Stage getStage () {
+        return stage;
+    }
+
+    public void dispose() {
+        stage.dispose();
     }
 
 }

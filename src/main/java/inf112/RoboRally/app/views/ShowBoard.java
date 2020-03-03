@@ -17,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameScreen;
-import inf112.RoboRally.app.Main;
 import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.views.cards.Card;
 
@@ -52,11 +51,11 @@ public class ShowBoard extends InputAdapter implements Screen {
     public ShowBoard(GameScreen game) {
         this.gameScreen = game;
         camera = new OrthographicCamera();
-        viewport = new FitViewport(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT, camera);
+        viewport = new FitViewport(GameScreen.GAME_WIDTH, GameScreen.GAME_HEIGHT, camera);
         stage = new Stage(viewport);
         playerUI = new PlayerUI(gameScreen.batch);
         card = new Card();
-        Gdx.input.setInputProcessor(playerUI.stage);
+        Gdx.input.setInputProcessor(playerUI.getStage());
     }
 
     @Override
@@ -88,15 +87,21 @@ public class ShowBoard extends InputAdapter implements Screen {
     public void render(float v) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        camera.update();
+
         gameScreen.batch.begin();
 
 
         gameScreen.batch.setProjectionMatrix(camera.combined);
-        mapRenderer.render();
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1));
         stage.draw();
-        playerUI.stage.draw();
-        playerUI.stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1));
+
+        mapRenderer.render();
+
+        gameScreen.batch.setProjectionMatrix(playerUI.getStage().getCamera().combined);
+        playerUI.getStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1));
+        playerUI.getStage().draw();
         playerLayer.setCell((int)playerVector.x, (int)playerVector.y, playerCell);
 
 
@@ -106,6 +111,7 @@ public class ShowBoard extends InputAdapter implements Screen {
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
+        playerUI.getStage().getViewport().update(width, height);
     }
 
     @Override
@@ -126,6 +132,7 @@ public class ShowBoard extends InputAdapter implements Screen {
     @Override
     public void dispose() {
         gameScreen.batch.dispose();
+        playerUI.dispose();
         map.dispose();
         mapRenderer.dispose();
     }

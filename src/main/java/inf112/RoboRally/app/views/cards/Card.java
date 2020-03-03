@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Card extends Group {
+public class Card {
 
     final private Skin skin = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
     public int index;
