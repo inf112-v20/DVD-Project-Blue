@@ -7,11 +7,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Card {
+public class Card extends Group {
 
     final private Skin skin = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
+    public int index;
+    public int priority;
+    public Group cardGroup;
+    public Label priorityNumber;
+    public Image card;
 
     public Group init (int index, int priority) {
+        this.index = index;
+        this.priority = priority;
+
         String texturePath = new String("Cards/");
 
         if (index == 0){
@@ -30,23 +38,30 @@ public class Card {
             texturePath += "U-Turn.png";
         }
 
-        Group cardGroup = new Group();
-
-        Label priorityNumber = new Label(String.format("%04d", priority), skin);
-        priorityNumber.setFontScale(1/3f);
-        priorityNumber.setPosition(78, 146);
         Texture cardTexture = new Texture(texturePath);
         cardTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        Image card = new Image(cardTexture);
+        card = new Image(cardTexture);
 
+        priorityNumber = new Label(String.format("%04d", priority), skin);
+        priorityNumber.setFontScale(1/3f);
+        priorityNumber.setPosition(78, 146);
+
+        cardGroup = new Group();
         cardGroup.addActor(card);
         cardGroup.addActor(priorityNumber);
-
         return cardGroup;
     }
 
-    public void resizeCard () {
+    public int getIndex () {
+        return index;
+    }
 
+    public int getPriority () {
+        return priority;
+    }
+
+    public Group getGroup () {
+        return cardGroup;
     }
 
 }

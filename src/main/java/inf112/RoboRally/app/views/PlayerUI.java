@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import inf112.RoboRally.app.views.cards.CardSlotUI;
 import inf112.RoboRally.app.views.cards.CardUI;
+import inf112.RoboRally.app.views.cards.SmallCard;
 
 import java.security.Key;
 
@@ -21,6 +23,7 @@ public class PlayerUI {
     private CardUI cardUI;
     private PlayerHUD player;
     private CardSlotUI cardSlot;
+    private Group smallCard, smallCard2;
 
     public PlayerUI (SpriteBatch spriteBatch) {
         stage = new Stage();
@@ -40,8 +43,8 @@ public class PlayerUI {
             final DragAndDrop.Payload payload = new DragAndDrop.Payload();
             @Override
             public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
-                payload.setObject(cardUI.card);
-                payload.setDragActor(cardUI.card);
+                payload.setObject(cardUI.card.cardGroup);
+                payload.setDragActor(cardUI.card.cardGroup);
                 return payload;
             }
         });
@@ -55,7 +58,10 @@ public class PlayerUI {
             @Override
             public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
                 System.out.println("Added");
-                cardSlot.changeImage(cardSlot.cardImage, test);
+                smallCard = new SmallCard().init(cardUI.card.getIndex(), cardUI.card.getPriority());
+                smallCard2 = new SmallCard().init(cardUI.card2.getIndex(), cardUI.card2.getPriority());
+                cardSlot.changeImage(cardSlot.cardImage, smallCard);
+                cardSlot.changeImage(cardSlot.cardImage2, smallCard2);
             }
         });
 

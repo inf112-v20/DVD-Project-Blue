@@ -17,11 +17,16 @@ public class CardSlotUI extends Table {
 
         Texture emptyCardTexture = new Texture("Images/emptySmallCard.png");
         emptyCardTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        Texture CardTexture = new Texture("Images/Move1SmallCard.png");
+        CardTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
         cardImage = new Image(emptyCardTexture);
-        cardImage2 = new Image(emptyCardTexture);
-        cardImage3 = new Image(emptyCardTexture);
-        cardImage4 = new Image(emptyCardTexture);
-        cardImage5 = new Image(emptyCardTexture);
+        cardImage2 = new Image(CardTexture);
+        cardImage3 = new Image(CardTexture);
+        cardImage4 = new Image(CardTexture);
+        cardImage5 = new Image(CardTexture);
+
 
         cardSlot.add(cardImage).padRight(20);
         cardSlot.add(cardImage2).padRight(20);
@@ -31,7 +36,7 @@ public class CardSlotUI extends Table {
     }
 
     public void changeImage (Actor oldActor, Actor newActor) {
-        cardSlot.getCell(oldActor).clearActor().setActor(newActor);
+        cardSlot.getCell(oldActor).clearActor().setActor(newActor).fill(false, true).padRight(109);
     }
 
     public void resetImages () {
