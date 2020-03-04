@@ -1,5 +1,7 @@
 package inf112.RoboRally.app.views;
 
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -18,7 +20,7 @@ import inf112.RoboRally.app.views.Cards.CardSlotUI;
 import inf112.RoboRally.app.views.Cards.CardUI;
 import inf112.RoboRally.app.views.Cards.SmallCard;
 
-public class PlayerUI {
+public class PlayerUI extends InputAdapter {
 
     private Stage stage;
     private Viewport viewport;
@@ -44,38 +46,38 @@ public class PlayerUI {
         stage.addActor(damagetoken);
         stage.addActor(lifetoken);
         stage.addActor(cardSlot.cardSlot);
-        stage.addActor(cardUI.show());
+//        stage.addActor(cardUI.show());
 
         Texture emptyCardTexture = new Texture("Cards/SMALL/MoveBackSmallCard.png");
         emptyCardTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         Image test = new Image(emptyCardTexture);
 
-        DragAndDrop dnd = new DragAndDrop();
-        dnd.addSource(new DragAndDrop.Source(cardUI.cards) {
-            final DragAndDrop.Payload payload = new DragAndDrop.Payload();
-            @Override
-            public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
-                payload.setObject(cardUI.card.cardGroup);
-                payload.setDragActor(cardUI.card.cardGroup);
-                return payload;
-            }
-        });
-
-        dnd.addTarget(new DragAndDrop.Target(cardSlot.cardSlot) {
-            @Override
-            public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-                return true;
-            }
-
-            @Override
-            public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-                System.out.println("Added");
-                smallCard = new SmallCard().init(cardUI.card.getIndex(), cardUI.card.getPriority());
-                smallCard2 = new SmallCard().init(cardUI.card2.getIndex(), cardUI.card2.getPriority());
-                cardSlot.changeImage(cardSlot.cardImage, smallCard);
-                cardSlot.changeImage(cardSlot.cardImage2, smallCard2);
-            }
-        });
+//        DragAndDrop dnd = new DragAndDrop();
+//        dnd.addSource(new DragAndDrop.Source(cardUI.cards) {
+//            final DragAndDrop.Payload payload = new DragAndDrop.Payload();
+//            @Override
+//            public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
+//                payload.setObject(cardUI.card.cardGroup);
+//                payload.setDragActor(cardUI.card.cardGroup);
+//                return payload;
+//            }
+//        });
+//
+//        dnd.addTarget(new DragAndDrop.Target(cardSlot.cardSlot) {
+//            @Override
+//            public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
+//                return true;
+//            }
+//
+//            @Override
+//            public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
+//                System.out.println("Added");
+//                smallCard = new SmallCard().init(cardUI.card.getIndex(), cardUI.card.getPriority());
+//                smallCard2 = new SmallCard().init(cardUI.card2.getIndex(), cardUI.card2.getPriority());
+//                cardSlot.changeImage(cardSlot.cardImage, smallCard);
+//                cardSlot.changeImage(cardSlot.cardImage2, smallCard2);
+//            }
+//        });
 
     }
 
