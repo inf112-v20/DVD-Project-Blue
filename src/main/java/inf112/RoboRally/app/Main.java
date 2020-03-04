@@ -24,6 +24,6 @@ public class Main {
         config.resizable = true;
         config.backgroundFPS = 60;
         config.foregroundFPS = 60;
-        new LwjglApplication(new GameScreen(), config);
+        new LwjglApplication(new GameLauncher(), config);
     }
 }

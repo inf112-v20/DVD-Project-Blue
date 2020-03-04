@@ -10,8 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 public class Card {
 
     final private Skin skin = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
-    public int index;
-    public int priority;
+    private int index;
+    private int priority;
     public Group cardGroup;
     public Label priorityNumber;
     public Image card;

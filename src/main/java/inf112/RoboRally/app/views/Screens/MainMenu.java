@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.views.menu;
+package inf112.RoboRally.app.views.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -11,27 +11,25 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import inf112.RoboRally.app.GameScreen;
-import inf112.RoboRally.app.Main;
-import inf112.RoboRally.app.views.ShowBoard;
+import inf112.RoboRally.app.GameLauncher;
+import inf112.RoboRally.app.views.GameScreen;
 
 /*
 Class for the main menu. This is where the game starts when built.
  */
 public class MainMenu implements Screen {
 
-    private GameScreen gameScreen;
+    private GameLauncher gameScreen;
     private OrthographicCamera camera;
     private Viewport viewport;
     private Stage stage;
     private Table table;
 
-    public MainMenu(GameScreen game) {
+    public MainMenu(GameLauncher game) {
         this.gameScreen = game;
         camera = new OrthographicCamera();
-        viewport = new FitViewport(GameScreen.GAME_WIDTH, GameScreen.GAME_HEIGHT, camera);
+        viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT, camera);
         stage = new Stage(viewport);
         Gdx.input.setInputProcessor(stage);
     }
@@ -58,7 +56,7 @@ public class MainMenu implements Screen {
         play.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gameScreen.setScreen(new ShowBoard(gameScreen));
+                gameScreen.setScreen(new GameScreen(gameScreen));
                 super.clicked(event, x, y);
             }
         });

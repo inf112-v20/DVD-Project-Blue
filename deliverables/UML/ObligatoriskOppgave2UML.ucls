@@ -20,7 +20,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="inf112.RoboRally.app.views.ShowBoard" project="INF112"
+  <class id="3" language="java" name="inf112.RoboRally.app.views.GameScreen" project="INF112"
     file="/INF112/src/main/java/inf112/RoboRally/app/views/showBoard.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="834" y="207"/>    
     <display autosize="true" stereotype="true" package="false" initial-value="false" signature="true" 
@@ -29,7 +29,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="inf112.RoboRally.app.views.menu.MainMenu" project="INF112"
+  <class id="4" language="java" name="inf112.RoboRally.app.views.Screens.MainMenu" project="INF112"
     file="/INF112/src/main/java/inf112/RoboRally/app/views/menu/mainMenu.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1068" y="422"/>    
     <display autosize="true" stereotype="true" package="false" initial-value="false" signature="true" 
@@ -119,7 +119,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </enumeration>  
-  <class id="14" language="java" name="inf112.RoboRally.app.GameScreen" project="INF112"
+  <class id="14" language="java" name="inf112.RoboRally.app.GameLauncher" project="INF112"
     file="/INF112/src/main/java/inf112/RoboRally/app/gameScreen.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="827" y="435"/>    
     <display autosize="true" stereotype="true" package="false" initial-value="false" signature="true" 

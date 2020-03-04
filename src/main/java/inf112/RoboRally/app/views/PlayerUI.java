@@ -6,10 +6,12 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import inf112.RoboRally.app.GameScreen;
+import inf112.RoboRally.app.GameLauncher;
+import inf112.RoboRally.app.views.PlayerHUDClasses.PowerDown;
 import inf112.RoboRally.app.views.cards.CardSlotUI;
 import inf112.RoboRally.app.views.cards.CardUI;
 import inf112.RoboRally.app.views.cards.SmallCard;
@@ -22,14 +24,19 @@ public class PlayerUI {
     private PlayerHUD player;
     private CardSlotUI cardSlot;
     private Group smallCard, smallCard2;
+    private Table powerdown;
 
     public PlayerUI (SpriteBatch spriteBatch) {
-        viewport = new FitViewport(GameScreen.GAME_WIDTH, GameScreen.GAME_HEIGHT);
+        viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT);
         stage = new Stage(viewport);
         cardUI = new CardUI();
         player = new PlayerHUD();
         cardSlot = new CardSlotUI();
+
+        powerdown = new PowerDown().init();
+
         stage.addActor(player.create());
+        //stage.addActor(powerdown);
         stage.addActor(cardSlot.cardSlot);
         stage.addActor(cardUI.show());
 
