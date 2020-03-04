@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.views.cards;
+package inf112.RoboRally.app.views.Cards;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -41,10 +41,11 @@ public class Card {
         Texture cardTexture = new Texture(texturePath);
         cardTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         card = new Image(cardTexture);
+        card.setOrigin(cardTexture.getWidth()/2,cardTexture.getHeight()/2);
 
         priorityNumber = new Label(String.format("%04d", priority), skin);
-        priorityNumber.setFontScale(1/3f);
-        priorityNumber.setPosition(78, 146);
+        priorityNumber.setFontScale(1/2.5f);
+        priorityNumber.setPosition(98, 189);
 
         cardGroup = new Group();
         cardGroup.addActor(card);

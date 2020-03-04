@@ -11,10 +11,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
+import inf112.RoboRally.app.views.PlayerHUDClasses.DamageToken;
+import inf112.RoboRally.app.views.PlayerHUDClasses.LifeToken;
 import inf112.RoboRally.app.views.PlayerHUDClasses.PowerDown;
-import inf112.RoboRally.app.views.cards.CardSlotUI;
-import inf112.RoboRally.app.views.cards.CardUI;
-import inf112.RoboRally.app.views.cards.SmallCard;
+import inf112.RoboRally.app.views.Cards.CardSlotUI;
+import inf112.RoboRally.app.views.Cards.CardUI;
+import inf112.RoboRally.app.views.Cards.SmallCard;
 
 public class PlayerUI {
 
@@ -24,7 +26,7 @@ public class PlayerUI {
     private PlayerHUD player;
     private CardSlotUI cardSlot;
     private Group smallCard, smallCard2;
-    private Table powerdown;
+    private Table powerdown, damagetoken, lifetoken;
 
     public PlayerUI (SpriteBatch spriteBatch) {
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT);
@@ -34,13 +36,17 @@ public class PlayerUI {
         cardSlot = new CardSlotUI();
 
         powerdown = new PowerDown().init();
+        damagetoken = new DamageToken().init();
+        lifetoken = new LifeToken().init();
 
         stage.addActor(player.create());
-        //stage.addActor(powerdown);
+        stage.addActor(powerdown);
+        stage.addActor(damagetoken);
+        stage.addActor(lifetoken);
         stage.addActor(cardSlot.cardSlot);
         stage.addActor(cardUI.show());
 
-        Texture emptyCardTexture = new Texture("Images/MoveBackSmallCard.png");
+        Texture emptyCardTexture = new Texture("Cards/SMALL/MoveBackSmallCard.png");
         emptyCardTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         Image test = new Image(emptyCardTexture);
 

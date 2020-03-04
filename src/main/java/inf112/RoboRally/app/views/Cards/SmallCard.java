@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.views.cards;
+package inf112.RoboRally.app.views.Cards;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,7 +15,7 @@ public class SmallCard extends Group {
     final private Skin skin = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
 
     public Group init (int index, int priority) {
-        String texturePath = new String("Images/");
+        String texturePath = new String("Cards/SMALL/");
 
         if (index == 0){
             texturePath += "Move1SmallCard.png";

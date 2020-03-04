@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.views.cards;
+package inf112.RoboRally.app.views.Cards;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -15,17 +15,14 @@ public class CardSlotUI extends Table {
         cardSlot.setFillParent(true);
         cardSlot.bottom().padBottom(8);
 
-        Texture emptyCardTexture = new Texture("Images/emptySmallCard.png");
+        Texture emptyCardTexture = new Texture("Cards/SMALL/emptySmallCard.png");
         emptyCardTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        Texture CardTexture = new Texture("Images/MoveBackSmallCard.png");
-        CardTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-
         cardImage = new Image(emptyCardTexture);
-        cardImage2 = new Image(CardTexture);
-        cardImage3 = new Image(CardTexture);
-        cardImage4 = new Image(CardTexture);
-        cardImage5 = new Image(CardTexture);
+        cardImage2 = new Image(emptyCardTexture);
+        cardImage3 = new Image(emptyCardTexture);
+        cardImage4 = new Image(emptyCardTexture);
+        cardImage5 = new Image(emptyCardTexture);
 
 
         cardSlot.add(cardImage).padRight(23);
