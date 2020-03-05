@@ -2,12 +2,11 @@ package inf112.RoboRally.app.views.Player;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.models.game.Player;
-import inf112.RoboRally.app.views.GameScreen;
+import inf112.RoboRally.app.views.Screens.GameScreen;
 import inf112.RoboRally.app.views.MapController;
 
 public class PlayerView {

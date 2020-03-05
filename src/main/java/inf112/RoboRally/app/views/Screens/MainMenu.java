@@ -7,27 +7,27 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
-import inf112.RoboRally.app.views.GameScreen;
 
 /*
 Class for the main menu. This is where the game starts when built.
  */
 public class MainMenu implements Screen {
 
-    private GameLauncher gameScreen;
+    private GameLauncher gameLauncher;
     private OrthographicCamera camera;
     private Viewport viewport;
     private Stage stage;
     private Table table;
 
     public MainMenu(GameLauncher game) {
-        this.gameScreen = game;
+        this.gameLauncher = game;
         camera = new OrthographicCamera();
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT, camera);
         stage = new Stage(viewport);
@@ -56,8 +56,12 @@ public class MainMenu implements Screen {
         play.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gameScreen.setScreen(new GameScreen(gameScreen));
-                super.clicked(event, x, y);
+                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.8f), Actions.run(new Runnable() {
+                    @Override
+                    public void run() {
+                        gameLauncher.setScreen(new PlayScreen(gameLauncher));
+                    }
+                })));
             }
         });
 
@@ -72,8 +76,12 @@ public class MainMenu implements Screen {
         quit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.exit();
-                super.clicked(event, x, y);
+                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(new Runnable() {
+                    @Override
+                    public void run() {
+                        Gdx.app.exit();
+                    }
+                })));
             }
         });
 
@@ -84,11 +92,11 @@ public class MainMenu implements Screen {
     public void render(float v) {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        gameScreen.batch.begin();
-        gameScreen.batch.setProjectionMatrix(camera.combined);
+        gameLauncher.batch.begin();
+        gameLauncher.batch.setProjectionMatrix(camera.combined);
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1));
         stage.draw();
-        gameScreen.batch.end();
+        gameLauncher.batch.end();
     }
 
     @Override
