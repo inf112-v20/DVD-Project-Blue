@@ -14,6 +14,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
+import inf112.RoboRally.app.views.ClassicBoard;
+
+import java.util.ArrayList;
+import java.util.ListIterator;
 
 public class PlayScreen implements Screen {
 
@@ -23,6 +27,9 @@ public class PlayScreen implements Screen {
     private Stage stage;
     private Table table;
     private int playerCount = 2;
+
+    //maps
+    private ClassicBoard classicBoard;
 
     final private Skin skin = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
 
