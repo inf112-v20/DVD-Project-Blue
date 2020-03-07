@@ -5,6 +5,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import inf112.RoboRally.app.models.board.Direction;
 import inf112.RoboRally.app.models.board.Position;
+import inf112.RoboRally.app.views.Boards.Checkmate;
+import inf112.RoboRally.app.views.Boards.VaultAssault;
 
 public class MapController {
 
@@ -13,12 +15,12 @@ public class MapController {
     private TiledMapTileLayer wallLayer;
 
     //Maps
-    public ClassicBoard classicBoard = new ClassicBoard();
-    private CheckmateBoard checkmateBoard = new CheckmateBoard();
+    public VaultAssault classicBoard = new VaultAssault();
+    private Checkmate checkmateBoard = new Checkmate();
 
-    public MapController() {
+    public MapController(String mapPath) {
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load(classicBoard.getFileName());
+        map = mapLoader.load(mapPath);
     }
 
     public TiledMap getMap () {

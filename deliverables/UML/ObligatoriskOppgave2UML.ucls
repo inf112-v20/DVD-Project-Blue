@@ -11,7 +11,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="inf112.RoboRally.app.views.ClassicBoard" project="INF112"
+  <class id="2" language="java" name="inf112.RoboRally.app.views.Boards.VaultAssault" project="INF112"
     file="/INF112/src/main/java/inf112/RoboRally/app/views/classicBoard.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="363" y="487"/>    
     <display autosize="true" stereotype="true" package="false" initial-value="false" signature="true" 

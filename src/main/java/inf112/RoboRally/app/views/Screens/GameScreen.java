@@ -3,7 +3,6 @@ package inf112.RoboRally.app.views.Screens;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -37,7 +36,7 @@ public class GameScreen extends InputAdapter implements Screen {
         stage = new Stage(viewport);
         playerUI = new PlayerUI(gameScreen.batch);
 
-        map = new MapController();
+        map = new MapController(gameScreen.currMapPath);
 
         playerView = new PlayerView();
         mapRenderer = new OrthogonalTiledMapRenderer(map.getMap(), 1/256f);

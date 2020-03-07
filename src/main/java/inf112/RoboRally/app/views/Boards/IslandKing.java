@@ -1,21 +1,24 @@
-package inf112.RoboRally.app.views;
+package inf112.RoboRally.app.views.Boards;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import inf112.RoboRally.app.models.board.Direction;
 import inf112.RoboRally.app.models.board.Position;
 
 /*
 Passes on information about the board to showBard. This structure will change soon.
  */
-public class CheckmateBoard {
+public class IslandKing {
 
-    private Position player1StartPosition = new Position(7, 8);
+    private Position player1StartPosition = new Position(6, 8);
     private Direction player1StartDirection = Direction.RIGHT;
 
-    private Position player2StartPosition = new Position(7, 7);
+    private Position player2StartPosition = new Position(6, 7);
     private Direction player2StartDirection = Direction.RIGHT;
 
-    private final String mapName = "Checkmate";
-    private final String fileName = "Boards/checkmate.tmx";
+    private final String mapName = "Island King";
+    private final String fileName = "Boards/IslandKing.tmx";
+    private final String mapImage = "Boards/IslandKing.png";
 
     public String getMapName() {
         return mapName;
@@ -23,6 +26,10 @@ public class CheckmateBoard {
 
     public String getFileName() {
         return fileName;
+    }
+
+    public String getMapImage() {
+        return mapImage;
     }
 
     public Position getPlayer1StartPosition() {
