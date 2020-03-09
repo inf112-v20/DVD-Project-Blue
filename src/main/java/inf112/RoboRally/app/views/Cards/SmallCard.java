@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import static com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
 
 public class SmallCard extends Group {
 
@@ -34,7 +35,7 @@ public class SmallCard extends Group {
         }
 
         Texture cardTexture = new Texture(texturePath);
-        cardTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        cardTexture.setFilter(Linear, Linear);
         Image card = new Image(cardTexture);
 
         Label priorityNumber = new Label(String.format("%04d", priority), skin);

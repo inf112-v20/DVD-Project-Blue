@@ -5,20 +5,15 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
-import inf112.RoboRally.app.views.Boards.VaultAssault;
-import inf112.RoboRally.app.views.MapList;
 import static com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
 
 public class PlayScreen implements Screen {
@@ -31,9 +26,6 @@ public class PlayScreen implements Screen {
     private int playerCount = 2;
     private Texture mapTexture;
     private Image mapImg;
-    private String currMapName;
-    private String currMapPath;
-    private String currMapImg;
 
     final private Skin skin = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
 
@@ -49,23 +41,24 @@ public class PlayScreen implements Screen {
     public void show() {
         table = new Table();
         table.setFillParent(true);
-        table.center().padTop(100);
+        table.center().padTop(150);
 
         Texture background = new Texture("Images/Background2.png");
         background.setFilter(Linear, Linear);
         table.setBackground(new TextureRegionDrawable(background));
 
-        mapTexture = new Texture(gameLauncher.currMapImg);
+        mapTexture = new Texture(gameLauncher.currentMapImg);
         mapTexture.setFilter(Linear, Linear);
         mapImg = new Image(mapTexture);
 
         Label mapNameLabel = new Label("Choose map: ", skin);
-        TextButton mapButton = new Button().createTextButton(gameLauncher.currMapName);
+        TextButton mapButton = new Button().createTextButton(gameLauncher.currentMapName);
 
         Label playerCountLabel = new Label("Player count: ", skin);
         TextButton playersButton = new Button().createTextButton(String.format("%01d", playerCount));
 
         TextButton start = new Button().createTextButton("START");
+        TextButton goBack = new Button().createTextButton("GO BACK");
 
         table.add(mapNameLabel);
         table.add(mapButton).width(750f);
@@ -76,15 +69,17 @@ public class PlayScreen implements Screen {
         table.add(playersButton).width(200f);
         table.row().padTop(25);
         table.add(start).colspan(2).center();
+        table.row().padTop(25);
+        table.add(goBack).colspan(2).center();
 
         mapButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gameLauncher.currMapName = gameLauncher.mapList.getCurrentMapName();
-                gameLauncher.currMapPath = gameLauncher.mapList.getCurrentMapPath();
-                gameLauncher.currMapImg = gameLauncher.mapList.getCurrentMapImage();
-                mapButton.getLabel().setText(gameLauncher.currMapName);
-                mapImg.setDrawable(new TextureRegionDrawable(new Texture(gameLauncher.currMapImg)));
+                gameLauncher.currentMapName = gameLauncher.mapList.getCurrentMapName();
+                gameLauncher.currentMapPath = gameLauncher.mapList.getCurrentMapPath();
+                gameLauncher.currentMapImg = gameLauncher.mapList.getCurrentMapImage();
+                mapButton.getLabel().setText(gameLauncher.currentMapName);
+                mapImg.setDrawable(new TextureRegionDrawable(new Texture(gameLauncher.currentMapImg)));
             }
         });
 
@@ -108,6 +103,18 @@ public class PlayScreen implements Screen {
                     @Override
                     public void run() {
                         gameLauncher.setScreen(new GameScreen(gameLauncher));
+                    }
+                })));
+            }
+        });
+
+        goBack.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.8f), Actions.run(new Runnable() {
+                    @Override
+                    public void run() {
+                        gameLauncher.setScreen(new MainMenu(gameLauncher));
                     }
                 })));
             }
@@ -147,18 +154,6 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
-        //stage.dispose();
-    }
-
-    public String getCurrMapName() {
-        return currMapName;
-    }
-
-    public String getCurrMapPath() {
-        return currMapPath;
-    }
-
-    public String getCurrMapImg() {
-        return currMapImg;
+        stage.dispose();
     }
 }

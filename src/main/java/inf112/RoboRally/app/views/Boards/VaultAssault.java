@@ -9,10 +9,10 @@ Passes on information about the board to showBard. This structure will change so
  */
 public class VaultAssault {
 
-    private Position player1StartPosition = new Position(6, 8);
+    private Position player1StartPosition = new Position(5, 10);
     private Direction player1StartDirection = Direction.RIGHT;
 
-    private Position player2StartPosition = new Position(6, 7);
+    private Position player2StartPosition = new Position(5, 8);
     private Direction player2StartDirection = Direction.RIGHT;
 
     private final String mapName = "Vault Assault";
@@ -46,4 +46,5 @@ public class VaultAssault {
     public Direction getPlayer2StartDirection() {
         return player2StartDirection;
     }
+
 }

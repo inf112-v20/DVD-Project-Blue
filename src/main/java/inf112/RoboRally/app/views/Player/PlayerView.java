@@ -7,7 +7,7 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.views.Screens.GameScreen;
-import inf112.RoboRally.app.views.MapController;
+import inf112.RoboRally.app.views.MapSystem.MapController;
 
 public class PlayerView {
 

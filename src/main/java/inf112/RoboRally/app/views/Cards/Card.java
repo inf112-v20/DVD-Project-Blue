@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import static com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
 
 public class Card {
 
@@ -39,7 +40,7 @@ public class Card {
         }
 
         Texture cardTexture = new Texture(texturePath);
-        cardTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        cardTexture.setFilter(Linear, Linear);
         card = new Image(cardTexture);
         card.setOrigin(cardTexture.getWidth()/2,cardTexture.getHeight()/2);
 
