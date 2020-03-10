@@ -15,7 +15,7 @@ public class CardUI {
 
     public Table show () {
         cards = new Table();
-        cards.center().padRight(190);
+        cards.right().padRight(230).padTop(240);
         cards.setFillParent(true);
 
         random = new Random();
@@ -30,14 +30,18 @@ public class CardUI {
         card8 = new Card();
         card9 = new Card();
 
-        cards.add(card.init(random.nextInt(6), random.nextInt(1999)));
+        cards.add(card.init(random.nextInt(6), random.nextInt(1999))).padLeft(205);
         cards.add(card2.init(random.nextInt(6), random.nextInt(1999))).padLeft(205);
+        cards.row().padTop(270);
         cards.add(card3.init(random.nextInt(6), random.nextInt(1999))).padLeft(205);
         cards.add(card4.init(random.nextInt(6), random.nextInt(1999))).padLeft(205);
+        cards.row().padTop(270);
         cards.add(card5.init(random.nextInt(6), random.nextInt(1999))).padLeft(205);
         cards.add(card6.init(random.nextInt(6), random.nextInt(1999))).padLeft(205);
+        cards.row().padTop(270);
         cards.add(card7.init(random.nextInt(6), random.nextInt(1999))).padLeft(205);
         cards.add(card8.init(random.nextInt(6), random.nextInt(1999))).padLeft(205);
+        cards.row().padTop(270);
         cards.add(card9.init(random.nextInt(6), random.nextInt(1999))).padLeft(205);
 
         return cards;
