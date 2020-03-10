@@ -107,7 +107,7 @@ public class GameScreen extends InputAdapter implements Screen {
     @Override
     public boolean keyUp(int keycode) {
         if (map.isCellBlocked(playerView.playerVector.x, playerView.playerVector.y)==true) {
-            playerView.playerLayer.setCell((int)playerView.playerVector.x, (int)playerView.playerVector.y-1, playerView.playerCell);
+            System.out.println("CONTANCT");
         } else {
 
             if (keycode == Input.Keys.UP) {

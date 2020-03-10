@@ -49,12 +49,14 @@ public class PlayerUI extends InputAdapter {
         damagetoken = new DamageToken().init();
         lifetoken = new LifeToken().init();
 
+        //maybe
         Table table = new Table();
         table.center();
         Label robotName = new Label("ANGRY\nBOT", skin);
         robotName.setAlignment(Align.center);
         robotName.setFontScale(1/2f);
         table.add(robotName).pad(0, 1850, 380 ,0);
+        //maybe
 
         stage.addActor(player.create());
         stage.addActor(table);

@@ -1,5 +1,7 @@
 package inf112.RoboRally.app.models.board;
 
+import com.badlogic.gdx.Gdx;
+
 public class Position {
     private int x;
     private int y;

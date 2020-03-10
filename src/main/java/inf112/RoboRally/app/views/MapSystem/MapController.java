@@ -13,7 +13,7 @@ public class MapController {
     private TiledMap map;
     private TiledMapTileLayer wallLayer;
     private TiledMapTileLayer.Cell wallCell;
-    public boolean validmove = false;
+    public boolean blocked = false;
 
     //Maps
     public VaultAssault classicBoard = new VaultAssault();
@@ -26,13 +26,10 @@ public class MapController {
     }
 
     public boolean isCellBlocked(float x, float y) {
-        TiledMapTileLayer.Cell cell = null;
-
         if (wallLayer.getCell((int)x, (int)y) != null) {
-            validmove = true;
+            blocked = true;
         }
-
-        return validmove;
+        return blocked;
     }
 
     public TiledMap getMap () {
