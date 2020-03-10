@@ -2,8 +2,14 @@ package inf112.RoboRally.app.views;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import inf112.RoboRally.app.models.cards.ForwardCard;
+import org.lwjgl.Sys;
+
 /*
 Card buttons made for manual testing of connection between view and model in showBoard
  */
@@ -12,7 +18,7 @@ public class CardButtonsForMovementDemo {
     public Texture moveButton, moveButton2, moveButton3, moveBackButton, rotateLeftButton, rotateRightButton, uTurnButton;
     public ImageButton move1, move2, move3, moveBack, rotateLeft, rotateRight, uTurn;
 
-    public Table create () {
+    public Table create (Stage stage) {
         Table cardTable = new Table();
         cardTable.left();
         cardTable.setFillParent(true);
@@ -55,6 +61,15 @@ public class CardButtonsForMovementDemo {
         cardTable.add(rotateLeft);
         cardTable.row();
         cardTable.add(uTurn);
+
+        move1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                // removing the layer at the location the robot is moving from
+                System.out.println("meh");
+                super.clicked(event, x, y);
+            }
+        });
 
         return cardTable;
 
