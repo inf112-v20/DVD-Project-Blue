@@ -1,9 +1,8 @@
-package inf112.RoboRally.app;
+package inf112.RoboRally.app.controllers;
 
 import inf112.RoboRally.app.views.Boards.IBoard;
-import inf112.RoboRally.app.views.MapSystem.MapList;
 
-public class SinglePlayerSettings {
+public class SinglePlayerSettingsController {
 
     private int playerCount = 2;
     private int mapChoice = 0;

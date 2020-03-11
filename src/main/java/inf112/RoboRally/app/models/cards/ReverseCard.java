@@ -1,6 +1,6 @@
 package inf112.RoboRally.app.models.cards;
 
-import inf112.RoboRally.app.models.board.Robot;
+import inf112.RoboRally.app.models.Robot.Robot;
 /*
 Card to move reverse robot.
  */

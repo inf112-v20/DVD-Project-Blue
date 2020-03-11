@@ -18,13 +18,12 @@ import static com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
 
 public class SinglePlayerSettingsScreen implements Screen {
 
+
     private GameLauncher gameLauncher;
     private Viewport viewport;
     private Stage stage;
 
 
-    // skin for buttons
-    final private Skin SKIN = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
 
     // table for buttons
     private Table table = new Table();
@@ -34,12 +33,12 @@ public class SinglePlayerSettingsScreen implements Screen {
     private final TextButton BACK = new Button().createTextButton("GO BACK");
 
     // button for choosing map
-    private final Label MAP_NAME_LABEL = new Label("Choose map: ", SKIN);
+    private final Label MAP_NAME_LABEL = new Label("Choose map: ", START.getSkin());
     private TextButton mapButton;        // will change according to user input
     private Image mapImg;                // will change according to user input
 
     // button for choosing amount of players
-    private final Label PLAYER_COUNT_LABEL = new Label("Player count: ", SKIN);
+    private final Label PLAYER_COUNT_LABEL = new Label("Player count: ", START.getSkin());
     TextButton playersButton;           // will change according to user input
 
 

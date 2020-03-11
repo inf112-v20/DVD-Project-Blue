@@ -2,6 +2,7 @@ package inf112.RoboRally.app;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import inf112.RoboRally.app.controllers.SinglePlayerSettingsController;
 import inf112.RoboRally.app.views.Screens.MainMenu;
 
 public class GameLauncher extends Game {
@@ -10,13 +11,13 @@ public class GameLauncher extends Game {
     public static final int GAME_HEIGHT = 1440;
     public String currentMapName;
     public String currentMapImg;
-    private SinglePlayerSettings settings;
+    private SinglePlayerSettingsController settings;
     public SpriteBatch batch;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
-        settings = new SinglePlayerSettings();
+        settings = new SinglePlayerSettingsController();
         currentMapName = settings.getMap().getMapName();
         currentMapImg = settings.getMap().getMapImg();
         setScreen(new MainMenu(this));
@@ -27,7 +28,7 @@ public class GameLauncher extends Game {
         super.render();
     }
 
-    public SinglePlayerSettings settings() {
+    public SinglePlayerSettingsController settings() {
         return settings;
     }
 }

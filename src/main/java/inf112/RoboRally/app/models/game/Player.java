@@ -1,10 +1,7 @@
 package inf112.RoboRally.app.models.game;
 
-import inf112.RoboRally.app.models.board.Direction;
-import inf112.RoboRally.app.models.board.Position;
-import inf112.RoboRally.app.models.board.Robot;
+import inf112.RoboRally.app.models.Robot.Robot;
 import inf112.RoboRally.app.models.cards.ICard;
-import inf112.RoboRally.app.views.PlayerHUD;
 
 /*
 Class that holds information about each player. Initialized with
@@ -14,22 +11,45 @@ played on.
 public class Player {
 
     private String name;
-    private Robot robot;
-    private PlayerHUD hud;
     private int playerNumber;
-    private ICard[] cardsToChose;
-    private ICard[] cardsChosen;
+    private Robot robot;
+    private ICard[] cardsToChoose = new ICard[9];
+    private ICard[] cardsChosen = new ICard[5];
+    private int flagsCollected = 0;
 
-    public Player(Position pos, Direction direction, int playerNumber) {
-//        robot = new Robot(pos, direction);
-//        this.playerNumber = playerNumber;
+    public Player(Game game, int playerNumber) {
+        this.playerNumber = playerNumber;
+        robot = new Robot(game, playerNumber);
     }
 
-    public Robot getRobot() {
+    public Robot robot() {
         return robot;
     }
 
-    public int getPlayerNumber() {
+    public int playerNumber() {
         return playerNumber;
+    }
+
+    public void getCardToChoose(int i, ICard card) {
+        cardsToChoose[i] = card;
+    }
+
+    public ICard getNextChosenCard() {
+        for (int i = 0; i < cardsChosen.length; i++) {
+            ICard card = cardsChosen[i];
+            if (cardsChosen[i] != null) {
+                cardsChosen[i] = null;
+                return card;
+            }
+        }
+        return null;
+    }
+
+    public ICard[] getCardsToChoose() {
+        return cardsToChoose;
+    }
+
+    public ICard[] getCardsChosen() {
+        return cardsChosen;
     }
 }

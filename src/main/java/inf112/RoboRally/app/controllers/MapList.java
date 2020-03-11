@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.views.MapSystem;
+package inf112.RoboRally.app.controllers;
 
 import inf112.RoboRally.app.views.Boards.Checkmate;
 import inf112.RoboRally.app.views.Boards.ChopShopChallenge;

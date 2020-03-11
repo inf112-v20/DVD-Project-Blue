@@ -1,7 +1,7 @@
 package inf112.RoboRally.app.views.Boards;
 
 import com.badlogic.gdx.math.Vector2;
-import inf112.RoboRally.app.models.board.Direction;
+import inf112.RoboRally.app.models.Robot.Direction;
 
 /*
 Passes on information about the board to showBard. This structure will change soon.

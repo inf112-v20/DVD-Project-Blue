@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.models.board;
+package inf112.RoboRally.app.models.Robot;
 
 import inf112.RoboRally.app.models.cards.Rotation;
 
@@ -11,7 +11,5 @@ public interface IRobot {
     void looseHP();
 
     void getHP();
-
-    int getPlayerNumber();
 
 }
