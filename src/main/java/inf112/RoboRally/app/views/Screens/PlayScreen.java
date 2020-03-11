@@ -75,8 +75,8 @@ public class PlayScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 gameLauncher.settings().chooseMap();
-                gameLauncher.currentMapName = gameLauncher.mapList.getCurrentMapName();
-                gameLauncher.currentMapImg = gameLauncher.mapList.getCurrentMapImage();
+                gameLauncher.currentMapName = gameLauncher.settings().getMap().getMapName();
+                gameLauncher.currentMapImg = gameLauncher.settings().getMap().getMapImg();
                 mapButton.getLabel().setText(gameLauncher.currentMapName);
                 mapImg.setDrawable(new TextureRegionDrawable(new Texture(gameLauncher.currentMapImg)));
             }

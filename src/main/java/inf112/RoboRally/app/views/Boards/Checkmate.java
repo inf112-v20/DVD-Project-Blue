@@ -2,22 +2,17 @@ package inf112.RoboRally.app.views.Boards;
 
 import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.models.board.Direction;
-import inf112.RoboRally.app.models.board.Position;
 
 /*
 Passes on information about the board to showBard. This structure will change soon.
  */
 public class Checkmate implements IBoard {
 
-    private Position player1StartPosition = new Position(7, 8);
-    private Direction player1StartDirection = Direction.RIGHT;
-
-    private Position player2StartPosition = new Position(7, 7);
-    private Direction player2StartDirection = Direction.RIGHT;
-
     private final String mapName = "Checkmate";
     private final String filePath = "Boards/Checkmate.tmx";
     private final String mapImage = "Boards/Checkmate.png";
+
+
 
     public String getMapName() {
         return mapName;
@@ -28,9 +23,11 @@ public class Checkmate implements IBoard {
         return filePath;
     }
 
-    public String getMapImage() {
+    @Override
+    public String getMapImg() {
         return mapImage;
     }
+
 
     @Override
     public Vector2 getRobotStartingVector(int playerNumber) {

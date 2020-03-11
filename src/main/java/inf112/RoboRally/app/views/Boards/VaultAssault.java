@@ -12,8 +12,14 @@ public class VaultAssault implements IBoard {
     private final String filePath = "Boards/VaultAssault.tmx";
     private final String mapImage = "Boards/VaultAssault.png";
 
+    @Override
     public String getMapName() {
         return mapName;
+    }
+
+    @Override
+    public String getMapImg() {
+        return mapImage;
     }
 
     @Override

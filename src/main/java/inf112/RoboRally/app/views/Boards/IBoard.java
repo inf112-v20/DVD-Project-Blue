@@ -5,6 +5,10 @@ import inf112.RoboRally.app.models.board.Direction;
 
 public interface IBoard {
 
+    String getMapName();
+
+    String getMapImg();
+
     Vector2 getRobotStartingVector(int playerNumber);
 
     Direction getRobotStartingDirection(int playerNumber);

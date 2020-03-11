@@ -1,7 +1,7 @@
 package inf112.RoboRally.app;
 
 import inf112.RoboRally.app.views.Boards.IBoard;
-import inf112.RoboRally.app.views.MapList;
+import inf112.RoboRally.app.views.MapSystem.MapList;
 
 public class SinglePlayerSettings {
 

@@ -93,42 +93,4 @@ public class GameScreen extends InputAdapter implements Screen {
         playerUI.dispose();
         mapRenderer.dispose();
     }
-
-//    //JUST FOR TESTING AT THE MOMENT
-//    @Override
-//    public boolean keyUp(int keycode) {
-//        if (map.isCellBlocked(playerView.playerVector.x, playerView.playerVector.y)==true) {
-//            System.out.println("CONTANCT");
-//        } else {
-//
-//            if (keycode == Input.Keys.UP) {
-//                playerView.playerLayer.setCell((int) playerView.playerVector.x, (int) playerView.playerVector.y, null);
-//                ForwardCard move1Forward = new ForwardCard(1000, 1);
-//                move1Forward.moveRobot(playerView.player.getRobot());
-//                playerView.playerVector.set(playerView.player.getRobot().getX(), playerView.player.getRobot().getY());
-//            }
-//
-//            if (keycode == Input.Keys.DOWN) {
-//                playerView.playerLayer.setCell((int) playerView.playerVector.x, (int) playerView.playerVector.y, null);
-//                playerView.playerLayer.setCell((int) playerView.playerVector.x, (int) playerView.playerVector.y, null);
-//                ReverseCard moveBack = new ReverseCard(550);
-//                moveBack.moveRobot(playerView.player.getRobot());
-//                playerView.playerVector.set(playerView.player.getRobot().getX(), playerView.player.getRobot().getY());
-//            }
-//
-//            if (keycode == Input.Keys.LEFT) {
-//                playerView.playerLayer.setCell((int) playerView.playerVector.x, (int) playerView.playerVector.y, null);
-//                RotateCard rotateLeft = new RotateCard(1300, Rotation.LEFT);
-//                rotateLeft.moveRobot(playerView.player.getRobot());
-//                playerView.playerCell.setRotation(playerView.player.getRobot().getDirection().CellDirectionNumber());
-//            }
-//            if (keycode == Input.Keys.RIGHT) {
-//                playerView.playerLayer.setCell((int) playerView.playerVector.x, (int) playerView.playerVector.y, null);
-//                RotateCard rotateRight = new RotateCard(900, Rotation.RIGHT);
-//                rotateRight.moveRobot(playerView.player.getRobot());
-//                playerView.playerCell.setRotation(playerView.player.getRobot().getDirection().CellDirectionNumber());
-//            }
-//        }
-//        return super.keyUp(keycode);
-//    }
 }
