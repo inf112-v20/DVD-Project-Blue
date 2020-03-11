@@ -23,7 +23,6 @@ public class PlayScreen implements Screen {
     private Viewport viewport;
     private Stage stage;
     private Table table;
-    private int playerCount = 2;
     private Texture mapTexture;
     private Image mapImg;
 
@@ -55,7 +54,7 @@ public class PlayScreen implements Screen {
         TextButton mapButton = new Button().createTextButton(gameLauncher.currentMapName);
 
         Label playerCountLabel = new Label("Player count: ", skin);
-        TextButton playersButton = new Button().createTextButton(String.format("%01d", playerCount));
+        TextButton playersButton = new Button().createTextButton(String.format("%01d", gameLauncher.settings().getPlayerCount()));
 
         TextButton start = new Button().createTextButton("START");
         TextButton goBack = new Button().createTextButton("GO BACK");
@@ -75,8 +74,8 @@ public class PlayScreen implements Screen {
         mapButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                gameLauncher.settings().chooseMap();
                 gameLauncher.currentMapName = gameLauncher.mapList.getCurrentMapName();
-                gameLauncher.currentMapPath = gameLauncher.mapList.getCurrentMapPath();
                 gameLauncher.currentMapImg = gameLauncher.mapList.getCurrentMapImage();
                 mapButton.getLabel().setText(gameLauncher.currentMapName);
                 mapImg.setDrawable(new TextureRegionDrawable(new Texture(gameLauncher.currentMapImg)));
@@ -86,13 +85,7 @@ public class PlayScreen implements Screen {
         playersButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (playerCount < 8) {
-                    playerCount++;
-                    playersButton.getLabel().setText(playerCount);
-                } else {
-                    playerCount = 2;
-                    playersButton.getLabel().setText(playerCount);
-                }
+                gameLauncher.settings().choosePlayerCount();
             }
         });
 

@@ -1,13 +1,14 @@
 package inf112.RoboRally.app.views.Boards;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.models.board.Direction;
 import inf112.RoboRally.app.models.board.Position;
+
 /*
 Passes on information about the board to showBard. This structure will change soon.
  */
-public class VaultAssault {
+public class VaultAssault implements IBoard {
 
     private Position player1StartPosition = new Position(5, 10);
     private Direction player1StartDirection = Direction.RIGHT;
@@ -16,15 +17,16 @@ public class VaultAssault {
     private Direction player2StartDirection = Direction.RIGHT;
 
     private final String mapName = "Vault Assault";
-    private final String fileName = "Boards/VaultAssault.tmx";
+    private final String filePath = "Boards/VaultAssault.tmx";
     private final String mapImage = "Boards/VaultAssault.png";
 
     public String getMapName() {
         return mapName;
     }
 
-    public String getFileName() {
-        return fileName;
+    @Override
+    public String getFilePath() {
+        return filePath;
     }
 
     public String getMapImage() {
@@ -46,5 +48,31 @@ public class VaultAssault {
     public Direction getPlayer2StartDirection() {
         return player2StartDirection;
     }
+
+    @Override
+    public Vector2 getRobotStartingVector(int playerNumber) {
+        return startRobotVectors[playerNumber-1];
+    }
+
+    @Override
+    public Direction getRobotStartingDirection(int playerNumber) {
+        return startRobotDirections[playerNumber-1];
+    }
+
+    @Override
+    public TiledMapTileLayer playerLayer(int playerNumber) {
+        return null;
+    }
+
+
+    private Vector2[] startRobotVectors = {
+            new Vector2(5, 9),
+            new Vector2(5, 8)
+    };
+
+    private Direction[] startRobotDirections = {
+            Direction.RIGHT,
+            Direction.RIGHT
+    };
 
 }

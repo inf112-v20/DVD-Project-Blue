@@ -14,13 +14,13 @@ public class RotateCard extends Card {
     }
 
     public void moveRobot(Robot robot) {
-        if (rotation == Rotation.LEFT) {
-            robot.rotateDirectionLeft();
-        } else if (rotation == Rotation.RIGHT) {
-            robot.rotateDirectionRight();
-        } else if (rotation == Rotation.UTURN) {
-            robot.uTurn();
-        }
+//        if (rotation == Rotation.LEFT) {
+//            robot.rotateDirectionLeft();
+//        } else if (rotation == Rotation.RIGHT) {
+//            robot.rotateDirectionRight();
+//        } else if (rotation == Rotation.UTURN) {
+//            robot.uTurn();
+//        }
     }
 
 }

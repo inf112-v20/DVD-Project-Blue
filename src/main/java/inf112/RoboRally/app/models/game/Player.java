@@ -21,8 +21,8 @@ public class Player {
     private Card[] cardsChosen;
 
     public Player(Position pos, Direction direction, int playerNumber) {
-        robot = new Robot(pos, direction);
-        this.playerNumber = playerNumber;
+//        robot = new Robot(pos, direction);
+//        this.playerNumber = playerNumber;
     }
 
     public Robot getRobot() {

@@ -13,14 +13,16 @@ public class GameLauncher extends Game {
     public String currentMapName;
     public String currentMapPath;
     public String currentMapImg;
+    private SinglePlayerSettings settings;
     public SpriteBatch batch;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         mapList = new MapList();
+        settings = new SinglePlayerSettings();
         currentMapName = mapList.getCurrentMapName();
-        currentMapPath = mapList.getCurrentMapPath();
+//        currentMapPath = mapList.getCurrentMapPath();
         currentMapImg = mapList.getCurrentMapImage();
         setScreen(new MainMenu(this));
     }
@@ -28,5 +30,9 @@ public class GameLauncher extends Game {
     @Override
     public void render() {
         super.render();
+    }
+
+    public SinglePlayerSettings settings() {
+        return settings;
     }
 }

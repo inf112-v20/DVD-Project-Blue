@@ -1,22 +1,17 @@
 package inf112.RoboRally.app.views.Screens;
 
-import com.badlogic.gdx.*;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
-import inf112.RoboRally.app.models.cards.ForwardCard;
-import inf112.RoboRally.app.models.cards.ReverseCard;
-import inf112.RoboRally.app.models.cards.RotateCard;
-import inf112.RoboRally.app.models.cards.Rotation;
 import inf112.RoboRally.app.views.MapSystem.MapController;
-import inf112.RoboRally.app.views.Player.PlayerView;
 import inf112.RoboRally.app.views.PlayerUI;
 
 public class GameScreen extends InputAdapter implements Screen {
@@ -28,7 +23,6 @@ public class GameScreen extends InputAdapter implements Screen {
     private OrthogonalTiledMapRenderer mapRenderer;
     public static MapController map;
     private PlayerUI playerUI;
-    private PlayerView playerView;
 
     private InputMultiplexer multiplexer;
 
@@ -39,9 +33,7 @@ public class GameScreen extends InputAdapter implements Screen {
         stage = new Stage(viewport);
         playerUI = new PlayerUI(gameLauncher.batch);
 
-        map = new MapController(gameLauncher.currentMapPath);
-
-        playerView = new PlayerView();
+        map = new MapController(gameLauncher.settings());
         mapRenderer = new OrthogonalTiledMapRenderer(map.getMap(), 1/256f);
         camera.setToOrtho(false, 26, 15);
         mapRenderer.setView(camera);
@@ -74,7 +66,6 @@ public class GameScreen extends InputAdapter implements Screen {
         playerUI.getStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1));
         playerUI.getStage().draw();
 
-        playerView.playerLayer.setCell((int)playerView.playerVector.x, (int)playerView.playerVector.y, playerView.playerCell);
         gameLauncher.batch.end();
     }
 
@@ -103,41 +94,41 @@ public class GameScreen extends InputAdapter implements Screen {
         mapRenderer.dispose();
     }
 
-    //JUST FOR TESTING AT THE MOMENT
-    @Override
-    public boolean keyUp(int keycode) {
-        if (map.isCellBlocked(playerView.playerVector.x, playerView.playerVector.y)==true) {
-            System.out.println("CONTANCT");
-        } else {
-
-            if (keycode == Input.Keys.UP) {
-                playerView.playerLayer.setCell((int) playerView.playerVector.x, (int) playerView.playerVector.y, null);
-                ForwardCard move1Forward = new ForwardCard(1000, 1);
-                move1Forward.moveRobot(playerView.player.getRobot());
-                playerView.playerVector.set(playerView.player.getRobot().getX(), playerView.player.getRobot().getY());
-            }
-
-            if (keycode == Input.Keys.DOWN) {
-                playerView.playerLayer.setCell((int) playerView.playerVector.x, (int) playerView.playerVector.y, null);
-                playerView.playerLayer.setCell((int) playerView.playerVector.x, (int) playerView.playerVector.y, null);
-                ReverseCard moveBack = new ReverseCard(550);
-                moveBack.moveRobot(playerView.player.getRobot());
-                playerView.playerVector.set(playerView.player.getRobot().getX(), playerView.player.getRobot().getY());
-            }
-
-            if (keycode == Input.Keys.LEFT) {
-                playerView.playerLayer.setCell((int) playerView.playerVector.x, (int) playerView.playerVector.y, null);
-                RotateCard rotateLeft = new RotateCard(1300, Rotation.LEFT);
-                rotateLeft.moveRobot(playerView.player.getRobot());
-                playerView.playerCell.setRotation(playerView.player.getRobot().getDirection().CellDirectionNumber());
-            }
-            if (keycode == Input.Keys.RIGHT) {
-                playerView.playerLayer.setCell((int) playerView.playerVector.x, (int) playerView.playerVector.y, null);
-                RotateCard rotateRight = new RotateCard(900, Rotation.RIGHT);
-                rotateRight.moveRobot(playerView.player.getRobot());
-                playerView.playerCell.setRotation(playerView.player.getRobot().getDirection().CellDirectionNumber());
-            }
-        }
-        return super.keyUp(keycode);
-    }
+//    //JUST FOR TESTING AT THE MOMENT
+//    @Override
+//    public boolean keyUp(int keycode) {
+//        if (map.isCellBlocked(playerView.playerVector.x, playerView.playerVector.y)==true) {
+//            System.out.println("CONTANCT");
+//        } else {
+//
+//            if (keycode == Input.Keys.UP) {
+//                playerView.playerLayer.setCell((int) playerView.playerVector.x, (int) playerView.playerVector.y, null);
+//                ForwardCard move1Forward = new ForwardCard(1000, 1);
+//                move1Forward.moveRobot(playerView.player.getRobot());
+//                playerView.playerVector.set(playerView.player.getRobot().getX(), playerView.player.getRobot().getY());
+//            }
+//
+//            if (keycode == Input.Keys.DOWN) {
+//                playerView.playerLayer.setCell((int) playerView.playerVector.x, (int) playerView.playerVector.y, null);
+//                playerView.playerLayer.setCell((int) playerView.playerVector.x, (int) playerView.playerVector.y, null);
+//                ReverseCard moveBack = new ReverseCard(550);
+//                moveBack.moveRobot(playerView.player.getRobot());
+//                playerView.playerVector.set(playerView.player.getRobot().getX(), playerView.player.getRobot().getY());
+//            }
+//
+//            if (keycode == Input.Keys.LEFT) {
+//                playerView.playerLayer.setCell((int) playerView.playerVector.x, (int) playerView.playerVector.y, null);
+//                RotateCard rotateLeft = new RotateCard(1300, Rotation.LEFT);
+//                rotateLeft.moveRobot(playerView.player.getRobot());
+//                playerView.playerCell.setRotation(playerView.player.getRobot().getDirection().CellDirectionNumber());
+//            }
+//            if (keycode == Input.Keys.RIGHT) {
+//                playerView.playerLayer.setCell((int) playerView.playerVector.x, (int) playerView.playerVector.y, null);
+//                RotateCard rotateRight = new RotateCard(900, Rotation.RIGHT);
+//                rotateRight.moveRobot(playerView.player.getRobot());
+//                playerView.playerCell.setRotation(playerView.player.getRobot().getDirection().CellDirectionNumber());
+//            }
+//        }
+//        return super.keyUp(keycode);
+//    }
 }
