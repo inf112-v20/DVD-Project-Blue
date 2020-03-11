@@ -19,12 +19,12 @@ import static com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
 public class PlayScreen implements Screen {
 
     private GameLauncher gameLauncher;
+    private Viewport viewport;
+    private Stage stage;
+
 
     // skin for buttons
     final private Skin SKIN = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
-
-    private Viewport viewport;
-    private Stage stage;
 
     // table for buttons
     private Table table = new Table();
@@ -42,11 +42,11 @@ public class PlayScreen implements Screen {
     private final Label PLAYER_COUNT_LABEL = new Label("Player count: ", SKIN);
     TextButton playersButton;           // will change according to user input
 
+
+
+
     public PlayScreen(GameLauncher gameLauncher) {
         this.gameLauncher = gameLauncher;
-        mapButton = new Button().createTextButton(this.gameLauncher.settings().getMap().getMapName());
-        playersButton = new Button().createTextButton(String.format("%01d", gameLauncher.settings().getPlayerCount()));
-        
         OrthographicCamera camera = new OrthographicCamera();
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT, camera);
         stage = new Stage(viewport);
@@ -55,28 +55,10 @@ public class PlayScreen implements Screen {
 
     @Override
     public void show() {
-        // set background
-        Texture background = new Texture("Images/Background2.png");
-        background.setFilter(Linear, Linear);
-
-        table.setFillParent(true);
-        table.center().padTop(150);
-        table.setBackground(new TextureRegionDrawable(background));
-
-        mapImg = new Image(new Texture(gameLauncher.settings().getMap().getMapImg()));
-
-        table.add(MAP_NAME_LABEL);
-        table.add(mapButton).width(750f);
-        table.row().padTop(25);
-        table.add(mapImg).colspan(2).center();
-        table.row().padTop(25);
-        table.add(PLAYER_COUNT_LABEL);
-        table.add(playersButton).width(200f);
-        table.row().padTop(25);
-        table.add(START).colspan(2).center();
-        table.row().padTop(25);
-        table.add(BACK).colspan(2).center();
-
+        setUpTable();
+        /*
+        Input listeners for the buttons
+         */
         // choosing the map
         mapButton.addListener(new ClickListener() {
             @Override
@@ -156,6 +138,32 @@ public class PlayScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+    }
+
+    private void setUpTable() {
+        // set background
+        Texture background = new Texture("Images/Background2.png");
+        background.setFilter(Linear, Linear);
+
+        table.setFillParent(true);
+        table.center().padTop(150);
+        table.setBackground(new TextureRegionDrawable(background));
+
+        mapButton = new Button().createTextButton(this.gameLauncher.settings().getMap().getMapName());
+        playersButton = new Button().createTextButton(String.format("%01d", gameLauncher.settings().getPlayerCount()));
+        mapImg = new Image(new Texture(gameLauncher.settings().getMap().getMapImg()));
+
+        table.add(MAP_NAME_LABEL);
+        table.add(mapButton).width(750f);
+        table.row().padTop(25);
+        table.add(mapImg).colspan(2).center();
+        table.row().padTop(25);
+        table.add(PLAYER_COUNT_LABEL);
+        table.add(playersButton).width(200f);
+        table.row().padTop(25);
+        table.add(START).colspan(2).center();
+        table.row().padTop(25);
+        table.add(BACK).colspan(2).center();
     }
 
 }
