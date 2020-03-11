@@ -1,6 +1,5 @@
 package inf112.RoboRally.app.views.Boards;
 
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.models.board.Direction;
 import inf112.RoboRally.app.models.board.Position;
@@ -33,22 +32,6 @@ public class Checkmate implements IBoard {
         return mapImage;
     }
 
-    public Position getPlayer1StartPosition() {
-        return player1StartPosition;
-    }
-
-    public Direction getPlayer1StartDirection() {
-        return player1StartDirection;
-    }
-
-    public Position getPlayer2StartPosition() {
-        return player2StartPosition;
-    }
-
-    public Direction getPlayer2StartDirection() {
-        return player2StartDirection;
-    }
-
     @Override
     public Vector2 getRobotStartingVector(int playerNumber) {
         return null;
@@ -59,8 +42,15 @@ public class Checkmate implements IBoard {
         return null;
     }
 
-    @Override
-    public TiledMapTileLayer playerLayer(int playerNumber) {
-        return null;
-    }
+    private Vector2[] startRobotVectors = {
+            new Vector2(7, 7),
+            new Vector2(7, 8),
+            new Vector2(7, 10)
+    };
+
+    private Direction[] startRobotDirections = {
+            Direction.RIGHT,
+            Direction.RIGHT,
+            Direction.RIGHT
+    };
 }

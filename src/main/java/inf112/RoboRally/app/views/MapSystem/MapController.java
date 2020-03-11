@@ -6,9 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import inf112.RoboRally.app.GameLauncher;
 import inf112.RoboRally.app.SinglePlayerSettings;
-import inf112.RoboRally.app.models.board.Direction;
 import inf112.RoboRally.app.models.board.IRobot;
-import inf112.RoboRally.app.models.board.Position;
 import inf112.RoboRally.app.models.board.Robot;
 import inf112.RoboRally.app.views.Boards.IBoard;
 import inf112.RoboRally.app.views.Boards.VaultAssault;
@@ -42,14 +40,6 @@ public class MapController {
         return board;
     }
 
-    public Position getStartPos () {
-        return classicBoard.getPlayer1StartPosition();
-    }
-
-    public Direction getStartDirection () {
-        return classicBoard.getPlayer1StartDirection();
-    }
-
     public int getWidth() {
         return map.getProperties().get("width", Integer.class);
     }
@@ -58,4 +48,7 @@ public class MapController {
         return map.getProperties().get("height", Integer.class);
     }
 
+    public IRobot[] getRobots() {
+        return robots;
+    }
 }

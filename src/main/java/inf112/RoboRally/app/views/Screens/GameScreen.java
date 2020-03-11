@@ -21,7 +21,7 @@ public class GameScreen extends InputAdapter implements Screen {
     private Viewport viewport;
     private Stage stage;
     private OrthogonalTiledMapRenderer mapRenderer;
-    public static MapController map;
+    public static MapController mapController;
     private PlayerUI playerUI;
 
     private InputMultiplexer multiplexer;
@@ -33,8 +33,8 @@ public class GameScreen extends InputAdapter implements Screen {
         stage = new Stage(viewport);
         playerUI = new PlayerUI(gameLauncher.batch);
 
-        map = new MapController(gameLauncher.settings());
-        mapRenderer = new OrthogonalTiledMapRenderer(map.getMap(), 1/256f);
+        mapController = new MapController(gameLauncher.settings());
+        mapRenderer = new OrthogonalTiledMapRenderer(mapController.getMap(), 1/256f);
         camera.setToOrtho(false, 26, 15);
         mapRenderer.setView(camera);
 

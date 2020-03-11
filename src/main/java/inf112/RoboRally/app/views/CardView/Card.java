@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.views.Cards;
+package inf112.RoboRally.app.views.CardView;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

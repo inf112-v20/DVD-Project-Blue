@@ -4,15 +4,25 @@ import inf112.RoboRally.app.models.board.Robot;
 /*
 Card to move reverse robot.
  */
-public class ReverseCard extends Card {
-    private final int stepsToTake = -1;
+public class ReverseCard implements ICard {
+
+
+    private final int STEPS_TO_MOVE = -1;
+    private int PRIORITY;
     // filename variable for picture will be here
 
     public ReverseCard(int priority) {
-        super(priority = priority);
+        this.PRIORITY = priority;
     }
 
-    public void moveRobot(Robot robot) {
-        robot.move(stepsToTake);
+    @Override
+    public int priority() {
+        return PRIORITY;
     }
+
+    @Override
+    public void moveRobot(Robot robot) {
+        robot.move(STEPS_TO_MOVE);
+    }
+
 }

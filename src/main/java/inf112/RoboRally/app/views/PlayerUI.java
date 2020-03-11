@@ -14,12 +14,12 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
-import inf112.RoboRally.app.views.Cards.CardUI;
-import inf112.RoboRally.app.views.Cards.SmallCard;
+import inf112.RoboRally.app.views.CardView.CardUI;
+import inf112.RoboRally.app.views.CardView.SmallCard;
 import inf112.RoboRally.app.views.PlayerHUDClasses.DamageToken;
 import inf112.RoboRally.app.views.PlayerHUDClasses.LifeToken;
 import inf112.RoboRally.app.views.PlayerHUDClasses.PowerDown;
-import inf112.RoboRally.app.views.Cards.CardSlotUI;
+import inf112.RoboRally.app.views.CardView.CardSlotUI;
 
 public class PlayerUI extends InputAdapter {
 

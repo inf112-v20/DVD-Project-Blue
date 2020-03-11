@@ -9,7 +9,7 @@ Not used at this moment.
  */
 public class CardDeck {
 
-    private ArrayList<Card> deck = new ArrayList<>();
+    private ArrayList<ICard> deck = new ArrayList<>();
 
     public CardDeck() {
         deck.add(new ForwardCard(800, 3));
@@ -19,13 +19,13 @@ public class CardDeck {
         deck.add(new RotateCard(1500, Rotation.RIGHT));
     }
 
-    public Card getRandomCardFromDeck() {
+    public ICard getRandomCardFromDeck() {
         Random r = new Random();
         int number = r.nextInt(deck.size());
         return deck.get(number);
     }
 
-    public Card getCardFromDeckByIndex(int index) {
+    public ICard getCardFromDeckByIndex(int index) {
         return deck.get(index);
     }
 

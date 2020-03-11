@@ -4,16 +4,23 @@ import inf112.RoboRally.app.models.board.Robot;
 /*
 Card to move robot forward.
  */
-public class ForwardCard extends Card {
-    private final int stepsToTake;
-    // filename variable for picture will be here
+public class ForwardCard implements ICard {
 
-    public ForwardCard(int priority, int stepsToTake) {
-        super(priority = priority);
-        this.stepsToTake = stepsToTake;
+    private final int PRIORITY;
+    private int STEPS_TO_MOVE;
+
+    public ForwardCard(int priority, int stepsToMove) {
+        this.PRIORITY = priority;
+        this.STEPS_TO_MOVE = stepsToMove;
     }
 
+    @Override
+    public int priority() {
+        return PRIORITY;
+    }
+
+    @Override
     public void moveRobot(Robot robot) {
-        robot.move(stepsToTake);
+        robot.move(STEPS_TO_MOVE);
     }
 }

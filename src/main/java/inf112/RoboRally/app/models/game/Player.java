@@ -3,7 +3,7 @@ package inf112.RoboRally.app.models.game;
 import inf112.RoboRally.app.models.board.Direction;
 import inf112.RoboRally.app.models.board.Position;
 import inf112.RoboRally.app.models.board.Robot;
-import inf112.RoboRally.app.models.cards.Card;
+import inf112.RoboRally.app.models.cards.ICard;
 import inf112.RoboRally.app.views.PlayerHUD;
 
 /*
@@ -17,8 +17,8 @@ public class Player {
     private Robot robot;
     private PlayerHUD hud;
     private int playerNumber;
-    private Card[] cardsToChose;
-    private Card[] cardsChosen;
+    private ICard[] cardsToChose;
+    private ICard[] cardsChosen;
 
     public Player(Position pos, Direction direction, int playerNumber) {
 //        robot = new Robot(pos, direction);
