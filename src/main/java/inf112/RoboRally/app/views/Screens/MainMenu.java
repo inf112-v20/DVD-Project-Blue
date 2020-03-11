@@ -60,7 +60,7 @@ public class MainMenu implements Screen {
                 stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.8f), Actions.run(new Runnable() {
                     @Override
                     public void run() {
-                        gameLauncher.setScreen(new PlayScreen(gameLauncher));
+                        gameLauncher.setScreen(new SinglePlayerSettingsScreen(gameLauncher));
                     }
                 })));
             }

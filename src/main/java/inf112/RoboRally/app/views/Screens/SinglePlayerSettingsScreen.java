@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
 import static com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
 
-public class PlayScreen implements Screen {
+public class SinglePlayerSettingsScreen implements Screen {
 
     private GameLauncher gameLauncher;
     private Viewport viewport;
@@ -45,7 +45,7 @@ public class PlayScreen implements Screen {
 
 
 
-    public PlayScreen(GameLauncher gameLauncher) {
+    public SinglePlayerSettingsScreen(GameLauncher gameLauncher) {
         this.gameLauncher = gameLauncher;
         OrthographicCamera camera = new OrthographicCamera();
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT, camera);
@@ -55,7 +55,9 @@ public class PlayScreen implements Screen {
 
     @Override
     public void show() {
+
         setUpTable();
+
         /*
         Input listeners for the buttons
          */
