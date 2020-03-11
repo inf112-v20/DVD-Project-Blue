@@ -1,50 +1,68 @@
 package inf112.RoboRally.app.views.Boards;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.models.board.Direction;
-import inf112.RoboRally.app.models.board.Position;
 
 /*
 Passes on information about the board to showBard. This structure will change soon.
  */
-public class ChopShopChallenge {
-
-    private Position player1StartPosition = new Position(6, 8);
-    private Direction player1StartDirection = Direction.RIGHT;
-
-    private Position player2StartPosition = new Position(6, 7);
-    private Direction player2StartDirection = Direction.RIGHT;
+public class ChopShopChallenge implements IBoard {
 
     private final String mapName = "Chop Shop Challenge";
-    private final String fileName = "Boards/ChopShopChallenge.tmx";
+    private final String filePath = "Boards/ChopShopChallenge.tmx";
     private final String mapImage = "Boards/ChopShopChallenge.png";
 
+    @Override
     public String getMapName() {
         return mapName;
     }
 
-    public String getFileName() {
-        return fileName;
-    }
-
-    public String getMapImage() {
+    @Override
+    public String getMapImg() {
         return mapImage;
     }
 
-    public Position getPlayer1StartPosition() {
-        return player1StartPosition;
+    @Override
+    public Vector2 getRobotStartingVector(int playerNumber) {
+        if (playerNumber < 0 || playerNumber > startRobotVectors.length) {
+            throw new IllegalArgumentException("Amount of players given is not supported on this map");
+        }
+        return startRobotVectors[playerNumber-1];
     }
 
-    public Direction getPlayer1StartDirection() {
-        return player1StartDirection;
+    @Override
+    public Direction getRobotStartingDirection(int playerNumber) {
+        if (playerNumber < 0 || playerNumber > startRobotVectors.length) {
+            throw new IllegalArgumentException("Amount of players given is not supported on this map");
+        }
+        return startRobotDirections[playerNumber-1];
     }
 
-    public Position getPlayer2StartPosition() {
-        return player2StartPosition;
+    @Override
+    public String getFilePath() {
+        return filePath;
     }
 
-    public Direction getPlayer2StartDirection() {
-        return player2StartDirection;
-    }
+    private Vector2[] startRobotVectors = {
+            new Vector2(6, 9),
+            new Vector2(6, 8),
+            new Vector2(6, 11),
+            new Vector2(6, 6),
+            new Vector2(6, 13),
+            new Vector2(6, 4),
+            new Vector2(6, 14),
+            new Vector2(6, 3)
+
+    };
+
+    private Direction[] startRobotDirections = {
+            Direction.RIGHT,
+            Direction.RIGHT,
+            Direction.RIGHT,
+            Direction.RIGHT,
+            Direction.RIGHT,
+            Direction.RIGHT,
+            Direction.RIGHT,
+            Direction.RIGHT
+    };
 }

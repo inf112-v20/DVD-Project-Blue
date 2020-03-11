@@ -13,7 +13,6 @@ public class Checkmate implements IBoard {
     private final String mapImage = "Boards/Checkmate.png";
 
 
-
     public String getMapName() {
         return mapName;
     }
@@ -31,21 +30,41 @@ public class Checkmate implements IBoard {
 
     @Override
     public Vector2 getRobotStartingVector(int playerNumber) {
-        return null;
+        if (playerNumber < 0 || playerNumber > startRobotVectors.length) {
+            throw new IllegalArgumentException("Amount of players given is not supported on this map");
+        }
+        return startRobotVectors[playerNumber-1];
     }
 
     @Override
     public Direction getRobotStartingDirection(int playerNumber) {
-        return null;
+        if (playerNumber < 0 || playerNumber > startRobotVectors.length) {
+            throw new IllegalArgumentException("Amount of players given is not supported on this map");
+        }
+        return startRobotDirections[playerNumber-1];
     }
 
+    /*
+     * player starting position stored at playernumber-1
+     * for example: player1's position is at 0 (1 - 1 = 0)
+     */
     private Vector2[] startRobotVectors = {
-            new Vector2(7, 7),
-            new Vector2(7, 8),
-            new Vector2(7, 10)
+            new Vector2(6, 8),
+            new Vector2(6, 9),
+            new Vector2(6, 11),
+            new Vector2(6, 6),
+            new Vector2(6, 13),
+            new Vector2(6, 4),
+            new Vector2(6, 14),
+            new Vector2(6, 3)
     };
 
     private Direction[] startRobotDirections = {
+            Direction.RIGHT,
+            Direction.RIGHT,
+            Direction.RIGHT,
+            Direction.RIGHT,
+            Direction.RIGHT,
             Direction.RIGHT,
             Direction.RIGHT,
             Direction.RIGHT

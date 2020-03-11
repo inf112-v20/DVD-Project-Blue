@@ -1,6 +1,7 @@
 package inf112.RoboRally.app.views.MapSystem;
 
 import inf112.RoboRally.app.views.Boards.Checkmate;
+import inf112.RoboRally.app.views.Boards.ChopShopChallenge;
 import inf112.RoboRally.app.views.Boards.IBoard;
 import inf112.RoboRally.app.views.Boards.VaultAssault;
 
@@ -8,7 +9,8 @@ public class MapList {
 
     private IBoard[] maps = {
             new VaultAssault(),
-            new Checkmate()
+            new Checkmate(),
+            new ChopShopChallenge()
     };
 
     public IBoard getMap(int mapNumber) {

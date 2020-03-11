@@ -1,6 +1,5 @@
 package inf112.RoboRally.app.models.board;
 
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
@@ -29,15 +28,11 @@ public class Robot implements IRobot {
     private int lives;
     private int playerNumber;
 
-    //testing
-    private InputAdapter input;
-
     public Robot(Sprite sprite, MapController mapCon, int playerNumber) {
         this.playerNumber = playerNumber;
         HP = MAX_HP;
         lives = 3;
         setupOnBoard(sprite, mapCon);
-        input = new InputAdapter();
     }
 
     @Override

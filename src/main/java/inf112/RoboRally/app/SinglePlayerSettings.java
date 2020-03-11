@@ -18,12 +18,13 @@ public class SinglePlayerSettings {
     }
 
     public void chooseMap() {
-        if (mapChoice <= 1) mapChoice++;
+        if (mapChoice < 2) mapChoice++;
         else                mapChoice = 0;
     }
 
-    public void choosePlayerCount() {
-        if (playerCount <= 8) playerCount++;
-        else                  playerCount = 0;
+    public int choosePlayerCount() {
+        if (playerCount < 8) playerCount++;
+        else                  playerCount = 2;
+        return playerCount;
     }
 }

@@ -2,16 +2,13 @@ package inf112.RoboRally.app;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import inf112.RoboRally.app.views.MapSystem.MapList;
 import inf112.RoboRally.app.views.Screens.MainMenu;
 
 public class GameLauncher extends Game {
 
     public static final int GAME_WIDTH = 2560;
     public static final int GAME_HEIGHT = 1440;
-    public MapList mapList = new MapList();
     public String currentMapName;
-    public String currentMapPath;
     public String currentMapImg;
     private SinglePlayerSettings settings;
     public SpriteBatch batch;

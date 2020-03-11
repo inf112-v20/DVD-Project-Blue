@@ -27,17 +27,19 @@ public class VaultAssault implements IBoard {
         return filePath;
     }
 
-    public String getMapImage() {
-        return mapImage;
-    }
-
     @Override
     public Vector2 getRobotStartingVector(int playerNumber) {
+        if (playerNumber < 0 || playerNumber > startRobotVectors.length) {
+            throw new IllegalArgumentException("Amount of players given is not supported on this map");
+        }
         return startRobotVectors[playerNumber-1];
     }
 
     @Override
     public Direction getRobotStartingDirection(int playerNumber) {
+        if (playerNumber < 0 || playerNumber > startRobotVectors.length) {
+            throw new IllegalArgumentException("Amount of players given is not supported on this map");
+        }
         return startRobotDirections[playerNumber-1];
     }
 
@@ -45,10 +47,20 @@ public class VaultAssault implements IBoard {
     private Vector2[] startRobotVectors = {
             new Vector2(5, 9),
             new Vector2(5, 8),
-            new Vector2(6, 7)
+            new Vector2(6, 11),
+            new Vector2(6, 6),
+            new Vector2(7, 13),
+            new Vector2(7, 4),
+            new Vector2(8, 14),
+            new Vector2(8, 3)
     };
 
     private Direction[] startRobotDirections = {
+            Direction.RIGHT,
+            Direction.RIGHT,
+            Direction.RIGHT,
+            Direction.RIGHT,
+            Direction.RIGHT,
             Direction.RIGHT,
             Direction.RIGHT,
             Direction.RIGHT
