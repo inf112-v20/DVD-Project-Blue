@@ -3,13 +3,13 @@ package inf112.RoboRally.app.models.game;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import inf112.RoboRally.app.controllers.SinglePlayerSettingsController;
-import inf112.RoboRally.app.views.Boards.IBoard;
+import inf112.RoboRally.app.models.board.Board;
 
 public class Game {
 
     // the board
     private TmxMapLoader mapLoader;
-    private IBoard board;
+    private Board board;
     private TiledMap map;
 
     // the game
@@ -24,7 +24,7 @@ public class Game {
 
         // the board
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load(settings.getMap().getFilePath());
+        map = mapLoader.load(settings.getMap().tiledMapFile());
         board = settings.getMap();
 
         // the players
@@ -38,7 +38,7 @@ public class Game {
         return map;
     }
 
-    public IBoard getBoard() {
+    public Board getBoard() {
         return board;
     }
 

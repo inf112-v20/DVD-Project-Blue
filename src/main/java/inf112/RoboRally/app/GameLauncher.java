@@ -18,8 +18,8 @@ public class GameLauncher extends Game {
     public void create() {
         batch = new SpriteBatch();
         settings = new SinglePlayerSettingsController();
-        currentMapName = settings.getMap().getMapName();
-        currentMapImg = settings.getMap().getMapImg();
+        currentMapName = settings.getMap().name();
+        currentMapImg = settings.getMap().imgFile();
         setScreen(new MainMenu(this));
     }
 

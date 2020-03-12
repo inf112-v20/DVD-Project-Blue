@@ -65,8 +65,8 @@ public class SinglePlayerSettingsScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 gameLauncher.settings().chooseMap();
-                mapButton.getLabel().setText(gameLauncher.settings().getMap().getMapName());
-                mapImg.setDrawable(new TextureRegionDrawable(new Texture(gameLauncher.settings().getMap().getMapImg())));
+                mapButton.getLabel().setText(gameLauncher.settings().getMap().name());
+                mapImg.setDrawable(new TextureRegionDrawable(new Texture(gameLauncher.settings().getMap().imgFile())));
                 playersButton.getLabel().setText(gameLauncher.settings().getPlayerCount());
             }
         });
@@ -151,9 +151,9 @@ public class SinglePlayerSettingsScreen implements Screen {
         table.center().padTop(150);
         table.setBackground(new TextureRegionDrawable(background));
 
-        mapButton = new Button().createTextButton(this.gameLauncher.settings().getMap().getMapName());
+        mapButton = new Button().createTextButton(this.gameLauncher.settings().getMap().name());
         playersButton = new Button().createTextButton(String.format("%01d", gameLauncher.settings().getPlayerCount()));
-        mapImg = new Image(new Texture(gameLauncher.settings().getMap().getMapImg()));
+        mapImg = new Image(new Texture(gameLauncher.settings().getMap().imgFile()));
 
         table.add(MAP_NAME_LABEL);
         table.add(mapButton).width(750f);

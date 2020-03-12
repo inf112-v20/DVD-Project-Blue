@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.views.Boards;
+package inf112.RoboRally.app.models.board;
 
 /*
 Passes on information about the board to showBard. This structure will change soon.
