@@ -12,6 +12,13 @@ public class ChopShopChallenge implements IBoard {
     private final String filePath = "Boards/ChopShopChallenge.tmx";
     private final String mapImage = "Boards/ChopShopChallenge.png";
 
+
+    @Override
+    public int amountOfPlayersSupported() {
+        return startRobotVectors.length;
+    }
+
+
     @Override
     public String getMapName() {
         return mapName;

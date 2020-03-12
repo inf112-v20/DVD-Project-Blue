@@ -1,17 +1,19 @@
 package inf112.RoboRally.app.controllers;
 
-import inf112.RoboRally.app.views.Boards.Checkmate;
-import inf112.RoboRally.app.views.Boards.ChopShopChallenge;
-import inf112.RoboRally.app.views.Boards.IBoard;
-import inf112.RoboRally.app.views.Boards.VaultAssault;
+import inf112.RoboRally.app.views.Boards.*;
 
 public class MapList {
 
     private IBoard[] maps = {
             new VaultAssault(),
             new Checkmate(),
-            new ChopShopChallenge()
+            new ChopShopChallenge(),
+            new DizzyDash(),
+            new IslandKing()
     };
+
+    // starting from zero
+    public final int NUMBER_OF_MAPS = maps.length-1;
 
     public IBoard getMap(int mapNumber) {
         if (mapNumber < 0 || mapNumber > maps.length -1) {

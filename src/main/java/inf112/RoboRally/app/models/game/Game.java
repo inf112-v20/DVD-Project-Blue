@@ -16,14 +16,19 @@ public class Game {
     Round round;
 
     // the players
-    private Player[] players = new Player[8];
+    private Player[] players;
     private boolean playerHasWon = false;
     private boolean playersAreReady = false;
 
     public Game(SinglePlayerSettingsController settings) {
+
+        // the board
         mapLoader = new TmxMapLoader();
         map = mapLoader.load(settings.getMap().getFilePath());
         board = settings.getMap();
+
+        // the players
+        players = new Player[settings.getPlayerCount()];
         for (int i = 0; i < settings.getPlayerCount(); i++) {
             players[i] = new Player(this, i+1);
         }

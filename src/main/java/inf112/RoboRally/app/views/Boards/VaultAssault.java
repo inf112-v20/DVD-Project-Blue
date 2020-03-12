@@ -13,6 +13,11 @@ public class VaultAssault implements IBoard {
     private final String mapImage = "Boards/VaultAssault.png";
 
     @Override
+    public int amountOfPlayersSupported() {
+        return startRobotVectors.length;
+    }
+
+    @Override
     public String getMapName() {
         return mapName;
     }

@@ -32,6 +32,7 @@ public class Round {
         }
     }
 
+    // TODO - denne funker ikke enda, må sammenligne alle kort, ikke ta første som ikke er null
     public void executeNextCardChoices(Player[] players, ArrayList<ICard> nextPlayerChoices) {
         for (int i = 0; i < nextPlayerChoices.size(); i++) {
             ICard card = nextPlayerChoices.get(0);

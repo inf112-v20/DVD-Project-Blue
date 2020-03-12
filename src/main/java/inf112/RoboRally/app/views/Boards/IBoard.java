@@ -5,6 +5,8 @@ import inf112.RoboRally.app.models.Robot.Direction;
 
 public interface IBoard {
 
+    int amountOfPlayersSupported();
+
     String getMapName();
 
     String getMapImg();

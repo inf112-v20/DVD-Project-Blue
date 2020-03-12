@@ -13,6 +13,11 @@ public class Checkmate implements IBoard {
     private final String mapImage = "Boards/Checkmate.png";
 
 
+    @Override
+    public int amountOfPlayersSupported() {
+        return startRobotVectors.length;
+    }
+
     public String getMapName() {
         return mapName;
     }

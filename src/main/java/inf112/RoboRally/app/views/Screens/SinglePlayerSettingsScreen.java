@@ -67,6 +67,7 @@ public class SinglePlayerSettingsScreen implements Screen {
                 gameLauncher.settings().chooseMap();
                 mapButton.getLabel().setText(gameLauncher.settings().getMap().getMapName());
                 mapImg.setDrawable(new TextureRegionDrawable(new Texture(gameLauncher.settings().getMap().getMapImg())));
+                playersButton.getLabel().setText(gameLauncher.settings().getPlayerCount());
             }
         });
 
