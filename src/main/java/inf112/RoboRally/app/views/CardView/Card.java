@@ -6,9 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+
 import static com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
 
-public class Card {
+public class Card implements ICard {
 
     final private Skin skin = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
     private int index;
@@ -17,6 +18,7 @@ public class Card {
     public Label priorityNumber;
     public Image card;
 
+    @Override
     public Group init (int index, int priority) {
         this.index = index;
         this.priority = priority;
@@ -35,8 +37,10 @@ public class Card {
             texturePath += "RotateLeft.png";
         } else if (index == 5) {
             texturePath += "RotateRight.png";
-        } else {
+        } else if (index == 6) {
             texturePath += "U-Turn.png";
+        } else {
+            texturePath += "emptyCard.png";
         }
 
         Texture cardTexture = new Texture(texturePath);
@@ -50,20 +54,20 @@ public class Card {
 
         cardGroup = new Group();
         cardGroup.addActor(card);
-        cardGroup.addActor(priorityNumber);
+        if (index < 7) {
+            cardGroup.addActor(priorityNumber);
+        }
+
         return cardGroup;
     }
 
+    @Override
     public int getIndex () {
         return index;
     }
 
+    @Override
     public int getPriority () {
         return priority;
     }
-
-    public Group getGroup () {
-        return cardGroup;
-    }
-
 }
