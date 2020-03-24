@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.controllers;
+package inf112.RoboRally.app.controllers.MapChoiceControllers;
 
 import inf112.RoboRally.app.models.board.Board;
 

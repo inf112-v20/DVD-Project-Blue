@@ -78,8 +78,8 @@ public class Robot implements IRobot {
     }
 
     @Override
-    public void getHP() {
-
+    public int getHP() {
+        return HP;
     }
 
     private void setupOnBoard(Game game, int playerNumber) {

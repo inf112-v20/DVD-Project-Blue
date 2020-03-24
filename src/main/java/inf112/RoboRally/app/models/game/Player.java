@@ -30,7 +30,7 @@ public class Player {
         return playerNumber;
     }
 
-    public void getCardToChoose(int i, ICard card) {
+    public void receiveCardToChoose(int i, ICard card) {
         cardsToChoose[i] = card;
     }
 
@@ -51,5 +51,13 @@ public class Player {
 
     public ICard[] getCardsChosen() {
         return cardsChosen;
+    }
+
+    public int amountOfReceivedCards() {
+        return cardsToChoose.length;
+    }
+
+    public int amountOfCardsToChoose() {
+        return cardsChosen.length;
     }
 }

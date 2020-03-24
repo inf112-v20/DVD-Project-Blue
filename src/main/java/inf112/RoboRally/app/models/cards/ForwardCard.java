@@ -6,21 +6,32 @@ Card to move robot forward.
  */
 public class ForwardCard implements ICard {
 
-    private final int PRIORITY;
-    private int STEPS_TO_MOVE;
+    private int priority;
+    private final int STEPS_TO_MOVE;
+    private final String FILENAME;
 
-    public ForwardCard(int priority, int stepsToMove) {
-        this.PRIORITY = priority;
+    public ForwardCard(int stepsToMove) {
         this.STEPS_TO_MOVE = stepsToMove;
+        FILENAME = "Move"+stepsToMove+".png";
     }
 
     @Override
     public int priority() {
-        return PRIORITY;
+        return priority;
+    }
+
+    @Override
+    public String getFileName() {
+        return FILENAME;
     }
 
     @Override
     public void moveRobot(Robot robot) {
         robot.move(STEPS_TO_MOVE);
+    }
+
+    @Override
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 }

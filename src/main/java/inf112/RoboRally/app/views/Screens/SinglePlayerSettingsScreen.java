@@ -24,7 +24,6 @@ public class SinglePlayerSettingsScreen implements Screen {
     private Stage stage;
 
 
-
     // table for buttons
     private Table table = new Table();
 

@@ -10,6 +10,6 @@ public interface IRobot {
 
     void looseHP();
 
-    void getHP();
+    int getHP();
 
 }

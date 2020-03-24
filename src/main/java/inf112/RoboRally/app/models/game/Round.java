@@ -10,13 +10,13 @@ Next delivery
  */
 public class Round {
 
-    private CardDeck cards;
+    private CardDeck cards = new CardDeck();
 
     public void dealCards(Player[] players) {
         for (Player player: players) {
-            for (int i = 0; i < player.getCardsToChoose().length; i++) {
-                ICard card = cards.getRandomCardFromDeck();
-                player.getCardToChoose(i, card);
+            for (int i = 0; i < player.robot().getHP(); i++) {
+                ICard card = cards.randomCard();
+                player.receiveCardToChoose(i, card);
             }
         }
     }

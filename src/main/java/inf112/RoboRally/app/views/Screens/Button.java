@@ -6,10 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class Button {
 
-    final private Skin skin = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
+    final private Skin SKIN = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
 
     public TextButton createTextButton (String buttonName) {
-        TextButton textButton = new TextButton(buttonName, skin);
+        TextButton textButton = new TextButton(buttonName, SKIN);
         textButton.setTransform(true);
         textButton.getLabelCell().pad(10,60,10, 60).center();
         return textButton;

@@ -1,6 +1,5 @@
 package inf112.RoboRally.app.models.cards;
 
-import java.util.ArrayList;
 import java.util.Random;
 /*
 Class that holds all the cards in the game, which will be used when dealing cards to players.
@@ -8,30 +7,21 @@ Not used at this moment.
  */
 public class CardDeck {
 
-    private ArrayList<ICard> deck = new ArrayList<>();
+    private ICard[] deck = {
+        new ForwardCard(3),
+        new ForwardCard(2),
+        new ForwardCard(1),
+        new ReverseCard(),
+        new RotateCard(Rotation.LEFT),
+        new RotateCard(Rotation.RIGHT),
+    };
 
-    public CardDeck() {
-        deck.add(new ForwardCard(800, 3));
-        deck.add(new ReverseCard(600));
-        deck.add(new ForwardCard(1000, 4));
-        deck.add(new RotateCard(1300, Rotation.LEFT));
-        deck.add(new RotateCard(1500, Rotation.RIGHT));
-    }
-
-    public ICard getRandomCardFromDeck() {
+    public ICard randomCard() {
         Random r = new Random();
-        int number = r.nextInt(deck.size());
-        return deck.get(number);
+        int deckIndex = r.nextInt(deck.length);
+        ICard card = deck[deckIndex];
+        card.setPriority(r.nextInt(1999));
+        return card;
     }
 
-    public ICard getCardFromDeckByIndex(int index) {
-        return deck.get(index);
-    }
-
-
-
-    public static void main(String[] args) {
-        CardDeck deck = new CardDeck();
-        deck.getRandomCardFromDeck();
-    }
 }

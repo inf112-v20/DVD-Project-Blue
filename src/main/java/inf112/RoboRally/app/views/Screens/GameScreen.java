@@ -21,20 +21,19 @@ public class GameScreen extends InputAdapter implements Screen {
     private Viewport viewport;
     private Stage stage;
     private OrthogonalTiledMapRenderer mapRenderer;
-    public static Game mapController;
+    public static Game game;
     private PlayerUI playerUI;
 
     private InputMultiplexer multiplexer;
 
-    public GameScreen(GameLauncher game) {
-        this.gameLauncher = game;
+    public GameScreen(GameLauncher gameLauncher) {
+        this.gameLauncher = gameLauncher;
         camera = new OrthographicCamera();
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT, camera);
         stage = new Stage(viewport);
-        playerUI = new PlayerUI(gameLauncher.batch);
-
-        mapController = new Game(gameLauncher.settings());
-        mapRenderer = new OrthogonalTiledMapRenderer(mapController.getMap(), 1/256f);
+        game = new Game(this.gameLauncher.settings());
+        playerUI = new PlayerUI(this.gameLauncher.batch, game.getCardController());
+        mapRenderer = new OrthogonalTiledMapRenderer(game.getMap(), 1/256f);
         camera.setToOrtho(false, 26, 15);
         mapRenderer.setView(camera);
 
