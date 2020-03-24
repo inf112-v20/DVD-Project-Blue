@@ -7,12 +7,13 @@ Card to do all rotations of robots: right, left and right two times (uturn).
  */
 public class RotateCard implements ICard {
 
-    private int priority;
+    private final int PRIORITY;
     private final Rotation ROTATION;
     private final String FILENAME;
 
-    public RotateCard(Rotation rotation) {
+    public RotateCard(Rotation rotation, int priority) {
         this.ROTATION = rotation;
+        this.PRIORITY = priority;
         if      (rotation == Rotation.RIGHT) FILENAME = "RotateRight.png";
         else if (rotation == Rotation.LEFT)  FILENAME = "RotateLeft.png";
         else                                 FILENAME = "U-Turn.png";
@@ -20,7 +21,7 @@ public class RotateCard implements ICard {
 
     @Override
     public int priority() {
-        return priority;
+        return PRIORITY;
     }
 
     @Override
@@ -28,13 +29,11 @@ public class RotateCard implements ICard {
         robot.rotate(ROTATION);
     }
 
-    @Override
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
 
     @Override
     public String getFileName() {
         return FILENAME;
     }
+
+
 }

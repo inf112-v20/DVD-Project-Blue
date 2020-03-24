@@ -40,13 +40,17 @@ public class Game {
         // the game
         round = new Round();
 
-        cardController = new CardController(players[0]); // which player is the human player is given as player-1 for now
+        cardController = new CardController(players[0]); // player1 is given as human player for now
         phase();
+
     }
+
+
 
     public TiledMap getMap () {
         return map;
     }
+
 
     public Board getBoard() {
         return board;

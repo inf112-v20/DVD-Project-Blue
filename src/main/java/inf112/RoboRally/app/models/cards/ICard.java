@@ -8,8 +8,6 @@ public interface ICard {
 
     void moveRobot(Robot robot);
 
-    void setPriority(int priority);
-
     String getFileName();
 
 }

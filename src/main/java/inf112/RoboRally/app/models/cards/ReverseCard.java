@@ -11,6 +11,10 @@ public class ReverseCard implements ICard {
     private final String FILENAME = "MoveBack.png";
     private int priority;
 
+    public ReverseCard(int priority) {
+        this.priority = priority;
+    }
+
     @Override
     public int priority() {
         return priority;
@@ -21,10 +25,6 @@ public class ReverseCard implements ICard {
         robot.move(STEPS_TO_MOVE);
     }
 
-    @Override
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
 
     @Override
     public String getFileName() {

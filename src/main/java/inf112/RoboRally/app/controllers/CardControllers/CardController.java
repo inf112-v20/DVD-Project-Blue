@@ -15,8 +15,8 @@ public class CardController {
         return player.robot().getHP();
     }
 
-    public ICard[] getPlayerCardChoices() {
-        return player.getCardsToChoose();
+    public ICard[] getReceivedPlayerCards() {
+        return player.getReceivedCards();
     }
 
     public Player getPlayer() {

@@ -236,11 +236,14 @@ public class CardView extends InputAdapter {
         cardsToChooseTable.padLeft(4420).padBottom(1200);
         cardsToChooseTable.setTouchable(Touchable.enabled);
 
-        ICard[] cardChoices = cardController.getPlayerCardChoices();
-        for (int i = 0; i < cardChoices.length; i++) {
+        ICard[] receivedCards = cardController.getReceivedPlayerCards();
+        for (int i = 0; i < receivedCards.length; i++) {
 
-            if (cardChoices[i] == null) break;
-            CardDragBig dragCard = new CardDragBig(cardChoices[i]);
+            if (receivedCards[i] == null)
+                break;
+
+            CardDragBig dragCard = new CardDragBig(receivedCards[i]);
+//            System.out.println(receivedCards[i].priority());
             cardsToChoose[i] = dragCard;
 
             if      (i == 0)     cardsToChooseTable.add(dragCard.getCardGroup());

@@ -1,6 +1,6 @@
 package inf112.RoboRally.app.models.game;
 
-import inf112.RoboRally.app.models.cards.CardDeck;
+import inf112.RoboRally.app.models.cards.CardFactory;
 import inf112.RoboRally.app.models.cards.ICard;
 
 import java.util.ArrayList;
@@ -10,16 +10,19 @@ Next delivery
  */
 public class Round {
 
-    private CardDeck cards = new CardDeck();
+    private CardFactory cardFactory = new CardFactory();
 
     public void dealCards(Player[] players) {
+
         for (Player player: players) {
             for (int i = 0; i < player.robot().getHP(); i++) {
-                ICard card = cards.randomCard();
-                player.receiveCardToChoose(i, card);
+                ICard card = cardFactory.randomCard();
+                player.receiveCard(i, card);
             }
         }
+
     }
+
 
     public void executeAllCardChoices(Player[] players) {
         while (true) {

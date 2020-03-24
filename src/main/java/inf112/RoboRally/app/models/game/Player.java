@@ -13,7 +13,7 @@ public class Player {
     private String name;
     private int playerNumber;
     private Robot robot;
-    private ICard[] cardsToChoose = new ICard[9];
+    private ICard[] receivedCards = new ICard[9];
     private ICard[] cardsChosen = new ICard[5];
     private int flagsCollected = 0;
 
@@ -30,8 +30,8 @@ public class Player {
         return playerNumber;
     }
 
-    public void receiveCardToChoose(int i, ICard card) {
-        cardsToChoose[i] = card;
+    public void receiveCard(int i, ICard card) {
+        receivedCards[i] = card;
     }
 
     public ICard getNextChosenCard() {
@@ -45,8 +45,8 @@ public class Player {
         return null;
     }
 
-    public ICard[] getCardsToChoose() {
-        return cardsToChoose;
+    public ICard[] getReceivedCards() {
+        return receivedCards;
     }
 
     public ICard[] getCardsChosen() {
@@ -54,7 +54,7 @@ public class Player {
     }
 
     public int amountOfReceivedCards() {
-        return cardsToChoose.length;
+        return receivedCards.length;
     }
 
     public int amountOfCardsToChoose() {
