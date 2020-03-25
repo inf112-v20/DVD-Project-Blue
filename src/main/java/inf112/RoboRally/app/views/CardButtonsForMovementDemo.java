@@ -47,7 +47,7 @@ public class CardButtonsForMovementDemo {
         rotateRight = new ImageButton(new TextureRegionDrawable(new TextureRegion(rotateRightButton)));
         rotateRight.setTransform(true);
 
-        uTurnButton = new Texture("Cards/SMALL/U-Turn.png");
+        uTurnButton = new Texture("Cards/SMALL/UTurn.png");
         uTurn = new ImageButton(new TextureRegionDrawable(new TextureRegion(uTurnButton)));
         uTurn.setTransform(true);
 

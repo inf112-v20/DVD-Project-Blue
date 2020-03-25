@@ -15,12 +15,12 @@ import static com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
 
 public class CardDragBig implements ICardDragAndDrop {
 
+    private final String EMPTY_CARD_PATH = "EmptyCard.png";
+    private final Skin SKIN = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
+
     private ICard card;
 
-    final private Skin skin = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
 
-//    private int index;
-//    private int priority;
     public Group cardGroup;
     public Image cardImage;
 
@@ -36,24 +36,22 @@ public class CardDragBig implements ICardDragAndDrop {
         if      (card instanceof ForwardCard) texturePath += card.getFileName();
         else if (card instanceof ReverseCard) texturePath += card.getFileName();
         else if (card instanceof RotateCard)  texturePath += card.getFileName();
+        else                                  texturePath += EMPTY_CARD_PATH;
 
 
         Texture cardTexture = new Texture(texturePath);
         cardTexture.setFilter(Linear, Linear);
         cardImage = new Image(cardTexture);
         cardImage.setOrigin(cardTexture.getWidth()/2,cardTexture.getHeight()/2);
-
-        Label priorityCardLabel = new Label(String.format("%04d", card.priority()), skin);
-        priorityCardLabel.setFontScale(1/2.5f);
-        priorityCardLabel.setPosition(98, 189);
-
         cardGroup = new Group();
         cardGroup.addActor(cardImage);
 
         if (card != null) {
+            Label priorityCardLabel = new Label(String.format("%04d", card.priority()), SKIN);
+            priorityCardLabel.setFontScale(1/2.5f);
+            priorityCardLabel.setPosition(98, 189);
             cardGroup.addActor(priorityCardLabel);
         }
-
         return cardGroup;
     }
 

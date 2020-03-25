@@ -3,11 +3,11 @@ package inf112.RoboRally.app.controllers.CardControllers;
 import inf112.RoboRally.app.models.cards.ICard;
 import inf112.RoboRally.app.models.game.Player;
 
-public class CardController {
+public class PlayerCardController {
 
     private Player player; // our human single player
 
-    public CardController(Player player) {
+    public PlayerCardController(Player player) {
         this.player = player;
     }
 

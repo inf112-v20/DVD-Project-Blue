@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-import inf112.RoboRally.app.controllers.CardControllers.CardController;
+import inf112.RoboRally.app.controllers.CardControllers.PlayerCardController;
 import inf112.RoboRally.app.models.cards.ICard;
 import inf112.RoboRally.app.views.Screens.Button;
 
@@ -22,20 +22,16 @@ public class CardView extends InputAdapter {
     private TextButton readyButton;
 
     // Card controller - communicates game information
-    private CardController cardController;
+    private PlayerCardController cardController;
 
     //CARD SLOT
     private ICardDragAndDrop[] chosenCards;
     private Table cardSlotTable;
     private boolean[] chosenCardChanged;
-    private int chosenCardCount;
-
 
     //CARD DECK
     private ICardDragAndDrop[] cardsToChoose;
     private Table cardsToChooseTable;
-    private int cardsToChooseCount;
-
 
     //DRAG AND DROP
     private int cardIndexDnD;
@@ -46,7 +42,7 @@ public class CardView extends InputAdapter {
     private int card5ZIndex;
 
 
-    public CardView(CardController cardController) {
+    public CardView(PlayerCardController cardController) {
         this.cardController = cardController;
         cardViewTimer = new Table();
         cardsToChooseTable = new Table();
@@ -118,6 +114,8 @@ public class CardView extends InputAdapter {
         });
     }
 
+
+
     public Table cardViewTimer() {
         cardViewTimer.pad(0, 3830, 250, 0);
 
@@ -138,9 +136,13 @@ public class CardView extends InputAdapter {
         return cardViewTimer;
     }
 
+
+
     public TextButton getReadyButton() {
         return readyButton;
     }
+
+
 
     // Chosen cards
     public Table CardSlot() {

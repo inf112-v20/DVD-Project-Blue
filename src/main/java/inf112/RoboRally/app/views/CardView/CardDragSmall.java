@@ -37,7 +37,8 @@ public class CardDragSmall implements ICardDragAndDrop {
         if      (card instanceof ForwardCard) texturePath += card.getFileName();
         else if (card instanceof ReverseCard) texturePath += card.getFileName();
         else if (card instanceof RotateCard)  texturePath += card.getFileName();
-        else                                  texturePath += "emptySmallCard.png";
+        else                                  texturePath += "EmptyCard.png";
+
 
 //        this.index = index;
 //        this.priority = priority;
@@ -55,9 +56,9 @@ public class CardDragSmall implements ICardDragAndDrop {
 //        } else if (index == 5) {
 //            texturePath += "RotateRight.png";
 //        } else if (index == 6) {
-//            texturePath += "U-Turn.png";
+//            texturePath += "UTurn.png";
 //        } else {
-//            texturePath += "emptyCard.png";
+//            texturePath += "EmptyCard.png";
 //        }
 
         Texture cardTexture = new Texture(texturePath);

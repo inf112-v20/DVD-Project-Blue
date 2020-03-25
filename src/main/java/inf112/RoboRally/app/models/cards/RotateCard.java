@@ -3,7 +3,7 @@ package inf112.RoboRally.app.models.cards;
 import inf112.RoboRally.app.models.Robot.Robot;
 
 /*
-Card to do all rotations of robots: right, left and right two times (uturn).
+Card to do all rotations of robots: right, left and right two times (u-turn).
  */
 public class RotateCard implements ICard {
 
@@ -16,7 +16,7 @@ public class RotateCard implements ICard {
         this.PRIORITY = priority;
         if      (rotation == Rotation.RIGHT) FILENAME = "RotateRight.png";
         else if (rotation == Rotation.LEFT)  FILENAME = "RotateLeft.png";
-        else                                 FILENAME = "U-Turn.png";
+        else                                 FILENAME = "UTurn.png";
     }
 
     @Override
