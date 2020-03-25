@@ -82,27 +82,27 @@ public class CardView extends InputAdapter {
             public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
                 if (allSmallCardsChanged()) {
                     if (!chosenCardChanged[0]) {
-                        changeSmallCard(0);
+                        dropCard(0, getCard(cardIndexDnD));
                         chosenCardChanged[0] = true;
                         cardZIndex = cardIndexDnD;
                         cardSlotTable.getCells().get(0).getActor().setZIndex(0);
                     } else if (!chosenCardChanged[1]) {
-                        changeSmallCard(1);
+                        dropCard(1, getCard(cardIndexDnD));
                         chosenCardChanged[1] = true;
                         card2ZIndex = cardIndexDnD;
                         cardSlotTable.getCells().get(1).getActor().setZIndex(1);
                     } else if (!chosenCardChanged[2]) {
-                        changeSmallCard(2);
+                        dropCard(2, getCard(cardIndexDnD));
                         chosenCardChanged[2] = true;
                         card3ZIndex = cardIndexDnD;
                         cardSlotTable.getCells().get(2).getActor().setZIndex(2);
                     } else if (!chosenCardChanged[3]) {
-                        changeSmallCard(3);
+                        dropCard(3, getCard(cardIndexDnD));
                         chosenCardChanged[3] = true;
                         card4ZIndex = cardIndexDnD;
                         cardSlotTable.getCells().get(3).getActor().setZIndex(3);
                     } else if (!chosenCardChanged[4]) {
-                        changeSmallCard(4);
+                        dropCard(4, getCard(cardIndexDnD));
                         chosenCardChanged[4] = true;
                         card5ZIndex = cardIndexDnD;
                         cardSlotTable.getCells().get(4).getActor().setZIndex(4);
@@ -214,7 +214,11 @@ public class CardView extends InputAdapter {
 
 
     public void changeSmallCard(int cardIndex) {
-        cardSlotTable.getCells().get(cardIndex).clearActor().setActor(chosenCards[cardIndex].getCardGroup());
+        cardSlotTable.getCells().get(cardIndex).clearActor().setActor(cardsToChoose[cardIndex].getCardGroup());
+    }
+
+    private void dropCard(int index, CardDragBig droppedCard) {
+        cardSlotTable.getCells().get(index).clearActor().setActor(chosenCards[index].createCardGroup(droppedCard.getCard()));
     }
 
 

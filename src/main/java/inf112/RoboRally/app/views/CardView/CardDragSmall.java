@@ -31,7 +31,9 @@ public class CardDragSmall implements ICardDragAndDrop {
     }
 
     @Override
-    public Group createCardGroup(ICard card) {
+    public Group createCardGroup(ICard newCard) {
+        this.card = newCard;
+
         String texturePath = "Cards/SMALL/";
 
         if      (card instanceof ForwardCard) texturePath += card.getFileName();
@@ -40,45 +42,20 @@ public class CardDragSmall implements ICardDragAndDrop {
         else                                  texturePath += "EmptyCard.png";
 
 
-//        this.index = index;
-//        this.priority = priority;
-
-//        if (index == 0){
-//            texturePath += "Move1.png";
-//        } else if (index == 1) {
-//            texturePath += "Move2.png";
-//        } else if (index == 2) {
-//            texturePath += "Move3.png";
-//        } else if (index == 3) {
-//            texturePath += "MoveBack.png";
-//        } else if (index == 4) {
-//            texturePath += "RotateLeft.png";
-//        } else if (index == 5) {
-//            texturePath += "RotateRight.png";
-//        } else if (index == 6) {
-//            texturePath += "UTurn.png";
-//        } else {
-//            texturePath += "EmptyCard.png";
-//        }
-
         Texture cardTexture = new Texture(texturePath);
         cardTexture.setFilter(Linear, Linear);
         cardImage = new Image(cardTexture);
         cardImage.setOrigin(cardTexture.getWidth()/2,cardTexture.getHeight()/2);
 
-//        Label priorityCardLabel = new Label(String.format("%04d", card.priority()), skin);
-//        priorityCardLabel.setFontScale(1/2.5f);
-//        priorityCardLabel.setPosition(98, 189);
-
         cardGroup = new Group();
         cardGroup.addActor(cardImage);
-
         if (card != null) {
             Label priorityCardLabel = new Label(String.format("%04d", card.priority()), skin);
-            priorityCardLabel.setFontScale(1/2.5f);
-            priorityCardLabel.setPosition(98, 189);
+            priorityCardLabel.setFontScale(1/5f);
+            priorityCardLabel.setPosition(52, 83);
             cardGroup.addActor(priorityCardLabel);
         }
+
 
         cardGroup.addListener(new ClickListener() {
             @Override
@@ -97,7 +74,7 @@ public class CardDragSmall implements ICardDragAndDrop {
 
     @Override
     public ICard getCard() {
-        return null;
+        return card;
     }
 
     @Override
