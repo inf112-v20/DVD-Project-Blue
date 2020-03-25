@@ -11,8 +11,12 @@ public class PlayerCardController {
         this.player = player;
     }
 
-    public int getAmountOfCardsToChooseFrom() {
+    public int numberOfReceivedCards() {
         return player.robot().getHP();
+    }
+
+    public int numberOfCardSlots() {
+        return player.numberOfCardSlots();
     }
 
     public ICard[] getReceivedPlayerCards() {

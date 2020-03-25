@@ -14,7 +14,7 @@ public class Player {
     private int playerNumber;
     private Robot robot;
     private ICard[] receivedCards = new ICard[9];
-    private ICard[] cardsChosen = new ICard[5];
+    private ICard[] cardSlots = new ICard[5];
     private int flagsCollected = 0;
 
     public Player(Game game, int playerNumber) {
@@ -35,10 +35,10 @@ public class Player {
     }
 
     public ICard getNextChosenCard() {
-        for (int i = 0; i < cardsChosen.length; i++) {
-            ICard card = cardsChosen[i];
-            if (cardsChosen[i] != null) {
-                cardsChosen[i] = null;
+        for (int i = 0; i < cardSlots.length; i++) {
+            ICard card = cardSlots[i];
+            if (cardSlots[i] != null) {
+                cardSlots[i] = null;
                 return card;
             }
         }
@@ -49,15 +49,15 @@ public class Player {
         return receivedCards;
     }
 
-    public ICard[] getCardsChosen() {
-        return cardsChosen;
+    public ICard[] getCardSlots() {
+        return cardSlots;
     }
 
     public int amountOfReceivedCards() {
         return receivedCards.length;
     }
 
-    public int amountOfCardsToChoose() {
-        return cardsChosen.length;
+    public int numberOfCardSlots() {
+        return cardSlots.length;
     }
 }

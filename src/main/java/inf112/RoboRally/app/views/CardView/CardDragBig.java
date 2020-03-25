@@ -30,7 +30,8 @@ public class CardDragBig implements ICardDragAndDrop {
     }
 
     @Override
-    public Group createCardGroup(ICard card) {
+    public Group createCardGroup(ICard newCard) {
+        this.card = newCard;
         String texturePath = "Cards/";
 
         if      (card instanceof ForwardCard) texturePath += card.getFileName();
