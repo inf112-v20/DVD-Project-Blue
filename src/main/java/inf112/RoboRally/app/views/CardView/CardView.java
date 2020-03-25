@@ -24,13 +24,14 @@ public class CardView extends InputAdapter {
     // Card controller - communicates game information
     private PlayerCardController playerCardController;
 
-    //CARD SLOT
-    private ICardDragAndDrop[] chosenCards;
+    //CARD SLOTS
+    private ICardDragAndDrop[] cardSlots;
+    private Table[] cardSlotdemo;
     private Table cardSlotTable;
 
     //CARD DECK
-    private ICardDragAndDrop[] cardsToChoose;
-    private Table cardsToChooseTable;
+    private ICardDragAndDrop[] receivedCards;
+    private Table receivedCardsTable;
 
     //DRAG AND DROP
     private int dragAndDropMouseValue;
@@ -38,14 +39,14 @@ public class CardView extends InputAdapter {
     public CardView(PlayerCardController controller) {
         this.playerCardController = controller;
         cardViewTimer = new Table();
-        cardsToChooseTable = new Table();
+        receivedCardsTable = new Table();
         cardSlotTable = new Table();
-        cardsToChoose = new CardDragBig[playerCardController.getPlayer().amountOfReceivedCards()];
-        chosenCards = new CardDragSmall[playerCardController.numberOfReceivedCards()];
+        receivedCards = new CardDragBig[playerCardController.getPlayer().amountOfReceivedCards()];
+        cardSlots = new CardDragSmall[playerCardController.numberOfCardSlots()];
 
         DragAndDrop dnd = new DragAndDrop();
         dnd.setDragActorPosition(-41, -44);
-        dnd.addSource(new DragAndDrop.Source(cardsToChooseTable) {
+        dnd.addSource(new DragAndDrop.Source(receivedCardsTable) {
             final DragAndDrop.Payload payload = new DragAndDrop.Payload();
             @Override
             public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
@@ -59,7 +60,7 @@ public class CardView extends InputAdapter {
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer, DragAndDrop.Payload payload, DragAndDrop.Target target) {
                 if (target == null) {
-                    cardsToChooseTable.getCells().get(dragAndDropMouseValue).setActor(cardsToChoose[dragAndDropMouseValue].createCardGroup(getCard(dragAndDropMouseValue).getCard()));
+                    receivedCardsTable.getCells().get(dragAndDropMouseValue).setActor(receivedCards[dragAndDropMouseValue].createCardGroup(getCard(dragAndDropMouseValue).getCard()));
                     getCard(dragAndDropMouseValue).cardGroup.setZIndex(dragAndDropMouseValue);
                 }
             }
@@ -73,32 +74,145 @@ public class CardView extends InputAdapter {
             @Override
             public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
                 if (openSlots()) {
-                    if (chosenCards[0].getCard() == null) {
+                    if (cardSlots[0].getCard() == null) {
                         dropCard(0, getCard(dragAndDropMouseValue));
                         cardSlotTable.getCells().get(0).getActor().setZIndex(0);
                     }
-                    else if (chosenCards[1].getCard() == null) {
+                    else if (cardSlots[1].getCard() == null) {
                         dropCard(1, getCard(dragAndDropMouseValue));
                         cardSlotTable.getCells().get(1).getActor().setZIndex(1);
                     }
-                    else if (chosenCards[2].getCard() == null) {
+                    else if (cardSlots[2].getCard() == null) {
                         dropCard(2, getCard(dragAndDropMouseValue));
                         cardSlotTable.getCells().get(2).getActor().setZIndex(2);
                     }
-                    else if (chosenCards[3].getCard() == null) {
+                    else if (cardSlots[3].getCard() == null) {
                         dropCard(3, getCard(dragAndDropMouseValue));
                         cardSlotTable.getCells().get(3).getActor().setZIndex(3);
                     }
-                    else if (chosenCards[4].getCard() == null) {
+                    else if (cardSlots[4].getCard() == null) {
                         dropCard(4, getCard(dragAndDropMouseValue));
                         cardSlotTable.getCells().get(4).getActor().setZIndex(4);
                     }
                 }
-                cardsToChooseTable.getCells().get(dragAndDropMouseValue).setActor(cardsToChoose[dragAndDropMouseValue].createCardGroup(null));
-                cardsToChooseTable.getCells().get(dragAndDropMouseValue).getActor().setZIndex(dragAndDropMouseValue);
+                receivedCardsTable.getCells().get(dragAndDropMouseValue).setActor(receivedCards[dragAndDropMouseValue].createCardGroup(null));
+                receivedCardsTable.getCells().get(dragAndDropMouseValue).getActor().setZIndex(dragAndDropMouseValue);
+
+
+            }
+
+        });
+
+    }
+
+
+
+
+
+    // Chosen cards
+    public Table cardsSlotTable() {
+        cardSlotTable.bottom().padBottom(8);
+        cardSlotTable.setTouchable(Touchable.enabled);
+        for (int i = 0; i < 5; i++) {
+            CardDragSmall dragCard = new CardDragSmall(null);
+            cardSlots[i] = dragCard;
+            if (i == 0) cardSlotTable.add(dragCard.getCardGroup()).padLeft(2461);
+            else        cardSlotTable.add(dragCard.getCardGroup()).padLeft(121);
+            cardSlotTable.getCells().get(i).getActor().setZIndex(i);
+        }
+
+
+        cardSlotTable.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int mouseClickPosition = event.getTarget().getParent().getZIndex();
+                ICardDragAndDrop clickedCard = cardSlots[mouseClickPosition];
+                if (clickedCard != null) {
+
+                    // TODO - extract method
+                    for (int availableCardSpot = 0; availableCardSpot < receivedCards.length; availableCardSpot++) {
+                        if (getCard(availableCardSpot).getCard() == null) {
+                            receivedCardsTable.getCells().get(availableCardSpot).clearActor().setActor(receivedCards[availableCardSpot].createCardGroup(clickedCard.getCard()));
+                            receivedCardsTable.getCells().get(availableCardSpot).getActor().setZIndex(availableCardSpot);
+                            break;
+                        }
+                    }
+
+                    cardSlotTable.getCells().get(mouseClickPosition).setActor(clickedCard.createCardGroup(null));
+                    receivedCardsTable.getCells().get(mouseClickPosition).getActor().setZIndex(mouseClickPosition);
+                }
+
             }
         });
+
+
+        return cardSlotTable;
     }
+
+
+
+    public void changeSmallCard(int cardIndex) {
+        cardSlotTable.getCells().get(cardIndex).clearActor().setActor(receivedCards[cardIndex].getCardGroup());
+    }
+
+    private void dropCard(int slotPosition, CardDragBig droppedCard) {
+        cardSlotTable.getCells().get(slotPosition).clearActor().setActor(cardSlots[slotPosition].createCardGroup(droppedCard.getCard()));
+    }
+
+
+    private boolean openSlots() {
+        for (ICardDragAndDrop card: cardSlots)
+            if (card.getCard() == null) return true;
+        return false;
+    }
+
+
+//    public boolean allSmallCardsChanged() {
+//        boolean allEqual = true;
+//        for (boolean bool : chosenCardChanged) {
+//            if (!bool) {
+//                allEqual = false;
+//                break;
+//            }
+//        }
+//        return !allEqual;
+//    }
+
+
+
+
+
+    //Setting up cards to choose from
+    public Table receivedCardsTable() {
+        receivedCardsTable.padLeft(4420).padBottom(1200);
+        receivedCardsTable.setTouchable(Touchable.enabled);
+
+        ICard[] receivedCards = playerCardController.getReceivedPlayerCards();
+        for (int i = 0; i < receivedCards.length; i++) {
+
+            if (receivedCards[i] == null)
+                break;
+
+            CardDragBig dragCard = new CardDragBig(receivedCards[i]);
+            this.receivedCards[i] = dragCard;
+
+            if          (i == 0) receivedCardsTable.add(dragCard.getCardGroup());
+            else if (i % 2 == 1) receivedCardsTable.add(dragCard.getCardGroup()).padLeft(205);
+            else {
+                receivedCardsTable.row().padTop(275);
+                receivedCardsTable.add(dragCard.getCardGroup());
+            }
+        }
+
+        return receivedCardsTable;
+    }
+
+
+
+    private CardDragBig getCard(int cardIndex) {
+        return (CardDragBig) receivedCards[cardIndex];
+    }
+
 
 
 
@@ -127,146 +241,5 @@ public class CardView extends InputAdapter {
     public TextButton getReadyButton() {
         return readyButton;
     }
-
-
-
-    // Chosen cards
-    public Table cardsSlotTable() {
-        cardSlotTable.bottom().padBottom(8);
-        cardSlotTable.setTouchable(Touchable.enabled);
-        for (int i = 0; i < 5; i++) {
-            CardDragSmall dragCard = new CardDragSmall(null);
-            chosenCards[i] = dragCard;
-            if (i == 0) cardSlotTable.add(dragCard.getCardGroup()).padLeft(2461);
-            else        cardSlotTable.add(dragCard.getCardGroup()).padLeft(121);
-            cardSlotTable.getCells().get(i).getActor().setZIndex(i);
-        }
-
-
-        cardSlotTable.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                int mouseClickPosition = event.getTarget().getParent().getZIndex();
-                ICardDragAndDrop clickedCard = chosenCards[mouseClickPosition];
-                if (clickedCard != null) {
-
-                    // TODO - this can be extracted as method
-                    for (int availableCardSpot = 0; availableCardSpot < cardsToChoose.length; availableCardSpot++) {
-                        if (getCard(availableCardSpot).getCard() == null) {
-                            cardsToChooseTable.getCells().get(availableCardSpot).clearActor().setActor(cardsToChoose[availableCardSpot].createCardGroup(clickedCard.getCard()));
-                            cardsToChooseTable.getCells().get(availableCardSpot).getActor().setZIndex(availableCardSpot);
-                            break;
-                        }
-                    }
-
-                    cardSlotTable.getCells().get(mouseClickPosition).setActor(clickedCard.createCardGroup(null));
-                    cardsToChooseTable.getCells().get(mouseClickPosition).getActor().setZIndex(mouseClickPosition);
-                }
-//                if (clickedCard != null) {
-//                    if (smallCardIndexDnD == 0) {
-//                        cardsToChooseTable.getCells().get(cardZIndex).clearActor().setActor(cardsToChoose[cardZIndex].createCardGroup(clickedCard.getCard()));
-//                        cardsToChooseTable.getCells().get(cardZIndex).getActor().setZIndex(cardZIndex);
-//                        chosenCardChanged[smallCardIndexDnD] = false;
-//                        cardSlotTable.getCells().get(smallCardIndexDnD).setActor(chosenCards[smallCardIndexDnD].createCardGroup(null));
-//                        cardsToChooseTable.getCells().get(smallCardIndexDnD).getActor().setZIndex(smallCardIndexDnD);
-//                    }
-//                    if (smallCardIndexDnD == 1) {
-//                        cardsToChooseTable.getCells().get(card2ZIndex).clearActor().setActor(cardsToChoose[card2ZIndex].createCardGroup(clickedCard.getCard()));
-//                        cardsToChooseTable.getCells().get(card2ZIndex).getActor().setZIndex(card2ZIndex);
-//                        chosenCardChanged[smallCardIndexDnD] = false;
-//                        cardSlotTable.getCells().get(smallCardIndexDnD).setActor(chosenCards[smallCardIndexDnD].createCardGroup(null));
-//                        cardsToChooseTable.getCells().get(smallCardIndexDnD).getActor().setZIndex(smallCardIndexDnD);
-//                    }
-//                    if (smallCardIndexDnD == 2) {
-//                        cardsToChooseTable.getCells().get(card3ZIndex).clearActor().setActor(cardsToChoose[card3ZIndex].createCardGroup(clickedCard.getCard()));
-//                        cardsToChooseTable.getCells().get(card3ZIndex).getActor().setZIndex(card3ZIndex);
-//                        chosenCardChanged[smallCardIndexDnD] = false;
-//                        cardSlotTable.getCells().get(smallCardIndexDnD).setActor(chosenCards[smallCardIndexDnD].createCardGroup(null));
-//                        cardsToChooseTable.getCells().get(smallCardIndexDnD).getActor().setZIndex(smallCardIndexDnD);
-//                    }
-//                    if (smallCardIndexDnD == 3) {
-//                        cardsToChooseTable.getCells().get(card4ZIndex).clearActor().setActor(cardsToChoose[card4ZIndex].createCardGroup(clickedCard.getCard()));
-//                        cardsToChooseTable.getCells().get(card4ZIndex).getActor().setZIndex(card4ZIndex);
-//                        chosenCardChanged[smallCardIndexDnD] = false;
-//                        cardSlotTable.getCells().get(smallCardIndexDnD).setActor(chosenCards[smallCardIndexDnD].createCardGroup(null));
-//                        cardsToChooseTable.getCells().get(smallCardIndexDnD).getActor().setZIndex(smallCardIndexDnD);
-//                    }
-//                    if (smallCardIndexDnD == 4) {
-//                        cardsToChooseTable.getCells().get(card5ZIndex).clearActor().setActor(cardsToChoose[card5ZIndex].createCardGroup(clickedCard.getCard()));
-//                        cardsToChooseTable.getCells().get(card5ZIndex).getActor().setZIndex(card5ZIndex);
-//                        chosenCardChanged[smallCardIndexDnD] = false;
-//                        cardSlotTable.getCells().get(smallCardIndexDnD).setActor(chosenCards[smallCardIndexDnD].createCardGroup(null));
-//                        cardsToChooseTable.getCells().get(smallCardIndexDnD).getActor().setZIndex(smallCardIndexDnD);
-//                    }
-//                }
-
-            }
-        });
-        return cardSlotTable;
-    }
-
-
-
-    public void changeSmallCard(int cardIndex) {
-        cardSlotTable.getCells().get(cardIndex).clearActor().setActor(cardsToChoose[cardIndex].getCardGroup());
-    }
-
-    private void dropCard(int slotPosition, CardDragBig droppedCard) {
-        cardSlotTable.getCells().get(slotPosition).clearActor().setActor(chosenCards[slotPosition].createCardGroup(droppedCard.getCard()));
-    }
-
-
-    private boolean openSlots() {
-        for (ICardDragAndDrop card: chosenCards)
-            if (card.getCard() == null) return true;
-        return false;
-    }
-
-
-//    public boolean allSmallCardsChanged() {
-//        boolean allEqual = true;
-//        for (boolean bool : chosenCardChanged) {
-//            if (!bool) {
-//                allEqual = false;
-//                break;
-//            }
-//        }
-//        return !allEqual;
-//    }
-
-
-
-
-    //Setting up cards to choose from
-    public Table receivedCardsTable() {
-        cardsToChooseTable.padLeft(4420).padBottom(1200);
-        cardsToChooseTable.setTouchable(Touchable.enabled);
-
-        ICard[] receivedCards = playerCardController.getReceivedPlayerCards();
-        for (int i = 0; i < receivedCards.length; i++) {
-
-            if (receivedCards[i] == null)
-                break;
-
-            CardDragBig dragCard = new CardDragBig(receivedCards[i]);
-            cardsToChoose[i] = dragCard;
-
-            if          (i == 0) cardsToChooseTable.add(dragCard.getCardGroup());
-            else if (i % 2 == 1) cardsToChooseTable.add(dragCard.getCardGroup()).padLeft(205);
-            else {
-                cardsToChooseTable.row().padTop(275);
-                cardsToChooseTable.add(dragCard.getCardGroup());
-            }
-        }
-
-        return cardsToChooseTable;
-    }
-
-
-
-    public CardDragBig getCard(int cardIndex) {
-        return (CardDragBig) cardsToChoose[cardIndex];
-    }
-
 
 }
