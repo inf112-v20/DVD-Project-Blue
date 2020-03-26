@@ -16,6 +16,7 @@ public class Player {
     private ICard[] receivedCards = new ICard[9];
     private ICard[] cardSlots = new ICard[5];
     private int flagsCollected = 0;
+    private boolean cardChoicesReady;
 
     public Player(Game game, int playerNumber) {
         this.playerNumber = playerNumber;
@@ -24,10 +25,6 @@ public class Player {
 
     public Robot robot() {
         return robot;
-    }
-
-    public int playerNumber() {
-        return playerNumber;
     }
 
     public void receiveCard(int i, ICard card) {
@@ -54,10 +51,18 @@ public class Player {
     }
 
     public int amountOfReceivedCards() {
-        return receivedCards.length;
+        return robot.getHP();
     }
 
     public int numberOfCardSlots() {
         return cardSlots.length;
+    }
+
+    public void setReadyForRound() {
+        this.cardChoicesReady = true;
+    }
+
+    public boolean readyForRound() {
+        return cardChoicesReady;
     }
 }

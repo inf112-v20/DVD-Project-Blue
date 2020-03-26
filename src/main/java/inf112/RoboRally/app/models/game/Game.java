@@ -13,16 +13,16 @@ public class Game {
     private Board board;
     private TiledMap map;
 
-    // the game
+    // game execution
     Round round;
 
-    // the players
+    // players
     private Player[] players;
-    private boolean playerHasWon = false;
-    private boolean playersAreReady = false;
+    private Player humanPlayer;
+    private boolean playerHasWon;
 
     // Controllers
-    PlayerCardController cardController;
+    PlayerCardController playerCardController;
 
     public Game(SinglePlayerSettingsController settings) {
 
@@ -36,12 +36,12 @@ public class Game {
         for (int i = 0; i < settings.getPlayerCount(); i++) {
             players[i] = new Player(this, i+1);
         }
-        cardController = new PlayerCardController(players[0]); // player1 is given as human player for now
+        humanPlayer = players[0];     // player1 is given as human player for now
+        playerCardController = new PlayerCardController(humanPlayer);
 
         // the game executed
         round = new Round();
-        phase(); // only deals out cards to the players for now
-
+        round.dealCards(players);
     }
 
 
@@ -59,10 +59,20 @@ public class Game {
     }
 
     private void phase() {
-        round.dealCards(players);
+        System.out.println(humanPlayer.readyForRound());
+        if (humanPlayer.readyForRound()) {
+            round.executeCardChoices(humanPlayer);
+        }
+        if (!playerHasWon) {
+            round.dealCards(players);
+        }
     }
 
-    public PlayerCardController getCardController() {
-        return cardController;
+    public PlayerCardController getPlayerCardController() {
+        return playerCardController;
+    }
+
+    public boolean playerReady() {
+        return humanPlayer.readyForRound();
     }
 }

@@ -15,7 +15,7 @@ public class Round {
     public void dealCards(Player[] players) {
 
         for (Player player: players) {
-            for (int i = 0; i < player.robot().getHP(); i++) {
+            for (int i = 0; i < player.amountOfReceivedCards(); i++) {
                 ICard card = cardFactory.randomCard();
                 player.receiveCard(i, card);
             }
@@ -24,27 +24,16 @@ public class Round {
     }
 
 
-    public void executeAllCardChoices(Player[] players) {
-        while (true) {
-            ArrayList<ICard> nextPlayerChoices = getNextCardChoices(players);
-
-            // means all cards are processed, no more cards to execute
-            if (nextPlayerChoices == null) break;
-
-            executeNextCardChoices(players, nextPlayerChoices);
+    // only executes our human players card choices for now
+    public void executeCardChoices(Player player) {
+        for (ICard card: player.getCardSlots()) {
+            if (card == null) break; // means no cards are left
+            card.moveRobot(player.robot());
         }
     }
 
-    // TODO - denne funker ikke enda, må sammenligne alle kort, ikke ta første som ikke er null
     public void executeNextCardChoices(Player[] players, ArrayList<ICard> nextPlayerChoices) {
-        for (int i = 0; i < nextPlayerChoices.size(); i++) {
-            ICard card = nextPlayerChoices.get(0);
-            if (card != null) {
-                // the robot is moved here
-                card.moveRobot(players[i].robot());
-                nextPlayerChoices.set(i, null);
-            }
-        }
+
     }
 
     private ArrayList<ICard> getNextCardChoices(Player[] players) {

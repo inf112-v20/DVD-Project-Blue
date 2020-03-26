@@ -2,9 +2,11 @@ package inf112.RoboRally.app.controllers.CardControllers;
 
 import inf112.RoboRally.app.models.cards.ICard;
 import inf112.RoboRally.app.models.game.Player;
+import inf112.RoboRally.app.views.card.ICardDragAndDrop;
 
 /*
-Class that communicates relevant game stats in terms of cards to view
+Class that communicates relevant game stats in terms of cards to view, and slot choices
+from the view to the model player class
  */
 public class PlayerCardController {
 
@@ -14,8 +16,8 @@ public class PlayerCardController {
         this.player = player;
     }
 
-    public int numberOfReceivedCards() {
-        return player.robot().getHP();
+    public int amountOfReceivedCards() {
+        return player.amountOfReceivedCards();
     }
 
     public int numberOfCardSlots() {
@@ -26,7 +28,25 @@ public class PlayerCardController {
         return player.getReceivedCards();
     }
 
-    public Player getPlayer() {
-        return player;
+    public void setCardSlotsFromUserInput(ICardDragAndDrop[] cardsFromView) {
+        System.out.println("READY");
+        for (ICardDragAndDrop viewCard: cardsFromView) {
+            if (viewCard.getModelCard() != null)
+                fillPlayerCardSlot(viewCard.getModelCard());
+        }
     }
+
+    private void fillPlayerCardSlot(ICard card) {
+        ICard[] playerModelCardSlots = player.getCardSlots();
+        for (int i = 0; i < playerModelCardSlots.length; i++) {
+            if (playerModelCardSlots[i] != null) {
+                playerModelCardSlots[i] = card;
+                break;
+            }
+        }
+        player.setReadyForRound();
+    }
+
+
+
 }

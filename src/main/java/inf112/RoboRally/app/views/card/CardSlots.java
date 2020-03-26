@@ -45,6 +45,9 @@ public class CardSlots {
 
     protected void dropCardInSlot(int slotNumber, BigCard droppedCard) {
         slotTables[slotNumber].getCells().get(0).clearActor().setActor(slotCardViews[slotNumber].createCardGroup(droppedCard.getModelCard()));
+    }
 
+    protected ICardDragAndDrop[] getSlotCardViews() {
+        return slotCardViews;
     }
 }

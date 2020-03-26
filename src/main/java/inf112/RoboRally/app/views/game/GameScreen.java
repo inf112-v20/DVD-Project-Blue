@@ -17,11 +17,11 @@ import inf112.RoboRally.app.views.player.PlayerUI;
 public class GameScreen extends InputAdapter implements Screen {
 
     private GameLauncher gameLauncher;
-    public OrthographicCamera camera;
+    private OrthographicCamera camera;
     private Viewport viewport;
     private Stage stage;
     private OrthogonalTiledMapRenderer mapRenderer;
-    public static Game game;
+    private static Game game;
     private PlayerUI playerUI;
 
     private InputMultiplexer multiplexer;
@@ -31,16 +31,18 @@ public class GameScreen extends InputAdapter implements Screen {
         camera = new OrthographicCamera();
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT, camera);
         stage = new Stage(viewport);
+
         game = new Game(this.gameLauncher.settings());
-        playerUI = new PlayerUI(this.gameLauncher.batch, game.getCardController());
+        playerUI = new PlayerUI(game.getPlayerCardController());
+
         mapRenderer = new OrthogonalTiledMapRenderer(game.getMap(), 1/256f);
         camera.setToOrtho(false, 26, 15);
         mapRenderer.setView(camera);
-
         multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(this);
         multiplexer.addProcessor(playerUI.getStage());
         Gdx.input.setInputProcessor(multiplexer);
+
     }
 
     @Override

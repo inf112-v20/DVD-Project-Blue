@@ -10,44 +10,44 @@ import inf112.RoboRally.app.models.cards.ICard;
 
 
 /*
-Class that connects the card slot and received card in the game screen to each other, via drag and drop.
+Class that connects the card slot and received card in the game screen to each other, and adds drag and drop functionality.
  */
-public class DragAndDropCardView extends InputAdapter {
+public class GameScreenCards extends InputAdapter {
 
     private PlayerCardController playerCardController;   // Player card controller - communicates player information
-    private CardSlots cardSlotsTest;                     // Class that holds all card slot tables for dropping cards
-    private ReceivedCards receivedCardsClassTest;        // Class that holds table with the received cards
+    private CardSlots cardSlots;                         // Class that holds all card slot tables for dropping cards
+    private ReceivedCards receivedCards;                 // Class that holds table with the received cards
 
     private int dragAndDropMouseValue;
     private DragAndDrop dragAndDrop;
 
 
-    public DragAndDropCardView(PlayerCardController controller) {
+    public GameScreenCards(PlayerCardController controller) {
         this.playerCardController = controller;
-        receivedCardsClassTest = new ReceivedCards(playerCardController.getReceivedPlayerCards());
-        cardSlotsTest = new CardSlots(playerCardController.numberOfCardSlots());
+        receivedCards = new ReceivedCards(playerCardController.getReceivedPlayerCards());
+        cardSlots = new CardSlots(playerCardController.numberOfCardSlots());
         setUpCardSlotTableListener();
         setUpDragAndDrop();
-        for (int slotNumber = 0; slotNumber < playerCardController.numberOfCardSlots(); slotNumber++) {
+        for (int slotNumber = 0; slotNumber < playerCardController.numberOfCardSlots(); slotNumber++)
             addDragAndDropTarget(slotNumber);
-        }
+
     }
 
 
     private void addDragAndDropTarget(int slotNumber) {
-        Table receivedCardsTable = receivedCardsClassTest.getReceivedCardsTable();
-        ICardDragAndDrop[] receivedCardViews = receivedCardsClassTest.getReceivedModelCardViews();
-        Table cardSlotTable = cardSlotsTest.getCardSlotTable(slotNumber);
+        Table receivedCardsTable = receivedCards.getReceivedCardsTable();
+        ICardDragAndDrop[] receivedCardViews = receivedCards.getReceivedModelCardViews();
+        Table cardSlotTable = cardSlots.getCardSlotTable(slotNumber);
 
         dragAndDrop.addTarget(new DragAndDrop.Target(cardSlotTable) {
             @Override
             public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                return cardSlotsTest.slotIsOpen(slotNumber);
+                return cardSlots.slotIsOpen(slotNumber);
             }
 
             @Override
             public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                cardSlotsTest.dropCardInSlot(slotNumber, receivedCardsClassTest.getReceivedCard(dragAndDropMouseValue));
+                cardSlots.dropCardInSlot(slotNumber, receivedCards.getReceivedCard(dragAndDropMouseValue));
                 receivedCardsTable.getCells().get(dragAndDropMouseValue).setActor(receivedCardViews[dragAndDropMouseValue].createCardGroup(null));
                 receivedCardsTable.getCells().get(dragAndDropMouseValue).getActor().setZIndex(dragAndDropMouseValue);
             }
@@ -56,8 +56,8 @@ public class DragAndDropCardView extends InputAdapter {
     }
 
     private void setUpDragAndDrop() {
-        Table receivedCardsTable = receivedCardsClassTest.getReceivedCardsTable();
-        ICardDragAndDrop[] receivedCardViews = receivedCardsClassTest.getReceivedModelCardViews();
+        Table receivedCardsTable = receivedCards.getReceivedCardsTable();
+        ICardDragAndDrop[] receivedCardViews = receivedCards.getReceivedModelCardViews();
 
         dragAndDrop = new DragAndDrop();
         dragAndDrop.setDragActorPosition(-41, -44);
@@ -75,8 +75,8 @@ public class DragAndDropCardView extends InputAdapter {
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer, DragAndDrop.Payload payload, DragAndDrop.Target target) {
                 if (target == null) {
-                    receivedCardsTable.getCells().get(dragAndDropMouseValue).setActor(receivedCardViews[dragAndDropMouseValue].createCardGroup(receivedCardsClassTest.getReceivedCard(dragAndDropMouseValue).getModelCard()));
-                    receivedCardsClassTest.getReceivedCard(dragAndDropMouseValue).getCardGroup().setZIndex(dragAndDropMouseValue);
+                    receivedCardsTable.getCells().get(dragAndDropMouseValue).setActor(receivedCardViews[dragAndDropMouseValue].createCardGroup(receivedCards.getReceivedCard(dragAndDropMouseValue).getModelCard()));
+                    receivedCards.getReceivedCard(dragAndDropMouseValue).getCardGroup().setZIndex(dragAndDropMouseValue);
                 }
             }
 
@@ -88,8 +88,8 @@ public class DragAndDropCardView extends InputAdapter {
     // setting up mouse click listeners on all card slots for undoing card choice
     private void setUpCardSlotTableListener() {
         for (int slotNumber = 0; slotNumber < playerCardController.numberOfCardSlots(); slotNumber++) {
-            Table slotTable = cardSlotsTest.getCardSlotTable(slotNumber);
-            ICardDragAndDrop card = cardSlotsTest.getSlotCard(slotNumber);
+            Table slotTable = cardSlots.getCardSlotTable(slotNumber);
+            ICardDragAndDrop card = cardSlots.getSlotCard(slotNumber);
             slotTable.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -102,11 +102,11 @@ public class DragAndDropCardView extends InputAdapter {
 
     private void undoCardSlotChoice(Table slotTable, ICardDragAndDrop card) {
         ICard modelCard = card.getModelCard();
-        Table receivedCardsTable = receivedCardsClassTest.getReceivedCardsTable();
-        ICardDragAndDrop[] receivedCards = receivedCardsClassTest.getReceivedModelCardViews();
+        Table receivedCardsTable = receivedCards.getReceivedCardsTable();
+        ICardDragAndDrop[] receivedCards = this.receivedCards.getReceivedModelCardViews();
         if (modelCard != null) {
-            for (int i = 0; i < playerCardController.numberOfReceivedCards(); i++) {
-                if (receivedCardsClassTest.getReceivedCard(i).getModelCard() == null) {
+            for (int i = 0; i < playerCardController.amountOfReceivedCards(); i++) {
+                if (this.receivedCards.getReceivedCard(i).getModelCard() == null) {
                     receivedCardsTable.getCells().get(i).clearActor().setActor(receivedCards[i].createCardGroup(card.getModelCard()));
                     receivedCardsTable.getCells().get(i).getActor().setZIndex(i);
                     break;
@@ -121,12 +121,21 @@ public class DragAndDropCardView extends InputAdapter {
 
 
     public Table getReceivedCardsTable() {
-        return receivedCardsClassTest.receivedCardsTable();
+        return receivedCards.receivedCardsTable();
     }
 
     public Table getCardSlotTable(int slotNumber) {
-        return cardSlotsTest.getCardSlotTable(slotNumber);
+        return cardSlots.getCardSlotTable(slotNumber);
     }
 
+    public ICardDragAndDrop[] cardChoiceReady() {
+        System.out.println("Got here! what");
+        ICardDragAndDrop[] cardChoices = cardSlots.getSlotCardViews();
+        for (ICardDragAndDrop viewCard: cardChoices) {
+            if (viewCard.getModelCard() == null)
+                return null;
 
+        }
+        return cardChoices;
+    }
 }

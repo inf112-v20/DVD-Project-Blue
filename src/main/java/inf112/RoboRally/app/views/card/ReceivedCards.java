@@ -36,7 +36,7 @@ public class ReceivedCards {
             BigCard dragCard = new BigCard(receivedModelCards[i]);
             this.receivedModelCardViews[i] = dragCard;
 
-            // distributing cards on the table, padding is different for every second card
+            // distributing cards on the table, padding is different for every other card
             if          (i == 0) receivedCardsTable.add(dragCard.getCardGroup());
             else if (i % 2 == 1) receivedCardsTable.add(dragCard.getCardGroup()).padLeft(PAD_CARD_LEFT);
             else {
