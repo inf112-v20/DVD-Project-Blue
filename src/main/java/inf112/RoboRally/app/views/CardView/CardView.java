@@ -16,6 +16,7 @@ import inf112.RoboRally.app.views.Screens.Button;
 
 public class CardView extends InputAdapter {
 
+    // TODO - this must be in another class, not in accordance with single responsibility
     final private Skin skin = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
     private Table cardViewTimer;
     private final int timer = 30;
@@ -23,7 +24,6 @@ public class CardView extends InputAdapter {
 
     // Player card controller - communicates player information
     private PlayerCardController playerCardController;
-
 
     //Card slots for putting down card choices
     private ICardDragAndDrop[] cardSlots;
@@ -40,14 +40,13 @@ public class CardView extends InputAdapter {
     private final int FIFTH_SLOT = 4;
 
 
-
-
     //Received cards for click and drag to card slots
     private ICardDragAndDrop[] receivedCards;
     private Table receivedCardsTable;
 
     //DRAG AND DROP
     private int dragAndDropMouseValue;
+    private DragAndDrop dragAndDrop;
 
     public CardView(PlayerCardController controller) {
         this.playerCardController = controller;
@@ -62,17 +61,45 @@ public class CardView extends InputAdapter {
         fourthSlotTable = new Table();
         fifthSlotTable = new Table();
 
-        DragAndDrop dnd = new DragAndDrop();
-        dnd.setDragActorPosition(-41, -44);
-        dnd.addSource(new DragAndDrop.Source(receivedCardsTable) {
-            final DragAndDrop.Payload payload = new DragAndDrop.Payload();
+        setUpDragAndDrop();
+        addDragAndDropTarget(firstSlotTable, FIRST_SLOT);
+        addDragAndDropTarget(secondSlotTable, SECOND_SLOT);
+        addDragAndDropTarget(thirdSlotTable, THIRD_SLOT);
+        addDragAndDropTarget(fourthSlotTable, FOURTH_SLOT);
+        addDragAndDropTarget(fifthSlotTable, FIFTH_SLOT);
+    }
+
+
+    private void addDragAndDropTarget(Table slotTable, int slotNumber) {
+        dragAndDrop.addTarget(new DragAndDrop.Target(slotTable) {
+            @Override
+            public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
+                return slotIsOpen(slotNumber);
+            }
+
+            @Override
+            public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
+                dropCardInSlot(slotTable, slotNumber, getReceivedCard(dragAndDropMouseValue));
+                receivedCardsTable.getCells().get(dragAndDropMouseValue).setActor(receivedCards[dragAndDropMouseValue].createCardGroup(null));
+                receivedCardsTable.getCells().get(dragAndDropMouseValue).getActor().setZIndex(dragAndDropMouseValue);
+            }
+        });
+    }
+
+    private void setUpDragAndDrop() {
+
+        dragAndDrop = new DragAndDrop();
+        dragAndDrop.setDragActorPosition(-41, -44);
+
+        dragAndDrop.addSource(new DragAndDrop.Source(receivedCardsTable) {
+            final DragAndDrop.Payload PAYLOAD = new DragAndDrop.Payload();
             @Override
             public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
-                payload.setObject(event.getTarget().getParent());
-                payload.setDragActor(event.getTarget().getParent());
-                payload.getDragActor().setScale(1/2.2f);
-                dragAndDropMouseValue = payload.getDragActor().getZIndex();
-                return payload;
+                PAYLOAD.setObject(event.getTarget().getParent());
+                PAYLOAD.setDragActor(event.getTarget().getParent());
+                PAYLOAD.getDragActor().setScale(1/2.2f);
+                dragAndDropMouseValue = PAYLOAD.getDragActor().getZIndex();
+                return PAYLOAD;
             }
 
             @Override
@@ -82,80 +109,13 @@ public class CardView extends InputAdapter {
                     getReceivedCard(dragAndDropMouseValue).cardGroup.setZIndex(dragAndDropMouseValue);
                 }
             }
-        });
-        dnd.addTarget(new DragAndDrop.Target(firstSlotTable) {
-            @Override
-            public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                return slotIsOpen(FIRST_SLOT);
-            }
 
-            @Override
-            public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                dropCardInSlot(firstSlotTable,FIRST_SLOT, getReceivedCard(dragAndDropMouseValue));
-                firstSlotTable.getCells().get(0).getActor().setZIndex(0);
-                receivedCardsTable.getCells().get(dragAndDropMouseValue).setActor(receivedCards[dragAndDropMouseValue].createCardGroup(null));
-                receivedCardsTable.getCells().get(dragAndDropMouseValue).getActor().setZIndex(dragAndDropMouseValue);
-            }
-        });
-        dnd.addTarget(new DragAndDrop.Target(secondSlotTable) {
-            @Override
-            public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                return slotIsOpen(SECOND_SLOT);
-            }
-
-            @Override
-            public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                dropCardInSlot(secondSlotTable,SECOND_SLOT, getReceivedCard(dragAndDropMouseValue));
-                secondSlotTable.getCells().get(0).getActor().setZIndex(1);
-                receivedCardsTable.getCells().get(dragAndDropMouseValue).setActor(receivedCards[dragAndDropMouseValue].createCardGroup(null));
-                receivedCardsTable.getCells().get(dragAndDropMouseValue).getActor().setZIndex(dragAndDropMouseValue);
-            }
-        });
-        dnd.addTarget(new DragAndDrop.Target(thirdSlotTable) {
-            @Override
-            public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                return slotIsOpen(THIRD_SLOT);
-            }
-
-            @Override
-            public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                dropCardInSlot(thirdSlotTable,THIRD_SLOT, getReceivedCard(dragAndDropMouseValue));
-                thirdSlotTable.getCells().get(0).getActor().setZIndex(2);
-                receivedCardsTable.getCells().get(dragAndDropMouseValue).setActor(receivedCards[dragAndDropMouseValue].createCardGroup(null));
-                receivedCardsTable.getCells().get(dragAndDropMouseValue).getActor().setZIndex(dragAndDropMouseValue);
-            }
-        });
-        dnd.addTarget(new DragAndDrop.Target(fourthSlotTable) {
-            @Override
-            public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                return slotIsOpen(FOURTH_SLOT);
-            }
-
-            @Override
-            public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                dropCardInSlot(fourthSlotTable,FOURTH_SLOT, getReceivedCard(dragAndDropMouseValue));
-                fourthSlotTable.getCells().get(0).getActor().setZIndex(3);
-                receivedCardsTable.getCells().get(dragAndDropMouseValue).setActor(receivedCards[dragAndDropMouseValue].createCardGroup(null));
-                receivedCardsTable.getCells().get(dragAndDropMouseValue).getActor().setZIndex(dragAndDropMouseValue);
-            }
-        });
-        dnd.addTarget(new DragAndDrop.Target(fifthSlotTable) {
-            @Override
-            public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                return slotIsOpen(FIFTH_SLOT);
-            }
-
-            @Override
-            public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                dropCardInSlot(fifthSlotTable,FIFTH_SLOT, getReceivedCard(dragAndDropMouseValue));
-                fifthSlotTable.getCells().get(0).getActor().setZIndex(4);
-                receivedCardsTable.getCells().get(dragAndDropMouseValue).setActor(receivedCards[dragAndDropMouseValue].createCardGroup(null));
-                receivedCardsTable.getCells().get(dragAndDropMouseValue).getActor().setZIndex(dragAndDropMouseValue);
-            }
         });
 
 
     }
+
+
 
 
 
