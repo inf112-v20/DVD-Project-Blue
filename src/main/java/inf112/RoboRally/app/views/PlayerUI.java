@@ -20,18 +20,14 @@ public class PlayerUI extends InputAdapter {
     public PlayerUI (SpriteBatch spriteBatch, PlayerCardController cardController) {
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT);
         stage = new Stage(viewport);
-        playerHUD = new PlayerHUD(2, 3, false);
+        playerHUD = new PlayerHUD(3, 9, false);
         cardView = new CardView(cardController);
 
         stage.addActor(playerHUD.create());
         stage.addActor(playerHUD.powerDown());
         stage.addActor(playerHUD.damageTokens());
         stage.addActor(playerHUD.lifeTokens());
-//        stage.addActor(cardView.setUpFirstCardSlot());
-//        stage.addActor(cardView.setUpSecondCardSlot());
-//        stage.addActor(cardView.setUpThirdCardSlot());
-//        stage.addActor(cardView.setUpFourthCardSlot());
-//        stage.addActor(cardView.setUpFifthCardSlot());
+
         for (int slotNumber = 0; slotNumber < cardController.numberOfCardSlots(); slotNumber++)
             stage.addActor(cardView.getCardSlotTable(slotNumber));
 

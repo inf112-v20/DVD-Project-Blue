@@ -7,11 +7,6 @@ public class CardSlots {
 
     private ICardDragAndDrop[] slotCardViews;
     private Table[] slotTables;
-    private final int FIRST_SLOT = 0;
-    private final int SECOND_SLOT = 1;
-    private final int THIRD_SLOT = 2;
-    private final int FOURTH_SLOT = 3;
-    private final int FIFTH_SLOT = 4;
 
     private final int BOTTOM_PADDING = 8;
     private final int[] LEFT_PADDING = {1977, 2219, 2461, 2703, 2945};
