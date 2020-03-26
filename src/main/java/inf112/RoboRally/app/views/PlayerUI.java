@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
 import inf112.RoboRally.app.controllers.CardControllers.PlayerCardController;
-import inf112.RoboRally.app.views.CardView.*;
+import inf112.RoboRally.app.views.CardView.CardView;
 
 public class PlayerUI extends InputAdapter {
 
@@ -16,8 +16,6 @@ public class PlayerUI extends InputAdapter {
     private Viewport viewport;
     private PlayerHUD playerHUD;
     private CardView cardView;
-
-    private PlayerCardController cardController;
 
     public PlayerUI (SpriteBatch spriteBatch, PlayerCardController cardController) {
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT);
@@ -29,15 +27,15 @@ public class PlayerUI extends InputAdapter {
         stage.addActor(playerHUD.powerDown());
         stage.addActor(playerHUD.damageTokens());
         stage.addActor(playerHUD.lifeTokens());
+//        stage.addActor(cardView.setUpFirstCardSlot());
+//        stage.addActor(cardView.setUpSecondCardSlot());
+//        stage.addActor(cardView.setUpThirdCardSlot());
+//        stage.addActor(cardView.setUpFourthCardSlot());
+//        stage.addActor(cardView.setUpFifthCardSlot());
+        for (int slotNumber = 0; slotNumber < cardController.numberOfCardSlots(); slotNumber++)
+            stage.addActor(cardView.getCardSlotTable(slotNumber));
 
-//        stage.addActor(cardView.cardViewTimer());
-        stage.addActor(cardView.setUpFirstCardSlot());
-        stage.addActor(cardView.setUpSecondCardSlot());
-        stage.addActor(cardView.setUpThirdCardSlot());
-        stage.addActor(cardView.setUpFourthCardSlot());
-        stage.addActor(cardView.setUpFifthCardSlot());
-
-        stage.addActor(cardView.receivedCardsTable());
+        stage.addActor(cardView.getReceivedCardsTable());
         Gdx.input.setInputProcessor(cardView);
     }
 
