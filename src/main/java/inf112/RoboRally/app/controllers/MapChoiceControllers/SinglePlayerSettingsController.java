@@ -2,6 +2,9 @@ package inf112.RoboRally.app.controllers.MapChoiceControllers;
 
 import inf112.RoboRally.app.models.board.Board;
 
+/*
+Communicates map information to single player settings menu
+ */
 public class SinglePlayerSettingsController {
 
     public final int MIN_PLAYERS = 2;

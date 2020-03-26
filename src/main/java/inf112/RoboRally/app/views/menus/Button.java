@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.views.Screens;
+package inf112.RoboRally.app.views.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;

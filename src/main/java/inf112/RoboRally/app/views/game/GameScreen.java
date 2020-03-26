@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.views.Screens;
+package inf112.RoboRally.app.views.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
 import inf112.RoboRally.app.models.game.Game;
-import inf112.RoboRally.app.views.PlayerUI;
+import inf112.RoboRally.app.views.player.PlayerUI;
 
 public class GameScreen extends InputAdapter implements Screen {
 

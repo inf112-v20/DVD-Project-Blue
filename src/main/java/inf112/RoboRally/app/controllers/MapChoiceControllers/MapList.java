@@ -2,6 +2,9 @@ package inf112.RoboRally.app.controllers.MapChoiceControllers;
 
 import inf112.RoboRally.app.models.board.*;
 
+/*
+Class that holds all the currently supported maps
+ */
 public class MapList {
 
     public final String PATH = "Boards/";

@@ -36,15 +36,13 @@ public class Game {
         for (int i = 0; i < settings.getPlayerCount(); i++) {
             players[i] = new Player(this, i+1);
         }
-
-        // the game
-        round = new Round();
-
         cardController = new PlayerCardController(players[0]); // player1 is given as human player for now
-        phase();
+
+        // the game executed
+        round = new Round();
+        phase(); // only deals out cards to the players for now
 
     }
-
 
 
     public TiledMap getMap () {

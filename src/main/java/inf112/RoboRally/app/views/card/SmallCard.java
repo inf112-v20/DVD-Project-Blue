@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.views.CardView;
+package inf112.RoboRally.app.views.card;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -16,16 +16,19 @@ import inf112.RoboRally.app.models.cards.RotateCard;
 
 import static com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
 
-public class CardDragSmall implements ICardDragAndDrop {
+/*
+Card view that represents cards that are dropped in a slot.
+ */
+public class SmallCard implements ICardDragAndDrop {
 
-    private ICard card;
+    final private Skin SKIN = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
 
-    final private Skin skin = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
+    private ICard card;         // model card
 
-    private Group cardGroup;
+    private Group cardGroup;    // actor for use in libgdx tables
     private Image cardImage;
 
-    public CardDragSmall(ICard card) {
+    public SmallCard(ICard card) {
         this.card = card;
         createCardGroup(card);
     }
@@ -50,13 +53,14 @@ public class CardDragSmall implements ICardDragAndDrop {
         cardGroup = new Group();
         cardGroup.addActor(cardImage);
         if (card != null) {
-            Label priorityCardLabel = new Label(String.format("%04d", card.priority()), skin);
+            Label priorityCardLabel = new Label(String.format("%04d", card.priority()), SKIN);
             priorityCardLabel.setFontScale(1/5f);
             priorityCardLabel.setPosition(52, 83);
             cardGroup.addActor(priorityCardLabel);
         }
 
 
+        // listener for making the card bigger when the card is in a card slot
         cardGroup.addListener(new ClickListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {

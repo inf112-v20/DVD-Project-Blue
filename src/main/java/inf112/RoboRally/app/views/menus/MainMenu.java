@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.views.Screens;
+package inf112.RoboRally.app.views.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -16,7 +16,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
 import static com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
 
-public class LanPlayScreen implements Screen {
+/*
+Class for the main menu. This is where the game starts when built.
+ */
+public class MainMenu implements Screen {
 
     private GameLauncher gameLauncher;
     private OrthographicCamera camera;
@@ -24,9 +27,7 @@ public class LanPlayScreen implements Screen {
     private Stage stage;
     private Table table;
 
-    final private Skin skin = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
-
-    public LanPlayScreen(GameLauncher game) {
+    public MainMenu(GameLauncher game) {
         this.gameLauncher = game;
         camera = new OrthographicCamera();
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT, camera);
@@ -40,27 +41,50 @@ public class LanPlayScreen implements Screen {
         table.setFillParent(true);
         table.center();
 
-        Texture background = new Texture("Images/Background2.png");
+        Texture background = new Texture("Images/Background.png");
         background.setFilter(Linear, Linear);
         table.setBackground(new TextureRegionDrawable(background));
 
-        TextButton newLobby = new Button().createTextButton("CREATE NEW LOBBY");
-        TextButton existingGame = new Button().createTextButton("JOIN EXISTING GAME");
-        TextButton goBack = new Button().createTextButton("GO BACK");
+        TextButton play = new Button().createTextButton("PLAY");
+        TextButton lan = new Button().createTextButton("LAN");
+        TextButton quit = new Button().createTextButton("QUIT");
+        table.add(play);
+        table.row().padTop(10);
+        table.add(lan);
+        table.row().padTop(10);
+        table.add(quit);
 
-        table.add(newLobby).padBottom(25);
-        table.row();
-        table.add(existingGame).padBottom(25);
-        table.row();
-        table.add(goBack);
-
-        goBack.addListener(new ClickListener() {
+        play.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.8f), Actions.run(new Runnable() {
                     @Override
                     public void run() {
-                        gameLauncher.setScreen(new MainMenu(gameLauncher));
+                        gameLauncher.setScreen(new SinglePlayerSettingsMenu(gameLauncher));
+                    }
+                })));
+            }
+        });
+
+        lan.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.8f), Actions.run(new Runnable() {
+                    @Override
+                    public void run() {
+                        gameLauncher.setScreen(new LanMenu(gameLauncher));
+                    }
+                })));
+            }
+        });
+
+        quit.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(new Runnable() {
+                    @Override
+                    public void run() {
+                        Gdx.app.exit();
                     }
                 })));
             }
@@ -72,10 +96,11 @@ public class LanPlayScreen implements Screen {
     }
 
     @Override
-    public void render(float delta) {
+    public void render(float v) {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         gameLauncher.batch.begin();
+        gameLauncher.batch.setProjectionMatrix(camera.combined);
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1));
         stage.draw();
         gameLauncher.batch.end();
@@ -85,6 +110,7 @@ public class LanPlayScreen implements Screen {
     public void resize(int width, int height) {
         viewport.update(width, height);
     }
+
 
     @Override
     public void pause() {

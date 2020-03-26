@@ -18,7 +18,7 @@ public class CardFactory {
             case 2:
                 return new ForwardCard(1, priority);
             case 3:
-                return new ReverseCard(r.nextInt(2001));
+                return new ReverseCard(priority);
             case 4:
                 return new RotateCard(Rotation.LEFT, priority);
             case 5:

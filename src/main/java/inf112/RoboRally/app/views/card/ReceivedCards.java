@@ -1,10 +1,18 @@
-package inf112.RoboRally.app.views.CardView;
+package inf112.RoboRally.app.views.card;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import inf112.RoboRally.app.models.cards.ICard;
 
+/*
+Table that holds all the cards to choose from on the game screen
+ */
 public class ReceivedCards {
+
+    private final int PAD_TABLE_LEFT = 4420;
+    private final int PAD_TABLE_BOTTOM = 1200;
+    private final int PAD_CARD_LEFT = 205;
+    private final int PAD_CARD_TOP = 275;
 
     private ICard[] receivedModelCards;                  // the model cards
     private ICardDragAndDrop[] receivedModelCardViews;   // the card images
@@ -17,7 +25,7 @@ public class ReceivedCards {
     }
 
     protected Table receivedCardsTable() {
-        receivedCardsTable.padLeft(4420).padBottom(1200);
+        receivedCardsTable.padLeft(PAD_TABLE_LEFT).padBottom(PAD_TABLE_BOTTOM);
         receivedCardsTable.setTouchable(Touchable.enabled);
 
         for (int i = 0; i < receivedModelCards.length; i++) {
@@ -25,14 +33,14 @@ public class ReceivedCards {
             if (receivedModelCards[i] == null)
                 break;
 
-            CardDragBig dragCard = new CardDragBig(receivedModelCards[i]);
+            BigCard dragCard = new BigCard(receivedModelCards[i]);
             this.receivedModelCardViews[i] = dragCard;
 
-            // distributing cards on the table
+            // distributing cards on the table, padding is different for every second card
             if          (i == 0) receivedCardsTable.add(dragCard.getCardGroup());
-            else if (i % 2 == 1) receivedCardsTable.add(dragCard.getCardGroup()).padLeft(205);
+            else if (i % 2 == 1) receivedCardsTable.add(dragCard.getCardGroup()).padLeft(PAD_CARD_LEFT);
             else {
-                receivedCardsTable.row().padTop(275);
+                receivedCardsTable.row().padTop(PAD_CARD_TOP);
                 receivedCardsTable.add(dragCard.getCardGroup());
             }
         }
@@ -48,7 +56,7 @@ public class ReceivedCards {
         return receivedModelCardViews;
     }
 
-    protected CardDragBig getReceivedCard(int cardIndex) {
-        return (CardDragBig) receivedModelCardViews[cardIndex];
+    protected BigCard getReceivedCard(int cardIndex) {
+        return (BigCard) receivedModelCardViews[cardIndex];
     }
 }

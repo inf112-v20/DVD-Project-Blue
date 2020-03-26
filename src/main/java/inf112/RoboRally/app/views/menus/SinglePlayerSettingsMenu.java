@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.views.Screens;
+package inf112.RoboRally.app.views.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -14,9 +14,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
+import inf112.RoboRally.app.views.game.GameScreen;
+
 import static com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
 
-public class SinglePlayerSettingsScreen implements Screen {
+public class SinglePlayerSettingsMenu implements Screen {
 
 
     private GameLauncher gameLauncher;
@@ -43,7 +45,7 @@ public class SinglePlayerSettingsScreen implements Screen {
 
 
 
-    public SinglePlayerSettingsScreen(GameLauncher gameLauncher) {
+    public SinglePlayerSettingsMenu(GameLauncher gameLauncher) {
         this.gameLauncher = gameLauncher;
         OrthographicCamera camera = new OrthographicCamera();
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT, camera);

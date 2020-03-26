@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.views;
+package inf112.RoboRally.app.views.player;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;

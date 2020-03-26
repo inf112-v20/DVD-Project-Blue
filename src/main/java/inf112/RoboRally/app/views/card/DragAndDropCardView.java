@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.views.CardView;
+package inf112.RoboRally.app.views.card;
 
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -8,7 +8,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import inf112.RoboRally.app.controllers.CardControllers.PlayerCardController;
 import inf112.RoboRally.app.models.cards.ICard;
 
-public class CardView extends InputAdapter {
+
+/*
+Class that connects the card slot and received card in the game screen to each other, via drag and drop.
+ */
+public class DragAndDropCardView extends InputAdapter {
 
     private PlayerCardController playerCardController;   // Player card controller - communicates player information
     private CardSlots cardSlotsTest;                     // Class that holds all card slot tables for dropping cards
@@ -18,7 +22,7 @@ public class CardView extends InputAdapter {
     private DragAndDrop dragAndDrop;
 
 
-    public CardView(PlayerCardController controller) {
+    public DragAndDropCardView(PlayerCardController controller) {
         this.playerCardController = controller;
         receivedCardsClassTest = new ReceivedCards(playerCardController.getReceivedPlayerCards());
         cardSlotsTest = new CardSlots(playerCardController.numberOfCardSlots());
@@ -81,6 +85,7 @@ public class CardView extends InputAdapter {
 
     }
 
+    // setting up mouse click listeners on all card slots for undoing card choice
     private void setUpCardSlotTableListener() {
         for (int slotNumber = 0; slotNumber < playerCardController.numberOfCardSlots(); slotNumber++) {
             Table slotTable = cardSlotsTest.getCardSlotTable(slotNumber);
@@ -115,8 +120,6 @@ public class CardView extends InputAdapter {
     }
 
 
-
-    //
     public Table getReceivedCardsTable() {
         return receivedCardsClassTest.receivedCardsTable();
     }

@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.views;
+package inf112.RoboRally.app.views.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
@@ -8,20 +8,20 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
 import inf112.RoboRally.app.controllers.CardControllers.PlayerCardController;
-import inf112.RoboRally.app.views.CardView.CardView;
+import inf112.RoboRally.app.views.card.DragAndDropCardView;
 
 public class PlayerUI extends InputAdapter {
 
     private Stage stage;
     private Viewport viewport;
     private PlayerHUD playerHUD;
-    private CardView cardView;
+    private DragAndDropCardView cardView;
 
     public PlayerUI (SpriteBatch spriteBatch, PlayerCardController cardController) {
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT);
         stage = new Stage(viewport);
         playerHUD = new PlayerHUD(3, 9, false);
-        cardView = new CardView(cardController);
+        cardView = new DragAndDropCardView(cardController);
 
         stage.addActor(playerHUD.create());
         stage.addActor(playerHUD.powerDown());

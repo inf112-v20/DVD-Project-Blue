@@ -3,6 +3,9 @@ package inf112.RoboRally.app.controllers.CardControllers;
 import inf112.RoboRally.app.models.cards.ICard;
 import inf112.RoboRally.app.models.game.Player;
 
+/*
+Class that communicates relevant game stats in terms of cards to view
+ */
 public class PlayerCardController {
 
     private Player player; // our human single player

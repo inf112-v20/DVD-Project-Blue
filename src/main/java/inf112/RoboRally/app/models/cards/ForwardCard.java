@@ -31,7 +31,4 @@ public class ForwardCard implements ICard {
         robot.move(STEPS_TO_MOVE);
     }
 
-    public int getSTEPS_TO_MOVE() {
-        return STEPS_TO_MOVE;
-    }
 }

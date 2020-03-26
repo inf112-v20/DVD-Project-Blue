@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.views.CardView;
+package inf112.RoboRally.app.views.card;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,18 +13,20 @@ import inf112.RoboRally.app.models.cards.RotateCard;
 
 import static com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
 
-public class CardDragBig implements ICardDragAndDrop {
+/*
+Card view that represents received cards (cards to put in slots) on the game screen.
+ */
+public class BigCard implements ICardDragAndDrop {
 
     private final String EMPTY_CARD_PATH = "EmptyCard.png";
     private final Skin SKIN = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
 
-    private ICard card;
+    private ICard card;           // model card
 
-
-    public Group cardGroup;
+    public Group cardGroup;       // actor for use in libgdx tables
     public Image cardImage;
 
-    public CardDragBig(ICard card) {
+    public BigCard(ICard card) {
         this.card = card;
         createCardGroup(card);
     }
