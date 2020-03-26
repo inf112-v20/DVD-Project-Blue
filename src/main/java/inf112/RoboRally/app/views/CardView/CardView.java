@@ -25,13 +25,10 @@ public class CardView extends InputAdapter {
     // Player card controller - communicates player information
     private PlayerCardController playerCardController;
 
+
     //Card slots for putting down card choices
     private ICardDragAndDrop[] cardSlots;
-    private Table firstSlotTable;
-    private Table secondSlotTable;
-    private Table thirdSlotTable;
-    private Table fourthSlotTable;
-    private Table fifthSlotTable;
+    private Table[] slotTables;
     private int[] leftPadding = {1977, 2219, 2461, 2703, 2945};
     private final int FIRST_SLOT = 0;
     private final int SECOND_SLOT = 1;
@@ -44,34 +41,38 @@ public class CardView extends InputAdapter {
     private ICardDragAndDrop[] receivedCards;
     private Table receivedCardsTable;
 
+
     //DRAG AND DROP
     private int dragAndDropMouseValue;
     private DragAndDrop dragAndDrop;
 
+
     public CardView(PlayerCardController controller) {
         this.playerCardController = controller;
-        cardViewTimer = new Table();
-        receivedCardsTable = new Table();
         receivedCards = new CardDragBig[playerCardController.numberOfReceivedCards()];
         cardSlots = new CardDragSmall[playerCardController.numberOfCardSlots()];
+        slotTables = new Table[playerCardController.numberOfCardSlots()];
 
-        firstSlotTable = new Table();
-        secondSlotTable = new Table();
-        thirdSlotTable = new Table();
-        fourthSlotTable = new Table();
-        fifthSlotTable = new Table();
+        for (int i = 0; i < slotTables.length; i++) {
+            slotTables[i] = new Table();
+        }
+
+        receivedCardsTable = new Table();
+
+
 
         setUpDragAndDrop();
-        addDragAndDropTarget(firstSlotTable, FIRST_SLOT);
-        addDragAndDropTarget(secondSlotTable, SECOND_SLOT);
-        addDragAndDropTarget(thirdSlotTable, THIRD_SLOT);
-        addDragAndDropTarget(fourthSlotTable, FOURTH_SLOT);
-        addDragAndDropTarget(fifthSlotTable, FIFTH_SLOT);
+        addDragAndDropTarget(FIRST_SLOT);
+        addDragAndDropTarget(SECOND_SLOT);
+        addDragAndDropTarget(THIRD_SLOT);
+        addDragAndDropTarget(FOURTH_SLOT);
+        addDragAndDropTarget(FIFTH_SLOT);
     }
 
 
-    private void addDragAndDropTarget(Table slotTable, int slotNumber) {
-        dragAndDrop.addTarget(new DragAndDrop.Target(slotTable) {
+    private void addDragAndDropTarget(int slotNumber) {
+        Table targetTable = slotTables[slotNumber];
+        dragAndDrop.addTarget(new DragAndDrop.Target(targetTable) {
             @Override
             public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
                 return slotIsOpen(slotNumber);
@@ -79,7 +80,7 @@ public class CardView extends InputAdapter {
 
             @Override
             public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                dropCardInSlot(slotTable, slotNumber, getReceivedCard(dragAndDropMouseValue));
+                dropCardInSlot(targetTable, slotNumber, getReceivedCard(dragAndDropMouseValue));
                 receivedCardsTable.getCells().get(dragAndDropMouseValue).setActor(receivedCards[dragAndDropMouseValue].createCardGroup(null));
                 receivedCardsTable.getCells().get(dragAndDropMouseValue).getActor().setZIndex(dragAndDropMouseValue);
             }
@@ -116,49 +117,55 @@ public class CardView extends InputAdapter {
     }
 
 
-
-
+    public Table[] getSlotTables() {
+        return slotTables;
+    }
 
     public Table setUpFirstCardSlot() {
-        CardDragSmall card = formatSlotTable(firstSlotTable, FIRST_SLOT);
-        addCardSlotTableListener(firstSlotTable, card);
-        return firstSlotTable;
+        CardDragSmall card = formatSlotTable(FIRST_SLOT);
+        Table table = slotTables[FIRST_SLOT];
+        addCardSlotTableListener(table, card);
+        return table;
     }
 
     public Table setUpSecondCardSlot() {
-        CardDragSmall card = formatSlotTable(secondSlotTable, SECOND_SLOT);
-        addCardSlotTableListener(secondSlotTable, card);
-        return secondSlotTable;
+        CardDragSmall card = formatSlotTable(SECOND_SLOT);
+        Table table = slotTables[SECOND_SLOT];
+        addCardSlotTableListener(table, card);
+        return table;
     }
 
 
     public Table setUpThirdCardSlot() {
-        CardDragSmall card = formatSlotTable(thirdSlotTable, THIRD_SLOT);
-        addCardSlotTableListener(thirdSlotTable, card);
-        return thirdSlotTable;
+        CardDragSmall card = formatSlotTable(THIRD_SLOT);
+        Table table = slotTables[THIRD_SLOT];
+        addCardSlotTableListener(table, card);
+        return table;
     }
 
 
     public Table setUpFourthCardSlot() {
-        CardDragSmall card = formatSlotTable(fourthSlotTable, FOURTH_SLOT);
-        addCardSlotTableListener(fourthSlotTable, card);
-        return fourthSlotTable;
+        CardDragSmall card = formatSlotTable(FOURTH_SLOT);
+        Table table = slotTables[FOURTH_SLOT];
+        addCardSlotTableListener(table, card);
+        return table;
     }
 
 
     public Table setUpFifthCardSlot() {
-        CardDragSmall card = formatSlotTable(fifthSlotTable, FIFTH_SLOT);
-        addCardSlotTableListener(fifthSlotTable, card);
-        return fifthSlotTable;
+        CardDragSmall card = formatSlotTable(FIFTH_SLOT);
+        Table table = slotTables[FIFTH_SLOT];
+        addCardSlotTableListener(table, card);
+        return table;
     }
 
 
-    private CardDragSmall formatSlotTable(Table slotTable, int slotNumber) {
+    private CardDragSmall formatSlotTable(int slotNumber) {
         CardDragSmall card = new CardDragSmall(null);
         cardSlots[slotNumber] = card;
-        slotTable.bottom().padBottom(8);
-        slotTable.setTouchable(Touchable.enabled);
-        slotTable.add(card.getCardGroup()).padLeft(leftPadding[slotNumber]);
+        slotTables[slotNumber].bottom().padBottom(8);
+        slotTables[slotNumber].setTouchable(Touchable.enabled);
+        slotTables[slotNumber].add(card.getCardGroup()).padLeft(leftPadding[slotNumber]);
         return card;
     }
 

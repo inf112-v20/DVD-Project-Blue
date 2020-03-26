@@ -30,7 +30,7 @@ public class PlayerUI extends InputAdapter {
         stage.addActor(playerHUD.damageTokens());
         stage.addActor(playerHUD.lifeTokens());
 
-        stage.addActor(cardView.cardViewTimer());
+//        stage.addActor(cardView.cardViewTimer());
         stage.addActor(cardView.setUpFirstCardSlot());
         stage.addActor(cardView.setUpSecondCardSlot());
         stage.addActor(cardView.setUpThirdCardSlot());
