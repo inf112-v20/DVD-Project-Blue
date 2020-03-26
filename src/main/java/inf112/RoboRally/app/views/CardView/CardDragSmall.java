@@ -73,7 +73,7 @@ public class CardDragSmall implements ICardDragAndDrop {
     }
 
     @Override
-    public ICard getCard() {
+    public ICard getModelCard() {
         return card;
     }
 

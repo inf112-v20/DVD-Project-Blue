@@ -7,7 +7,7 @@ public interface ICardDragAndDrop {
 
     Group createCardGroup(ICard card);
 
-    ICard getCard();
+    ICard getModelCard();
 
     Group getCardGroup();
 
