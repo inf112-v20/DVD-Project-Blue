@@ -32,6 +32,14 @@ public class CardView extends InputAdapter {
     private Table thirdSlotTable;
     private Table fourthSlotTable;
     private Table fifthSlotTable;
+    private int[] leftPadding = {1977, 2219, 2461, 2703, 2945};
+    private final int FIRST_SLOT = 0;
+    private final int SECOND_SLOT = 1;
+    private final int THIRD_SLOT = 2;
+    private final int FOURTH_SLOT = 3;
+    private final int FIFTH_SLOT = 4;
+
+
 
 
     //Received cards for click and drag to card slots
@@ -70,20 +78,20 @@ public class CardView extends InputAdapter {
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer, DragAndDrop.Payload payload, DragAndDrop.Target target) {
                 if (target == null) {
-                    receivedCardsTable.getCells().get(dragAndDropMouseValue).setActor(receivedCards[dragAndDropMouseValue].createCardGroup(getCard(dragAndDropMouseValue).getModelCard()));
-                    getCard(dragAndDropMouseValue).cardGroup.setZIndex(dragAndDropMouseValue);
+                    receivedCardsTable.getCells().get(dragAndDropMouseValue).setActor(receivedCards[dragAndDropMouseValue].createCardGroup(getReceivedCard(dragAndDropMouseValue).getModelCard()));
+                    getReceivedCard(dragAndDropMouseValue).cardGroup.setZIndex(dragAndDropMouseValue);
                 }
             }
         });
         dnd.addTarget(new DragAndDrop.Target(firstSlotTable) {
             @Override
             public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                return slotIsOpen(0);
+                return slotIsOpen(FIRST_SLOT);
             }
 
             @Override
             public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                testDropCard(firstSlotTable,0, getCard(dragAndDropMouseValue));
+                dropCardInSlot(firstSlotTable,FIRST_SLOT, getReceivedCard(dragAndDropMouseValue));
                 firstSlotTable.getCells().get(0).getActor().setZIndex(0);
                 receivedCardsTable.getCells().get(dragAndDropMouseValue).setActor(receivedCards[dragAndDropMouseValue].createCardGroup(null));
                 receivedCardsTable.getCells().get(dragAndDropMouseValue).getActor().setZIndex(dragAndDropMouseValue);
@@ -92,12 +100,12 @@ public class CardView extends InputAdapter {
         dnd.addTarget(new DragAndDrop.Target(secondSlotTable) {
             @Override
             public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                return slotIsOpen(1);
+                return slotIsOpen(SECOND_SLOT);
             }
 
             @Override
             public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                testDropCard(secondSlotTable,1, getCard(dragAndDropMouseValue));
+                dropCardInSlot(secondSlotTable,SECOND_SLOT, getReceivedCard(dragAndDropMouseValue));
                 secondSlotTable.getCells().get(0).getActor().setZIndex(1);
                 receivedCardsTable.getCells().get(dragAndDropMouseValue).setActor(receivedCards[dragAndDropMouseValue].createCardGroup(null));
                 receivedCardsTable.getCells().get(dragAndDropMouseValue).getActor().setZIndex(dragAndDropMouseValue);
@@ -106,12 +114,12 @@ public class CardView extends InputAdapter {
         dnd.addTarget(new DragAndDrop.Target(thirdSlotTable) {
             @Override
             public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                return slotIsOpen(2);
+                return slotIsOpen(THIRD_SLOT);
             }
 
             @Override
             public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                testDropCard(thirdSlotTable,2, getCard(dragAndDropMouseValue));
+                dropCardInSlot(thirdSlotTable,THIRD_SLOT, getReceivedCard(dragAndDropMouseValue));
                 thirdSlotTable.getCells().get(0).getActor().setZIndex(2);
                 receivedCardsTable.getCells().get(dragAndDropMouseValue).setActor(receivedCards[dragAndDropMouseValue].createCardGroup(null));
                 receivedCardsTable.getCells().get(dragAndDropMouseValue).getActor().setZIndex(dragAndDropMouseValue);
@@ -120,12 +128,12 @@ public class CardView extends InputAdapter {
         dnd.addTarget(new DragAndDrop.Target(fourthSlotTable) {
             @Override
             public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                return slotIsOpen(3);
+                return slotIsOpen(FOURTH_SLOT);
             }
 
             @Override
             public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                testDropCard(fourthSlotTable,3, getCard(dragAndDropMouseValue));
+                dropCardInSlot(fourthSlotTable,FOURTH_SLOT, getReceivedCard(dragAndDropMouseValue));
                 fourthSlotTable.getCells().get(0).getActor().setZIndex(3);
                 receivedCardsTable.getCells().get(dragAndDropMouseValue).setActor(receivedCards[dragAndDropMouseValue].createCardGroup(null));
                 receivedCardsTable.getCells().get(dragAndDropMouseValue).getActor().setZIndex(dragAndDropMouseValue);
@@ -134,12 +142,12 @@ public class CardView extends InputAdapter {
         dnd.addTarget(new DragAndDrop.Target(fifthSlotTable) {
             @Override
             public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                return slotIsOpen(4);
+                return slotIsOpen(FIFTH_SLOT);
             }
 
             @Override
             public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float v, float v1, int i) {
-                testDropCard(fifthSlotTable,4, getCard(dragAndDropMouseValue));
+                dropCardInSlot(fifthSlotTable,FIFTH_SLOT, getReceivedCard(dragAndDropMouseValue));
                 fifthSlotTable.getCells().get(0).getActor().setZIndex(4);
                 receivedCardsTable.getCells().get(dragAndDropMouseValue).setActor(receivedCards[dragAndDropMouseValue].createCardGroup(null));
                 receivedCardsTable.getCells().get(dragAndDropMouseValue).getActor().setZIndex(dragAndDropMouseValue);
@@ -149,76 +157,49 @@ public class CardView extends InputAdapter {
 
     }
 
-    
-
-    public Table firstSlotTable() {
-        firstSlotTable.bottom().padBottom(8);
-        firstSlotTable.setTouchable(Touchable.enabled);
-        CardDragSmall card = new CardDragSmall(null);
-        cardSlots[0] = card;
-        firstSlotTable.add(card.getCardGroup()).padLeft(1980); // 2461 middle of the table
-//        firstSlotTable.getCells().get(0).getActor().setZIndex(0);
 
 
+    public Table setUpFirstCardSlot() {
+        CardDragSmall card = formatSlotTable(firstSlotTable, FIRST_SLOT);
         addCardSlotTableListener(firstSlotTable, card);
-
         return firstSlotTable;
     }
 
-    public Table secondSlotTable() {
-        secondSlotTable.bottom().padBottom(8);
-        secondSlotTable.setTouchable(Touchable.enabled);
-        CardDragSmall card = new CardDragSmall(null);
-        cardSlots[1] = card;
-        secondSlotTable.add(card.getCardGroup()).padLeft(2220); // 2461 middle of the table
-//        secondSlotTable.getCells().get(0).getActor().setZIndex(1);
-
+    public Table setUpSecondCardSlot() {
+        CardDragSmall card = formatSlotTable(secondSlotTable, SECOND_SLOT);
         addCardSlotTableListener(secondSlotTable, card);
-
         return secondSlotTable;
     }
 
 
-    public Table thirdSlotTable() {
-        thirdSlotTable.bottom().padBottom(8);
-        thirdSlotTable.setTouchable(Touchable.enabled);
-        CardDragSmall card = new CardDragSmall(null);
-        cardSlots[2] = card;
-        thirdSlotTable.add(card.getCardGroup()).padLeft(2460); // 2461 middle of the table
-//        thirdSlotTable.getCells().get(0).getActor().setZIndex(3);
-
+    public Table setUpThirdCardSlot() {
+        CardDragSmall card = formatSlotTable(thirdSlotTable, THIRD_SLOT);
         addCardSlotTableListener(thirdSlotTable, card);
-
         return thirdSlotTable;
     }
 
 
-
-    public Table fourthSlotTable() {
-        fourthSlotTable.bottom().padBottom(8);
-        fourthSlotTable.setTouchable(Touchable.enabled);
-        CardDragSmall card = new CardDragSmall(null);
-        cardSlots[3] = card;
-        fourthSlotTable.add(card.getCardGroup()).padLeft(2701); // 2461 middle of the table
-//        fourthSlotTable.getCells().get(0).getActor().setZIndex(4);
-
+    public Table setUpFourthCardSlot() {
+        CardDragSmall card = formatSlotTable(fourthSlotTable, FOURTH_SLOT);
         addCardSlotTableListener(fourthSlotTable, card);
-
         return fourthSlotTable;
     }
 
 
-    public Table fifthSlotTable() {
-        fifthSlotTable.bottom().padBottom(8);
-        fifthSlotTable.setTouchable(Touchable.enabled);
-        CardDragSmall card = new CardDragSmall(null);
-        cardSlots[4] = card;
-        fifthSlotTable.add(card.getCardGroup()).padLeft(2941); // 2461 middle of the table
-//        fifthSlotTable.getCells().get(0).getActor().setZIndex(4);
-
+    public Table setUpFifthCardSlot() {
+        CardDragSmall card = formatSlotTable(fifthSlotTable, FIFTH_SLOT);
         addCardSlotTableListener(fifthSlotTable, card);
-
         return fifthSlotTable;
+    }
+
+
+    private CardDragSmall formatSlotTable(Table slotTable, int slotNumber) {
+        CardDragSmall card = new CardDragSmall(null);
+        cardSlots[slotNumber] = card;
+        slotTable.bottom().padBottom(8);
+        slotTable.setTouchable(Touchable.enabled);
+        slotTable.add(card.getCardGroup()).padLeft(leftPadding[slotNumber]);
+        return card;
     }
 
 
@@ -228,7 +209,6 @@ public class CardView extends InputAdapter {
             public void clicked(InputEvent event, float x, float y) {
                 undoCardSlotChoice(slotTable, card);
             }
-
         });
     }
 
@@ -237,7 +217,7 @@ public class CardView extends InputAdapter {
         ICard modelCard = card.getModelCard();
         if (modelCard != null) {
             for (int i = 0; i < receivedCards.length; i++) {
-                if (getCard(i).getModelCard() == null) {
+                if (getReceivedCard(i).getModelCard() == null) {
                     receivedCardsTable.getCells().get(i).clearActor().setActor(receivedCards[i].createCardGroup(card.getModelCard()));
                     receivedCardsTable.getCells().get(i).getActor().setZIndex(i);
                     break;
@@ -252,7 +232,7 @@ public class CardView extends InputAdapter {
 
 
 
-    private void testDropCard(Table table, int slotNumber, CardDragBig droppedCard) {
+    private void dropCardInSlot(Table table, int slotNumber, CardDragBig droppedCard) {
         table.getCells().get(0).clearActor().setActor(cardSlots[slotNumber].createCardGroup(droppedCard.getModelCard()));
     }
 
@@ -261,7 +241,6 @@ public class CardView extends InputAdapter {
     private boolean slotIsOpen(int slotNumber) {
         return cardSlots[slotNumber].getModelCard() == null;
     }
-
 
 
 
@@ -293,7 +272,7 @@ public class CardView extends InputAdapter {
 
 
 
-    private CardDragBig getCard(int cardIndex) {
+    private CardDragBig getReceivedCard(int cardIndex) {
         return (CardDragBig) receivedCards[cardIndex];
     }
 

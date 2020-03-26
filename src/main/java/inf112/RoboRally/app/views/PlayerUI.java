@@ -31,11 +31,11 @@ public class PlayerUI extends InputAdapter {
         stage.addActor(playerHUD.lifeTokens());
 
         stage.addActor(cardView.cardViewTimer());
-        stage.addActor(cardView.firstSlotTable());
-        stage.addActor(cardView.secondSlotTable());
-        stage.addActor(cardView.thirdSlotTable());
-        stage.addActor(cardView.fourthSlotTable());
-        stage.addActor(cardView.fifthSlotTable());
+        stage.addActor(cardView.setUpFirstCardSlot());
+        stage.addActor(cardView.setUpSecondCardSlot());
+        stage.addActor(cardView.setUpThirdCardSlot());
+        stage.addActor(cardView.setUpFourthCardSlot());
+        stage.addActor(cardView.setUpFifthCardSlot());
 
         stage.addActor(cardView.receivedCardsTable());
         Gdx.input.setInputProcessor(cardView);
