@@ -1,6 +1,6 @@
 package inf112.RoboRally.app.model;
 
-import inf112.RoboRally.app.models.board.Direction;
+import inf112.RoboRally.app.models.Robot.Direction;
 import org.junit.Before;
 import org.junit.Test;
 

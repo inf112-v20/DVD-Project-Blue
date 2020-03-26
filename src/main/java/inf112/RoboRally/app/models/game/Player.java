@@ -1,10 +1,7 @@
 package inf112.RoboRally.app.models.game;
 
-import inf112.RoboRally.app.models.board.Direction;
-import inf112.RoboRally.app.models.board.Position;
-import inf112.RoboRally.app.models.board.Robot;
-import inf112.RoboRally.app.models.cards.Card;
-import inf112.RoboRally.app.views.PlayerHUD;
+import inf112.RoboRally.app.models.Robot.Robot;
+import inf112.RoboRally.app.models.cards.ICard;
 
 /*
 Class that holds information about each player. Initialized with
@@ -14,22 +11,58 @@ played on.
 public class Player {
 
     private String name;
-    private Robot robot;
-    private PlayerHUD hud;
     private int playerNumber;
-    private Card[] cardsToChose;
-    private Card[] cardsChosen;
+    private Robot robot;
+    private ICard[] receivedCards = new ICard[9];
+    private ICard[] cardSlots = new ICard[5];
+    private int flagsCollected = 0;
+    private boolean cardChoicesReady;
 
-    public Player(Position pos, Direction direction, int playerNumber) {
-        robot = new Robot(pos, direction);
+    public Player(Game game, int playerNumber) {
         this.playerNumber = playerNumber;
+        robot = new Robot(game, playerNumber);
     }
 
-    public Robot getRobot() {
+    public Robot robot() {
         return robot;
     }
 
-    public int getPlayerNumber() {
-        return playerNumber;
+    public void receiveCard(int i, ICard card) {
+        receivedCards[i] = card;
+    }
+
+    public ICard getNextChosenCard() {
+        for (int i = 0; i < cardSlots.length; i++) {
+            ICard card = cardSlots[i];
+            if (cardSlots[i] != null) {
+                cardSlots[i] = null;
+                return card;
+            }
+        }
+        return null;
+    }
+
+    public ICard[] getReceivedCards() {
+        return receivedCards;
+    }
+
+    public ICard[] getCardSlots() {
+        return cardSlots;
+    }
+
+    public int amountOfReceivedCards() {
+        return robot.getHP();
+    }
+
+    public int numberOfCardSlots() {
+        return cardSlots.length;
+    }
+
+    public void setReadyForRound() {
+        this.cardChoicesReady = true;
+    }
+
+    public boolean readyForRound() {
+        return cardChoicesReady;
     }
 }

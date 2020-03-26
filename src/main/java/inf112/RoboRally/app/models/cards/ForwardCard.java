@@ -1,19 +1,34 @@
 package inf112.RoboRally.app.models.cards;
 
-import inf112.RoboRally.app.models.board.Robot;
+import inf112.RoboRally.app.models.Robot.Robot;
 /*
 Card to move robot forward.
  */
-public class ForwardCard extends Card {
-    private final int stepsToTake;
-    // filename variable for picture will be here
+public class ForwardCard implements ICard {
 
-    public ForwardCard(int priority, int stepsToTake) {
-        super(priority = priority);
-        this.stepsToTake = stepsToTake;
+    private final int PRIORITY;
+    private final int STEPS_TO_MOVE;
+    private final String FILENAME;
+
+    public ForwardCard(int stepsToMove, int priority) {
+        this.STEPS_TO_MOVE = stepsToMove;
+        this.PRIORITY = priority;
+        FILENAME = "Move"+stepsToMove+".png";
     }
 
+    @Override
+    public int priority() {
+        return PRIORITY;
+    }
+
+    @Override
+    public String getFileName() {
+        return FILENAME;
+    }
+
+    @Override
     public void moveRobot(Robot robot) {
-        robot.move(stepsToTake);
+        robot.move(STEPS_TO_MOVE);
     }
+
 }
