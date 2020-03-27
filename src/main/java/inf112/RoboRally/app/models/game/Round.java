@@ -41,6 +41,18 @@ public class Round {
             cardChoices[slotNumber] = null;   // card is executed, remove it from the slot
         }
 
+        removeDealtCards();
+    }
+
+    private void removeDealtCards() {
+        Player[] players = game.players();
+        for (Player player: players) {
+            ICard[] dealtCards = player.getReceivedCards();
+            for (int i = 0; i < dealtCards.length; i++) {
+                dealtCards[i] = null;
+            }
+        }
+
     }
 
     // TODO - implement

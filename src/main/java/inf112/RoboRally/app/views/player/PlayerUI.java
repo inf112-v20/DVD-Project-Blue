@@ -91,7 +91,12 @@ public class PlayerUI extends InputAdapter {
         generateCardsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("FROM PLAYERUI: generate cards button");
+                gameCardController.newRound();
+                gameScreenCards = new GameScreenCards(gameCardController);
+                for (int slotNumber = 0; slotNumber < gameCardController.numberOfCardSlots(); slotNumber++)
+                    stage.addActor(gameScreenCards.getCardSlotTable(slotNumber));
+
+                stage.addActor(gameScreenCards.getReceivedCardsTable());
             }
         });
 
