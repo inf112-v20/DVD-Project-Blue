@@ -28,6 +28,7 @@ public class ForwardCard implements ICard {
 
     @Override
     public void moveRobot(Robot robot) {
+        System.out.println("FROM ForwardCard: I am moving the robot");
         robot.move(STEPS_TO_MOVE);
     }
 
