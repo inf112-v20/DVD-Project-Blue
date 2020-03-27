@@ -25,16 +25,21 @@ public class Robot implements IRobot {
 
     // Robot stats
     private final int MAX_HP = 9;
+    private final int STARTING_LIVES = 3;
     private int HP;
     private int lives;
 
     public Robot(Game game, int playerNumber) {
         HP = MAX_HP;
-        lives = 3;
+        lives = STARTING_LIVES;
         setupOnBoard(game, playerNumber);
     }
 
-
+    // bare bones constructor used for testing
+    public Robot() {
+        HP = MAX_HP;
+        lives = STARTING_LIVES;
+    }
 
     // for testing
     public Robot(int x, int y) {

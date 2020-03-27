@@ -2,8 +2,10 @@ package inf112.RoboRally.app.models.cards;
 
 import java.util.Random;
 /*
-Class that holds all the cards in the game, which will be used when dealing cards to players.
-Not used at this moment.
+Class that randomly creates cards. The probability is equal for all types of cards in the game.
+The following cards are created: three steps forward, two steps forward, one step forward,
+reverse, rotate right, rotate left, uturn.
+Each cards priority is generated randomly.
  */
 public class CardFactory {
 
