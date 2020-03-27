@@ -108,7 +108,8 @@ _ShowBoard_ is initialized, where current models for cards and robots are initia
  within the class, and views are hardcoded. Refer to the UML diagram below ,which contains only 
  the most important dependencies with regards to the focus of this delivery.
  
-CLASS DIAGRAM
+CLASS DIAGRAM 
+![UML diagram](https://github.com/inf112-v20/DVD-Project-Blue/blob/master/deliverables/UML/ObligatoriskOppgave3UML.png?raw=true)
 
 **Navigating the menu**
 
