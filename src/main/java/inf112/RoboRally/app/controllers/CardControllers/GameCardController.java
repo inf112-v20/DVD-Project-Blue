@@ -53,6 +53,10 @@ public class GameCardController {
 
     }
 
+    public void newRound() {
+        game.round().dealCards();
+    }
+
 
 
 }
