@@ -34,6 +34,8 @@ public class Robot implements IRobot {
         setupOnBoard(game, playerNumber);
     }
 
+
+
     // for testing
     public Robot(int x, int y) {
         vector2 = new Vector2(x, y);

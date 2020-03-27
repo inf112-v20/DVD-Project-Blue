@@ -79,4 +79,5 @@ public class SingePlayerSettingsControllerTest {
         assertEquals(2, settings.getPlayerCount());
     }
 
+
 }

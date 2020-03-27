@@ -11,15 +11,16 @@ Next delivery
 public class Round {
 
     private CardFactory cardFactory = new CardFactory();
-    private Game game;
+    private Player[] players;      // players in the game
+    private Player humanPlayer;
 
-    public Round(Game game) {
-        this.game = game;
+    public Round(Player[] players, Player humanPlayer) {
+        this.players = players;
+        this.humanPlayer = humanPlayer;
     }
 
     public void dealCards() {
         removeDealtCards(); // does not do anything the first round
-        Player[] players = game.players();
         for (Player player: players) {
             for (int i = 0; i < player.amountOfReceivedCards(); i++) {
                 ICard card = cardFactory.randomCard();
@@ -32,13 +33,12 @@ public class Round {
 
     // only executes our human players card choices for now
     public void executeCardChoices() {
-        Player player = game.getHumanPlayer();
-        ICard[] cardChoices = player.getCardSlots();
+        ICard[] cardChoices = humanPlayer.getCardSlots();
         for (int slotNumber = 0; slotNumber < cardChoices.length; slotNumber++) {
             ICard card = cardChoices[slotNumber];
             if (card == null) break;    // means no cards are left to execute
             System.out.println("FROM ROUND: got to moving the robot");
-            card.moveRobot(player.robot());
+            card.moveRobot(humanPlayer.robot());
             cardChoices[slotNumber] = null;   // card is executed, remove it from the slot
         }
 
@@ -46,7 +46,6 @@ public class Round {
     }
 
     private void removeDealtCards() {
-        Player[] players = game.players();
         for (Player player: players) {
             ICard[] dealtCards = player.getReceivedCards();
             for (int i = 0; i < dealtCards.length; i++) {
