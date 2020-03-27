@@ -32,11 +32,15 @@ public class Round {
     // only executes our human players card choices for now
     public void executeCardChoices() {
         Player player = game.getHumanPlayer();
-        for (ICard card: player.getCardSlots()) {
-            if (card == null) break; // means no cards are left to execute
-            System.out.println("got to moving the robot");
+        ICard[] cardChoices = player.getCardSlots();
+        for (int slotNumber = 0; slotNumber < cardChoices.length; slotNumber++) {
+            ICard card = cardChoices[slotNumber];
+            if (card == null) break;    // means no cards are left to execute
+            System.out.println("FROM ROUND: got to moving the robot");
             card.moveRobot(player.robot());
+            cardChoices[slotNumber] = null;   // card is executed, remove it from the slot
         }
+
     }
 
     // TODO - implement

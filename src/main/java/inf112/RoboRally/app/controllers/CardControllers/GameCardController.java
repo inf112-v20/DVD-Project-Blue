@@ -9,12 +9,12 @@ import inf112.RoboRally.app.views.card.ICardDragAndDrop;
 Class that communicates relevant game stats in terms of cards to view, and slot choices
 from the view to the model player class
  */
-public class PlayerCardController {
+public class GameCardController {
 
     private Player player; // our human player
     private Game game;
 
-    public PlayerCardController(Game game) {
+    public GameCardController(Game game) {
         this.game = game;
         this.player = game.getHumanPlayer();
     }
@@ -32,7 +32,6 @@ public class PlayerCardController {
     }
 
     public void setCardSlotsFromUserInput(ICardDragAndDrop[] cardsFromView) {
-        System.out.println("READY");
         for (ICardDragAndDrop viewCard: cardsFromView) {
             if (viewCard.getModelCard() != null)
                 fillPlayerCardSlot(viewCard.getModelCard());
@@ -45,7 +44,7 @@ public class PlayerCardController {
         ICard[] playerModelCardSlots = player.getCardSlots();
         for (int i = 0; i < playerModelCardSlots.length; i++) {
             if (playerModelCardSlots[i] == null) {
-                System.out.println("a card was put down");
+                System.out.println("FROM GAMECARDCONTROLLER: a card was put down");
                 playerModelCardSlots[i] = card;
                 break;
             }

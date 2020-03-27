@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-import inf112.RoboRally.app.controllers.CardControllers.PlayerCardController;
+import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 import inf112.RoboRally.app.models.cards.ICard;
 
 
@@ -14,7 +14,7 @@ Class that connects the card slot and received card in the game screen to each o
  */
 public class GameScreenCards extends InputAdapter {
 
-    private PlayerCardController playerCardController;   // Player card controller - communicates player information
+    private GameCardController gameCardController;       // Player card controller - communicates player information
     private CardSlots cardSlots;                         // Class that holds all card slot tables for dropping cards
     private ReceivedCards receivedCards;                 // Class that holds table with the received cards
 
@@ -22,13 +22,13 @@ public class GameScreenCards extends InputAdapter {
     private DragAndDrop dragAndDrop;
 
 
-    public GameScreenCards(PlayerCardController controller) {
-        this.playerCardController = controller;
-        receivedCards = new ReceivedCards(playerCardController.getReceivedPlayerCards());
-        cardSlots = new CardSlots(playerCardController.numberOfCardSlots());
+    public GameScreenCards(GameCardController controller) {
+        this.gameCardController = controller;
+        receivedCards = new ReceivedCards(gameCardController.getReceivedPlayerCards());
+        cardSlots = new CardSlots(gameCardController.numberOfCardSlots());
         setUpCardSlotTableListener();
         setUpDragAndDrop();
-        for (int slotNumber = 0; slotNumber < playerCardController.numberOfCardSlots(); slotNumber++)
+        for (int slotNumber = 0; slotNumber < gameCardController.numberOfCardSlots(); slotNumber++)
             addDragAndDropTarget(slotNumber);
 
     }
@@ -87,7 +87,7 @@ public class GameScreenCards extends InputAdapter {
 
     // setting up mouse click listeners on all card slots for undoing card choice
     private void setUpCardSlotTableListener() {
-        for (int slotNumber = 0; slotNumber < playerCardController.numberOfCardSlots(); slotNumber++) {
+        for (int slotNumber = 0; slotNumber < gameCardController.numberOfCardSlots(); slotNumber++) {
             Table slotTable = cardSlots.getCardSlotTable(slotNumber);
             ICardDragAndDrop card = cardSlots.getSlotCard(slotNumber);
             slotTable.addListener(new ClickListener() {
@@ -105,7 +105,7 @@ public class GameScreenCards extends InputAdapter {
         Table receivedCardsTable = receivedCards.getReceivedCardsTable();
         ICardDragAndDrop[] receivedCards = this.receivedCards.getReceivedModelCardViews();
         if (modelCard != null) {
-            for (int i = 0; i < playerCardController.amountOfReceivedCards(); i++) {
+            for (int i = 0; i < gameCardController.amountOfReceivedCards(); i++) {
                 if (this.receivedCards.getReceivedCard(i).getModelCard() == null) {
                     receivedCardsTable.getCells().get(i).clearActor().setActor(receivedCards[i].createCardGroup(card.getModelCard()));
                     receivedCardsTable.getCells().get(i).getActor().setZIndex(i);
