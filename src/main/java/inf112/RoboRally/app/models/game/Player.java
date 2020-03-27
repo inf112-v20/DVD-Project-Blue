@@ -23,6 +23,11 @@ public class Player {
         robot = new Robot(game, playerNumber);
     }
 
+    // Bare bones constructor used for automatic testing
+    public Player() {
+        robot = new Robot();
+    }
+
     public Robot robot() {
         return robot;
     }
