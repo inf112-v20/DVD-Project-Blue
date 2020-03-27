@@ -136,13 +136,7 @@ public class PlayerHUD {
         return powerDown;
     }
 
-    public void updateLife() {
-        life--;
-    }
-    public void updateDamage() {
-        damage++;
-    }
-    public void updatePowerDown() {
-        powerDownActive = !powerDownActive;
-    }
+
+
+
 }

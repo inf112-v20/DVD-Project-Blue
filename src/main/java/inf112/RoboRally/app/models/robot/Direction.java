@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.models.Robot;
+package inf112.RoboRally.app.models.robot;
 /*
 Enum class direction defines the directions in the game.
  */

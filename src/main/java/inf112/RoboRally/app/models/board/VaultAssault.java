@@ -1,7 +1,7 @@
 package inf112.RoboRally.app.models.board;
 
 import com.badlogic.gdx.math.Vector2;
-import inf112.RoboRally.app.models.Robot.Direction;
+import inf112.RoboRally.app.models.robot.Direction;
 
 public class VaultAssault extends Board {
 

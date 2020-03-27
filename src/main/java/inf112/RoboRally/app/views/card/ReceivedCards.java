@@ -33,7 +33,7 @@ public class ReceivedCards {
             if (receivedModelCards[i] == null)
                 break;
 
-            BigCard dragCard = new BigCard(receivedModelCards[i]);
+            DragCard dragCard = new DragCard(receivedModelCards[i]);
             this.receivedModelCardViews[i] = dragCard;
 
             // distributing cards on the table, padding is different for every other card
@@ -56,7 +56,10 @@ public class ReceivedCards {
         return receivedModelCardViews;
     }
 
-    protected BigCard getReceivedCard(int cardIndex) {
-        return (BigCard) receivedModelCardViews[cardIndex];
+    protected DragCard getReceivedCard(int cardIndex) {
+        return (DragCard) receivedModelCardViews[cardIndex];
     }
+
+
+
 }

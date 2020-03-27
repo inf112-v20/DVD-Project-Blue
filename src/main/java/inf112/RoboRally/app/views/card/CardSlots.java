@@ -16,7 +16,7 @@ public class CardSlots {
 
     protected CardSlots(int numberOfCardSlots) {
         slotTables = new Table[numberOfCardSlots];
-        slotCardViews = new SmallCard[numberOfCardSlots];
+        slotCardViews = new DropCard[numberOfCardSlots];
         for (int i = 0; i < slotTables.length; i++) {
             slotTables[i] = new Table();
             formatSlotTable(i);
@@ -24,15 +24,15 @@ public class CardSlots {
     }
 
     private void formatSlotTable(int slotNumber) {
-        SmallCard card = new SmallCard(null);
+        DropCard card = new DropCard(null);
         slotCardViews[slotNumber] = card;
         slotTables[slotNumber].bottom().padBottom(BOTTOM_PADDING);
         slotTables[slotNumber].setTouchable(Touchable.enabled);
         slotTables[slotNumber].add(card.getCardGroup()).padLeft(LEFT_PADDING[slotNumber]);
     }
 
-    protected SmallCard getSlotCard(int slotNumber) {
-        return (SmallCard) slotCardViews[slotNumber];
+    protected DropCard getSlotCard(int slotNumber) {
+        return (DropCard) slotCardViews[slotNumber];
     }
 
     protected Table getCardSlotTable(int slotNumber) {
@@ -43,7 +43,7 @@ public class CardSlots {
         return slotCardViews[slotNumber].getModelCard() == null;
     }
 
-    protected void dropCardInSlot(int slotNumber, BigCard droppedCard) {
+    protected void dropCardInSlot(int slotNumber, DragCard droppedCard) {
         slotTables[slotNumber].getCells().get(0).clearActor().setActor(slotCardViews[slotNumber].createCardGroup(droppedCard.getModelCard()));
     }
 

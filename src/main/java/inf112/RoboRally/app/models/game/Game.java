@@ -36,12 +36,11 @@ public class Game {
         for (int i = 0; i < settings.getPlayerCount(); i++) {
             players[i] = new Player(this, i+1);
         }
-        humanPlayer = players[0];     // player1 is given as human player for now
-        playerCardController = new PlayerCardController(humanPlayer);
+        humanPlayer = players[0]; // player1 is given as human player for now
+        playerCardController = new PlayerCardController(this);
+        round = new Round(this);
+        round.dealCards();
 
-        // the game executed
-        round = new Round();
-        round.dealCards(players);
     }
 
 
@@ -58,14 +57,8 @@ public class Game {
         return players;
     }
 
+    // TODO - implement
     private void phase() {
-        System.out.println(humanPlayer.readyForRound());
-        if (humanPlayer.readyForRound()) {
-            round.executeCardChoices(humanPlayer);
-        }
-        if (!playerHasWon) {
-            round.dealCards(players);
-        }
     }
 
     public PlayerCardController getPlayerCardController() {
@@ -74,5 +67,13 @@ public class Game {
 
     public boolean playerReady() {
         return humanPlayer.readyForRound();
+    }
+
+    public Player getHumanPlayer() {
+        return humanPlayer;
+    }
+
+    public Round round() {
+        return round;
     }
 }

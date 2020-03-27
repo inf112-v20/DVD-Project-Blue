@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.models.Robot;
+package inf112.RoboRally.app.models.robot;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;

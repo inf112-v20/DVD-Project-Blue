@@ -1,6 +1,6 @@
 package inf112.RoboRally.app.models.cards;
 
-import inf112.RoboRally.app.models.Robot.Robot;
+import inf112.RoboRally.app.models.robot.Robot;
 
 /*
 Card to do all rotations of robots: right, left and right two times (u-turn).

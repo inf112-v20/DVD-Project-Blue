@@ -11,9 +11,14 @@ Next delivery
 public class Round {
 
     private CardFactory cardFactory = new CardFactory();
+    private Game game;
 
-    public void dealCards(Player[] players) {
+    public Round(Game game) {
+        this.game = game;
+    }
 
+    public void dealCards() {
+        Player[] players = game.players();
         for (Player player: players) {
             for (int i = 0; i < player.amountOfReceivedCards(); i++) {
                 ICard card = cardFactory.randomCard();
@@ -25,29 +30,23 @@ public class Round {
 
 
     // only executes our human players card choices for now
-    public void executeCardChoices(Player player) {
+    public void executeCardChoices() {
+        Player player = game.getHumanPlayer();
         for (ICard card: player.getCardSlots()) {
-            if (card == null) break; // means no cards are left
+            if (card == null) break; // means no cards are left to execute
+            System.out.println("got to moving the robot");
             card.moveRobot(player.robot());
         }
     }
 
+    // TODO - implement
     public void executeNextCardChoices(Player[] players, ArrayList<ICard> nextPlayerChoices) {
 
     }
 
+    // TODO - implement
     private ArrayList<ICard> getNextCardChoices(Player[] players) {
-        ArrayList<ICard> nextPlayerChoices = new ArrayList<>(players.length);
-        int amountOfPlayersNotHavingCard = 0;
-        for (Player player: players) {
-            nextPlayerChoices.add(player.getNextChosenCard());
-            if (player.getNextChosenCard() == null) amountOfPlayersNotHavingCard++;
-        }
-
-        // if all players' next card is null, no cards are left to process
-        if (amountOfPlayersNotHavingCard == players.length) return null;
-
-        return nextPlayerChoices;
+        return null;
     }
 
 }

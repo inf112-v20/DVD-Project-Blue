@@ -128,14 +128,11 @@ public class GameScreenCards extends InputAdapter {
         return cardSlots.getCardSlotTable(slotNumber);
     }
 
-    public ICardDragAndDrop[] cardChoiceReady() {
-        System.out.println("Got here! what");
-        ICardDragAndDrop[] cardChoices = cardSlots.getSlotCardViews();
-        for (ICardDragAndDrop viewCard: cardChoices) {
-            if (viewCard.getModelCard() == null)
-                return null;
+    public ICardDragAndDrop[] getCardChoices() {
+        return cardSlots.getSlotCardViews();
+    }
 
-        }
-        return cardChoices;
+    public ReceivedCards getReceivedCards() {
+        return receivedCards;
     }
 }
