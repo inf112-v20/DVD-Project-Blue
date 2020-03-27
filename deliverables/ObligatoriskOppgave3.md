@@ -1,6 +1,20 @@
 # Obligatorisk oppgave 3
 
 ### Part 1
+
+**Summary last meeting**
+
+Date: 23.04 10.00-12.00
+
+Participants: Henrik, Håkon, Gytis, Tård
+
+Agenda:
+* greetings and updates
+* what have been done since last time
+* issues
+* continue or get new assigments
+* agree on date for next meeting
+
 **Group dynamics and team processes**
 
 The different roles in the team functions well. Tård will still continue as team leader, as will Gytis as responsible for the master branch, 
