@@ -132,10 +132,12 @@ The code builds and runs by running Main.java which is located in the inf112.Rob
  
 **Automated tests**
 
-The JUnit tests can be found in the Test folder. The tests cover the following 
-classes: _Position_, _Direction_, _Robot_ and _Card_, where the _Card_
-test focuses on testing the intended logical effect that cards are intended
-to have on robots. 
+The JUnit tests can be found in the Test folder. The tests can be found in the following 
+classes: _SinglePlayerSettingsController_, _CardTest_, _RoundTest_ and _CardFactoryTest_.
+
+A big part of testing this delivery is manual testing the connection of cardviews and moving the robot via models. The user can drag and drop to card slots which will then, invoke a series of communication between classes that in the end move the robot model. A series of standard output messages are given to help the user trace the communication.
+
+The seperation of model and view on the robot took a step back this delivery, and is not intended to be a part of the final implementation. This made automatic testing of the game, board and robot model unecessary. 
 
 Tests for models that are the next step in development are to be found
 in the ‘NextDeliveryTests’ branch. This branch also includes skeletons 
