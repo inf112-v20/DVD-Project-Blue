@@ -57,7 +57,7 @@ systematically.
 This time we implemented most of the user stories from the previous report. 
 We have created a menu where the player is able to choose between _play_, _lan_ 
 and _quit_. The menu has the same design as last time. After selecting play,
-the player can choose between 5 different maps and the number of players (from 2 to 8). 
+the player can choose between five different maps and the number of players (from 2 to 8). 
 
 For this delivery we made it possible for the robot to move by using the different
 type of cards. Now the player can choose the cards by dragging them as we have 
