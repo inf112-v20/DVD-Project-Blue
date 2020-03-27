@@ -2,6 +2,7 @@
 
 ### Part 1
 **Group dynamics and team processes**
+
 The different roles in the team functions well. Tård will still continue as team leader, as will Gytis as responsible for the master branch, 
 Henrik as responsible for the rules and MVC design patterns and Håkon as responsible for communication and reports. 
 For a more descriptive explanation of the different roles, see the previous report from oblig 2.
@@ -15,9 +16,10 @@ Microsoft Teams or Zoom where it is easy to share screen. Otherwise we still use
 main communication channel where we discuss issues and progress pertaining delegated task and 
 deadlines. 
 
-PROJECT BOARD 
+![Project board](https://github.com/inf112-v20/DVD-Project-Blue/blob/master/deliverables/UML/ProjectBoard_no3.png?raw=true)
 
 **Retrospective**
+
 Last time we mentioned that the workload in the group changes due to one members absence. 
 This workload is now more stabilized and distributed among the team members. We all agree 
 that the communication has been good. The meetings before the closing of the school were 
@@ -37,6 +39,7 @@ systematically.
 ### Part 2
 
 **This delivery**
+
 This time we implemented most of the user stories from the previous report. 
 We have created a menu where the player is able to choose between _play_, _lan_ 
 and _quit_. The menu has the same design as last time. After selecting play,
@@ -71,7 +74,7 @@ _Task:_ Implement a own class, e.g called LoseGame. Implement a method in Player
 _Acceptance requirements:_ If the player loose its three lives it should be redirected to LoseGame
 
 
-**_Create or join an already existing game**_
+**_Create or join an already existing game_**
 
 _User story:_ I want to be able to join an already existing game with my friends, or create a new one
 
@@ -94,6 +97,7 @@ _ShowBoard_ is initialized, where current models for cards and robots are initia
 CLASS DIAGRAM
 
 **Navigating the menu**
+
 The code builds and runs by running Main.java which is located in the inf112.RoboRally.app
  folder. The user is then taken to a menu, where he can choose between the buttons _play_, 
  _lan_ and _quit_. As described earlier, the player is now able to choose between differents 
@@ -112,6 +116,7 @@ The code builds and runs by running Main.java which is located in the inf112.Rob
  
  
 **Automated tests**
+
 The JUnit tests can be found in the Test folder. The tests cover the following 
 classes: _Position_, _Direction_, _Robot_ and _Card_, where the _Card_
 test focuses on testing the intended logical effect that cards are intended
