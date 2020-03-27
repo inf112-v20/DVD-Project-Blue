@@ -16,8 +16,11 @@ import inf112.RoboRally.app.views.menus.Button;
 
 public class PlayerUI extends InputAdapter {
 
-    private Table cardViewTimer;
+    private Table readyButtonTable;
     private TextButton readyButton;
+
+    private Table generateCardsTable;
+    private TextButton generateCardsButton;
 
     private Stage stage;
     private Viewport viewport;
@@ -28,17 +31,20 @@ public class PlayerUI extends InputAdapter {
     public PlayerUI (GameCardController controller) {
         this.gameCardController = controller;
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT);
-        cardViewTimer = new Table();
         stage = new Stage(viewport);
-        playerHUD = new PlayerHUD(3, 9, false); // connection to models between player health and lives not implemented
-        gameScreenCards = new GameScreenCards(gameCardController);
 
+        readyButtonTable = new Table();
+        generateCardsTable = new Table();
+
+        playerHUD = new PlayerHUD(3, 9, false); // connection to models between player health and lives not implemented
         stage.addActor(playerHUD.create());
         stage.addActor(playerHUD.powerDown());
         stage.addActor(playerHUD.damageTokens());
         stage.addActor(playerHUD.lifeTokens());
-        stage.addActor(cardViewTimer());
+        stage.addActor(readyButtonTable());
+        stage.addActor(generateCardsTable());
 
+        gameScreenCards = new GameScreenCards(gameCardController);
         for (int slotNumber = 0; slotNumber < gameCardController.numberOfCardSlots(); slotNumber++)
             stage.addActor(gameScreenCards.getCardSlotTable(slotNumber));
 
@@ -55,21 +61,40 @@ public class PlayerUI extends InputAdapter {
     }
 
 
-    public Table cardViewTimer() {
+    public Table readyButtonTable() {
 
-        cardViewTimer.pad(0, 3830, 250, 0);
+        readyButtonTable.pad(0, 3830, 370, 0);
         readyButton = new Button().createTextButton("READY");
 
-        cardViewTimer.row().padTop(20);
-        cardViewTimer.add(readyButton);
+        readyButtonTable.row().padTop(20);
+        readyButtonTable.add(readyButton);
 
         readyButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 gameCardController.setCardSlotsFromUserInput(gameScreenCards.getCardChoices());
+                gameScreenCards.clearCards();
             }
         });
 
-        return cardViewTimer;
+        return readyButtonTable;
+    }
+
+    public Table generateCardsTable() {
+
+        generateCardsTable.pad(0, 3830, 120, 0);
+        generateCardsButton = new Button().createTextButton("CARDS");
+
+        generateCardsTable.row().padTop(20);
+        generateCardsTable.add(generateCardsButton);
+
+        generateCardsButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("FROM PLAYERUI: generate cards button");
+            }
+        });
+
+        return generateCardsTable;
     }
 }

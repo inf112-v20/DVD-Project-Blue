@@ -52,7 +52,7 @@ public class ReceivedCards {
         return receivedCardsTable;
     }
 
-    protected ICardDragAndDrop[] getReceivedModelCardViews() {
+    protected ICardDragAndDrop[] getReceivedCardViews() {
         return receivedModelCardViews;
     }
 

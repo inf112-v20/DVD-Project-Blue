@@ -36,7 +36,7 @@ public class GameScreenCards extends InputAdapter {
 
     private void addDragAndDropTarget(int slotNumber) {
         Table receivedCardsTable = receivedCards.getReceivedCardsTable();
-        ICardDragAndDrop[] receivedCardViews = receivedCards.getReceivedModelCardViews();
+        ICardDragAndDrop[] receivedCardViews = receivedCards.getReceivedCardViews();
         Table cardSlotTable = cardSlots.getCardSlotTable(slotNumber);
 
         dragAndDrop.addTarget(new DragAndDrop.Target(cardSlotTable) {
@@ -57,7 +57,7 @@ public class GameScreenCards extends InputAdapter {
 
     private void setUpDragAndDrop() {
         Table receivedCardsTable = receivedCards.getReceivedCardsTable();
-        ICardDragAndDrop[] receivedCardViews = receivedCards.getReceivedModelCardViews();
+        ICardDragAndDrop[] receivedCardViews = receivedCards.getReceivedCardViews();
 
         dragAndDrop = new DragAndDrop();
         dragAndDrop.setDragActorPosition(-41, -44);
@@ -103,7 +103,7 @@ public class GameScreenCards extends InputAdapter {
     private void undoCardSlotChoice(Table slotTable, ICardDragAndDrop card) {
         ICard modelCard = card.getModelCard();
         Table receivedCardsTable = receivedCards.getReceivedCardsTable();
-        ICardDragAndDrop[] receivedCards = this.receivedCards.getReceivedModelCardViews();
+        ICardDragAndDrop[] receivedCards = this.receivedCards.getReceivedCardViews();
         if (modelCard != null) {
             for (int i = 0; i < gameCardController.amountOfReceivedCards(); i++) {
                 if (this.receivedCards.getReceivedCard(i).getModelCard() == null) {
@@ -132,7 +132,37 @@ public class GameScreenCards extends InputAdapter {
         return cardSlots.getSlotCardViews();
     }
 
-    public ReceivedCards getReceivedCards() {
-        return receivedCards;
+
+    // For clearing cards when card execution is finished
+    public void clearCards() {
+
+        // clearing all cards that are not dropped into slots
+        Table receivedCardsTable = receivedCards.getReceivedCardsTable();
+        ICardDragAndDrop[] receivedCards = this.receivedCards.getReceivedCardViews();
+        for (int i = 0; i < gameCardController.amountOfReceivedCards(); i++) {
+            ICardDragAndDrop receivedCard = receivedCards[i];
+            if (receivedCard.getModelCard() != null) {
+                receivedCardsTable.getCells().get(i).clearActor().setActor(receivedCard.createCardGroup(null));
+            }
+
+        }
+
+        // clearing cards that are dropped into slots
+        for (int slotNumber = 0; slotNumber < gameCardController.numberOfCardSlots(); slotNumber++) {
+            Table slotTable = cardSlots.getCardSlotTable(slotNumber);
+            ICardDragAndDrop cardInSlot = cardSlots.getSlotCard(slotNumber);
+            if (cardInSlot.getModelCard() != null) {
+                slotTable.getCells().get(0).clearActor().setActor(cardInSlot.createCardGroup(null));
+            }
+
+        }
+
+
     }
+
+
+    public void generateNewCards() {
+
+    }
+
 }
