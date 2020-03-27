@@ -20,6 +20,7 @@ public class Round {
     }
 
     public void dealCards() {
+        System.out.println("FROM Round: Sure thing. Lets do it one more time.");
         removeDealtCards(); // does not do anything the first round
         for (Player player: players) {
             for (int i = 0; i < player.amountOfReceivedCards(); i++) {
@@ -37,7 +38,7 @@ public class Round {
         for (int slotNumber = 0; slotNumber < cardChoices.length; slotNumber++) {
             ICard card = cardChoices[slotNumber];
             if (card == null) break;    // means no cards are left to execute
-            System.out.println("FROM ROUND: got to moving the robot");
+            System.out.println("FROM Round: I am moving the robot with a slotted card");
             card.moveRobot(humanPlayer.robot());
             cardChoices[slotNumber] = null;   // card is executed, remove it from the slot
         }

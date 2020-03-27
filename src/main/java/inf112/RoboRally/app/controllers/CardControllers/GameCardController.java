@@ -44,7 +44,7 @@ public class GameCardController {
         ICard[] playerModelCardSlots = player.getCardSlots();
         for (int i = 0; i < playerModelCardSlots.length; i++) {
             if (playerModelCardSlots[i] == null) {
-                System.out.println("FROM GAMECARDCONTROLLER: a card was put down");
+                System.out.println("FROM GameCardController: found a card in the slot. I am giving it to the Player model");
                 playerModelCardSlots[i] = card;
                 break;
             }
@@ -54,6 +54,7 @@ public class GameCardController {
     }
 
     public void newRound() {
+        System.out.println("FROM GameCardController: Roger that. Telling mr. Round to start a new round");
         game.round().dealCards();
     }
 

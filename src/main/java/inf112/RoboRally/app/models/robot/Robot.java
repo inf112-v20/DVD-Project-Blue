@@ -51,6 +51,7 @@ public class Robot implements IRobot {
 
     @Override
     public void move(int steps) {
+        System.out.println("FROM Robot: I was told to a certain amount of steps");
         removeOldPositionOnBoard();
         switch (direction) {
             case UP:
@@ -74,6 +75,7 @@ public class Robot implements IRobot {
 
     @Override
     public void rotate(Rotation rotation) {
+        System.out.println("FROM Robot: I was told to rotate");
         removeOldPositionOnBoard();
         switch (rotation) {
             case LEFT:
