@@ -10,28 +10,28 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
-import inf112.RoboRally.app.controllers.CardControllers.PlayerCardController;
+import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 import inf112.RoboRally.app.views.card.GameScreenCards;
 import inf112.RoboRally.app.views.menus.Button;
 
 public class PlayerUI extends InputAdapter {
 
     private Table cardViewTimer;
-    private TextButton runButton;
+    private TextButton readyButton;
 
     private Stage stage;
     private Viewport viewport;
     private PlayerHUD playerHUD;
     private GameScreenCards gameScreenCards;
-    private PlayerCardController playerCardController;
+    private GameCardController gameCardController;
 
-    public PlayerUI (PlayerCardController controller) {
-        this.playerCardController = controller;
+    public PlayerUI (GameCardController controller) {
+        this.gameCardController = controller;
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT);
         cardViewTimer = new Table();
         stage = new Stage(viewport);
         playerHUD = new PlayerHUD(3, 9, false); // connection to models between player health and lives not implemented
-        gameScreenCards = new GameScreenCards(playerCardController);
+        gameScreenCards = new GameScreenCards(gameCardController);
 
         stage.addActor(playerHUD.create());
         stage.addActor(playerHUD.powerDown());
@@ -39,7 +39,7 @@ public class PlayerUI extends InputAdapter {
         stage.addActor(playerHUD.lifeTokens());
         stage.addActor(cardViewTimer());
 
-        for (int slotNumber = 0; slotNumber < playerCardController.numberOfCardSlots(); slotNumber++)
+        for (int slotNumber = 0; slotNumber < gameCardController.numberOfCardSlots(); slotNumber++)
             stage.addActor(gameScreenCards.getCardSlotTable(slotNumber));
 
         stage.addActor(gameScreenCards.getReceivedCardsTable());
@@ -58,15 +58,15 @@ public class PlayerUI extends InputAdapter {
     public Table cardViewTimer() {
 
         cardViewTimer.pad(0, 3830, 250, 0);
-        runButton = new Button().createTextButton("READY");
+        readyButton = new Button().createTextButton("READY");
 
         cardViewTimer.row().padTop(20);
-        cardViewTimer.add(runButton);
+        cardViewTimer.add(readyButton);
 
-        runButton.addListener(new ClickListener() {
+        readyButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                playerCardController.setCardSlotsFromUserInput(gameScreenCards.getCardChoices());
+                gameCardController.setCardSlotsFromUserInput(gameScreenCards.getCardChoices());
             }
         });
 

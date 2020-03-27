@@ -2,7 +2,7 @@ package inf112.RoboRally.app.models.game;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import inf112.RoboRally.app.controllers.CardControllers.PlayerCardController;
+import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 import inf112.RoboRally.app.controllers.MapChoiceControllers.SinglePlayerSettingsController;
 import inf112.RoboRally.app.models.board.Board;
 
@@ -22,7 +22,7 @@ public class Game {
     private boolean playerHasWon;
 
     // Controllers
-    PlayerCardController playerCardController;
+    GameCardController gameCardController;
 
     public Game(SinglePlayerSettingsController settings) {
 
@@ -37,7 +37,7 @@ public class Game {
             players[i] = new Player(this, i+1);
         }
         humanPlayer = players[0]; // player1 is given as human player for now
-        playerCardController = new PlayerCardController(this);
+        gameCardController = new GameCardController(this);
         round = new Round(this);
         round.dealCards();
 
@@ -61,8 +61,8 @@ public class Game {
     private void phase() {
     }
 
-    public PlayerCardController getPlayerCardController() {
-        return playerCardController;
+    public GameCardController getGameCardController() {
+        return gameCardController;
     }
 
     public boolean playerReady() {

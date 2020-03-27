@@ -19,8 +19,8 @@ public class Robot implements IRobot {
     private Direction direction;
 
     // Views
-    private TiledMapTileLayer layer;
-    private TiledMapTileLayer.Cell cell;
+    private TiledMapTileLayer boardLayer;
+    private TiledMapTileLayer.Cell boardCell;
     private Sprite sprite;
 
     // Robot stats
@@ -36,40 +36,55 @@ public class Robot implements IRobot {
 
     @Override
     public void move(int steps) {
+        removeOldPositionOnBoard();
         switch (direction) {
             case UP:
                 vector2.y = vector2.y + steps;
-                return;
+                break;
             case DOWN:
                 vector2.y = vector2.y - steps;
-                return;
+                break;
             case RIGHT:
                 vector2.x = vector2.x + steps;
-                return;
+                break;
             case LEFT:
                 vector2.x = vector2.x - steps;
-                return;
+                break;
             default:
                 throw new IllegalStateException("robot has direction '"+direction+"', which is supported");
         }
+        updateOnBoard();
     }
+
 
     @Override
     public void rotate(Rotation rotation) {
+        removeOldPositionOnBoard();
         switch (rotation) {
             case LEFT:
-                direction.rotateLeft();
-                return;
+                direction = direction.rotateLeft();
+                break;
             case RIGHT:
-                direction.rotateRight();
-                return;
+                direction = direction.rotateRight();
+                break;
             case UTURN:
-                direction.rotateRight();
-                direction.rotateRight();
-                return;
+                direction = direction.rotateRight();
+                direction = direction.rotateRight();
+                break;
             default:
                 throw new IllegalArgumentException("robot is told to rotate '"+rotation+"', which is not supported");
         }
+        updateOnBoard();
+    }
+
+    private void removeOldPositionOnBoard() {
+        boardLayer.setCell((int) vector2.x, (int) vector2.y, null); // setting its prev cell to null - the robot is not there anymore
+    }
+
+    private void updateOnBoard() {
+        // setting cell in accordance with current direction and vector values
+        boardCell.setRotation(direction.CellDirectionNumber());
+        boardLayer.setCell((int) vector2.x, (int) vector2.y, boardCell);
     }
 
     @Override
@@ -85,11 +100,11 @@ public class Robot implements IRobot {
     private void setupOnBoard(Game game, int playerNumber) {
         direction = game.getBoard().getRobotStartingDirection(playerNumber);
         vector2 = game.getBoard().getRobotStartingVector(playerNumber);
-        layer = (TiledMapTileLayer) game.getMap().getLayers().get("player");
+        boardLayer = (TiledMapTileLayer) game.getMap().getLayers().get("player");
         this.sprite = new Sprite(new Texture("Robots/colorBots/player"+(playerNumber)+".png"));
-        cell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(sprite));
-        cell.setRotation(direction.CellDirectionNumber());
-        layer.setCell((int) vector2.x,(int) vector2.y, cell);
+        boardCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(sprite));
+        boardCell.setRotation(direction.CellDirectionNumber());
+        boardLayer.setCell((int) vector2.x,(int) vector2.y, boardCell);
     }
 
 }
