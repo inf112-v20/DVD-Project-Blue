@@ -36,14 +36,14 @@ public class Board {
         if (playerNumber < 0 || playerNumber > robotStartVectors.length) {
             throw new IllegalArgumentException("Amount of players given is not supported on this map");
         }
-        return robotStartVectors[playerNumber-1];
+        return robotStartVectors[playerNumber];
     }
 
     public Direction getRobotStartingDirection(int playerNumber) {
         if (playerNumber < 0 || playerNumber > robotStartDirections.length) {
             throw new IllegalArgumentException("Amount of players given is not supported on this map");
         }
-        return robotStartDirections[playerNumber-1];
+        return robotStartDirections[playerNumber];
     }
 
     public void setRobotStartVectors(Vector2[] robotStartVectors) {

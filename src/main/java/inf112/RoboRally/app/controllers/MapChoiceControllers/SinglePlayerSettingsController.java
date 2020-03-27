@@ -8,7 +8,7 @@ Communicates map information to single player settings menu
 public class SinglePlayerSettingsController {
 
     public final int MIN_PLAYERS = 2;
-    public final int INIT_MAP_CHOICE = 0;
+    public final int INIT_MAP_CHOICE = 0; // index 0 in MapList, VaultAssault map.
 
     private int playerCount = MIN_PLAYERS;
     private int mapChoice = INIT_MAP_CHOICE;
@@ -39,4 +39,6 @@ public class SinglePlayerSettingsController {
         else                  playerCount = MIN_PLAYERS;
         return playerCount;
     }
+
+
 }

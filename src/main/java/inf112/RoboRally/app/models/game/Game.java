@@ -34,7 +34,7 @@ public class Game {
         // the players
         players = new Player[settings.getPlayerCount()];
         for (int i = 0; i < settings.getPlayerCount(); i++) {
-            players[i] = new Player(this, i+1);
+            players[i] = new Player(this, i);
         }
         humanPlayer = players[0]; // player1 is given as human player for now
         gameCardController = new GameCardController(this);

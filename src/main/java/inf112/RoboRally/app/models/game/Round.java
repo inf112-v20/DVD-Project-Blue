@@ -18,6 +18,7 @@ public class Round {
     }
 
     public void dealCards() {
+        removeDealtCards(); // does not do anything the first round
         Player[] players = game.players();
         for (Player player: players) {
             for (int i = 0; i < player.amountOfReceivedCards(); i++) {

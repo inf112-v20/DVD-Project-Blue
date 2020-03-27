@@ -34,6 +34,14 @@ public class Robot implements IRobot {
         setupOnBoard(game, playerNumber);
     }
 
+    // for testing
+    public Robot(int x, int y) {
+        vector2 = new Vector2(x, y);
+        direction = Direction.RIGHT;
+    }
+
+
+
     @Override
     public void move(int steps) {
         removeOldPositionOnBoard();
@@ -101,10 +109,25 @@ public class Robot implements IRobot {
         direction = game.getBoard().getRobotStartingDirection(playerNumber);
         vector2 = game.getBoard().getRobotStartingVector(playerNumber);
         boardLayer = (TiledMapTileLayer) game.getMap().getLayers().get("player");
-        this.sprite = new Sprite(new Texture("Robots/colorBots/player"+(playerNumber)+".png"));
+        this.sprite = new Sprite(new Texture("Robots/colorBots/player"+(playerNumber+1)+".png"));
         boardCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(sprite));
         boardCell.setRotation(direction.CellDirectionNumber());
         boardLayer.setCell((int) vector2.x,(int) vector2.y, boardCell);
+    }
+
+    // for testing
+    public int getX() {
+        return (int) vector2.x;
+    }
+
+    // for testing
+    public int getY() {
+        return (int) vector2.y;
+    }
+
+    // for testing
+    public Direction getDirection() {
+        return direction;
     }
 
 }

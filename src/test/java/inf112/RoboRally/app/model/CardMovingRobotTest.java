@@ -1,32 +1,45 @@
 package inf112.RoboRally.app.model;
 
+import inf112.RoboRally.app.controllers.MapChoiceControllers.SinglePlayerSettingsController;
+import inf112.RoboRally.app.models.cards.*;
+import inf112.RoboRally.app.models.game.Game;
+import inf112.RoboRally.app.models.robot.Robot;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
 public class CardMovingRobotTest {
-//
-//    private Card threeStepsForward;
-//    private Card oneStepForward;
-//    private Card oneStepBack;
-//    private Card rotateLeft;
-//    private Card rotateRight;
-//    private Card uTurn;
-//    private Robot robot;
-//
-//    @Before
-//    public void setup() {
-//        robot = new Robot(new Position(4,4), Direction.RIGHT);
-//        threeStepsForward = new ForwardCard(1000, 3);
-//        oneStepForward = new ForwardCard(900, 1);
-//        oneStepBack = new ReverseCard(800);
-//        rotateLeft = new RotateCard(1300, Rotation.LEFT);
-//        rotateRight = new RotateCard(750, Rotation.RIGHT);
-//        uTurn = new RotateCard(500, Rotation.UTURN);
-//    }
-//
-//    @Test
-//    public void testMoveOneForwardCard() {
-//        oneStepForward.moveRobot(robot);
-//        assertEquals(5, robot.getX());
-//        assertEquals(4, robot.getY());
-//    }
+
+    private Game game;
+    private ICard threeStepsForward;
+    private ICard oneStepForward;
+    private ICard oneStepBack;
+    private ICard rotateLeft;
+    private ICard rotateRight;
+    private ICard uTurn;
+    private Robot robot;
+
+
+    @Before
+    public void setup() {
+        game = new Game(new SinglePlayerSettingsController());
+        robot = new Robot(game, 0);
+        threeStepsForward = new ForwardCard(3, 0);
+        oneStepForward = new ForwardCard(1, 0);
+        oneStepBack = new ReverseCard(0);
+        rotateLeft = new RotateCard(Rotation.LEFT, 0);
+        rotateRight = new RotateCard(Rotation.RIGHT, 0);
+        uTurn = new RotateCard(Rotation.UTURN, 0);
+    }
+
+    @Test
+    public void testMoveOneForwardCard() {
+        oneStepForward.moveRobot(robot);
+
+        assertEquals(5, robot.getX());
+        assertEquals(6, robot.getY());
+    }
 //
 //    @Test
 //    public void testMoveThreeForwardCard() {
