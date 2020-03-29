@@ -1,26 +1,40 @@
 package inf112.RoboRally.app.models.cards;
 
-import inf112.RoboRally.app.models.board.Robot;
+import inf112.RoboRally.app.models.robot.Robot;
+
 /*
-Card to do all rotations of robots: right, left and right two times (uturn).
+Card to do all rotations of robots: right, left and right two times (u-turn).
  */
-public class RotateCard extends Card {
-    private Rotation rotation;
-    // filename variable for picture will be here
+public class RotateCard implements ICard {
 
-    public RotateCard(int priority, Rotation rotation) {
-        super(priority = priority);
-        this.rotation = rotation;
+    private final int PRIORITY;
+    private final Rotation ROTATION;
+    private final String FILENAME;
+
+    public RotateCard(Rotation rotation, int priority) {
+        this.ROTATION = rotation;
+        this.PRIORITY = priority;
+        if      (rotation == Rotation.RIGHT) FILENAME = "RotateRight.png";
+        else if (rotation == Rotation.LEFT)  FILENAME = "RotateLeft.png";
+        else                                 FILENAME = "UTurn.png";
     }
 
+    @Override
+    public int priority() {
+        return PRIORITY;
+    }
+
+    @Override
     public void moveRobot(Robot robot) {
-        if (rotation == Rotation.LEFT) {
-            robot.rotateDirectionLeft();
-        } else if (rotation == Rotation.RIGHT) {
-            robot.rotateDirectionRight();
-        } else if (rotation == Rotation.UTURN) {
-            robot.uTurn();
-        }
+        System.out.println("FROM RotateCard: I am moving the robot");
+        robot.rotate(ROTATION);
     }
+
+
+    @Override
+    public String getFileName() {
+        return FILENAME;
+    }
+
 
 }

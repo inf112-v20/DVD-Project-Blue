@@ -27,3 +27,4 @@ public class Main {
         new LwjglApplication(new GameLauncher(), config);
     }
 }
+
