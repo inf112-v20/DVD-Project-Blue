@@ -10,6 +10,10 @@ to the images that we have.
 Some of the psd files had to be splitted
 since their file size was too big.
 
+Sound effects are made using SFXR. A small neat program for making different sound effects.  
+Author lets you use it for anything you want, and it is licensed under MIT free software license.  
+Link -> http://www.drpetter.se/project_sfxr.html
+
 -- Extra --  
 ButtonSkin is found on the github repository, which is owned by "czyzby"  
 Link -> https://github.com/czyzby/gdx-skins  
