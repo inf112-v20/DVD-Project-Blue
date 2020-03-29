@@ -28,6 +28,7 @@ public class Game {
 
         // the board
         mapLoader = new TmxMapLoader();
+        System.out.println("The file: "+settings.getMap().tiledMapFile());
         map = mapLoader.load(settings.getMap().tiledMapFile());
         board = settings.getMap();
 
@@ -38,21 +39,9 @@ public class Game {
         }
         humanPlayer = players[0]; // player1 is given as human player for now
         gameCardController = new GameCardController(this);
-        round = new Round(players, humanPlayer);
-        round.dealCards();
+//        round = new Round(players, humanPlayer);
+//        round.dealCards();
 
-    }
-
-    // constructor without maploader for testing purposes
-    public Game() {
-        SinglePlayerSettingsController settings = new SinglePlayerSettingsController();
-        settings.choosePlayerCount();
-        settings.choosePlayerCount();
-        board = settings.getMap();
-        players = new Player[settings.getPlayerCount()];
-        for (int i = 0; i < settings.getPlayerCount(); i++) {
-            players[i] = new Player(this, i);
-        }
     }
 
 
@@ -75,10 +64,6 @@ public class Game {
 
     public GameCardController getGameCardController() {
         return gameCardController;
-    }
-
-    public boolean playerReady() {
-        return humanPlayer.readyForRound();
     }
 
     public Player getHumanPlayer() {
