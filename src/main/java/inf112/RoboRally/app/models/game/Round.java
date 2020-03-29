@@ -2,8 +2,10 @@ package inf112.RoboRally.app.models.game;
 
 import inf112.RoboRally.app.models.cards.CardFactory;
 import inf112.RoboRally.app.models.cards.ICard;
+import inf112.RoboRally.app.models.cards.SortCardByPriority;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /*
 Next delivery
@@ -32,7 +34,7 @@ public class Round {
     }
 
     // only executes our human players card choices for now
-    public void executeCardChoices () {
+    public void executeHumanCardChoices() {
         ICard[] cardChoices = humanPlayer.getCardSlots();
         for (int slotNumber = 0; slotNumber < cardChoices.length; slotNumber++) {
             ICard card = cardChoices[slotNumber];
@@ -53,15 +55,15 @@ public class Round {
 
         }
 
-
     }
 
-    private ArrayList<ICard> collectAllCards() {
+    private ArrayList<ICard> collectAllCardsFromSlots() {
         ArrayList<ICard> allCards = new ArrayList<>();
         for (NewPlayer player: players) {
-            for (int i = 0; i < player.amountOfReceivedCards(); i++) {
-                ICard[] receivedCards = player.getReceivedCards();
-                allCards.add(receivedCards[i]);
+            ICard[] cardSlots = player.getCardSlots();
+            for (int slotNumber = 0; slotNumber < player.numberOfCardSlots(); slotNumber++) {
+                if (cardSlots[slotNumber] != null)
+                    allCards.add(cardSlots[slotNumber]);
             }
 
         }
@@ -69,8 +71,16 @@ public class Round {
         return allCards;
     }
 
-    private ArrayList<ICard> sortCards(ArrayList<ICard> allCards) {
-        return null;
+    private ArrayList<ICard> sortCardsByPriority(ArrayList<ICard> allCardsFromSlots) {
+        Collections.sort(allCardsFromSlots, new SortCardByPriority());
+        return allCardsFromSlots;
+    }
+
+    public void executeCardChoices() {
+        ArrayList<ICard> cardsByPriority = sortCardsByPriority(collectAllCardsFromSlots());
+        for (ICard card: cardsByPriority) {
+            card.moveRobot(card.getPlayer().robot());
+        }
     }
 
 

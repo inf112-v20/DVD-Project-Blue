@@ -33,7 +33,7 @@ public class NewGameCardController {
                 fillPlayerCardSlot(viewCard.getModelCard());
         }
 
-        game.round().executeCardChoices();
+        game.round().executeHumanCardChoices();
     }
 
     private void fillPlayerCardSlot(ICard card) {

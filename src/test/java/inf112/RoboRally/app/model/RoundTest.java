@@ -82,19 +82,11 @@ public class RoundTest {
 
     }
 
-    @Test
-    public void collectAllCards() {
 
-    }
-
-    @Test
-    public void cardShuffledByPriority() {
-
-    }
 
     @Test
     public void cardExecution() {
-
+        
     }
 
 
