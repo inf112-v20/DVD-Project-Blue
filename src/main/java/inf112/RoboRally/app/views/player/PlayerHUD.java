@@ -4,13 +4,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 
 public class PlayerHUD {
 
     private Table background;
 
     private int life;
-    private Table lifeTokens;
+    private Table lifeTokensTable;
+    LifeTokens lifeTokens; // new version
 
     private int damage;
     private Table damageTokens;
@@ -18,14 +20,17 @@ public class PlayerHUD {
     private boolean powerDownActive;
     private Table powerDown;
 
-    public PlayerHUD(int life, int damage, boolean powerDownActive) {
+    public PlayerHUD(int life, int damage, boolean powerDownActive, GameCardController gameCardController) {
         this.life = life;
         this.damage = damage;
         this.powerDownActive = powerDownActive;
         background = new Table();
-        lifeTokens = new Table();
+        lifeTokensTable = new Table();
         damageTokens = new Table();
         powerDown = new Table();
+
+        // new lifetokens
+        lifeTokens = new LifeTokens(gameCardController.humanPlayer().robot().livesLeft());
     }
 
     public Table create () {
@@ -38,30 +43,8 @@ public class PlayerHUD {
         return background;
     }
 
-    public Table lifeTokens() {
-        lifeTokens.bottom().padLeft(719);
-        lifeTokens.setFillParent(true);
-
-        Texture emptyLifeTokenTexture = new Texture("PlayerHud/emptyLifeToken.png");
-        Texture lifeTokenTexture = new Texture("PlayerHud/LifeToken.png");
-        lifeTokenTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-
-        lifeTokens.add(new Image(emptyLifeTokenTexture));
-        lifeTokens.row();
-        lifeTokens.add(new Image(emptyLifeTokenTexture));
-        lifeTokens.row();
-        lifeTokens.add(new Image(emptyLifeTokenTexture));
-        if (life > 2) {
-            lifeTokens.getCells().get(0).clearActor().setActor(new Image(lifeTokenTexture));
-        }
-        if (life > 1) {
-            lifeTokens.getCells().get(1).clearActor().setActor(new Image(lifeTokenTexture));
-        }
-        if (life > 0) {
-            lifeTokens.getCells().get(2).clearActor().setActor(new Image(lifeTokenTexture));
-        }
-
-        return lifeTokens;
+    protected Table getLifeTokensTable() {
+        return lifeTokens.lifeTokensTable();
     }
 
     public Table damageTokens () {

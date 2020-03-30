@@ -1,10 +1,12 @@
 package inf112.RoboRally.app.model;
 
 import inf112.RoboRally.app.controllers.MapChoiceControllers.SinglePlayerSettingsController;
+import inf112.RoboRally.app.models.cards.CardFactory;
 import inf112.RoboRally.app.models.cards.ICard;
 import inf112.RoboRally.app.models.game.NewGame;
 import inf112.RoboRally.app.models.game.NewPlayer;
 import inf112.RoboRally.app.models.game.Round;
+import inf112.RoboRally.app.models.robot.Pos;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -85,9 +87,37 @@ public class RoundTest {
 
 
     @Test
-    public void cardExecution() {
-        
+    public void cardExecutionTest() {
+        CardFactory cardFactory = new CardFactory();
+        for (NewPlayer player: players) {
+            ICard[] cardSlots = player.getCardSlots();
+            for (int i = 0; i < player.numberOfCardSlots(); i++) {
+                cardSlots[i] = cardFactory.randomCard();
+                cardSlots[i].setPlayer(player);
+            }
+
+        }
+        Pos[] initPositions = new Pos[4];
+        for (int i = 0; i < players.length; i++) {
+            int x = players[i].robot().position().getX();
+            int y = players[i].robot().position().getY();
+            initPositions[i] = new Pos(x, y);
+//            System.out.println(initPositions[i].getX()+", "+initPositions[i].getY());
+        }
+        round.executeCardChoices();
+        int differentPositionCount = 0;
+        for (int i = 0; i < players.length; i++) {
+            System.out.println(initPositions[i].getX()+", "+initPositions[i].getY());
+            if (initPositions[i] != players[i].robot().position())
+                differentPositionCount++;
+        }
+        // tests that more than two players will have moved to new positions, theoretically it
+        // is possible that every player can perform a move sequence to its initial position.
+        // Therefore, it only checks that at least to robots have moved to different positions.
+        // But you could change the value '3' to '4', and tests still pass 99/100 times.
+        assertEquals(true, differentPositionCount >= 3);
     }
+
 
 
 }

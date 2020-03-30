@@ -38,7 +38,7 @@ public class Game {
             players[i] = new Player(this, i);
         }
         humanPlayer = players[0]; // player1 is given as human player for now
-        gameCardController = new GameCardController(this);
+//        gameCardController = new GameCardController(this);
 //        round = new Round(players, humanPlayer);
 //        round.dealCards();
 

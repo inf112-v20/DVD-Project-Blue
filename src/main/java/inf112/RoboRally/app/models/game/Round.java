@@ -79,7 +79,8 @@ public class Round {
     public void executeCardChoices() {
         ArrayList<ICard> cardsByPriority = sortCardsByPriority(collectAllCardsFromSlots());
         for (ICard card: cardsByPriority) {
-            card.moveRobot(card.getPlayer().robot());
+            if (card != null)
+                card.moveRobot(card.getPlayer().robot());
         }
     }
 

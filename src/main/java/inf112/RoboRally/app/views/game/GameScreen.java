@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
-import inf112.RoboRally.app.models.game.Game;
+import inf112.RoboRally.app.models.game.NewGame;
 import inf112.RoboRally.app.views.player.PlayerUI;
 
 public class GameScreen extends InputAdapter implements Screen {
@@ -21,7 +21,7 @@ public class GameScreen extends InputAdapter implements Screen {
     private Viewport viewport;
     private Stage stage;
     private OrthogonalTiledMapRenderer mapRenderer;
-    private static Game game;
+    private static NewGame game;
     private PlayerUI playerUI;
 
     private InputMultiplexer multiplexer;
@@ -32,10 +32,10 @@ public class GameScreen extends InputAdapter implements Screen {
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT, camera);
         stage = new Stage(viewport);
 
-        game = new Game(gameLauncher.settings());
+        game = new NewGame(gameLauncher.settings());
         playerUI = new PlayerUI(game.getGameCardController());
 
-        mapRenderer = new OrthogonalTiledMapRenderer(game.getMap(), 1/256f);
+        mapRenderer = new OrthogonalTiledMapRenderer(game.setUpMadLoader().getMap(), 1/256f);
         camera.setToOrtho(false, 26, 15);
         mapRenderer.setView(camera);
         multiplexer = new InputMultiplexer();

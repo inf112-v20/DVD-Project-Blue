@@ -1,6 +1,6 @@
 package inf112.RoboRally.app.models.game;
 
-import inf112.RoboRally.app.controllers.CardControllers.NewGameCardController;
+import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 import inf112.RoboRally.app.controllers.MapChoiceControllers.SinglePlayerSettingsController;
 import inf112.RoboRally.app.models.board.Board;
 
@@ -17,15 +17,18 @@ public class NewGame {
     private NewPlayer humanPlayer; // player 1 is given as human player for now
 
     // controllers
-    private NewGameCardController gameCardController;
+    private GameCardController gameCardController;
+
+    //MapLoader
+    private TiledMapLoader tiledMapLoader;
 
     public NewGame(SinglePlayerSettingsController settings) {
         board = settings.getMap();
         players = new NewPlayer[settings.getPlayerCount()];
         for (int nPlayer = 0; nPlayer < settings.getPlayerCount(); nPlayer++)
             players[nPlayer] = new NewPlayer(this, nPlayer);
-        gameCardController = new NewGameCardController(this);
         humanPlayer = players[0];
+        gameCardController = new GameCardController(this);
         round = new Round(this);
         round.dealCards();
     }
@@ -38,7 +41,7 @@ public class NewGame {
         return players;
     }
 
-    public NewGameCardController getGameCardController() {
+    public GameCardController getGameCardController() {
         return gameCardController;
     }
 
@@ -48,6 +51,11 @@ public class NewGame {
 
     public Round round() {
         return round;
+    }
+
+    public TiledMapLoader setUpMadLoader() {
+        tiledMapLoader = new TiledMapLoader(board.tiledMapFile());
+        return tiledMapLoader;
     }
 
 
