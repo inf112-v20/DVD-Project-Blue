@@ -6,6 +6,8 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -24,6 +26,11 @@ public class GameScreen extends InputAdapter implements Screen {
     private static Game game;
     private PlayerUI playerUI;
 
+    //player movement smooth
+    private PlayerMovementDemo playerMovementDemo;
+    private Texture playerTxt;
+    //player movement smooth
+
     private InputMultiplexer multiplexer;
 
     public GameScreen(GameLauncher launcher) {
@@ -38,9 +45,21 @@ public class GameScreen extends InputAdapter implements Screen {
         mapRenderer = new OrthogonalTiledMapRenderer(game.getMap(), 1/256f);
         camera.setToOrtho(false, 26, 15);
         mapRenderer.setView(camera);
+
+        //player movement smooth
+        playerTxt = new Texture("Robots/colorBotsSmaller/player1.png");
+        playerTxt.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        playerMovementDemo = new PlayerMovementDemo(new Sprite(playerTxt));
+        //player movement smooth
+
         multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(this);
         multiplexer.addProcessor(playerUI.getStage());
+
+        //player movement smooth
+        multiplexer.addProcessor(playerMovementDemo);
+        //player movement smooth
+
         Gdx.input.setInputProcessor(multiplexer);
 
     }
@@ -68,6 +87,12 @@ public class GameScreen extends InputAdapter implements Screen {
         playerUI.getStage().draw();
 
         gameLauncher.batch.end();
+
+        //player movement smooth
+        gameLauncher.batch.begin();
+        playerMovementDemo.draw(gameLauncher.batch);
+        gameLauncher.batch.end();
+        //player movement smooth
     }
 
     @Override
