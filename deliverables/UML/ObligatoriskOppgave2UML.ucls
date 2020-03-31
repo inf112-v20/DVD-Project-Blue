@@ -101,7 +101,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="inf112.RoboRally.app.models.robot.Robot" project="INF112"
+  <class id="12" language="java" name="inf112.RoboRally.app.models.robot.OldRobot" project="INF112"
     file="/INF112/src/main/java/inf112/RoboRally/app/models/board/Robot.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="492" y="811"/>    
     <display autosize="true" stereotype="true" package="false" initial-value="false" signature="true" 

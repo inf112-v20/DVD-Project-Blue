@@ -2,8 +2,10 @@ package inf112.RoboRally.app.models.game;
 
 import inf112.RoboRally.app.models.cards.CardFactory;
 import inf112.RoboRally.app.models.cards.ICard;
+import inf112.RoboRally.app.models.cards.SortCardByPriority;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /*
 Next delivery
@@ -11,18 +13,18 @@ Next delivery
 public class Round {
 
     private CardFactory cardFactory = new CardFactory();
-    private Player[] players;      // players in the game
-    private Player humanPlayer;
+    private NewPlayer[] players;
+    private NewPlayer humanPlayer;
 
-    public Round(Player[] players, Player humanPlayer) {
-        this.players = players;
-        this.humanPlayer = humanPlayer;
+    public Round(NewGame game) {
+        this.players = game.players();
+        this.humanPlayer = game.getHumanPlayer();
     }
 
-    public void dealCards() {
-        System.out.println("FROM Round: Sure thing. Lets do it one more time.");
+    public void dealCards () {
+//        System.out.println("FROM Round: Sure thing. Lets do it one more time.");
         removeDealtCards(); // does not do anything the first round
-        for (Player player: players) {
+        for (NewPlayer player : players) {
             for (int i = 0; i < player.amountOfReceivedCards(); i++) {
                 ICard card = cardFactory.randomCard();
                 player.receiveCard(i, card);
@@ -31,9 +33,8 @@ public class Round {
 
     }
 
-
     // only executes our human players card choices for now
-    public void executeCardChoices() {
+    public void executeHumanCardChoices() {
         ICard[] cardChoices = humanPlayer.getCardSlots();
         for (int slotNumber = 0; slotNumber < cardChoices.length; slotNumber++) {
             ICard card = cardChoices[slotNumber];
@@ -42,28 +43,49 @@ public class Round {
             card.moveRobot(humanPlayer.robot());
             cardChoices[slotNumber] = null;   // card is executed, remove it from the slot
         }
-
         removeDealtCards();
     }
 
-    private void removeDealtCards() {
-        for (Player player: players) {
+    private void removeDealtCards () {
+        for (NewPlayer player: players) {
             ICard[] dealtCards = player.getReceivedCards();
             for (int i = 0; i < dealtCards.length; i++) {
                 dealtCards[i] = null;
             }
+
         }
 
     }
 
-    // TODO - implement
-    public void executeNextCardChoices(Player[] players, ArrayList<ICard> nextPlayerChoices) {
+    private ArrayList<ICard> collectAllCardsFromSlots() {
+        ArrayList<ICard> allCards = new ArrayList<>();
+        for (NewPlayer player: players) {
+            ICard[] cardSlots = player.getCardSlots();
+            for (int slotNumber = 0; slotNumber < player.numberOfCardSlots(); slotNumber++) {
+                if (cardSlots[slotNumber] != null)
+                    allCards.add(cardSlots[slotNumber]);
+            }
 
+        }
+
+        return allCards;
     }
 
-    // TODO - implement
-    private ArrayList<ICard> getNextCardChoices(Player[] players) {
-        return null;
+    private ArrayList<ICard> sortCardsByPriority(ArrayList<ICard> allCardsFromSlots) {
+        Collections.sort(allCardsFromSlots, new SortCardByPriority());
+        return allCardsFromSlots;
     }
+
+    public void executeCardChoices() {
+        ArrayList<ICard> cardsByPriority = sortCardsByPriority(collectAllCardsFromSlots());
+        for (ICard card: cardsByPriority) {
+            if (card != null)
+                card.moveRobot(card.getPlayer().robot());
+        }
+    }
+
 
 }
+
+
+

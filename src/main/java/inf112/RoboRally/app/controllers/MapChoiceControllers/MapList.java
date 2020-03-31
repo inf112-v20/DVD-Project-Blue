@@ -14,7 +14,11 @@ public class MapList {
             new Checkmate(PATH),
             new ChopShopChallenge(PATH),
             new DizzyDash(PATH),
-            new IslandKing(PATH)
+            new IslandKing(PATH),
+            new RiskyExchange(PATH),
+            new RobotStew(PATH),
+            new Tricksy(PATH),
+            new WhirlwindTour(PATH)
     };
 
     // starting from zero

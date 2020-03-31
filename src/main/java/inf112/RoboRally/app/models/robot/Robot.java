@@ -1,82 +1,53 @@
 package inf112.RoboRally.app.models.robot;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
-import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.models.cards.Rotation;
-import inf112.RoboRally.app.models.game.Game;
+import inf112.RoboRally.app.models.game.NewGame;
 
-/*
-Model of a robot. Initialized with position and direction. This information is passed on by
-the board it is initialized on.
- */
 public class Robot implements IRobot {
 
     // Position
-    private Vector2 vector2;
     private Direction direction;
+    private Pos pos;
 
-    // Views
-    private TiledMapTileLayer boardLayer;
-    private TiledMapTileLayer.Cell boardCell;
-    private Sprite sprite;
-
-    // Robot stats
-    private final int MAX_HP = 9;
+    // Game stats
+    private final int MAX_HP = 10;
     private final int STARTING_LIVES = 3;
-    private int HP;
+    private int hp;
     private int lives;
+    private boolean poweredDown;
 
-    public Robot(Game game, int playerNumber) {
-        HP = MAX_HP;
+    public Robot(NewGame game, int playerNumber) {
+        hp = MAX_HP;
         lives = STARTING_LIVES;
-        setupOnBoard(game, playerNumber);
+        poweredDown = false;
+        pos = game.getBoard().getRobotStartingPos(playerNumber);
+        direction = game.getBoard().getRobotStartingDirection(playerNumber);
     }
-
-    // bare bones constructor used for testing
-    public Robot() {
-        HP = MAX_HP;
-        lives = STARTING_LIVES;
-    }
-
-    // for testing
-    public Robot(int x, int y) {
-        vector2 = new Vector2(x, y);
-        direction = Direction.RIGHT;
-    }
-
-
 
     @Override
     public void move(int steps) {
         System.out.println("FROM Robot: I was told to a certain amount of steps");
-        removeOldPositionOnBoard();
         switch (direction) {
             case UP:
-                vector2.y = vector2.y + steps;
+                pos.updateY(steps);
                 break;
             case DOWN:
-                vector2.y = vector2.y - steps;
+                pos.updateY(-steps);
                 break;
             case RIGHT:
-                vector2.x = vector2.x + steps;
+                pos.updateX(steps);
                 break;
             case LEFT:
-                vector2.x = vector2.x - steps;
+                pos.updateX(-steps);
                 break;
             default:
                 throw new IllegalStateException("robot has direction '"+direction+"', which is supported");
         }
-        updateOnBoard();
     }
-
 
     @Override
     public void rotate(Rotation rotation) {
         System.out.println("FROM Robot: I was told to rotate");
-        removeOldPositionOnBoard();
         switch (rotation) {
             case LEFT:
                 direction = direction.rotateLeft();
@@ -91,52 +62,33 @@ public class Robot implements IRobot {
             default:
                 throw new IllegalArgumentException("robot is told to rotate '"+rotation+"', which is not supported");
         }
-        updateOnBoard();
     }
 
-    private void removeOldPositionOnBoard() {
-        boardLayer.setCell((int) vector2.x, (int) vector2.y, null); // setting its prev cell to null - the robot is not there anymore
-    }
-
-    private void updateOnBoard() {
-        // setting cell in accordance with current direction and vector values
-        boardCell.setRotation(direction.CellDirectionNumber());
-        boardLayer.setCell((int) vector2.x, (int) vector2.y, boardCell);
+    public Pos position() {
+        return pos;
     }
 
     @Override
     public void looseHP() {
-
+        // TODO - if zer hp -> reboot robot on board, loose one life etc etc.
+        hp--;
     }
 
     @Override
     public int getHP() {
-        return HP;
+        return hp;
     }
 
-    private void setupOnBoard(Game game, int playerNumber) {
-        direction = game.getBoard().getRobotStartingDirection(playerNumber);
-        vector2 = game.getBoard().getRobotStartingVector(playerNumber);
-        boardLayer = (TiledMapTileLayer) game.getMap().getLayers().get("player");
-        this.sprite = new Sprite(new Texture("Robots/colorBots/player"+(playerNumber+1)+".png"));
-        boardCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(sprite));
-        boardCell.setRotation(direction.CellDirectionNumber());
-        boardLayer.setCell((int) vector2.x,(int) vector2.y, boardCell);
+
+    public int livesLeft() {
+        return lives;
     }
 
-    // for testing
-    public int getX() {
-        return (int) vector2.x;
+    public boolean isPoweredDown() {
+        return poweredDown;
     }
 
-    // for testing
-    public int getY() {
-        return (int) vector2.y;
+    public int getMAX_HP() {
+        return MAX_HP;
     }
-
-    // for testing
-    public Direction getDirection() {
-        return direction;
-    }
-
 }

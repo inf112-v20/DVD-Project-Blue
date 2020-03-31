@@ -1,6 +1,6 @@
 package inf112.RoboRally.app.models.game;
 
-import inf112.RoboRally.app.models.robot.Robot;
+import inf112.RoboRally.app.models.robot.OldRobot;
 import inf112.RoboRally.app.models.cards.ICard;
 
 /*
@@ -12,7 +12,7 @@ public class Player {
 
     private String name;
     private int playerNumber;
-    private Robot robot;
+    private OldRobot robot;
     private ICard[] receivedCards = new ICard[9];
     private ICard[] cardSlots = new ICard[5];
     private int flagsCollected = 0;
@@ -20,15 +20,15 @@ public class Player {
 
     public Player(Game game, int playerNumber) {
         this.playerNumber = playerNumber;
-        robot = new Robot(game, playerNumber);
+        robot = new OldRobot(game, playerNumber);
     }
 
     // Bare bones constructor used for automatic testing
     public Player() {
-        robot = new Robot();
+        robot = new OldRobot();
     }
 
-    public Robot robot() {
+    public OldRobot robot() {
         return robot;
     }
 

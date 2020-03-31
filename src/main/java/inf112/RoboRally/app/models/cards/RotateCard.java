@@ -1,5 +1,6 @@
 package inf112.RoboRally.app.models.cards;
 
+import inf112.RoboRally.app.models.game.NewPlayer;
 import inf112.RoboRally.app.models.robot.Robot;
 
 /*
@@ -10,6 +11,8 @@ public class RotateCard implements ICard {
     private final int PRIORITY;
     private final Rotation ROTATION;
     private final String FILENAME;
+
+    private NewPlayer player;
 
     public RotateCard(Rotation rotation, int priority) {
         this.ROTATION = rotation;
@@ -36,5 +39,13 @@ public class RotateCard implements ICard {
         return FILENAME;
     }
 
+    @Override
+    public void setPlayer(NewPlayer player) {
+        this.player = player;
+    }
 
+    @Override
+    public NewPlayer getPlayer() {
+        return player;
+    }
 }

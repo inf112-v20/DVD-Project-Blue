@@ -1,8 +1,8 @@
 package inf112.RoboRally.app.controllers.CardControllers;
 
 import inf112.RoboRally.app.models.cards.ICard;
-import inf112.RoboRally.app.models.game.Game;
-import inf112.RoboRally.app.models.game.Player;
+import inf112.RoboRally.app.models.game.NewGame;
+import inf112.RoboRally.app.models.game.NewPlayer;
 import inf112.RoboRally.app.views.card.ICardDragAndDrop;
 
 /*
@@ -11,24 +11,24 @@ from the view to the model player class
  */
 public class GameCardController {
 
-    private Player player; // our human player
-    private Game game;
+    private NewPlayer humanPlayer; // our human player
+    private NewGame game;
 
-    public GameCardController(Game game) {
+    public GameCardController(NewGame game) {
         this.game = game;
-        this.player = game.getHumanPlayer();
+        this.humanPlayer = game.getHumanPlayer();
     }
 
     public int amountOfReceivedCards() {
-        return player.amountOfReceivedCards();
+        return humanPlayer.amountOfReceivedCards();
     }
 
     public int numberOfCardSlots() {
-        return player.numberOfCardSlots();
+        return humanPlayer.numberOfCardSlots();
     }
 
     public ICard[] getReceivedPlayerCards() {
-        return player.getReceivedCards();
+        return humanPlayer.getReceivedCards();
     }
 
     public void setCardSlotsFromUserInput(ICardDragAndDrop[] cardsFromView) {
@@ -37,11 +37,11 @@ public class GameCardController {
                 fillPlayerCardSlot(viewCard.getModelCard());
         }
 
-        game.round().executeCardChoices();
+        game.round().executeHumanCardChoices();
     }
 
     private void fillPlayerCardSlot(ICard card) {
-        ICard[] playerModelCardSlots = player.getCardSlots();
+        ICard[] playerModelCardSlots = humanPlayer.getCardSlots();
         for (int i = 0; i < playerModelCardSlots.length; i++) {
             if (playerModelCardSlots[i] == null) {
                 System.out.println("FROM GameCardController: found a card in the slot. I am giving it to the Player model");
@@ -56,6 +56,11 @@ public class GameCardController {
     public void newRound() {
         System.out.println("FROM GameCardController: Roger that. Telling mr. Round to start a new round");
         game.round().dealCards();
+    }
+
+
+    public NewPlayer humanPlayer() {
+        return humanPlayer;
     }
 
 

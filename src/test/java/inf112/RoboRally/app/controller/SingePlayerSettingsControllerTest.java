@@ -20,15 +20,12 @@ public class SingePlayerSettingsControllerTest {
     }
 
     @Test
-    public void defaultMapChoiceTest() {
+    public void defaultSettingsTest() {
         Board board = settings.getMap();
         assertEquals(true, board instanceof VaultAssault);
-    }
-
-    @Test
-    public void defaultPlayerChoiceTest() {
         assertEquals(2, settings.getPlayerCount());
     }
+
 
     @Test
     public void changingAmountOfPlayers() {
@@ -53,30 +50,24 @@ public class SingePlayerSettingsControllerTest {
             settings.chooseMap();
         Board board = settings.getMap();
         assertEquals(true, board instanceof DizzyDash);
+        for (int i = 0; i < 3; i++)
+            settings.chooseMap();
+        Board secondBoard = settings.getMap();
+        assertEquals(true, secondBoard instanceof RobotStew);
+        for (int i = 0; i < 2; i++)
+            settings.chooseMap();
+        Board thirdBoard = settings.getMap();
+        assertEquals(true, thirdBoard instanceof WhirlwindTour);
+
     }
 
     @Test
     public void changingMapChoiceMaxBound() {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 9; i++)
             settings.chooseMap();
         Board board = settings.getMap();
-        assertEquals(true, board instanceof Checkmate);
-    }
-
-    @Test
-    public void amountOfPlayerMaxBoundSmallerOnMapThatSupportsFewerPlayers() {
-        for (int i = 0; i < 4; i++)
-            settings.chooseMap();
-        Board board = settings.getMap();
-        // Island King currently only supports 4 players
-        assertEquals(true, board instanceof IslandKing);
-        assertEquals(2, settings.getPlayerCount());
-        for (int i = 0; i < 2; i++) {
-            settings.choosePlayerCount();
-        }
-        assertEquals(4, settings.getPlayerCount());
-        settings.choosePlayerCount();
-        assertEquals(2, settings.getPlayerCount());
+        // wraps around to default choice when user iterates to next board choice from the last board choice
+        assertEquals(true, board instanceof VaultAssault);
     }
 
 

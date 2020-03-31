@@ -2,6 +2,7 @@ package inf112.RoboRally.app.models.board;
 
 import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.models.robot.Direction;
+import inf112.RoboRally.app.models.robot.Pos;
 
 /*
 Model for boards in the game. Not worked on yet.
@@ -13,6 +14,7 @@ public class Board {
     private String filePath;
 
     // starting position data
+    private Pos[] robotStartPositions; // new version
     private Vector2[] robotStartVectors;
     private Direction[] robotStartDirections;
 
@@ -26,10 +28,17 @@ public class Board {
     public Board() {}
 
     public int amountOfPlayerSupportedOnThisMap() {
-        if (robotStartVectors.length != robotStartDirections.length) {
+        if (robotStartPositions.length != robotStartDirections.length) {
             throw new IllegalStateException("Start direction list and start vector list does not match in length");
         }
-        return robotStartVectors.length;
+        return robotStartPositions.length;
+    }
+
+    public Pos getRobotStartingPos(int playerNumber) {
+        if (playerNumber < 0 || playerNumber > robotStartPositions.length) {
+            throw new IllegalArgumentException("Amount of players given is not supported on this map");
+        }
+        return robotStartPositions[playerNumber];
     }
 
     public Vector2 getRobotStartingVector(int playerNumber) {
@@ -44,6 +53,10 @@ public class Board {
             throw new IllegalArgumentException("Amount of players given is not supported on this map");
         }
         return robotStartDirections[playerNumber];
+    }
+
+    public void setRobotStartPositions(Pos[] robotStartPositions) {
+        this.robotStartPositions = robotStartPositions;
     }
 
     public void setRobotStartVectors(Vector2[] robotStartVectors) {
