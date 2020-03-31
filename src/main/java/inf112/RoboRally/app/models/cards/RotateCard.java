@@ -1,6 +1,6 @@
 package inf112.RoboRally.app.models.cards;
 
-import inf112.RoboRally.app.models.game.NewPlayer;
+import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.models.robot.Robot;
 
 /*
@@ -12,7 +12,7 @@ public class RotateCard implements ICard {
     private final Rotation ROTATION;
     private final String FILENAME;
 
-    private NewPlayer player;
+    private Player player;
 
     public RotateCard(Rotation rotation, int priority) {
         this.ROTATION = rotation;
@@ -40,12 +40,12 @@ public class RotateCard implements ICard {
     }
 
     @Override
-    public void setPlayer(NewPlayer player) {
+    public void setPlayer(Player player) {
         this.player = player;
     }
 
     @Override
-    public NewPlayer getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 }

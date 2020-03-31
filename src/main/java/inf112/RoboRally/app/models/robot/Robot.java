@@ -1,7 +1,8 @@
 package inf112.RoboRally.app.models.robot;
 
+import inf112.RoboRally.app.controllers.RobotViewController;
 import inf112.RoboRally.app.models.cards.Rotation;
-import inf112.RoboRally.app.models.game.NewGame;
+import inf112.RoboRally.app.models.game.Game;
 
 public class Robot implements IRobot {
 
@@ -16,12 +17,16 @@ public class Robot implements IRobot {
     private int lives;
     private boolean poweredDown;
 
-    public Robot(NewGame game, int playerNumber) {
+    // Controllers
+    private RobotViewController viewController;
+
+    public Robot(Game game, int playerNumber) {
         hp = MAX_HP;
         lives = STARTING_LIVES;
         poweredDown = false;
         pos = game.getBoard().getRobotStartingPos(playerNumber);
         direction = game.getBoard().getRobotStartingDirection(playerNumber);
+        viewController = new RobotViewController(playerNumber, pos);
     }
 
     @Override
@@ -29,16 +34,16 @@ public class Robot implements IRobot {
         System.out.println("FROM Robot: I was told to a certain amount of steps");
         switch (direction) {
             case UP:
-                pos.updateY(steps);
+                pos.setY(steps);
                 break;
             case DOWN:
-                pos.updateY(-steps);
+                pos.setY(-steps);
                 break;
             case RIGHT:
-                pos.updateX(steps);
+                pos.setX(steps);
                 break;
             case LEFT:
-                pos.updateX(-steps);
+                pos.setX(-steps);
                 break;
             default:
                 throw new IllegalStateException("robot has direction '"+direction+"', which is supported");
@@ -90,5 +95,9 @@ public class Robot implements IRobot {
 
     public int getMAX_HP() {
         return MAX_HP;
+    }
+
+    public RobotViewController getViewController() {
+        return viewController;
     }
 }

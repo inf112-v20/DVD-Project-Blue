@@ -1,7 +1,5 @@
 package inf112.RoboRally.app.models.game;
 
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 import inf112.RoboRally.app.controllers.MapChoiceControllers.SinglePlayerSettingsController;
 import inf112.RoboRally.app.models.board.Board;
@@ -9,46 +7,31 @@ import inf112.RoboRally.app.models.board.Board;
 public class Game {
 
     // the board
-    private TmxMapLoader mapLoader;
     private Board board;
-    private TiledMap map;
 
     // game execution
-    Round round;
+    private Round round;
 
     // players
     private Player[] players;
-    private Player humanPlayer;
-    private boolean playerHasWon;
+    private Player humanPlayer; // player 1 is given as human player for now
 
-    // Controllers
-    GameCardController gameCardController;
+    // controllers
+    private GameCardController gameCardController;
+
+    //MapLoader
+    private TiledMapLoader tiledMapLoader;
 
     public Game(SinglePlayerSettingsController settings) {
-
-        // the board
-        mapLoader = new TmxMapLoader();
-        System.out.println("The file: "+settings.getMap().tiledMapFile());
-        map = mapLoader.load(settings.getMap().tiledMapFile());
         board = settings.getMap();
-
-        // the players
         players = new Player[settings.getPlayerCount()];
-        for (int i = 0; i < settings.getPlayerCount(); i++) {
-            players[i] = new Player(this, i);
-        }
-        humanPlayer = players[0]; // player1 is given as human player for now
-//        gameCardController = new GameCardController(this);
-//        round = new Round(players, humanPlayer);
-//        round.dealCards();
-
+        for (int nPlayer = 0; nPlayer < settings.getPlayerCount(); nPlayer++)
+            players[nPlayer] = new Player(this, nPlayer);
+        humanPlayer = players[0];
+        gameCardController = new GameCardController(this);
+        round = new Round(this);
+        round.dealCards();
     }
-
-
-    public TiledMap getMap () {
-        return map;
-    }
-
 
     public Board getBoard() {
         return board;
@@ -56,10 +39,6 @@ public class Game {
 
     public Player[] players() {
         return players;
-    }
-
-    // TODO - implement
-    private void phase() {
     }
 
     public GameCardController getGameCardController() {
@@ -73,4 +52,11 @@ public class Game {
     public Round round() {
         return round;
     }
+
+    public TiledMapLoader setUpMadLoader() {
+        tiledMapLoader = new TiledMapLoader(board.tiledMapFile());
+        return tiledMapLoader;
+    }
+
+
 }

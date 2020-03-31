@@ -4,8 +4,8 @@ import inf112.RoboRally.app.controllers.MapChoiceControllers.SinglePlayerSetting
 import inf112.RoboRally.app.models.board.ChopShopChallenge;
 import inf112.RoboRally.app.models.board.Tricksy;
 import inf112.RoboRally.app.models.board.VaultAssault;
-import inf112.RoboRally.app.models.game.NewGame;
-import inf112.RoboRally.app.models.game.NewPlayer;
+import inf112.RoboRally.app.models.game.Game;
+import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.models.robot.Pos;
 import inf112.RoboRally.app.models.robot.Robot;
 import org.junit.Before;
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 
 public class GameTest {
 
-    private NewGame game;
+    private Game game;
     private SinglePlayerSettingsController settingsController;
 
     @Before
@@ -23,7 +23,7 @@ public class GameTest {
         settingsController = new SinglePlayerSettingsController();
         for (int i = 0; i < 6; i++)
             settingsController.choosePlayerCount();
-        game = new NewGame(settingsController);
+        game = new Game(settingsController);
     }
 
     @Test
@@ -31,11 +31,11 @@ public class GameTest {
         SinglePlayerSettingsController settingsController = new SinglePlayerSettingsController();
         for (int i = 0; i < 2; i++)
             settingsController.chooseMap();
-        NewGame gameTest1 = new NewGame(settingsController);
+        Game gameTest1 = new Game(settingsController);
         assertEquals(true, gameTest1.getBoard() instanceof ChopShopChallenge);
         for (int i = 0; i < 5; i++)
             settingsController.chooseMap();
-        NewGame gameTest2 = new NewGame(settingsController);
+        Game gameTest2 = new Game(settingsController);
         assertEquals(true, gameTest2.getBoard() instanceof Tricksy);
     }
 
@@ -52,7 +52,7 @@ public class GameTest {
 
     @Test
     public void playerInitialization() {
-        NewPlayer[] players = game.players();
+        Player[] players = game.players();
         for (int nPlayer = 0; nPlayer < players.length; nPlayer++) {
             assertEquals(nPlayer, players[nPlayer].getPlayerNumber());
         }
@@ -65,9 +65,9 @@ public class GameTest {
 
     @Test
     public void robotInitializationTest() {
-        NewPlayer[] players = game.players();
+        Player[] players = game.players();
         for (int nPlayer = 0; nPlayer < players.length; nPlayer++) {
-            NewPlayer player = players[nPlayer];
+            Player player = players[nPlayer];
             Robot robot = player.robot();
             assertEquals(10, robot.getHP());
         }
@@ -75,9 +75,9 @@ public class GameTest {
 
     @Test
     public void robotStartPositionInGame() {
-        NewPlayer[] players = game.players();
+        Player[] players = game.players();
         for (int nPlayer = 0; nPlayer < players.length; nPlayer++) {
-            NewPlayer player = players[nPlayer];
+            Player player = players[nPlayer];
             Robot robot = player.robot();
             Pos pos = settingsController.getMap().getRobotStartingPos(nPlayer);
             assertEquals(pos, robot.position());

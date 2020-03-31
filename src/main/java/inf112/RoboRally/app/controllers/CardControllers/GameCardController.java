@@ -1,8 +1,8 @@
 package inf112.RoboRally.app.controllers.CardControllers;
 
 import inf112.RoboRally.app.models.cards.ICard;
-import inf112.RoboRally.app.models.game.NewGame;
-import inf112.RoboRally.app.models.game.NewPlayer;
+import inf112.RoboRally.app.models.game.Game;
+import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.views.card.ICardDragAndDrop;
 
 /*
@@ -11,10 +11,10 @@ from the view to the model player class
  */
 public class GameCardController {
 
-    private NewPlayer humanPlayer; // our human player
-    private NewGame game;
+    private Player humanPlayer; // our human player
+    private Game game;
 
-    public GameCardController(NewGame game) {
+    public GameCardController(Game game) {
         this.game = game;
         this.humanPlayer = game.getHumanPlayer();
     }
@@ -59,7 +59,7 @@ public class GameCardController {
     }
 
 
-    public NewPlayer humanPlayer() {
+    public Player humanPlayer() {
         return humanPlayer;
     }
 

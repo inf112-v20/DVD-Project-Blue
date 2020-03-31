@@ -13,10 +13,10 @@ Next delivery
 public class Round {
 
     private CardFactory cardFactory = new CardFactory();
-    private NewPlayer[] players;
-    private NewPlayer humanPlayer;
+    private Player[] players;
+    private Player humanPlayer;
 
-    public Round(NewGame game) {
+    public Round(Game game) {
         this.players = game.players();
         this.humanPlayer = game.getHumanPlayer();
     }
@@ -24,7 +24,7 @@ public class Round {
     public void dealCards () {
 //        System.out.println("FROM Round: Sure thing. Lets do it one more time.");
         removeDealtCards(); // does not do anything the first round
-        for (NewPlayer player : players) {
+        for (Player player : players) {
             for (int i = 0; i < player.amountOfReceivedCards(); i++) {
                 ICard card = cardFactory.randomCard();
                 player.receiveCard(i, card);
@@ -47,7 +47,7 @@ public class Round {
     }
 
     private void removeDealtCards () {
-        for (NewPlayer player: players) {
+        for (Player player: players) {
             ICard[] dealtCards = player.getReceivedCards();
             for (int i = 0; i < dealtCards.length; i++) {
                 dealtCards[i] = null;
@@ -59,7 +59,7 @@ public class Round {
 
     private ArrayList<ICard> collectAllCardsFromSlots() {
         ArrayList<ICard> allCards = new ArrayList<>();
-        for (NewPlayer player: players) {
+        for (Player player: players) {
             ICard[] cardSlots = player.getCardSlots();
             for (int slotNumber = 0; slotNumber < player.numberOfCardSlots(); slotNumber++) {
                 if (cardSlots[slotNumber] != null)

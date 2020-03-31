@@ -1,6 +1,6 @@
 package inf112.RoboRally.app.models.cards;
 
-import inf112.RoboRally.app.models.game.NewPlayer;
+import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.models.robot.Robot;
 
 /*
@@ -13,7 +13,7 @@ public class ReverseCard implements ICard {
     private final String FILENAME = "MoveBack.png";
     private int priority;
 
-    private NewPlayer player; // determining card ownership
+    private Player player; // determining card ownership
 
     public ReverseCard(int priority) {
         this.priority = priority;
@@ -37,12 +37,12 @@ public class ReverseCard implements ICard {
     }
 
     @Override
-    public void setPlayer(NewPlayer player) {
+    public void setPlayer(Player player) {
         this.player = player;
     }
 
     @Override
-    public NewPlayer getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 }

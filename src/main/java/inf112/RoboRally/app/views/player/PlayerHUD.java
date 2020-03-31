@@ -7,7 +7,7 @@ import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 import inf112.RoboRally.app.models.robot.Robot;
 
 public class PlayerHUD {
-    
+
     // HUD base image path
     private String PLAYER_BASE_HUD_IMAGE_PATH = "PlayerHud/PlayerHUD.png";
 

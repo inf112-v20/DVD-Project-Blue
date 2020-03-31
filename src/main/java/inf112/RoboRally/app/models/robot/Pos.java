@@ -10,11 +10,11 @@ public class Pos {
         this.y = y;
     }
 
-    public void updateX(int x) {
+    public void setX(int x) {
         this.x += x;
     }
 
-    public void updateY(int y) {
+    public void setY(int y) {
         this.y += y;
     }
 

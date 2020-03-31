@@ -3,8 +3,8 @@ package inf112.RoboRally.app.model;
 import inf112.RoboRally.app.controllers.MapChoiceControllers.SinglePlayerSettingsController;
 import inf112.RoboRally.app.models.cards.CardFactory;
 import inf112.RoboRally.app.models.cards.ICard;
-import inf112.RoboRally.app.models.game.NewGame;
-import inf112.RoboRally.app.models.game.NewPlayer;
+import inf112.RoboRally.app.models.game.Game;
+import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.models.game.Round;
 import inf112.RoboRally.app.models.robot.Pos;
 import org.junit.Before;
@@ -15,8 +15,8 @@ import static org.junit.Assert.assertEquals;
 public class RoundTest {
 
     private Round round;
-    private NewGame game;
-    private NewPlayer[] players;
+    private Game game;
+    private Player[] players;
 
     @Before
     public void setup() {
@@ -24,7 +24,7 @@ public class RoundTest {
         // four players
         for (int i = 0; i < 2; i++)
             settings.choosePlayerCount();
-        game = new NewGame(settings);
+        game = new Game(settings);
         round = game.round();
         players = game.players();
     }
@@ -40,7 +40,7 @@ public class RoundTest {
     @Test
     public void eachPlayerGetsDealtACard() {
         round.dealCards();
-        for (NewPlayer player: players) {
+        for (Player player: players) {
             ICard card = player.getReceivedCards()[0];
             assertEquals(true, player == card.getPlayer());
             assertEquals(false, card == null);
@@ -53,7 +53,7 @@ public class RoundTest {
     @Test
     public void eachPlayerGetsDealtTheCorrectNumberOfCards() {
         round.dealCards();
-        for (NewPlayer player: players) {
+        for (Player player: players) {
             ICard[] receivedCards = player.getReceivedCards();
             for (int i = 0; i < player.amountOfReceivedCards(); i++) {
                 ICard card = receivedCards[i];
@@ -62,13 +62,13 @@ public class RoundTest {
                 assertEquals(true, card instanceof ICard);
             }
         }
-        for (NewPlayer player: players) {
+        for (Player player: players) {
             player.robot().looseHP();
             player.robot().looseHP();
         }
         // each player has lost two HP, therefore, the last two cards should now be null
         round.dealCards();
-        for (NewPlayer player: players) {
+        for (Player player: players) {
             ICard[] receivedCards = player.getReceivedCards();
             assertEquals(true,receivedCards.length != player.amountOfReceivedCards());
             for (int i = 0; i < receivedCards.length; i++) {
@@ -89,7 +89,7 @@ public class RoundTest {
     @Test
     public void cardExecutionTest() {
         CardFactory cardFactory = new CardFactory();
-        for (NewPlayer player: players) {
+        for (Player player: players) {
             ICard[] cardSlots = player.getCardSlots();
             for (int i = 0; i < player.numberOfCardSlots(); i++) {
                 cardSlots[i] = cardFactory.randomCard();
