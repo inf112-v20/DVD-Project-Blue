@@ -36,11 +36,10 @@ public class PlayerUI extends InputAdapter {
         readyButtonTable = new Table();
         generateCardsTable = new Table();
 
-        playerHUD = new PlayerHUD(3, 9, false, gameCardController); // connection to models between player health and lives not implemented
-        stage.addActor(playerHUD.create());
-        stage.addActor(playerHUD.powerDown());
-        stage.addActor(playerHUD.damageTokens());
-//        stage.addActor(playerHUD.lifeTokens());
+        playerHUD = new PlayerHUD(gameCardController); // connection to models between player health and lives not implemented
+        stage.addActor(playerHUD.getPlayerHudDashBoardTable());
+        stage.addActor(playerHUD.getDamageTokensTable());
+        stage.addActor(playerHUD.getPowerDownTable());
         stage.addActor(playerHUD.getLifeTokensTable());
         stage.addActor(readyButtonTable());
         stage.addActor(generateCardsTable());

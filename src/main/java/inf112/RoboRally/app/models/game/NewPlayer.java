@@ -8,7 +8,7 @@ public class NewPlayer {
     private String name;
     private int playerNumber;
     private Robot robot;
-    private ICard[] receivedCards = new ICard[9];
+    private ICard[] receivedCards = new ICard[10];
     private ICard[] cardSlots = new ICard[5];
 
     public NewPlayer(NewGame game, int playerNumber) {

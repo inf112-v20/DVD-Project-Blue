@@ -69,7 +69,7 @@ public class GameTest {
         for (int nPlayer = 0; nPlayer < players.length; nPlayer++) {
             NewPlayer player = players[nPlayer];
             Robot robot = player.robot();
-            assertEquals(9, robot.getHP());
+            assertEquals(10, robot.getHP());
         }
     }
 

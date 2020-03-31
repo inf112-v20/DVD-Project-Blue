@@ -77,7 +77,7 @@ public class RoundTest {
                     assertEquals(true, card != null);
                     assertEquals(true, card instanceof ICard);
                 }
-                else if (i == 8 || i == 7)
+                else if (i == 9 || i == 8)
                     assertEquals(true, card == null);
             }
         }

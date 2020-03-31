@@ -10,14 +10,16 @@ public class Robot implements IRobot {
     private Pos pos;
 
     // Game stats
-    private final int MAX_HP = 9;
+    private final int MAX_HP = 10;
     private final int STARTING_LIVES = 3;
     private int hp;
     private int lives;
+    private boolean poweredDown;
 
     public Robot(NewGame game, int playerNumber) {
         hp = MAX_HP;
         lives = STARTING_LIVES;
+        poweredDown = false;
         pos = game.getBoard().getRobotStartingPos(playerNumber);
         direction = game.getBoard().getRobotStartingDirection(playerNumber);
     }
@@ -80,5 +82,13 @@ public class Robot implements IRobot {
 
     public int livesLeft() {
         return lives;
+    }
+
+    public boolean isPoweredDown() {
+        return poweredDown;
+    }
+
+    public int getMAX_HP() {
+        return MAX_HP;
     }
 }
