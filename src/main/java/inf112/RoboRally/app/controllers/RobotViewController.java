@@ -11,7 +11,7 @@ public class RobotViewController {
     private int playerNumber;
 
     // files
-    private final String IMAGE_PATH = "Robots/colorBotsSmaller/Player";
+    private final String IMAGE_PATH = "smallrobot/Player";
     private final String FILE_EXTENSION = ".png";
 
     // view image
@@ -24,7 +24,7 @@ public class RobotViewController {
         this.playerNumber = playerNumber;
         robotTexture = new Texture(IMAGE_PATH+playerNumber+FILE_EXTENSION);
         robotView = new RobotView(new Sprite(robotTexture));
-        robotView.setVector(startPos);
+//        robotView.setVector(startPos);
     }
 
     public RobotView getRobotView() {

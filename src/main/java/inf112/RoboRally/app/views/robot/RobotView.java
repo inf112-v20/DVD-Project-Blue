@@ -9,8 +9,7 @@ import inf112.RoboRally.app.models.robot.Pos;
 public class RobotView extends Sprite {
 
 
-    private Vector2 vector2;
-    private float speed = 80 * 2; // not needed when moving with cards?
+    private Vector2 vector2 = new Vector2();
 
     public RobotView(Sprite sprite) {
         super(sprite);
@@ -34,7 +33,8 @@ public class RobotView extends Sprite {
 
     // for setting start vector
     public void setVector(Pos pos) {
-        vector2 = new Vector2(pos.getX(), pos.getY());
+        vector2.x = pos.getX();
+        vector2.y = pos.getY();
     }
 
 
