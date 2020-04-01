@@ -27,6 +27,8 @@ public class OpponentHUD {
 
     private Table powerDown;
 
+    private Group card1;
+
     public OpponentHUD(int opponent, int life, int damage, boolean powerDownActive) {
         this.opponent = opponent;
         this.life = life;
@@ -38,6 +40,8 @@ public class OpponentHUD {
         lifeTokens = new Table();
         damageTokens = new Table();
         powerDown = new Table();
+        card1 = new OpponentCard().createCardGroup(0, 9999);
+        card1.setPosition(18, 11);
     }
 
     public Group opponentDashboard() {
@@ -46,6 +50,7 @@ public class OpponentHUD {
         opponentDashboard.addActor(lifeTokens());
         opponentDashboard.addActor(damageTokens());
         opponentDashboard.addActor(powerDown());
+        opponentDashboard.addActor(card1);
 
         return opponentDashboard;
     }
