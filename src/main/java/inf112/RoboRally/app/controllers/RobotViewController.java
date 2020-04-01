@@ -25,7 +25,7 @@ public class RobotViewController {
         this.playerNumber = playerNumber;
         robotTexture = new Texture(IMAGE_PATH+playerNumber+FILE_EXTENSION);
         robotTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        robotView = new RobotView(new Sprite(robotTexture), startPos, startDirection);
+        robotView = new RobotView(new Sprite(robotTexture), startPos, startDirection, playerNumber);
     }
 
     public void updateRobotViewPosition() {

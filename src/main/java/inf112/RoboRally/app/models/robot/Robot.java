@@ -49,6 +49,7 @@ public class Robot implements IRobot {
             default:
                 throw new IllegalStateException("robot has direction '"+direction+"', which is supported");
         }
+        viewController.getRobotView().updatePosition(pos.getX(), pos.getY());
     }
 
     @Override
@@ -66,8 +67,9 @@ public class Robot implements IRobot {
                 direction = direction.rotateRight();
                 break;
             default:
-                throw new IllegalArgumentException("robot is told to rotate '"+rotation+"', which is not supported");
+                throw new IllegalArgumentException("Robot is told to rotate '"+rotation+"', which is not supported");
         }
+        viewController.getRobotView().updateDirection(rotation);
     }
 
     public Pos position() {
