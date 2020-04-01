@@ -16,6 +16,7 @@ public class Server {
     private static ArrayList<ClientHandler> clients = new ArrayList<>();
     static int identities = clients.size();
 
+    // Only 8 threads for 8 players.
     private static ExecutorService pool = Executors.newFixedThreadPool(8);
 
     public static void serverInit() throws IOException {

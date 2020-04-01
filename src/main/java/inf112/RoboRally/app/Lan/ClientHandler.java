@@ -15,7 +15,7 @@ public class ClientHandler implements Runnable {
     public ClientHandler(Socket clientSocket) throws IOException {
         this.client = clientSocket;
         in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-        out = new PrintWriter(client.getOutputStream());
+        out = new PrintWriter(client.getOutputStream(), true);
 
     }
 
