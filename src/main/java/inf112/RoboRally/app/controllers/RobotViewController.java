@@ -2,6 +2,7 @@ package inf112.RoboRally.app.controllers;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import inf112.RoboRally.app.models.robot.Direction;
 import inf112.RoboRally.app.models.robot.Pos;
 import inf112.RoboRally.app.views.robot.RobotView;
 
@@ -20,11 +21,15 @@ public class RobotViewController {
     // the view
     private RobotView robotView;
 
-    public RobotViewController(int playerNumber, Pos startPos) {
+    public RobotViewController(int playerNumber, Pos startPos, Direction startDirection) {
         this.playerNumber = playerNumber;
         robotTexture = new Texture(IMAGE_PATH+playerNumber+FILE_EXTENSION);
-        robotView = new RobotView(new Sprite(robotTexture));
-//        robotView.setVector(startPos);
+        robotTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        robotView = new RobotView(new Sprite(robotTexture), startPos, startDirection);
+    }
+
+    public void updateRobotViewPosition() {
+
     }
 
     public RobotView getRobotView() {

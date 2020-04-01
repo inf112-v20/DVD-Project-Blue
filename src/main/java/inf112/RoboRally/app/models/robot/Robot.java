@@ -27,7 +27,7 @@ public class Robot implements IRobot {
         pos = game.getBoard().getRobotStartingPos(playerNumber);
         System.out.println(pos.getX()+", "+pos.getY());
         direction = game.getBoard().getRobotStartingDirection(playerNumber);
-        viewController = new RobotViewController(playerNumber, pos);
+        viewController = new RobotViewController(playerNumber, pos, direction);
     }
 
     @Override
