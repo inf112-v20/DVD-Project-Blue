@@ -7,7 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 public class LifeTokens {
 
     // positioning
-    private final int LEFT_PADDING = 719;
+    private final int LEFT_PADDING = 743;
+    private final int BOTTOM_PADDING = 5;
 
     // image file path
     private final String LIFE_TOKEN_IMG_PATH = "PlayerHud/LifeToken.png";
@@ -25,7 +26,7 @@ public class LifeTokens {
     }
 
     protected Table lifeTokensTable() {
-        lifeTokensTable.bottom().padLeft(LEFT_PADDING);
+        lifeTokensTable.bottom().padLeft(LEFT_PADDING).padBottom(BOTTOM_PADDING);
         lifeTokensTable.setFillParent(true);
         for (int i = 0; i < lifeLeft; i++) {
             lifeTokensTable.add(new Image(LIFE_TOKEN_TEXTURE));

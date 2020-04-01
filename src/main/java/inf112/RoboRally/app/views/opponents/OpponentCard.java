@@ -47,7 +47,7 @@ public class OpponentCard {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 cardGroup.setOriginX(cardImage.getWidth()/2);
-                cardGroup.setScale(2f);
+                cardGroup.setScale(2.2f);
             }
             @Override
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {

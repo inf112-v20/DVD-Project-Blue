@@ -54,8 +54,8 @@ public class DropCard implements ICardDragAndDrop {
         cardGroup.addActor(cardImage);
         if (card != null) {
             Label priorityCardLabel = new Label(String.format("%04d", card.priority()), SKIN);
-            priorityCardLabel.setFontScale(1/5f);
-            priorityCardLabel.setPosition(52, 83);
+            priorityCardLabel.setFontScale(1/4.4f);
+            priorityCardLabel.setPosition(54, 89);
             cardGroup.addActor(priorityCardLabel);
         }
 
@@ -65,7 +65,7 @@ public class DropCard implements ICardDragAndDrop {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 cardGroup.setOriginX(cardImage.getWidth()/2);
-                cardGroup.setScale(2f);
+                cardGroup.setScale(1.9f);
             }
             @Override
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {

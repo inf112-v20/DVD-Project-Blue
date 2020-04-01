@@ -108,7 +108,7 @@ public class PlayerUI extends InputAdapter {
 
     public Table readyButtonTable() {
 
-        readyButtonTable.pad(0, 3830, 370, 0);
+        readyButtonTable.pad(0, 3765, 430, 0);
         readyButton = new Button().createTextButton("READY");
 
         readyButtonTable.row().padTop(20);
@@ -129,7 +129,7 @@ public class PlayerUI extends InputAdapter {
 
     public Table generateCardsTable() {
 
-        generateCardsTable.pad(0, 3830, 120, 0);
+        generateCardsTable.pad(0, 3765, 180, 0);
         generateCardsButton = new Button().createTextButton("CARDS");
 
         generateCardsTable.row().padTop(20);

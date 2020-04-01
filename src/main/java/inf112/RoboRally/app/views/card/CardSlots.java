@@ -12,7 +12,7 @@ public class CardSlots {
     private Table[] slotTables;
 
     private final int BOTTOM_PADDING = 8;
-    private final int[] LEFT_PADDING = {1977, 2219, 2461, 2703, 2945};   // paddings for the slots, index 0 is the first card slot etc.
+    private final int[] LEFT_PADDING = {1418, 1778, 2138, 2498, 2858};   // paddings for the slots, index 0 is the first card slot etc.
 
     protected CardSlots(int numberOfCardSlots) {
         slotTables = new Table[numberOfCardSlots];
