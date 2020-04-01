@@ -34,7 +34,6 @@ public class GameScreen extends InputAdapter implements Screen {
         camera = new OrthographicCamera();
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT, camera);
         stage = new Stage(viewport);
-
         game = new Game(gameLauncher.settings());
         robotViews = new RobotView[game.players().length];
         playerUI = new PlayerUI(game.getGameCardController());

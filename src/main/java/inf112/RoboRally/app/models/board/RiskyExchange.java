@@ -12,14 +12,14 @@ public class RiskyExchange extends Board {
     private final String FILE_NAME = "RiskyExchange";
 
     private Pos[] startRobotPositions = {
-            new Pos(6, 8),
-            new Pos(6, 9),
+            new Pos(5, 9),
+            new Pos(5, 8),
             new Pos(6, 11),
             new Pos(6, 6),
-            new Pos(6, 13),
-            new Pos(6, 4),
-            new Pos(6, 14),
-            new Pos(6, 3)
+            new Pos(7, 13),
+            new Pos(7, 4),
+            new Pos(8, 14),
+            new Pos(8, 3)
     };
 
     private Direction[] startRobotDirections = {

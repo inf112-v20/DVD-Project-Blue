@@ -22,17 +22,6 @@ public class IslandKing extends Board {
             new Pos(6, 3)
     };
 
-//    private Vector2[] startRobotVectors = {
-//            new Vector2(6, 8),
-//            new Vector2(6, 9),
-//            new Vector2(6, 11),
-//            new Vector2(6, 6),
-////            new Vector2(6, 13),
-////            new Vector2(6, 4),
-////            new Vector2(6, 14),
-////            new Vector2(6, 3)
-//    };
-
     private Direction[] startRobotDirections = {
             Direction.RIGHT,
             Direction.RIGHT,

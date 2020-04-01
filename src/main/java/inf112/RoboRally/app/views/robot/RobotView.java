@@ -11,8 +11,8 @@ public class RobotView extends Sprite {
 
     private final int Y_PIXEL_POSITION_MULT = 100;
     private final int X_PIXEL_POSITION_MULT = 100;
-    private final int Y_PIXEL_POSITION_ADJUSTMENT = 10;
-    private final int X_PIXEL_POSITION_ADJUSTMENT = 10;
+//    private final int Y_PIXEL_POSITION_ADJUSTMENT = 10;
+//    private final int X_PIXEL_POSITION_ADJUSTMENT = 10;
 
     private Vector2 vector2 = new Vector2();
     private Pos pos; // not needed?
@@ -61,8 +61,8 @@ public class RobotView extends Sprite {
 
 
     private void setStartPosition(Pos startPos) {
-        setX( (startPos.getX() * X_PIXEL_POSITION_MULT) - X_PIXEL_POSITION_ADJUSTMENT );
-        setCenterY( (startPos.getY() * Y_PIXEL_POSITION_MULT) + Y_PIXEL_POSITION_ADJUSTMENT );
+        setX( (startPos.getX() * X_PIXEL_POSITION_MULT)  ); // -
+        setCenterY( (startPos.getY() * Y_PIXEL_POSITION_MULT) ); // +
     }
 
 
