@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import inf112.RoboRally.app.models.robot.Direction;
 import inf112.RoboRally.app.models.robot.Pos;
-import inf112.RoboRally.app.views.robot.OldRobotView;
+import inf112.RoboRally.app.views.robot.RobotView;
 
 public class RobotViewController {
 
@@ -12,27 +12,27 @@ public class RobotViewController {
     private int playerNumber;
 
     // files
-    private final String IMAGE_PATH = "smallrobot/Player";
+    private final String IMAGE_PATH = "Robot/Player";
     private final String FILE_EXTENSION = ".png";
 
     // view image
     private Texture robotTexture;
 
     // the view
-    private OldRobotView robotView;
+    private RobotView robotView;
 
     public RobotViewController(int playerNumber, Pos startPos, Direction startDirection) {
         this.playerNumber = playerNumber;
         robotTexture = new Texture(IMAGE_PATH+playerNumber+FILE_EXTENSION);
         robotTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        robotView = new OldRobotView(new Sprite(robotTexture), startPos, startDirection, playerNumber);
+        robotView = new RobotView(playerNumber, new Sprite(robotTexture), startPos, startDirection);
     }
 
     public void updateRobotViewPosition() {
 
     }
 
-    public OldRobotView getRobotView() {
+    public RobotView getRobotView() {
         return robotView;
     }
 }

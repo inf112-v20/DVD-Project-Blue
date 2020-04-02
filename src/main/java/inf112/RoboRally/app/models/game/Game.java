@@ -24,6 +24,7 @@ public class Game {
 
     public Game(SinglePlayerSettingsController settings) {
         board = settings.getMap();
+        tiledMapLoader = new TiledMapLoader(board.tiledMapFile());
         players = new Player[settings.getPlayerCount()];
         for (int nPlayer = 0; nPlayer < settings.getPlayerCount(); nPlayer++)
             players[nPlayer] = new Player(this, nPlayer);
@@ -54,7 +55,6 @@ public class Game {
     }
 
     public TiledMapLoader setUpMadLoader() {
-        tiledMapLoader = new TiledMapLoader(board.tiledMapFile());
         return tiledMapLoader;
     }
 
