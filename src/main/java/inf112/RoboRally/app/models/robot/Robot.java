@@ -25,7 +25,6 @@ public class Robot implements IRobot {
         lives = STARTING_LIVES;
         poweredDown = false;
         pos = game.getBoard().getRobotStartingPos(playerNumber);
-        System.out.println(pos.getX()+", "+pos.getY());
         direction = game.getBoard().getRobotStartingDirection(playerNumber);
         viewController = new RobotViewController(playerNumber, pos, direction);
     }
@@ -36,20 +35,23 @@ public class Robot implements IRobot {
         switch (direction) {
             case UP:
                 pos.setY(steps);
+                viewController.getRobotView().updateY(steps);
                 break;
             case DOWN:
                 pos.setY(-steps);
+                viewController.getRobotView().updateY(-steps);
                 break;
             case RIGHT:
                 pos.setX(steps);
+                viewController.getRobotView().updateX(steps);
                 break;
             case LEFT:
                 pos.setX(-steps);
+                viewController.getRobotView().updateX(-steps);
                 break;
             default:
                 throw new IllegalStateException("robot has direction '"+direction+"', which is supported");
         }
-        viewController.getRobotView().updatePosition(pos.getX(), pos.getY());
     }
 
     @Override

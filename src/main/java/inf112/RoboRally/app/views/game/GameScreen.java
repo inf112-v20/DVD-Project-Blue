@@ -14,7 +14,7 @@ import inf112.RoboRally.app.GameLauncher;
 import inf112.RoboRally.app.models.game.Game;
 import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.views.player.PlayerUI;
-import inf112.RoboRally.app.views.robot.RobotView;
+import inf112.RoboRally.app.views.robot.OldRobotView;
 
 public class GameScreen extends InputAdapter implements Screen {
 
@@ -25,7 +25,7 @@ public class GameScreen extends InputAdapter implements Screen {
     private OrthogonalTiledMapRenderer mapRenderer;
     private static Game game;
     private PlayerUI playerUI;
-    private RobotView[] robotViews;
+    private OldRobotView[] robotViews;
 
     private InputMultiplexer multiplexer;
 
@@ -35,7 +35,7 @@ public class GameScreen extends InputAdapter implements Screen {
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT, camera);
         stage = new Stage(viewport);
         game = new Game(gameLauncher.settings());
-        robotViews = new RobotView[game.players().length];
+        robotViews = new OldRobotView[game.players().length];
         playerUI = new PlayerUI(game.getGameCardController());
 
         mapRenderer = new OrthogonalTiledMapRenderer(game.setUpMadLoader().getMap(), 1/256f);
