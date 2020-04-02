@@ -1,9 +1,6 @@
 package inf112.RoboRally.app.views.game;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,7 +11,10 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
 import inf112.RoboRally.app.models.game.NewGame;
+import inf112.RoboRally.app.views.Bullet;
 import inf112.RoboRally.app.views.player.PlayerUI;
+
+import java.util.ArrayList;
 
 public class GameScreen extends InputAdapter implements Screen {
 
@@ -30,6 +30,12 @@ public class GameScreen extends InputAdapter implements Screen {
     private PlayerMovementDemo playerMovementDemo;
     private Texture playerTxt;
     //player movement smooth
+
+    //shooting
+    ArrayList<Bullet> bullets;
+    public static final float SHOOT_WAIT_TIME = 1f;
+    float shootTimer;
+    //shooting
 
     private InputMultiplexer multiplexer;
 
@@ -51,6 +57,11 @@ public class GameScreen extends InputAdapter implements Screen {
         playerTxt.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         playerMovementDemo = new PlayerMovementDemo(new Sprite(playerTxt));
         //player movement smooth
+
+        //shooting
+        bullets = new ArrayList<Bullet>();
+        shootTimer = 0;
+        //shooting
 
         multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(this);
@@ -88,8 +99,28 @@ public class GameScreen extends InputAdapter implements Screen {
 
         gameLauncher.batch.end();
 
+        //shooting
+        shootTimer += Gdx.graphics.getDeltaTime();
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && shootTimer >= SHOOT_WAIT_TIME) {
+            shootTimer = 0;
+            bullets.add(new Bullet(playerMovementDemo.getX()+47, playerMovementDemo.getY()+50));
+        }
+
+        ArrayList<Bullet> bulletsToRemove = new ArrayList<Bullet>();
+        for (Bullet bullet : bullets) {
+            bullet.update(Gdx.graphics.getDeltaTime());
+            if (bullet.remove) {
+                bulletsToRemove.add(bullet);
+            }
+        }
+        bullets.removeAll(bulletsToRemove);
+        //shooting
+
         //player movement smooth
         gameLauncher.batch.begin();
+        for (Bullet bullet : bullets) {
+            bullet.render(gameLauncher.batch);
+        }
         playerMovementDemo.draw(gameLauncher.batch);
         gameLauncher.batch.end();
         //player movement smooth
