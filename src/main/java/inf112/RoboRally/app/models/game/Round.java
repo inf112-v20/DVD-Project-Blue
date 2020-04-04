@@ -78,10 +78,12 @@ public class Round {
 
     public void executeCardChoices() {
         ArrayList<ICard> cardsByPriority = sortCardsByPriority(collectAllCardsFromSlots());
-        for (ICard card: cardsByPriority) {
-            if (card != null)
-                card.moveRobot(card.getPlayer().robot());
-        }
+        CardExecutor cardExecutor = new CardExecutor(cardsByPriority);
+        cardExecutor.executeCards();
+//        for (ICard card: cardsByPriority) {
+//            if (card != null)
+//                card.moveRobot(card.getPlayer().robot());
+//        }
     }
 
 

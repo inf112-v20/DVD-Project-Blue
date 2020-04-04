@@ -28,7 +28,11 @@ public class RobotViewController {
         robotView = new RobotView(playerNumber, new Sprite(robotTexture), startPos, startDirection);
     }
 
-    public void updateRobotViewPosition() {
+    public void updateRobotViewPosition(Pos pos, Direction direction) {
+        robotView.updateView(pos.x(), pos.y(), direction);
+    }
+
+    public void updateRobotViewDirection(Direction direction) {
 
     }
 
