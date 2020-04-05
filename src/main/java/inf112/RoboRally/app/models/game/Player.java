@@ -60,7 +60,6 @@ public class Player {
         for (ICard card: receivedCards) {
             if (card != null) {
                 putReceivedCardInCardSlot(card);
-                return;
             }
         }
     }
@@ -70,6 +69,7 @@ public class Player {
         for (int slotNumber = 0; slotNumber < cardSlots.length; slotNumber++) {
             if (cardSlots[slotNumber] == null) {
                 cardSlots[slotNumber] = card;
+                System.out.println(card.getFileName()+", "+card.priority());
                 return;
             }
         }

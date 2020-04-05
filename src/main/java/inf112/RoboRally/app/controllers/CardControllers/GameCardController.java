@@ -46,7 +46,7 @@ public class GameCardController {
         ICard[] playerModelCardSlots = humanPlayer.getCardSlots();
         for (int i = 0; i < playerModelCardSlots.length; i++) {
             if (playerModelCardSlots[i] == null) {
-                System.out.println("FROM GameCardController: found a card in the slot. I am giving it to the Player model");
+//                System.out.println("FROM GameCardController: found a card in the slot. I am giving it to the Player model");
                 playerModelCardSlots[i] = card;
                 break;
             }

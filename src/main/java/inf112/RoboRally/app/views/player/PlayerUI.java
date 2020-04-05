@@ -72,8 +72,8 @@ public class PlayerUI extends InputAdapter {
         readyButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("--------------------------------------------------------------------");
-                System.out.println("FROM PlayerUI: ready button pressed! Player is ready for some action!");
+//                System.out.println("--------------------------------------------------------------------");
+//                System.out.println("FROM PlayerUI: ready button pressed! Player is ready for some action!");
                 gameCardController.setCardSlotsFromUserInput(gameScreenCards.getCardChoices());
                 gameScreenCards.clearCards();
             }
@@ -93,8 +93,8 @@ public class PlayerUI extends InputAdapter {
         generateCardsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("--------------------------------------------------------------------");
-                System.out.println("FROM PlayerUI: generated new cards button pressed. Passing this information along.");
+//                System.out.println("--------------------------------------------------------------------");
+//                System.out.println("FROM PlayerUI: generated new cards button pressed. Passing this information along.");
                 gameScreenCards.clearCards();
                 gameCardController.newRound();
                 gameScreenCards = new GameScreenCards(gameCardController);

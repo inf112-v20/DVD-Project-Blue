@@ -40,7 +40,7 @@ public class Robot implements IRobot {
 
     @Override
     public void rotate(Rotation rotation) {
-        System.out.println("FROM Robot: I was told to rotate");
+//        System.out.println("FROM Robot: I was told to rotate");
         switch (rotation) {
             case LEFT:
                 direction = direction.rotateLeft();

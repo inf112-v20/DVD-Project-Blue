@@ -53,7 +53,7 @@ public class Round {
         for (int slotNumber = 0; slotNumber < cardChoices.length; slotNumber++) {
             ICard card = cardChoices[slotNumber];
             if (card == null) break;    // means no cards are left to execute
-            System.out.println("FROM Round: I am moving the robot with a slotted card");
+//            System.out.println("FROM Round: I am moving the robot with a slotted card");
             card.moveRobot(humanPlayer.robot());
             cardChoices[slotNumber] = null;   // card is executed, remove it from the slot
         }

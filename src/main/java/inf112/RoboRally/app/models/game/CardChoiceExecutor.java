@@ -33,7 +33,7 @@ public class CardChoiceExecutor {
             if (slotNumber.incrementAndGet() == NUMBER_OF_SLOTS.get())
                 scheduler.shutdown();
         };
-        scheduler.scheduleAtFixedRate(collectCards, 1, 1, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(collectCards, 1, 2, TimeUnit.SECONDS);
     }
 
     private void sortCardsByPriority(ArrayList<ICard> allCardsFromSlots) {

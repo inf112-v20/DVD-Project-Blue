@@ -48,7 +48,7 @@ public class RobotMoveExecutor {
             if (stepNumber.incrementAndGet() == numberOfSteps.get())
                 scheduler.shutdown();
         };
-        scheduler.scheduleAtFixedRate(mover, 0, 500, TimeUnit.MILLISECONDS);
+        scheduler.scheduleAtFixedRate(mover, 1000, 500, TimeUnit.MILLISECONDS);
     }
 
 
