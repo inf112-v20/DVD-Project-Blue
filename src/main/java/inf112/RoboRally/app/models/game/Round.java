@@ -15,10 +15,12 @@ public class Round {
     private CardFactory cardFactory = new CardFactory();
     private Player[] players;
     private Player humanPlayer;
+    private final int CARD_SLOT_AMOUNT;
 
     public Round(Game game) {
         this.players = game.players();
         this.humanPlayer = game.getHumanPlayer();
+        CARD_SLOT_AMOUNT = humanPlayer.numberOfCardSlots();
     }
 
     public void startNewRound() {
@@ -73,7 +75,7 @@ public class Round {
         ArrayList<ICard> allCards = new ArrayList<>();
         for (Player player: players) {
             ICard[] cardSlots = player.getCardSlots();
-            for (int slotNumber = 0; slotNumber < player.numberOfCardSlots(); slotNumber++) {
+            for (int slotNumber = 0; slotNumber < CARD_SLOT_AMOUNT; slotNumber++) {
                 if (cardSlots[slotNumber] != null)
                     allCards.add(cardSlots[slotNumber]);
             }
@@ -100,13 +102,18 @@ public class Round {
         return allCardsFromSlots;
     }
 
-    public void executeCardChoices() {
-        for (int slotNumber = 0; slotNumber < humanPlayer.getCardSlots().length; slotNumber++) {
+    public void executeCardChoicesDepriecated() {
+        for (int slotNumber = 0; slotNumber < CARD_SLOT_AMOUNT; slotNumber++) {
             ArrayList<ICard> cards = sortCardsByPriority(collectCardsFromSlotNumber(slotNumber));
             CardExecutor cardExecutor = new CardExecutor(cards);
             cardExecutor.executeCards();
         }
 
+    }
+
+    public void executeCardChoices() {
+        CardChoiceExecutor cardChoiceExecutor = new CardChoiceExecutor(players);
+        cardChoiceExecutor.CardChoiceRoundExecutor();
     }
 
 

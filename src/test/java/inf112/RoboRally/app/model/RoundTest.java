@@ -104,7 +104,7 @@ public class RoundTest {
             initPositions[i] = new Pos(x, y);
 //            System.out.println(initPositions[i].getX()+", "+initPositions[i].getY());
         }
-        round.executeCardChoices();
+        round.executeCardChoicesDepriecated();
         int differentPositionCount = 0;
         for (int i = 0; i < players.length; i++) {
             System.out.println(initPositions[i].x()+", "+initPositions[i].y());

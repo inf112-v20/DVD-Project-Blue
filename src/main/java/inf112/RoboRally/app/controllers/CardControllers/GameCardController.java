@@ -38,6 +38,7 @@ public class GameCardController {
         }
 
 //        game.round().executeHumanCardChoices();
+//        game.round().executeCardChoicesDepriecated();
         game.round().executeCardChoices();
     }
 
