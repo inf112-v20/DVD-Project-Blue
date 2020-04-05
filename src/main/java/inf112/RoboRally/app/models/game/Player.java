@@ -7,6 +7,7 @@ public class Player {
 
     private String name;
     private int playerNumber;
+    private boolean isHuman;
     private Robot robot;
     private ICard[] receivedCards = new ICard[10];
     private ICard[] cardSlots = new ICard[5];
@@ -14,6 +15,7 @@ public class Player {
     public Player(Game game, int playerNumber) {
         this.playerNumber = playerNumber;
         robot = new Robot(game, playerNumber);
+        isHuman = false;
     }
 
     public void receiveCard(int i, ICard card) {
@@ -43,6 +45,34 @@ public class Player {
 
     public Robot robot() {
         return robot;
+    }
+
+    public void setAsHumanPlayer() {
+        isHuman = true;
+    }
+
+    public boolean isBotPlayer() {
+        return !isHuman;
+    }
+
+    // only chooses one card for now
+    public void chooseCards() {
+        for (ICard card: receivedCards) {
+            if (card != null) {
+                putReceivedCardInCardSlot(card);
+                return;
+            }
+        }
+    }
+
+    // puts card in the first empty slot
+    private void putReceivedCardInCardSlot(ICard card) {
+        for (int slotNumber = 0; slotNumber < cardSlots.length; slotNumber++) {
+            if (cardSlots[slotNumber] == null) {
+                cardSlots[slotNumber] = card;
+                return;
+            }
+        }
     }
 
 }

@@ -21,6 +21,18 @@ public class Round {
         this.humanPlayer = game.getHumanPlayer();
     }
 
+    public void startNewRound() {
+        dealCards();
+        botPlayersChooseCards();
+    }
+
+    private void botPlayersChooseCards() {
+        for (Player player: players) {
+            if (player.isBotPlayer())
+                player.chooseCards();
+        }
+    }
+
     public void dealCards () {
 //        System.out.println("FROM Round: Sure thing. Lets do it one more time.");
         removeDealtCards(); // does not do anything the first round

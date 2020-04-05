@@ -28,10 +28,11 @@ public class Game {
         players = new Player[settings.getPlayerCount()];
         for (int nPlayer = 0; nPlayer < settings.getPlayerCount(); nPlayer++)
             players[nPlayer] = new Player(this, nPlayer);
+        players[0].setAsHumanPlayer();
         humanPlayer = players[0];
         gameCardController = new GameCardController(this);
         round = new Round(this);
-        round.dealCards();
+        round.startNewRound();
     }
 
     public Board getBoard() {

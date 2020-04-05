@@ -29,35 +29,13 @@ public class Robot implements IRobot {
         viewController = new RobotViewController(playerNumber, pos, direction);
     }
 
-    public void moveDepreciated(int steps) {
-        System.out.println("FROM Robot: I was told to a certain amount of steps");
-//        switch (direction) {
-//            case UP:
-//                pos.moveVertical(steps);
-//                viewController.updateRobotViewPosition(pos);
-//                break;
-//            case DOWN:
-//                pos.moveVertical(-steps);
-//                viewController.updateRobotViewPosition(pos);
-//                break;
-//            case RIGHT:
-//                pos.moveHorizontal(steps);
-//                viewController.updateRobotViewPosition(pos);
-//                break;
-//            case LEFT:
-//                pos.moveHorizontal(-steps);
-//                viewController.updateRobotViewPosition(pos);
-//                break;
-//            default:
-//                throw new IllegalStateException("robot has direction '"+direction+"', which is supported");
-//        }
-    }
 
     @Override
     public void move(int steps) {
         // uses a Runnable to execute moves in time specified increments
         RobotMoveExecutor robotMoveExecutor = new RobotMoveExecutor(this, steps);
         robotMoveExecutor.move();
+
     }
 
     @Override
