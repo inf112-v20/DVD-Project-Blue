@@ -71,19 +71,30 @@ public class Round {
         return allCards;
     }
 
+    private ArrayList<ICard> collectCardsFromSlotNumber(int slotNumber) {
+        ArrayList<ICard> cards = new ArrayList<>();
+        for (Player player: players) {
+            ICard[] slottedCards = player.getCardSlots();
+            if (slottedCards[slotNumber] != null) {
+                cards.add(slottedCards[slotNumber]);
+                slottedCards[slotNumber] = null;
+            }
+        }
+        return cards;
+    }
+
     private ArrayList<ICard> sortCardsByPriority(ArrayList<ICard> allCardsFromSlots) {
         Collections.sort(allCardsFromSlots, new SortCardByPriority());
         return allCardsFromSlots;
     }
 
     public void executeCardChoices() {
-        ArrayList<ICard> cardsByPriority = sortCardsByPriority(collectAllCardsFromSlots());
-        CardExecutor cardExecutor = new CardExecutor(cardsByPriority);
-        cardExecutor.executeCards();
-//        for (ICard card: cardsByPriority) {
-//            if (card != null)
-//                card.moveRobot(card.getPlayer().robot());
-//        }
+        for (int slotNumber = 0; slotNumber < humanPlayer.getCardSlots().length; slotNumber++) {
+            ArrayList<ICard> cards = sortCardsByPriority(collectCardsFromSlotNumber(slotNumber));
+            CardExecutor cardExecutor = new CardExecutor(cards);
+            cardExecutor.executeCards();
+        }
+
     }
 
 

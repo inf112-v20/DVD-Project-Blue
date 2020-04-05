@@ -4,7 +4,6 @@ import inf112.RoboRally.app.controllers.RobotViewController;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -49,7 +48,7 @@ public class RobotMoveExecutor {
             if (stepNumber.incrementAndGet() == numberOfSteps.get())
                 scheduler.shutdown();
         };
-        final ScheduledFuture<?> moverHandle = scheduler.scheduleAtFixedRate(mover, 500, 500, TimeUnit.MILLISECONDS);
+        scheduler.scheduleAtFixedRate(mover, 500, 500, TimeUnit.MILLISECONDS);
     }
 
 
