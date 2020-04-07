@@ -14,12 +14,11 @@ public class Server {
     //static int connectedUsers = -1;
 
     private static ArrayList<ClientHandler> clients = new ArrayList<>();
-    static int identities = clients.size();
+    //static int identities = clients.size();
 
-    // Only 8 threads for 8 players.
     private static ExecutorService pool = Executors.newFixedThreadPool(8);
 
-    public static void serverInit() throws IOException {
+    public static void serverInit(String[] args) throws IOException {
 
         ServerSocket ss = new ServerSocket(PORT);
 
@@ -27,7 +26,7 @@ public class Server {
             System.out.println("Waiting for clients to connect...");
             Socket client = ss.accept();
             System.out.println("Client connected");
-            ClientHandler clientThread = new ClientHandler(client);
+            ClientHandler clientThread = new ClientHandler(client, clients);
             clients.add(clientThread);
 
             pool.execute(clientThread);
@@ -37,6 +36,9 @@ public class Server {
 
     public static int getRandomID() {
 
-        return ID[identities];
+        int identities = clients.size();
+        return ID[identities-1];
     }
+
+
 }
