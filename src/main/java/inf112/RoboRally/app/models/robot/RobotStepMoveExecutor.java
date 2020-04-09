@@ -7,7 +7,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class RobotMoveExecutor {
+public class RobotStepMoveExecutor {
 
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private Pos pos;
@@ -15,14 +15,25 @@ public class RobotMoveExecutor {
     private RobotViewController viewController;
     private AtomicInteger numberOfSteps;
     private AtomicInteger stepNumber;
-    private final int CELLS_TO_MOVE = 1;
+    private final int CELLS_TO_MOVE;
 
-    public RobotMoveExecutor(Robot robot, int numberOfSteps) {
+    public RobotStepMoveExecutor(Robot robot, int numberOfSteps) {
         pos = robot.position();
         direction = robot.direction();
         viewController = robot.getViewController();
-        this.numberOfSteps = new AtomicInteger(numberOfSteps);
         stepNumber = new AtomicInteger(0);
+
+        // moving backwards
+        if (numberOfSteps < 0) {
+            CELLS_TO_MOVE = -1;
+            this.numberOfSteps = new AtomicInteger(-numberOfSteps);
+
+            // moving forwards
+        } else {
+            CELLS_TO_MOVE = 1;
+            this.numberOfSteps = new AtomicInteger(numberOfSteps);
+        }
+
     }
 
     public void move() {

@@ -16,6 +16,7 @@ public class Robot implements IRobot {
     private int hp;
     private int lives;
     private boolean poweredDown;
+    private int playerNumber;
 
     // Controllers
     private RobotViewController viewController;
@@ -23,6 +24,7 @@ public class Robot implements IRobot {
     public Robot(Game game, int playerNumber) {
         hp = MAX_HP;
         lives = STARTING_LIVES;
+        this.playerNumber = playerNumber;
         poweredDown = false;
         pos = game.getBoard().getRobotStartingPos(playerNumber);
         direction = game.getBoard().getRobotStartingDirection(playerNumber);
@@ -33,13 +35,13 @@ public class Robot implements IRobot {
     @Override
     public void move(int steps) {
         // uses a Runnable to execute moves in time specified increments
-        RobotMoveExecutor robotMoveExecutor = new RobotMoveExecutor(this, steps);
-        robotMoveExecutor.move();
+        RobotStepMoveExecutor robotStepExecutor = new RobotStepMoveExecutor(this, steps);
+        robotStepExecutor.move();
+        System.out.println("Robot"+playerNumber+" position : "+pos.toString());
 
     }
 
-    @Override
-    public void rotate(Rotation rotation) {
+    public void rotateDepreciated(Rotation rotation) {
 //        System.out.println("FROM Robot: I was told to rotate");
         switch (rotation) {
             case LEFT:
@@ -58,12 +60,23 @@ public class Robot implements IRobot {
         viewController.updateRobotViewPosition(pos, direction);
     }
 
+    @Override
+    public void rotate(Rotation rotation) {
+        RobotRotateMoveExecutor robotRotateExecutor = new RobotRotateMoveExecutor(this, rotation);
+        robotRotateExecutor.rotate();
+        System.out.println("robot's direction = "+direction);
+    }
+
     public Pos position() {
         return pos;
     }
 
     public Direction direction() {
         return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 
     @Override

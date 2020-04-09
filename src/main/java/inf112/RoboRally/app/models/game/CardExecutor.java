@@ -25,7 +25,7 @@ public class CardExecutor {
             if (iterator.incrementAndGet() == cards.size())
                 scheduler.shutdown();
         };
-        scheduler.scheduleAtFixedRate(cardExec, 0, 2, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(cardExec, 1, 2, TimeUnit.SECONDS);
     }
 
 

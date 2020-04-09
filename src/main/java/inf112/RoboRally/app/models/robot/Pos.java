@@ -25,4 +25,8 @@ public class Pos {
     public int y() {
         return y;
     }
+
+    public String toString() {
+        return x+", "+y;
+    }
 }
