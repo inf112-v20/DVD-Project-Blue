@@ -28,10 +28,13 @@ public class RoboRallyWorld extends InputAdapter implements ApplicationListener 
 
     // player variables
     private TiledMapTileLayer playerLayer;
-    private TiledMapTileLayer.Cell playerCell, playerCellDead, playerCellWon;
-    private Vector2 playerVector;
-    private Texture playerTexture;
-    private TextureRegion[] playerTextureRegion;
+    private Player player;
+
+    // opponent variables
+    private TiledMapTileLayer opponentLayer;
+    private Player opponent;
+
+    private boolean playerTurn = false;
 
     @Override
     public void create() {
@@ -46,16 +49,11 @@ public class RoboRallyWorld extends InputAdapter implements ApplicationListener 
 
         // player code
         playerLayer = map.getMapLayers("Player");
-        playerTexture = new Texture("Tiles/ExampleRobots.png");
-        playerTextureRegion = new TextureRegion[3];
-        playerTextureRegion[0] = new TextureRegion(playerTexture, 0, 0, 48, 48);
-        playerTextureRegion[1] = new TextureRegion(playerTexture, 48, 0, 48, 48);
-        playerTextureRegion[2] = new TextureRegion(playerTexture, 96, 0, 48, 48);
-        playerCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(playerTextureRegion[0]));
-        playerCellDead = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(playerTextureRegion[1]));
-        playerCellWon = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(playerTextureRegion[2]));
-        playerVector = new Vector2();
-        playerVector.set(0, 0);
+        player = new Player(0, 0);
+
+        // opponent code
+        opponentLayer = map.getMapLayers("Player");
+        opponent = new Player(2, 0);
 
         // mapRenderer anc camera code
         mapRenderer = new OrthogonalTiledMapRenderer(map.getMap());
@@ -80,7 +78,8 @@ public class RoboRallyWorld extends InputAdapter implements ApplicationListener 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         mapRenderer.render();
-        playerLayer.setCell((int) playerVector.x, (int) playerVector.y, playerCell);
+        playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, player.getPlayerCell());
+        opponentLayer.setCell((int) opponent.getPlayerVector().x, (int) opponent.getPlayerVector().y, opponent.getPlayerCell());
     }
 
     @Override
@@ -97,142 +96,160 @@ public class RoboRallyWorld extends InputAdapter implements ApplicationListener 
 
     @Override
     public boolean keyUp(int keycode) {
-        //BOTTOM
-        if (map.getLayerCell((int) playerVector.x, (int) playerVector.y) != null && (map.getWallLayer().getCell((int) playerVector.x, (int) playerVector.y)).getTile().getId() == 30) {
+            //BOTTOM
+        if (map.getWallLayerCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y) != null && (map.getWallLayer().getCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y)).getTile().getId() == 30) {
             if (keycode == Input.Keys.UP) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.y += 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().y += 1;
             }
             if (keycode == Input.Keys.LEFT) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.x -= 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().x -= 1;
             }
             if (keycode == Input.Keys.RIGHT) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.x += 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().x += 1;
             }
             //TOP
-        } else if (map.getLayerCell((int) playerVector.x, (int) playerVector.y) != null && (map.getWallLayer().getCell((int) playerVector.x, (int) playerVector.y)).getTile().getId() == 29) {
+        } else if (map.getWallLayerCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y) != null && (map.getWallLayer().getCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y)).getTile().getId() == 29) {
             if (keycode == Input.Keys.DOWN) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.y -= 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().y -= 1;
             }
             if (keycode == Input.Keys.LEFT) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.x -= 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().x -= 1;
             }
             if (keycode == Input.Keys.RIGHT) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.x += 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().x += 1;
             }
             //RIGHT
-        } else if (map.getLayerCell((int) playerVector.x, (int) playerVector.y) != null && (map.getWallLayer().getCell((int) playerVector.x, (int) playerVector.y)).getTile().getId() == 24) {
+        } else if (map.getWallLayerCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y) != null && (map.getWallLayer().getCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y)).getTile().getId() == 24) {
             if (keycode == Input.Keys.UP) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.y += 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().y += 1;
             }
             if (keycode == Input.Keys.LEFT) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.x -= 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().x -= 1;
             }
             if (keycode == Input.Keys.DOWN) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.y -= 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().y -= 1;
             }
             //LEFT
-        } else if (map.getLayerCell((int) playerVector.x, (int) playerVector.y) != null && (map.getWallLayer().getCell((int) playerVector.x, (int) playerVector.y)).getTile().getId() == 23) {
+        } else if (map.getWallLayerCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y) != null && (map.getWallLayer().getCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y)).getTile().getId() == 23) {
             if (keycode == Input.Keys.UP) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.y += 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().y += 1;
             }
             if (keycode == Input.Keys.RIGHT) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.x += 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().x += 1;
             }
             if (keycode == Input.Keys.DOWN) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.y -= 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().y -= 1;
             }
             //TOP LEFT
-        } else if (map.getLayerCell((int) playerVector.x, (int) playerVector.y) != null && (map.getWallLayer().getCell((int) playerVector.x, (int) playerVector.y)).getTile().getId() == 19) {
+        } else if (map.getWallLayerCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y) != null && (map.getWallLayer().getCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y)).getTile().getId() == 19) {
             if (keycode == Input.Keys.RIGHT) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.x += 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().x += 1;
             }
             if (keycode == Input.Keys.DOWN) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.y -= 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().y -= 1;
             }
             //TOP RIGHT
-        } else if (map.getLayerCell((int) playerVector.x, (int) playerVector.y) != null && (map.getWallLayer().getCell((int) playerVector.x, (int) playerVector.y)).getTile().getId() == 20) {
+        } else if (map.getWallLayerCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y) != null && (map.getWallLayer().getCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y)).getTile().getId() == 20) {
             if (keycode == Input.Keys.LEFT) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.x -= 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().x -= 1;
             }
             if (keycode == Input.Keys.DOWN) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.y -= 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().y -= 1;
             }
             //BOTTOM LEFT
-        } else if (map.getLayerCell((int) playerVector.x, (int) playerVector.y) != null && (map.getWallLayer().getCell((int) playerVector.x, (int) playerVector.y)).getTile().getId() == 25) {
+        } else if (map.getWallLayerCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y) != null && (map.getWallLayer().getCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y)).getTile().getId() == 25) {
             if (keycode == Input.Keys.UP) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.y += 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().y += 1;
             }
             if (keycode == Input.Keys.RIGHT) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.x += 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().x += 1;
             }
             //BOTTOM RIGHT
-        } else if (map.getLayerCell((int) playerVector.x, (int) playerVector.y) != null && (map.getWallLayer().getCell((int) playerVector.x, (int) playerVector.y)).getTile().getId() == 26) {
+        } else if (map.getWallLayerCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y) != null && (map.getWallLayer().getCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y)).getTile().getId() == 26) {
             if (keycode == Input.Keys.UP) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.y += 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().y += 1;
             }
             if (keycode == Input.Keys.LEFT) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.x -= 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().x -= 1;
+            }
+            //WIN? A BIT BUGGY
+        } else if (map.getFlagLayerCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y) != null && (((map.getFlagLayer().getCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y)).getTile().getId() == 1) ||
+                (map.getFlagLayer().getCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y)).getTile().getId() == 1 ||
+                (map.getFlagLayer().getCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y)).getTile().getId() == 2 ||
+                (map.getFlagLayer().getCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y)).getTile().getId() == 3)) {
+            if (keycode == Input.Keys.UP) {
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, player.getPlayerCellWon());
+                player.getPlayerVector().y += 1;
+            }
+            if (keycode == Input.Keys.DOWN) {
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, player.getPlayerCellWon());
+                player.getPlayerVector().y -= 1;
+            }
+            if (keycode == Input.Keys.LEFT) {
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, player.getPlayerCellWon());
+                player.getPlayerVector().x -= 1;
+            }
+            if (keycode == Input.Keys.RIGHT) {
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, player.getPlayerCellWon());
+                player.getPlayerVector().x += 1;
+            }
+            //HOLE? A BIT BUGGY
+        } else if (map.getHoleLayerCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y) != null && (map.getHoleLayer().getCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y)).getTile().getId() == 6) {
+            if (keycode == Input.Keys.UP) {
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, player.getPlayerCellDead());
+                player.getPlayerVector().y += 1;
+            }
+            if (keycode == Input.Keys.DOWN) {
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, player.getPlayerCellDead());
+                player.getPlayerVector().y -= 1;
+            }
+            if (keycode == Input.Keys.LEFT) {
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, player.getPlayerCellDead());
+                player.getPlayerVector().x -= 1;
+            }
+            if (keycode == Input.Keys.RIGHT) {
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, player.getPlayerCellDead());
+                player.getPlayerVector().x += 1;
             }
             //GO ELSE WHERE
         } else {
             if (keycode == Input.Keys.UP) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.y += 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().y += 1;
             }
             if (keycode == Input.Keys.DOWN) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.y -= 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().y -= 1;
             }
             if (keycode == Input.Keys.LEFT) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.x -= 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().x -= 1;
             }
             if (keycode == Input.Keys.RIGHT) {
-                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-                playerVector.x += 1;
+                playerLayer.setCell((int) player.getPlayerVector().x, (int) player.getPlayerVector().y, null);
+                player.getPlayerVector().x += 1;
             }
         }
-
-
-//        if ((map.getLayerCell((int) playerVector.x, (int) playerVector.y) != null) && (map.getWallLayer().getCell((int) playerVector.x, (int) playerVector.y)).getTile().getId() == 30)) {
-//            if (keycode == Input.Keys.UP) {
-//                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-//                playerVector.y += 1;
-//            }
-//            if (keycode == Input.Keys.DOWN) {
-//                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-//                playerVector.y -= 1;
-//            }
-//            if (keycode == Input.Keys.LEFT) {
-//                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-//                playerVector.x -= 1;
-//            }
-//            if (keycode == Input.Keys.RIGHT) {
-//                playerLayer.setCell((int) playerVector.x, (int) playerVector.y, null);
-//                playerVector.x += 1;
-//            }
-//        }
-
         return super.keyUp(keycode);
     }
 }
