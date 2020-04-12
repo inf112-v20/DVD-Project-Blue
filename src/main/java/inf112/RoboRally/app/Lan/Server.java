@@ -6,11 +6,16 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Server {
 
+
+
+
     private static int PORT = 1337;
     private static int[] ID = {1, 2, 3, 4, 5, 6, 7, 8};
+    private static final ReentrantLock lock = new ReentrantLock();
     //static int connectedUsers = -1;
 
     private static ArrayList<ClientHandler> clients = new ArrayList<>();
@@ -34,11 +39,21 @@ public class Server {
         }
     }
 
+
+    // Replace 1-8 ID with random generated IDs.
+    // Needs to be done for security.
     public static int getRandomID() {
 
-        int identities = clients.size();
-        return ID[identities-1];
+        lock.lock();
+        try {
+            int identities = clients.size();
+            return ID[identities - 1];
+        } finally {
+            lock.unlock();
+        }
     }
+
+
 
 
 }
