@@ -9,7 +9,7 @@ import inf112.RoboRally.app.models.robot.Robot;
 public class PlayerHUD {
 
     // HUD base image path
-    private String PLAYER_BASE_HUD_IMAGE_PATH = "PlayerHud/PlayerHUD.png";
+    private String PLAYER_BASE_HUD_IMAGE_PATH = "assets/PlayerHud/PlayerHUD.png";
 
     // HUD base image texture
     private Texture PLAYER_BASE_IMAGE_TEXTURE = new Texture(PLAYER_BASE_HUD_IMAGE_PATH);
