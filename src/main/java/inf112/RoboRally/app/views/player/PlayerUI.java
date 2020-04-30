@@ -13,6 +13,7 @@ import inf112.RoboRally.app.GameLauncher;
 import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 import inf112.RoboRally.app.views.card.GameScreenCards;
 import inf112.RoboRally.app.views.menus.Button;
+import inf112.RoboRally.app.views.opponents.OpponentHUD;
 
 public class PlayerUI extends InputAdapter {
 
@@ -21,6 +22,18 @@ public class PlayerUI extends InputAdapter {
 
     private Table generateCardsTable;
     private TextButton generateCardsButton;
+
+    private Table opponentHudTable;
+
+    // opponent hud code
+    private OpponentHUD opponentHUD;
+    private OpponentHUD opponentHUD2;
+    private OpponentHUD opponentHUD3;
+    private OpponentHUD opponentHUD4;
+    private OpponentHUD opponentHUD5;
+    private OpponentHUD opponentHUD6;
+    private OpponentHUD opponentHUD7;
+    // opponent hud code
 
     private Stage stage;
     private Viewport viewport;
@@ -36,7 +49,41 @@ public class PlayerUI extends InputAdapter {
         readyButtonTable = new Table();
         generateCardsTable = new Table();
 
-        playerHUD = new PlayerHUD(gameCardController); // connection to models between player health and lives not implemented
+        playerHUD = new PlayerHUD(gameCardController);
+
+
+        // opponent hud code
+        opponentHudTable = new Table();
+        opponentHudTable.left();
+        opponentHudTable.setFillParent(true);
+        opponentHUD = new OpponentHUD(gameCardController,2, 2, 10, true);
+        opponentHUD2 = new OpponentHUD(gameCardController,3, 3, 1, true);
+        opponentHUD3 = new OpponentHUD(gameCardController,4, 1, 9, false);
+        opponentHUD4 = new OpponentHUD(gameCardController,5, 2, 5, true);
+        opponentHUD5 = new OpponentHUD(gameCardController,6, 3, 1, false);
+        opponentHUD6 = new OpponentHUD(gameCardController,7, 1, 9, false);
+        opponentHUD7 = new OpponentHUD(gameCardController,8, 2, 5, true);
+
+        opponentHudTable.add(opponentHUD.opponentHudGroup());
+        opponentHudTable.row().padTop(12);
+        opponentHudTable.add(opponentHUD2.opponentHudGroup());
+        opponentHudTable.row().padTop(12);
+        opponentHudTable.add(opponentHUD3.opponentHudGroup());
+        opponentHudTable.row().padTop(12);
+        opponentHudTable.add(opponentHUD4.opponentHudGroup());
+        opponentHudTable.row().padTop(12);
+        opponentHudTable.add(opponentHUD5.opponentHudGroup());
+        opponentHudTable.row().padTop(12);
+        opponentHudTable.add(opponentHUD6.opponentHudGroup());
+        opponentHudTable.row().padTop(12);
+        opponentHudTable.add(opponentHUD7.opponentHudGroup());
+        // opponent hud code
+
+        // opponent hud code
+        stage.addActor(opponentHudTable);
+        // opponent hud code
+
+
         stage.addActor(playerHUD.getPlayerHudDashBoardTable());
         stage.addActor(playerHUD.getDamageTokensTable());
         stage.addActor(playerHUD.getPowerDownTable());

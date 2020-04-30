@@ -12,10 +12,12 @@ from the view to the model player class
 public class GameCardController {
 
     private Player humanPlayer; // our human player
+    private Player[] players;
     private Game game;
 
     public GameCardController(Game game) {
         this.game = game;
+        this.players = game.players();
         this.humanPlayer = game.getHumanPlayer();
     }
 
@@ -63,6 +65,10 @@ public class GameCardController {
 
     public Player humanPlayer() {
         return humanPlayer;
+    }
+
+    public Player[] players() {
+        return players;
     }
 
 
