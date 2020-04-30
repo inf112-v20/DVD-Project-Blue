@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 import inf112.RoboRally.app.models.game.Player;
 
 public class OpponentHUD {
@@ -16,10 +15,11 @@ public class OpponentHUD {
 
     final private int ROW_PADDING = 12;
 
-    private int opponent;
+    // game stats
+    private int opponentNumber;
     private int life;
-    private int damage;
-    private boolean powerDownActive;
+    private int hp;
+    private boolean isPoweredDown;
 
     private Group opponentDashboard;
 
@@ -35,12 +35,11 @@ public class OpponentHUD {
 
     private Table opponentHudTable;
 
-    public OpponentHUD(GameCardController gameCardController, int opponent, int life, int damage, boolean powerDownActive) {
-        this.opponent = opponent;
-        this.life = life;
-        this.damage = damage;
-        this.powerDownActive = powerDownActive;
-
+    public OpponentHUD(Player player) {
+        opponentNumber = player.getPlayerNumber();
+        life = player.robot().livesLeft();
+        hp = player.robot().getHP();
+        isPoweredDown = player.robot().isPoweredDown();
         opponentDashboard = new Group();
         nameBackground = new Group();
         lifeTokens = new Table();
@@ -62,26 +61,13 @@ public class OpponentHUD {
         return opponentDashboard;
     }
 
-    public void setupOpponentHudTable(GameCardController gameCardController) {
-        for (Player player: gameCardController.players()) {
-            if (!player.equals(gameCardController.humanPlayer())) {
-                opponentHudTable.add(opponentHudGroup());
-                opponentHudTable.row().padTop(ROW_PADDING);
-            }
-        }
-    }
-
-    public Table getOpponentHudTable() {
-        return opponentHudTable;
-    }
-
 
     public Group nameBackground() {
         nameBackground = new Group();
         Texture txt = new Texture("assets/OpponentHud/OpponentHUD.png");
         txt.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        Label names = new Label("PLAYER " + opponent, SKIN);
+        Label names = new Label("PLAYER " + opponentNumber, SKIN);
         names.setFontScale(1/2.3f);
         names.setPosition(165, 128);
 
@@ -143,34 +129,34 @@ public class OpponentHUD {
         damageTokens.add(new Image(emptyDamageTokenTexture)).padLeft(8);
         damageTokens.add(new Image(emptyDamageTokenTexture)).padLeft(8);
 
-        if (damage > 0) {
+        if (hp > 0) {
             damageTokens.getCells().get(9).clearActor().setActor(new Image(slightDamageTokenTexture));
         }
-        if (damage > 1) {
+        if (hp > 1) {
             damageTokens.getCells().get(8).clearActor().setActor(new Image(slightDamageTokenTexture));
         }
-        if (damage > 2) {
+        if (hp > 2) {
             damageTokens.getCells().get(7).clearActor().setActor(new Image(slightDamageTokenTexture));
         }
-        if (damage > 3) {
+        if (hp > 3) {
             damageTokens.getCells().get(6).clearActor().setActor(new Image(slightDamageTokenTexture));
         }
-        if (damage > 4) {
+        if (hp > 4) {
             damageTokens.getCells().get(5).clearActor().setActor(new Image(slightDamageTokenLockCardTexture));
         }
-        if (damage > 5) {
+        if (hp > 5) {
             damageTokens.getCells().get(4).clearActor().setActor(new Image(slightDamageTokenLockCardTexture));
         }
-        if (damage > 6) {
+        if (hp > 6) {
             damageTokens.getCells().get(3).clearActor().setActor(new Image(slightDamageTokenLockCardTexture));
         }
-        if (damage > 7) {
+        if (hp > 7) {
             damageTokens.getCells().get(2).clearActor().setActor(new Image(slightDamageTokenLockCardTexture));
         }
-        if (damage > 8) {
+        if (hp > 8) {
             damageTokens.getCells().get(1).clearActor().setActor(new Image(slightDamageTokenLockCardTexture));
         }
-        if (damage > 9) {
+        if (hp > 9) {
             damageTokens.getCells().get(0).clearActor().setActor(new Image(damageTokenRedTexture));
         }
 
@@ -181,7 +167,7 @@ public class OpponentHUD {
         powerDown.padLeft(346).padTop(86);
         powerDown.setFillParent(true);
 
-        if (powerDownActive == true) {
+        if (isPoweredDown) {
             Texture powerDownTexture = new Texture("assets/OpponentHud/PowerDown.png");
             powerDownTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             powerDown.add(new Image(powerDownTexture));

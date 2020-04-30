@@ -59,5 +59,9 @@ public class Game {
         return tiledMapLoader;
     }
 
+    public Player getPlayer(int playerNumber) {
+        return players[playerNumber];
+    }
+
 
 }

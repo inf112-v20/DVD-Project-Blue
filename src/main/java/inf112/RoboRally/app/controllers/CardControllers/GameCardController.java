@@ -71,6 +71,12 @@ public class GameCardController {
         return players;
     }
 
+    public int numberOfPlayers() {
+        return players.length;
+    }
 
 
+    public Player getPlayer(int playerNumber) {
+        return game.getPlayer(playerNumber);
+    }
 }
