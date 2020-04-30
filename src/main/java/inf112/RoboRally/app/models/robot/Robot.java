@@ -5,8 +5,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
+import inf112.RoboRally.app.GameLauncher;
+import inf112.RoboRally.app.controllers.MapChoiceControllers.SinglePlayerSettingsController;
 import inf112.RoboRally.app.models.cards.Rotation;
 import inf112.RoboRally.app.models.game.Game;
+import org.lwjgl.Sys;
 
 /*
 Model of a robot. Initialized with position and direction. This information is passed on by
@@ -29,7 +32,12 @@ public class Robot implements IRobot {
     private int HP;
     private int lives;
 
+    //MAP
+    private static Game game;
+    //MAP
+
     public Robot(Game game, int playerNumber) {
+        this.game = game;
         HP = MAX_HP;
         lives = STARTING_LIVES;
         setupOnBoard(game, playerNumber);
@@ -55,17 +63,113 @@ public class Robot implements IRobot {
         removeOldPositionOnBoard();
         switch (direction) {
             case UP:
-                vector2.y = vector2.y + steps;
-                break;
+                if (game.getWallLayerCell((int)vector2.x, (int)vector2.y) != null && game.getWallLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 85) {
+                    break;
+                } else if (game.getDoubleWallLayerCell((int)vector2.x, (int)vector2.y) != null &&
+                        (game.getDoubleWallLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 97 || game.getDoubleWallLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 98)) {
+                    break;
+                } else if (game.getPusherLayerCell((int)vector2.x, (int)vector2.y) != null) {
+                    if (game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 113 || game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 115) {
+                        vector2.y--;
+                        break;
+                    }
+                    if (game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 114 || game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 116) {
+                        vector2.y++;
+                        break;
+                    }
+                    if (game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 121 || game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 123) {
+                        vector2.x++;
+                        break;
+                    }
+                    if (game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 122 || game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 124) {
+                        vector2.x--;
+                        break;
+                    }
+                } else {
+                    vector2.y = vector2.y + steps;
+                    break;
+                }
             case DOWN:
-                vector2.y = vector2.y - steps;
-                break;
+                if (game.getWallLayerCell((int)vector2.x, (int)vector2.y) != null && game.getWallLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 86) {
+                    break;
+                } else if (game.getDoubleWallLayerCell((int)vector2.x, (int)vector2.y) != null &&
+                        (game.getDoubleWallLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 105 || game.getDoubleWallLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 106)) {
+                    break;
+                } else if (game.getPusherLayerCell((int)vector2.x, (int)vector2.y) != null) {
+                    if (game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 113 || game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 115) {
+                        vector2.y--;
+                        break;
+                    }
+                    if (game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 114 || game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 116) {
+                        vector2.y++;
+                        break;
+                    }
+                    if (game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 121 || game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 123) {
+                        vector2.x++;
+                        break;
+                    }
+                    if (game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 122 || game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 124) {
+                        vector2.x--;
+                        break;
+                    }
+                } else {
+                    vector2.y = vector2.y - steps;
+                    break;
+                }
             case RIGHT:
-                vector2.x = vector2.x + steps;
-                break;
+                if (game.getWallLayerCell((int)vector2.x, (int)vector2.y) != null && game.getWallLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 94) {
+                    break;
+                } else if (game.getDoubleWallLayerCell((int)vector2.x, (int)vector2.y) != null &&
+                        (game.getDoubleWallLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 98 || game.getDoubleWallLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 106)) {
+                    break;
+                } else if (game.getPusherLayerCell((int)vector2.x, (int)vector2.y) != null) {
+                    if (game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 113 || game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 115) {
+                        vector2.y--;
+                        break;
+                    }
+                    if (game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 114 || game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 116) {
+                        vector2.y++;
+                        break;
+                    }
+                    if (game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 121 || game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 123) {
+                        vector2.x++;
+                        break;
+                    }
+                    if (game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 122 || game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 124) {
+                        vector2.x--;
+                        break;
+                    }
+                } else {
+                    vector2.x = vector2.x + steps;
+                    break;
+                }
             case LEFT:
-                vector2.x = vector2.x - steps;
-                break;
+                if (game.getWallLayerCell((int)vector2.x, (int)vector2.y) != null && game.getWallLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 93) {
+                    break;
+                } else if (game.getDoubleWallLayerCell((int)vector2.x, (int)vector2.y) != null &&
+                        (game.getDoubleWallLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 97 || game.getDoubleWallLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 105)) {
+                    break;
+                } else if (game.getPusherLayerCell((int)vector2.x, (int)vector2.y) != null) {
+                    if (game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 113 || game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 115) {
+                        vector2.y--;
+                        break;
+                    }
+                    if (game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 114 || game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 116) {
+                        vector2.y++;
+                        break;
+                    }
+                    if (game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 121 || game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 123) {
+                        vector2.x++;
+                        break;
+                    }
+                    if (game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 122 || game.getPusherLayer().getCell((int)vector2.x, (int)vector2.y).getTile().getId() == 124) {
+                        vector2.x--;
+                        break;
+                    }
+                } else {
+                    vector2.x = vector2.x - steps;
+                    break;
+                }
             default:
                 throw new IllegalStateException("robot has direction '"+direction+"', which is supported");
         }

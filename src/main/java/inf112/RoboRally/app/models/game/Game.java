@@ -1,6 +1,7 @@
 package inf112.RoboRally.app.models.game;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 import inf112.RoboRally.app.controllers.MapChoiceControllers.SinglePlayerSettingsController;
@@ -24,12 +25,24 @@ public class Game {
     // Controllers
     GameCardController gameCardController;
 
+    //MAP LAYER//
+    private TiledMapTileLayer wallLayer;
+    private TiledMapTileLayer doubleWallLayer;
+    private TiledMapTileLayer pusherLayer;
+    //MAP LAYER//
+
     public Game(SinglePlayerSettingsController settings) {
 
         // the board
         mapLoader = new TmxMapLoader();
         map = mapLoader.load(settings.getMap().tiledMapFile());
         board = settings.getMap();
+
+        //MAP LAYER//
+        wallLayer = (TiledMapTileLayer) map.getLayers().get("wall");
+        doubleWallLayer = (TiledMapTileLayer) map.getLayers().get("doubleWall");
+        pusherLayer = (TiledMapTileLayer) map.getLayers().get("pusher");
+        //MAP LAYER//
 
         // the players
         players = new Player[settings.getPlayerCount()];
@@ -88,4 +101,31 @@ public class Game {
     public Round round() {
         return round;
     }
+
+
+    //MAP LAYER//
+    public TiledMapTileLayer getWallLayer() {
+        return wallLayer;
+    }
+
+    public TiledMapTileLayer.Cell getWallLayerCell(int x, int y) {
+        return wallLayer.getCell(x, y);
+    }
+
+    public TiledMapTileLayer getDoubleWallLayer() {
+        return doubleWallLayer;
+    }
+
+    public TiledMapTileLayer.Cell getDoubleWallLayerCell(int x, int y) {
+        return doubleWallLayer.getCell(x, y);
+    }
+
+    public TiledMapTileLayer getPusherLayer() {
+        return pusherLayer;
+    }
+
+    public TiledMapTileLayer.Cell getPusherLayerCell(int x, int y) {
+        return pusherLayer.getCell(x, y);
+    }
+    //MAP LAYER//
 }
