@@ -12,7 +12,7 @@ public class PowerDown {
     private final int PAD_BOTTOM = 33;
 
     // image file path
-    private final String POWER_DOWN_IMG_PATH = "PlayerHud/PowerDown.png";
+    private final String POWER_DOWN_IMG_PATH = "assets/PlayerHud/PowerDown.png";
 
     // image texture
     private final Texture POWER_DOWN_TEXTURE = new Texture(POWER_DOWN_IMG_PATH);
@@ -29,7 +29,7 @@ public class PowerDown {
     protected Table powerDownTable() {
         powerDownTable.bottom().padLeft(BOTTOM_PAD_LEFT);
         powerDownTable.setFillParent(true);
-
+        robotIsPoweredDown = true;
         if (robotIsPoweredDown) {
             powerDownTable.add(new Image(POWER_DOWN_TEXTURE)).padRight(PAD_RIGHT).padBottom(PAD_BOTTOM);
         }

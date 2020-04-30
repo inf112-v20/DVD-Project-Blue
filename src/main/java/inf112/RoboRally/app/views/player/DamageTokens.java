@@ -13,10 +13,10 @@ public class DamageTokens {
     private final int SMALL_IMAGE_PAD = 6;
 
     // image file paths
-    private final String NO_DAMAGE_TOKEN_IMG_PATH = "PlayerHud/emptyDamageToken.png"; // an empty placeholder image
-    private final String RED_DAMAGE_TOKEN_IMG_PATH = "PlayerHud/DamageTokenRed.png";
-    private final String REGULAR_DAMAGE_TOKEN_IMG_PATH = "PlayerHud/DamageTokenSlightDmg.png";
-    private final String LOCK_DAMAGE_TOKEN_IMG_PATH = "PlayerHud/DamageTokenSlightDmgLockCard.png";
+    private final String NO_DAMAGE_TOKEN_IMG_PATH = "assets/PlayerHud/emptyDamageToken.png"; // an empty placeholder image
+    private final String RED_DAMAGE_TOKEN_IMG_PATH = "assets/PlayerHud/DamageTokenRed.png";
+    private final String REGULAR_DAMAGE_TOKEN_IMG_PATH = "assets/PlayerHud/DamageTokenSlightDmg.png";
+    private final String LOCK_DAMAGE_TOKEN_IMG_PATH = "assets/PlayerHud/DamageTokenSlightDmgLockCard.png";
 
     // image textures
     private final Texture[] DAMAGE_TAKEN_TEXTURES = {
@@ -33,6 +33,7 @@ public class DamageTokens {
     protected DamageTokens(int hp, int maxHp) {
         this.maxHp = maxHp;
         this.hp = hp;
+        this.hp = 5;
         damageTokensTable = new Table();
         for (Texture texture: DAMAGE_TAKEN_TEXTURES)
             texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
