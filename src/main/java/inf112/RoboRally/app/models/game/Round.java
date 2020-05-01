@@ -105,14 +105,14 @@ public class Round {
     public void executeCardChoicesDepriecated() {
         for (int slotNumber = 0; slotNumber < CARD_SLOT_AMOUNT; slotNumber++) {
             ArrayList<ICard> cards = sortCardsByPriority(collectCardsFromSlotNumber(slotNumber));
-            CardExecutor cardExecutor = new CardExecutor(cards);
-            cardExecutor.executeCards();
+//            CardMoveExecutor cardExecutor = new CardMoveExecutor(cards);
+//            cardExecutor.executeCards();
         }
 
     }
 
     public void executeCardChoices() {
-        CardChoiceExecutor cardChoiceExecutor = new CardChoiceExecutor(players);
+        CollectCardFromSlotExecutor cardChoiceExecutor = new CollectCardFromSlotExecutor(players);
         cardChoiceExecutor.CardChoiceRoundExecutor();
     }
 

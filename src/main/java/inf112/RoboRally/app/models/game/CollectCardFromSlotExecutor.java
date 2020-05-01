@@ -5,35 +5,46 @@ import inf112.RoboRally.app.models.cards.SortCardByPriority;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class CardChoiceExecutor {
+public class CollectCardFromSlotExecutor {
 
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private Player[] players;
     private AtomicInteger slotNumber = new AtomicInteger(0);
     private final AtomicInteger NUMBER_OF_SLOTS;
 
-    public CardChoiceExecutor(Player[] players) {
+    public CollectCardFromSlotExecutor(Player[] players) {
         this.players = players;
         NUMBER_OF_SLOTS = new AtomicInteger(players[0].numberOfCardSlots());
     }
 
     public void CardChoiceRoundExecutor() {
         Runnable collectCards = () -> {
+            CountDownLatch countDownLatch = new CountDownLatch(1);
             ArrayList<ICard> cards = collectCardsFromSlotNumber(slotNumber.get());
+
             if (cards == null)
-                scheduler.shutdown();
+                scheduler.shutdown(); // no more cards in slots
+
             sortCardsByPriority(cards);
-            CardExecutor cardExecutor = new CardExecutor(cards);
+            CardMoveExecutor cardExecutor = new CardMoveExecutor(cards, countDownLatch);
             cardExecutor.executeCards();
+            System.out.println("--------------- " + (slotNumber.get() + 1) + " slot performing ------------------");
+            try {
+                countDownLatch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             if (slotNumber.incrementAndGet() == NUMBER_OF_SLOTS.get())
                 scheduler.shutdown();
         };
-        scheduler.scheduleAtFixedRate(collectCards, 0, 2, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(collectCards, 500, 500, TimeUnit.MILLISECONDS);
     }
 
     private void sortCardsByPriority(ArrayList<ICard> allCardsFromSlots) {

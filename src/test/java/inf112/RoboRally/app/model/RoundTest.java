@@ -99,15 +99,15 @@ public class RoundTest {
         }
         Pos[] initPositions = new Pos[4];
         for (int i = 0; i < players.length; i++) {
-            int x = players[i].robot().position().x();
-            int y = players[i].robot().position().y();
+            int x = players[i].robot().position().getX();
+            int y = players[i].robot().position().getY();
             initPositions[i] = new Pos(x, y);
 //            System.out.println(initPositions[i].getX()+", "+initPositions[i].getY());
         }
         round.executeCardChoicesDepriecated();
         int differentPositionCount = 0;
         for (int i = 0; i < players.length; i++) {
-            System.out.println(initPositions[i].x()+", "+initPositions[i].y());
+            System.out.println(initPositions[i].getX()+", "+initPositions[i].getY());
             if (initPositions[i] != players[i].robot().position())
                 differentPositionCount++;
         }

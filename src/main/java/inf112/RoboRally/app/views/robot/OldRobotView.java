@@ -13,11 +13,13 @@ public class OldRobotView extends Sprite {
     private final int X_PIXEL_POSITION_MULT = 100;
     private int yPositionAdjustment = 15;
     private final int X_PIXEL_POSITION_ADJUSTMENT = 10;
-    private final int SPRITE_MOVEMENT_SPEED = 100;
+    private final int SPRITE_MOVEMENT_SPEED = 180;
 
 
     private float targetX;
     private float targetY;
+//    private boolean atXTarget = true;
+//    private boolean atYTarget = true;
     private Pos pos; // not needed?
 
     public OldRobotView(Sprite sprite, Pos startPos, Direction startDirection, int playerNumber) {
@@ -38,10 +40,23 @@ public class OldRobotView extends Sprite {
     private void update(float delta) {
 //        System.out.println(getX());
 //        System.out.println(targetX);
-        if (getX() < targetX)
-            setX(getX() + SPRITE_MOVEMENT_SPEED * delta);
-        if (getY() < targetY)
+        if (getX() != targetX) {
+
+            if (getX() < targetX) {
+                setX(getX() + SPRITE_MOVEMENT_SPEED * delta);
+            }
+            if (getX() > targetX) {
+                setX(getX() - SPRITE_MOVEMENT_SPEED * delta);
+            }
+
+        }
+
+        if (getY() < targetY) {
             setY(getY() + SPRITE_MOVEMENT_SPEED * delta);
+        }
+        if (getY() > targetY) {
+            setY(getY() - SPRITE_MOVEMENT_SPEED * delta);
+        }
     }
 
     public void updateX(int x) {
@@ -92,8 +107,10 @@ public class OldRobotView extends Sprite {
 
 
     private void setStartPosition(Pos startPos) {
-        setX( (startPos.x() * X_PIXEL_POSITION_MULT) - X_PIXEL_POSITION_ADJUSTMENT );
-        setCenterY( (startPos.y() * Y_PIXEL_POSITION_MULT) + yPositionAdjustment);
+        setX( (startPos.getX() * X_PIXEL_POSITION_MULT) - X_PIXEL_POSITION_ADJUSTMENT );
+        setCenterY( (startPos.getY() * Y_PIXEL_POSITION_MULT) + yPositionAdjustment);
+        targetX = getX();
+        targetY = getY();
     }
 
     private void setYPositionAdjustment(int playerNumber) {

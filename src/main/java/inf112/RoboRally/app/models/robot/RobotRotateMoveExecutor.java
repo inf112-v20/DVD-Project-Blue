@@ -41,7 +41,7 @@ public class RobotRotateMoveExecutor {
                     throw new IllegalArgumentException("Robot was told to rotate '"+rotation+"', which is not supported");
             }
             robot.setDirection(direction);
-            viewController.updateRobotViewPosition(pos, direction);
+//            viewController.updateRobotViewPosition(pos, direction);
             scheduler.shutdown();
         };
         scheduler.scheduleAtFixedRate(rotator, 1000, 500, TimeUnit.MILLISECONDS);

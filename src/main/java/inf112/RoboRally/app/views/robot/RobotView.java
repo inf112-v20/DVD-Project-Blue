@@ -24,7 +24,7 @@ public class RobotView extends Sprite {
     public RobotView(int playerNumber, Sprite sprite, Pos startPos, Direction startDirection) {
         this.playerNumber = playerNumber;
         this.sprite = sprite;
-        vector2 = new Vector2(startPos.x(), startPos.y());
+        vector2 = new Vector2(startPos.getX(), startPos.getY());
         direction = startDirection;
     }
 

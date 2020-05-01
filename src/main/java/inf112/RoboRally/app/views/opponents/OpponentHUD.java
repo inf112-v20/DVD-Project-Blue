@@ -13,8 +13,6 @@ public class OpponentHUD {
 
     final private Skin SKIN = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
 
-    final private int ROW_PADDING = 12;
-
     // game stats
     private int opponentNumber;
     private int life;
@@ -67,7 +65,7 @@ public class OpponentHUD {
         Texture txt = new Texture("assets/OpponentHud/OpponentHUD.png");
         txt.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        Label names = new Label("PLAYER " + opponentNumber, SKIN);
+        Label names = new Label("PLAYER " + (opponentNumber+1), SKIN);
         names.setFontScale(1/2.3f);
         names.setPosition(165, 128);
 

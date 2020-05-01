@@ -7,7 +7,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -16,7 +15,7 @@ import inf112.RoboRally.app.GameLauncher;
 import inf112.RoboRally.app.models.game.Game;
 import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.views.player.PlayerUI;
-import inf112.RoboRally.app.views.robot.RobotView;
+import inf112.RoboRally.app.views.robot.OldRobotView;
 
 public class GameScreen extends InputAdapter implements Screen {
 
@@ -27,7 +26,7 @@ public class GameScreen extends InputAdapter implements Screen {
     private OrthogonalTiledMapRenderer mapRenderer;
     private static Game game;
     private PlayerUI playerUI;
-    private RobotView[] robotViews;
+    private OldRobotView[] robotViews;
 
     private InputMultiplexer multiplexer;
 
@@ -40,15 +39,16 @@ public class GameScreen extends InputAdapter implements Screen {
 
         // setting up the game and board
         game = new Game(gameLauncher.settings());
+        robotViews = new OldRobotView[game.getGameCardController().numberOfPlayers()];
         TiledMap tiledMap = game.setUpMadLoader().getMap();
 
         // given to view to correct layer
-        Player[] players = game.players();
-        robotViews = new RobotView[players.length];
-        for (int playerNumber = 0; playerNumber < players.length; playerNumber++) {
-            robotViews[playerNumber] = players[playerNumber].robot().getViewController().getRobotView();
-            robotViews[playerNumber].setUpAtBoard((TiledMapTileLayer) tiledMap.getLayers().get("player"));
-        }
+//        Player[] players = game.players();
+//        robotViews = new RobotView[players.length];
+//        for (int playerNumber = 0; playerNumber < players.length; playerNumber++) {
+//            robotViews[playerNumber] = players[playerNumber].robot().getViewController().getRobotView();
+//            robotViews[playerNumber].setUpAtBoard((TiledMapTileLayer) tiledMap.getLayers().get("player"));
+//        }
 
 
         playerUI = new PlayerUI(game.getGameCardController());
@@ -88,16 +88,16 @@ public class GameScreen extends InputAdapter implements Screen {
         gameLauncher.batch.end();
 
         // depreciated
-//        gameLauncher.batch.begin();
-//
-//        // drawing the robots
-//        Player[] players = game.players();
-//        for (int playerNumber = 0; playerNumber < players.length; playerNumber++) {
-//            robotViews[playerNumber] = players[playerNumber].robot().getViewController().getRobotView();
-//            robotViews[playerNumber].draw(gameLauncher.batch);
-//        }
-//
-//        gameLauncher.batch.end();
+        gameLauncher.batch.begin();
+
+        // drawing the robots
+        Player[] players = game.players();
+        for (int playerNumber = 0; playerNumber < players.length; playerNumber++) {
+            robotViews[playerNumber] = players[playerNumber].robot().getViewController().getRobotView();
+            robotViews[playerNumber].draw(gameLauncher.batch);
+        }
+
+        gameLauncher.batch.end();
     }
 
     @Override

@@ -35,14 +35,40 @@ public class Robot implements IRobot {
     @Override
     public void move(int steps) {
         // uses a Runnable to execute moves in time specified increments
-        RobotStepMoveExecutor robotStepExecutor = new RobotStepMoveExecutor(this, steps);
-        robotStepExecutor.move();
-        System.out.println("Robot"+playerNumber+" position : "+pos.toString());
+//        RobotStepMoveExecutor robotStepExecutor = new RobotStepMoveExecutor(this, steps);
+//        robotStepExecutor.move();
+//        System.out.println("Robot"+playerNumber+" position : "+pos.toString());
+        switch (direction) {
+            case UP:
+                pos.setY(steps);
+                viewController.getRobotView().updateY(steps);
+                break;
+            case DOWN:
+                pos.setY(-steps);
+                viewController.getRobotView().updateY(-steps);
+                break;
+            case RIGHT:
+                pos.setX(steps);
+                viewController.getRobotView().updateX(steps);
+                break;
+            case LEFT:
+                pos.setX(-steps);
+                viewController.getRobotView().updateX(-steps);
+                break;
+            default:
+                throw new IllegalStateException("robot has direction '"+direction+"', which is supported");
+        }
 
     }
 
-    public void rotateDepreciated(Rotation rotation) {
+    @Override
+    public void rotate(Rotation rotation) {
 //        System.out.println("FROM Robot: I was told to rotate");
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         switch (rotation) {
             case LEFT:
                 direction = direction.rotateLeft();
@@ -57,11 +83,11 @@ public class Robot implements IRobot {
             default:
                 throw new IllegalArgumentException("Robot is told to rotate '"+rotation+"', which is not supported");
         }
-        viewController.updateRobotViewPosition(pos, direction);
+        viewController.getRobotView().updateDirection(rotation);
     }
 
-    @Override
-    public void rotate(Rotation rotation) {
+
+    public void rotateDepr(Rotation rotation) {
         RobotRotateMoveExecutor robotRotateExecutor = new RobotRotateMoveExecutor(this, rotation);
         robotRotateExecutor.rotate();
         System.out.println("robot's direction = "+direction);

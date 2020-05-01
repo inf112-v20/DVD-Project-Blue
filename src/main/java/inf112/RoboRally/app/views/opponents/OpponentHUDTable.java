@@ -16,12 +16,10 @@ public class OpponentHUDTable {
         opponentTable.left();
         opponentTable.setFillParent(true);
         int numberOfPlayers = gameCardController.numberOfPlayers();
-        System.out.println(numberOfPlayers);
         huds = new OpponentHUD[numberOfPlayers-1]; // -1 because human player is not opponent
         for (int playerNumber = 0; playerNumber < numberOfPlayers; playerNumber++) {
             Player player = gameCardController.getPlayer(playerNumber);
             if (!player.equals(gameCardController.humanPlayer())) {
-                System.out.println("true");
                 huds[playerNumber-1] = new OpponentHUD(player);
                 opponentTable.add(huds[playerNumber-1].opponentHudGroup());
                 opponentTable.row().padTop(ROW_PADDING);
