@@ -9,17 +9,31 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import inf112.RoboRally.app.models.cards.ICard;
 
 import static com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
 
 public class OpponentCard {
 
     final private Skin SKIN = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
+    final private String EMPTY_CARD_PATH = "EmptyCard.png";
+    final private String FACING_DOWN_CARD_PATH = "FacingDownCard.png";
+    final private String TEXTURE_PATH = "assets/Cards/Opponent/";
+    private String texturePathToCardFacingUp = TEXTURE_PATH;
+
+    private ICard card;
 
     private Group cardGroup;
     private Image cardImage;
 
-    public Group createCardGroup(int index, int priority) {
+    public OpponentCard(ICard card) {
+        this.card = card;
+        createGroup(card);
+    }
+
+    public Group createCardGroup(ICard card, int index, int priority) {
+//        this.card = card;
+//        createGroup(card);
 
         String texturePath = "assets/Cards/Opponent/";
 
@@ -59,5 +73,35 @@ public class OpponentCard {
 
         return cardGroup;
     }
+
+    public void createGroup(ICard newCard) {
+        card = newCard;
+        String texturePathToCardFacingDown = TEXTURE_PATH;
+        if (card != null) {
+            texturePathToCardFacingUp += card.getFileName();
+            texturePathToCardFacingDown += FACING_DOWN_CARD_PATH;
+        } else {
+            texturePathToCardFacingDown += EMPTY_CARD_PATH;
+        }
+
+        Texture cardTexture = new Texture(texturePathToCardFacingDown);
+        cardTexture.setFilter(Linear, Linear);
+        cardImage = new Image(cardTexture);
+        cardImage.setOrigin(cardTexture.getWidth()/2,cardTexture.getHeight()/2);
+        cardGroup = new Group();
+        cardGroup.addActor(cardImage);
+
+//        if (card != null) {
+//            Label priorityCardLabel = new Label(String.format("%04d", card.priority()), SKIN);
+//            priorityCardLabel.setFontScale(1/7.5f);
+//            priorityCardLabel.setPosition(27, 31);
+//        }
+
+    }
+
+    public Group getCardGroup() {
+        return cardGroup;
+    }
+    
 
 }

@@ -7,11 +7,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import inf112.RoboRally.app.models.cards.ICard;
 import inf112.RoboRally.app.models.game.Player;
 
 public class OpponentHUD {
 
     final private Skin SKIN = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
+
+    private final float Y_CARD_POS = 11;
+    private float xCardPos = 18;
+    private final float X_CARD_POS_INTERVAL = 70f;
 
     // game stats
     private int opponentNumber;
@@ -31,6 +36,7 @@ public class OpponentHUD {
 
     private Group card1;
     private Group card2;
+    private Group[] cardGroups;
 
     private Table opponentHudTable;
 
@@ -46,11 +52,18 @@ public class OpponentHUD {
         powerDown = new Table();
         opponentHudTable = new Table();
 
+        cardGroups = new Group[player.numberOfCardSlots()];
+        for (int i = 0; i < cardGroups.length; i++) {
+            ICard modelCard = player.getCardSlots()[i];
+            OpponentCard card = new OpponentCard(modelCard);
+            cardGroups[i] = card.getCardGroup();
+            cardGroups[i].setPosition(xCardPos + ( i * X_CARD_POS_INTERVAL ) , Y_CARD_POS );
+        }
 
-        card1 = new OpponentCard().createCardGroup(0, 9999);
-        card1.setPosition(18, 11);
-        card2 = new OpponentCard().createCardGroup(0, 9999);
-        card2.setPosition(88, 11);
+//        card1 = new OpponentCard().createCardGroup(0, 9999);
+//        card1.setPosition(18, 11);
+//        card2 = new OpponentCard().createCardGroup(0, 9999);
+//        card2.setPosition(88, 11);
     }
 
     public Group opponentHudGroup() {
@@ -59,8 +72,11 @@ public class OpponentHUD {
         opponentDashboard.addActor(lifeTokens());
         opponentDashboard.addActor(damageTokens());
         opponentDashboard.addActor(powerDown());
-        opponentDashboard.addActor(card1);
-        opponentDashboard.addActor(card2);
+//        opponentDashboard.addActor(card1);
+//        opponentDashboard.addActor(card2);
+        for (Group cardGroup: cardGroups) {
+            opponentDashboard.addActor(cardGroup);
+        }
         opponentHudTable.add(opponentDashboard);
         return opponentDashboard;
     }
