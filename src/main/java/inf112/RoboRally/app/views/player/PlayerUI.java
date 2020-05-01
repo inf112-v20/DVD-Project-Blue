@@ -51,41 +51,9 @@ public class PlayerUI extends InputAdapter {
         generateCardsTable = new Table();
 
         playerHUD = new PlayerHUD(gameCardController);
-
-
-        // opponent hud code
-
         opponentHUDTable = new OpponentHUDTable(gameCardController);
-//        opponentHudTable.left();
-//        opponentHudTable.setFillParent(true);
-//        opponentHUD = new OpponentHUD(gameCardController,2, 2, 10, true);
-//        opponentHUD2 = new OpponentHUD(gameCardController,3, 3, 1, true);
-//        opponentHUD3 = new OpponentHUD(gameCardController,4, 1, 9, false);
-//        opponentHUD4 = new OpponentHUD(gameCardController,5, 2, 5, true);
-//        opponentHUD5 = new OpponentHUD(gameCardController,6, 3, 1, false);
-//        opponentHUD6 = new OpponentHUD(gameCardController,7, 1, 9, false);
-//        opponentHUD7 = new OpponentHUD(gameCardController,8, 2, 5, true);
-//
-//        opponentHudTable.add(opponentHUD.opponentHudGroup());
-//        opponentHudTable.row().padTop(12);
-//        opponentHudTable.add(opponentHUD2.opponentHudGroup());
-//        opponentHudTable.row().padTop(12);
-//        opponentHudTable.add(opponentHUD3.opponentHudGroup());
-//        opponentHudTable.row().padTop(12);
-//        opponentHudTable.add(opponentHUD4.opponentHudGroup());
-//        opponentHudTable.row().padTop(12);
-//        opponentHudTable.add(opponentHUD5.opponentHudGroup());
-//        opponentHudTable.row().padTop(12);
-//        opponentHudTable.add(opponentHUD6.opponentHudGroup());
-//        opponentHudTable.row().padTop(12);
-//        opponentHudTable.add(opponentHUD7.opponentHudGroup());
-//        // opponent hud code
 
-        // opponent hud code
         stage.addActor(opponentHUDTable.getOpponentTable());
-        // opponent hud code
-
-
         stage.addActor(playerHUD.getPlayerHudDashBoardTable());
         stage.addActor(playerHUD.getDamageTokensTable());
         stage.addActor(playerHUD.getPowerDownTable());
