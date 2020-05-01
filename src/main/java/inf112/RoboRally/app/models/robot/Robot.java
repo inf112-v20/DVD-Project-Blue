@@ -38,22 +38,24 @@ public class Robot implements IRobot {
 //        RobotStepMoveExecutor robotStepExecutor = new RobotStepMoveExecutor(this, steps);
 //        robotStepExecutor.move();
 //        System.out.println("Robot"+playerNumber+" position : "+pos.toString());
+        System.out.println("Player"+playerNumber+" is being told to in a direction : " + steps); // getting here
+
         switch (direction) {
             case UP:
                 pos.setY(steps);
-                viewController.getRobotView().updateY(steps);
+                viewController.getRobotView().updateY(pos.getY());
                 break;
             case DOWN:
                 pos.setY(-steps);
-                viewController.getRobotView().updateY(-steps);
+                viewController.getRobotView().updateY(pos.getY());
                 break;
             case RIGHT:
                 pos.setX(steps);
-                viewController.getRobotView().updateX(steps);
+                viewController.getRobotView().updateX(pos.getX());
                 break;
             case LEFT:
                 pos.setX(-steps);
-                viewController.getRobotView().updateX(-steps);
+                viewController.getRobotView().updateX(pos.getX());
                 break;
             default:
                 throw new IllegalStateException("robot has direction '"+direction+"', which is supported");

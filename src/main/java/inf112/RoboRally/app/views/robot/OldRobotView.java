@@ -40,17 +40,13 @@ public class OldRobotView extends Sprite {
     private void update(float delta) {
 //        System.out.println(getX());
 //        System.out.println(targetX);
-        if (getX() != targetX) {
 
-            if (getX() < targetX) {
-                setX(getX() + SPRITE_MOVEMENT_SPEED * delta);
-            }
-            if (getX() > targetX) {
-                setX(getX() - SPRITE_MOVEMENT_SPEED * delta);
-            }
-
+        if (getX() < targetX) {
+            setX(getX() + SPRITE_MOVEMENT_SPEED * delta);
         }
-
+        if (getX() > targetX) {
+            setX(getX() - SPRITE_MOVEMENT_SPEED * delta);
+        }
         if (getY() < targetY) {
             setY(getY() + SPRITE_MOVEMENT_SPEED * delta);
         }
@@ -60,11 +56,12 @@ public class OldRobotView extends Sprite {
     }
 
     public void updateX(int x) {
-        targetX = getX() + ( x * X_PIXEL_POSITION_MULT );
+        targetX = ( x * X_PIXEL_POSITION_MULT );
+        System.out.println("from view - TargetX: " + targetX);
     }
 
     public void updateY(int y) {
-        targetY = getY() + ( y * Y_PIXEL_POSITION_MULT );
+        targetY = ( y * Y_PIXEL_POSITION_MULT );
     }
 
     public void updateDirection(Rotation rotation) {
