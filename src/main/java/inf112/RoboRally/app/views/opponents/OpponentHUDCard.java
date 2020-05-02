@@ -21,14 +21,14 @@ public class OpponentHUDCard {
     final private String TEXTURE_PATH = "assets/Cards/Opponent/";
     private String texturePathToCardFacingUp = TEXTURE_PATH;
 
-    private ICard card;
-
+    private ICard modelCard;
     private Group cardGroup;
     private Image cardImage;
+    private boolean cardsFacingUp;
 
-    public OpponentHUDCard(ICard card) {
-        this.card = card;
-        createGroup(card);
+    public OpponentHUDCard(ICard card, boolean cardsFacingUp) {
+        this.modelCard = card;
+        createGroup(card, cardsFacingUp);
     }
 
     public Group createCardGroup(ICard card, int index, int priority) {
@@ -74,17 +74,18 @@ public class OpponentHUDCard {
         return cardGroup;
     }
 
-    public void createGroup(ICard newCard) {
-        card = newCard;
-        String texturePathToCardFacingDown = TEXTURE_PATH;
-        if (card != null) {
-            texturePathToCardFacingUp += card.getFileName();
-            texturePathToCardFacingDown += FACING_DOWN_CARD_PATH;
+    public void createGroup(ICard newCard, boolean cardsFacingUp) {
+        modelCard = newCard;
+        String cardTexturePath = TEXTURE_PATH;
+        if (modelCard != null) {
+            texturePathToCardFacingUp += modelCard.getFileName();
+            if (cardsFacingUp) cardTexturePath = texturePathToCardFacingUp;
+            else  cardTexturePath += FACING_DOWN_CARD_PATH;
         } else {
-            texturePathToCardFacingDown += EMPTY_CARD_PATH;
+            cardTexturePath += EMPTY_CARD_PATH;
         }
 
-        Texture cardTexture = new Texture(texturePathToCardFacingDown);
+        Texture cardTexture = new Texture(cardTexturePath);
         cardTexture.setFilter(Linear, Linear);
         cardImage = new Image(cardTexture);
         cardImage.setOrigin(cardTexture.getWidth()/2,cardTexture.getHeight()/2);
@@ -104,4 +105,18 @@ public class OpponentHUDCard {
     }
 
 
+    public void faceUp() {
+        Texture cardTexture = new Texture(texturePathToCardFacingUp);
+        cardTexture.setFilter(Linear, Linear);
+        cardImage = new Image(cardTexture);
+        cardImage.setOrigin(cardTexture.getWidth()/2,cardTexture.getHeight()/2);
+        cardGroup = new Group();
+        cardGroup.addActor(cardImage);
+    }
+
+
+
+    public ICard getModelCard() {
+        return modelCard;
+    }
 }

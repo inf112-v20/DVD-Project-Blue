@@ -90,4 +90,8 @@ public class Player {
     public PlayerUI getPlayerUI() {
         return playerUI;
     }
+
+    public void updateOpponentCardSlots(boolean cardsFacingUp) {
+        playerUI.updateOpponentCardSlots(cardsFacingUp);
+    }
 }

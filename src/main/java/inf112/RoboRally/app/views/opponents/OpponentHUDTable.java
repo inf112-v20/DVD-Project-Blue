@@ -11,16 +11,16 @@ public class OpponentHUDTable {
     private Table opponentTable;
     private OpponentHUD[] huds;
 
-    public OpponentHUDTable(Player player, GameCardController gameCardController) {
+    public OpponentHUDTable(Player player, GameCardController gameCardController, boolean cardsFacingUp) {
         opponentTable = new Table();
         opponentTable.left();
         opponentTable.setFillParent(true);
         int numberOfPlayers = gameCardController.numberOfPlayers();
-        huds = new OpponentHUD[numberOfPlayers]; // -1 because human player is not opponent
+        huds = new OpponentHUD[numberOfPlayers];
         for (int playerNumber = 0; playerNumber < numberOfPlayers; playerNumber++) {
             Player opponentPlayer = gameCardController.getPlayer(playerNumber);
             if (!opponentPlayer.equals(player)) {
-                huds[playerNumber] = new OpponentHUD(opponentPlayer);
+                huds[playerNumber] = new OpponentHUD(opponentPlayer, cardsFacingUp);
                 opponentTable.add(huds[playerNumber].opponentHudGroup());
                 opponentTable.row().padTop(ROW_PADDING);
             }
@@ -32,5 +32,16 @@ public class OpponentHUDTable {
     }
 
 
-
+    public void updateOppHudTable(boolean cardsFacingUp) {
+        opponentTable = new Table();
+        opponentTable.left();
+        opponentTable.setFillParent(true);
+        for (OpponentHUD hud: huds) {
+            if (hud != null) {
+                if (cardsFacingUp) hud.updateOpponentHUDCardsFacingUp();
+//                opponentTable.add(hud.opponentHudGroup());
+//                opponentTable.row().padTop(ROW_PADDING);
+            }
+        }
+    }
 }

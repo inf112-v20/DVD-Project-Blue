@@ -14,6 +14,7 @@ public class OpponentHUD {
     final private Skin SKIN = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
 
     // game stats
+    private Player player;
     private int opponentNumber;
     private int life;
     private int hp;
@@ -33,7 +34,8 @@ public class OpponentHUD {
 
     private Table opponentHudTable;
 
-    public OpponentHUD(Player player) {
+    public OpponentHUD(Player player, boolean cardsFacingUp) {
+        this.player = player;
         opponentNumber = player.getPlayerNumber();
         life = player.robot().livesLeft();
         hp = player.robot().getHP();
@@ -44,10 +46,11 @@ public class OpponentHUD {
         damageTokens = new Table();
         powerDown = new Table();
         opponentHudTable = new Table();
-        opponentCardSlots = new OpponentCardSlots(player);
+        opponentCardSlots = new OpponentCardSlots(player, cardsFacingUp);
     }
 
     public Group opponentHudGroup() {
+
         opponentDashboard.setSize(448, 188);
         opponentDashboard.addActor(nameBackground());
         opponentDashboard.addActor(lifeTokens());
@@ -57,6 +60,8 @@ public class OpponentHUD {
             opponentDashboard.addActor(cardGroup);
         }
         opponentHudTable.add(opponentDashboard);
+
+
         return opponentDashboard;
     }
 
@@ -174,4 +179,7 @@ public class OpponentHUD {
         return powerDown;
     }
 
+    public void updateOpponentHUDCardsFacingUp() {
+        opponentCardSlots.faceCardsUp(player);
+    }
 }

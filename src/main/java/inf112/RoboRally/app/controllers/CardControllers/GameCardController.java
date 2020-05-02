@@ -58,8 +58,9 @@ public class GameCardController {
     }
 
     public void newRound() {
+        System.out.println("---------------------------------------------------------------------------");
         System.out.println("FROM GameCardController: Roger that. Telling mr. Round to start a new round");
-        game.round().dealCards();
+        game.newRound();
     }
 
 

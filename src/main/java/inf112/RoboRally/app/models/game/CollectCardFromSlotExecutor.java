@@ -44,7 +44,7 @@ public class CollectCardFromSlotExecutor {
             if (slotNumber.incrementAndGet() == NUMBER_OF_SLOTS.get())
                 scheduler.shutdown();
         };
-        scheduler.scheduleAtFixedRate(collectCards, 500, 500, TimeUnit.MILLISECONDS);
+        scheduler.scheduleAtFixedRate(collectCards, 500, 5000, TimeUnit.MILLISECONDS);
     }
 
     private void sortCardsByPriority(ArrayList<ICard> allCardsFromSlots) {

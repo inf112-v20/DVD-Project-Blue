@@ -12,23 +12,37 @@ public class OpponentCardSlots {
     private OpponentHUDCard[] slotCardViews; // not needed?
     private Group[] cardSlotGroup;
 
-    public OpponentCardSlots(Player player) {
+    public OpponentCardSlots(Player player, boolean cardsFacingUp) {
         int numberOfCardSlots = player.numberOfCardSlots();
         cardSlotGroup = new Group[numberOfCardSlots];
         slotCardViews = new OpponentHUDCard[numberOfCardSlots];
         for (int slotNumber = 0; slotNumber < numberOfCardSlots; slotNumber++) {
             ICard card = player.getCardFromSlotNumber(slotNumber);
-            OpponentHUDCard oppCard = new OpponentHUDCard(card);
+            OpponentHUDCard oppCard = new OpponentHUDCard(card, cardsFacingUp);
             formatGroupSlot(oppCard, slotNumber);
         }
     }
 
     private void formatGroupSlot(OpponentHUDCard oppCard, int slotNumber) {
+        slotCardViews[slotNumber] = oppCard;
         cardSlotGroup[slotNumber] = oppCard.getCardGroup();
         cardSlotGroup[slotNumber].setPosition( X_CARD_POS[slotNumber] , Y_CARD_POS );
     }
 
     public Group[] getCardSlotGroup() {
         return cardSlotGroup;
+    }
+
+    public void faceCardsUp(Player player) {
+        for (int slotNumber = 0; slotNumber < cardSlotGroup.length; slotNumber++) {
+            OpponentHUDCard card = slotCardViews[slotNumber];
+            ICard modelCard = player.getCardFromSlotNumber(slotNumber);
+            if (card.getModelCard() == null && modelCard != null) {
+                card = new OpponentHUDCard(modelCard, true);
+                card.faceUp();
+                formatGroupSlot(card, slotNumber);
+
+            }
+        }
     }
 }

@@ -34,11 +34,6 @@ public class Robot implements IRobot {
 
     @Override
     public void move(int steps) {
-        // uses a Runnable to execute moves in time specified increments
-//        RobotStepMoveExecutor robotStepExecutor = new RobotStepMoveExecutor(this, steps);
-//        robotStepExecutor.move();
-//        System.out.println("Robot"+playerNumber+" position : "+pos.toString());
-        System.out.println("Player"+playerNumber+" is being told to in a direction : " + steps); // getting here
 
         switch (direction) {
             case UP:

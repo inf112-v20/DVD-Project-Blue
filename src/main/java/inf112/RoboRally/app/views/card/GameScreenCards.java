@@ -162,8 +162,5 @@ public class GameScreenCards extends InputAdapter {
     }
 
 
-    public void generateNewCards() {
-
-    }
 
 }

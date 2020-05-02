@@ -29,8 +29,6 @@ public class OldRobotView extends Sprite {
     }
 
     private void update(float delta) {
-//        System.out.println(getX());
-//        System.out.println(targetX);
 
         if (getX() < targetX) {
             setX(getX() + SPRITE_MOVEMENT_SPEED * delta);
@@ -48,7 +46,6 @@ public class OldRobotView extends Sprite {
 
     public void updateX(int x) {
         targetX = ( x * TILE_WIDTH_PX);
-        System.out.println("from view - TargetX: " + targetX);
     }
 
     public void updateY(int y) {

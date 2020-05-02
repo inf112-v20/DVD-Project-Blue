@@ -33,7 +33,7 @@ public class Game {
         humanPlayer = players[humanPlayerNumberChoice];
         gameCardController = new GameCardController(this);
         round = new Round(this);
-        round.startNewRound();
+        newRound();
         for (Player player: players) {
             player.setupUI(gameCardController);
         }
@@ -68,4 +68,7 @@ public class Game {
     }
 
 
+    public void newRound() {
+        round.startNewRound();
+    }
 }
