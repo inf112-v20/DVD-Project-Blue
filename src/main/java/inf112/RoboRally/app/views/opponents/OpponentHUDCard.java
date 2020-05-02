@@ -13,7 +13,7 @@ import inf112.RoboRally.app.models.cards.ICard;
 
 import static com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
 
-public class OpponentCard {
+public class OpponentHUDCard {
 
     final private Skin SKIN = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
     final private String EMPTY_CARD_PATH = "EmptyCard.png";
@@ -26,7 +26,7 @@ public class OpponentCard {
     private Group cardGroup;
     private Image cardImage;
 
-    public OpponentCard(ICard card) {
+    public OpponentHUDCard(ICard card) {
         this.card = card;
         createGroup(card);
     }
@@ -102,6 +102,6 @@ public class OpponentCard {
     public Group getCardGroup() {
         return cardGroup;
     }
-    
+
 
 }

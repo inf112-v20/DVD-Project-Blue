@@ -23,6 +23,10 @@ public class Player {
         receivedCards[i] = card;
     }
 
+    public ICard getCardFromSlotNumber(int slotNumber) {
+        return cardSlots[slotNumber];
+    }
+
     public ICard[] getReceivedCards() {
         return receivedCards;
     }
