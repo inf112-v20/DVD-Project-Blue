@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
+import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.models.robot.Robot;
 
 public class PlayerHUD {
@@ -22,10 +23,11 @@ public class PlayerHUD {
     private PowerDown powerDown;
 
 
-    public PlayerHUD(GameCardController gameCardController) {
+    public PlayerHUD(Player player, GameCardController gameCardController) {
         PLAYER_BASE_IMAGE_TEXTURE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         playerHudTable = new Table();
-        Robot robot = gameCardController.humanPlayer().robot();
+//        Robot robot = gameCardController.humanPlayer().robot();
+        Robot robot = player.robot();
         lifeTokens = new LifeTokens(robot.livesLeft());
         powerDown = new PowerDown(robot.isPoweredDown());
         damageTokens = new DamageTokens(robot.getHP(), robot.getMAX_HP());

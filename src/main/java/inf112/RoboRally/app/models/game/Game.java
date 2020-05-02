@@ -13,6 +13,7 @@ public class Game {
     private Round round;
 
     // players
+    private int humanPlayerNumberChoice = 0; // player1 hardcoded as human player for now
     private Player[] players;
     private Player humanPlayer; // player 1 is given as human player for now
 
@@ -28,11 +29,14 @@ public class Game {
         players = new Player[settings.getPlayerCount()];
         for (int nPlayer = 0; nPlayer < settings.getPlayerCount(); nPlayer++)
             players[nPlayer] = new Player(this, nPlayer);
-        players[0].setAsHumanPlayer();
-        humanPlayer = players[0];
+        players[humanPlayerNumberChoice].setAsHumanPlayer();
+        humanPlayer = players[humanPlayerNumberChoice];
         gameCardController = new GameCardController(this);
         round = new Round(this);
         round.startNewRound();
+        for (Player player: players) {
+            player.setupUI(gameCardController);
+        }
     }
 
     public Board getBoard() {

@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 import inf112.RoboRally.app.models.cards.ICard;
+import inf112.RoboRally.app.models.game.Player;
 
 
 /*
@@ -22,7 +23,7 @@ public class GameScreenCards extends InputAdapter {
     private DragAndDrop dragAndDrop;
 
 
-    public GameScreenCards(GameCardController controller) {
+    public GameScreenCards(Player player, GameCardController controller) {
         this.gameCardController = controller;
         receivedCards = new ReceivedCards(gameCardController.getReceivedPlayerCards());
         cardSlots = new CardSlots(gameCardController.numberOfCardSlots());

@@ -1,7 +1,9 @@
 package inf112.RoboRally.app.models.game;
 
+import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 import inf112.RoboRally.app.models.cards.ICard;
 import inf112.RoboRally.app.models.robot.Robot;
+import inf112.RoboRally.app.views.player.PlayerUI;
 
 public class Player {
 
@@ -11,6 +13,8 @@ public class Player {
     private Robot robot;
     private ICard[] receivedCards = new ICard[10];
     private ICard[] cardSlots = new ICard[5];
+
+    private PlayerUI playerUI;
 
     public Player(Game game, int playerNumber) {
         this.playerNumber = playerNumber;
@@ -79,4 +83,11 @@ public class Player {
         }
     }
 
+    public void setupUI(GameCardController controller) {
+        playerUI = new PlayerUI(this, controller);
+    }
+
+    public PlayerUI getPlayerUI() {
+        return playerUI;
+    }
 }

@@ -51,7 +51,8 @@ public class GameScreen extends InputAdapter implements Screen {
 //        }
 
 
-        playerUI = new PlayerUI(game.getGameCardController());
+//        playerUI = new PlayerUI(game.getHumanPlayer(), game.getGameCardController()); // working
+        playerUI = game.getHumanPlayer().getPlayerUI();
 
         mapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1/256f);
         camera.setToOrtho(false, 26, 15);

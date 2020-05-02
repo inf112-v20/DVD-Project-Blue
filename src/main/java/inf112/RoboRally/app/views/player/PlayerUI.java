@@ -11,12 +11,14 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
 import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
+import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.views.card.GameScreenCards;
 import inf112.RoboRally.app.views.menus.Button;
-import inf112.RoboRally.app.views.opponents.OpponentHUD;
 import inf112.RoboRally.app.views.opponents.OpponentHUDTable;
 
 public class PlayerUI extends InputAdapter {
+
+    private Player player; // the player who's thus UI belongs to
 
     private Table readyButtonTable;
     private TextButton readyButton;
@@ -26,23 +28,14 @@ public class PlayerUI extends InputAdapter {
 
     private OpponentHUDTable opponentHUDTable;
 
-    // opponent hud code
-    private OpponentHUD opponentHUD;
-    private OpponentHUD opponentHUD2;
-    private OpponentHUD opponentHUD3;
-    private OpponentHUD opponentHUD4;
-    private OpponentHUD opponentHUD5;
-    private OpponentHUD opponentHUD6;
-    private OpponentHUD opponentHUD7;
-    // opponent hud code
-
     private Stage stage;
     private Viewport viewport;
     private PlayerHUD playerHUD;
     private GameScreenCards gameScreenCards;
     private GameCardController gameCardController;
 
-    public PlayerUI (GameCardController controller) {
+    public PlayerUI (Player player, GameCardController controller) {
+        this.player = player;
         this.gameCardController = controller;
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT);
         stage = new Stage(viewport);
@@ -50,8 +43,8 @@ public class PlayerUI extends InputAdapter {
         readyButtonTable = new Table();
         generateCardsTable = new Table();
 
-        playerHUD = new PlayerHUD(gameCardController);
-        opponentHUDTable = new OpponentHUDTable(gameCardController);
+        playerHUD = new PlayerHUD(player, gameCardController);
+        opponentHUDTable = new OpponentHUDTable(player, gameCardController);
 
         stage.addActor(opponentHUDTable.getOpponentTable());
         stage.addActor(playerHUD.getPlayerHudDashBoardTable());
@@ -61,7 +54,7 @@ public class PlayerUI extends InputAdapter {
         stage.addActor(readyButtonTable());
         stage.addActor(generateCardsTable());
 
-        gameScreenCards = new GameScreenCards(gameCardController);
+        gameScreenCards = new GameScreenCards(player, gameCardController);
         for (int slotNumber = 0; slotNumber < gameCardController.numberOfCardSlots(); slotNumber++)
             stage.addActor(gameScreenCards.getCardSlotTable(slotNumber));
 
@@ -114,7 +107,7 @@ public class PlayerUI extends InputAdapter {
 //                System.out.println("FROM PlayerUI: generated new cards button pressed. Passing this information along.");
                 gameScreenCards.clearCards();
                 gameCardController.newRound();
-                gameScreenCards = new GameScreenCards(gameCardController);
+                gameScreenCards = new GameScreenCards(player, gameCardController);
                 for (int slotNumber = 0; slotNumber < gameCardController.numberOfCardSlots(); slotNumber++)
                     stage.addActor(gameScreenCards.getCardSlotTable(slotNumber));
 

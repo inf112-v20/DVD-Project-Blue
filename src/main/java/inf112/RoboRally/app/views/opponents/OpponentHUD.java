@@ -128,34 +128,34 @@ public class OpponentHUD {
         damageTokens.add(new Image(emptyDamageTokenTexture)).padLeft(8);
         damageTokens.add(new Image(emptyDamageTokenTexture)).padLeft(8);
 
-        if (hp > 0) {
+        if (hp < 0) {
             damageTokens.getCells().get(9).clearActor().setActor(new Image(slightDamageTokenTexture));
         }
-        if (hp > 1) {
+        if (hp < 1) {
             damageTokens.getCells().get(8).clearActor().setActor(new Image(slightDamageTokenTexture));
         }
-        if (hp > 2) {
+        if (hp < 2) {
             damageTokens.getCells().get(7).clearActor().setActor(new Image(slightDamageTokenTexture));
         }
-        if (hp > 3) {
+        if (hp < 3) {
             damageTokens.getCells().get(6).clearActor().setActor(new Image(slightDamageTokenTexture));
         }
-        if (hp > 4) {
+        if (hp < 4) {
             damageTokens.getCells().get(5).clearActor().setActor(new Image(slightDamageTokenLockCardTexture));
         }
-        if (hp > 5) {
+        if (hp < 5) {
             damageTokens.getCells().get(4).clearActor().setActor(new Image(slightDamageTokenLockCardTexture));
         }
-        if (hp > 6) {
+        if (hp < 6) {
             damageTokens.getCells().get(3).clearActor().setActor(new Image(slightDamageTokenLockCardTexture));
         }
-        if (hp > 7) {
+        if (hp < 7) {
             damageTokens.getCells().get(2).clearActor().setActor(new Image(slightDamageTokenLockCardTexture));
         }
-        if (hp > 8) {
+        if (hp < 8) {
             damageTokens.getCells().get(1).clearActor().setActor(new Image(slightDamageTokenLockCardTexture));
         }
-        if (hp > 9) {
+        if (hp < 9) {
             damageTokens.getCells().get(0).clearActor().setActor(new Image(damageTokenRedTexture));
         }
 
