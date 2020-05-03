@@ -41,7 +41,7 @@ public class PlayerUI extends InputAdapter {
         generateCardsTable = new Table();
 
         playerHUD = new PlayerHUD(player);
-        opponentHUDTable = new OpponentHUDTable(player, cardsFacingUp); // -1 means no cards are facing up
+        opponentHUDTable = new OpponentHUDTable(player, cardsFacingUp);
 
         stage.addActor(opponentHUDTable.getOpponentTable());
         stage.addActor(playerHUD.getPlayerHudDashBoardTable());
@@ -83,7 +83,7 @@ public class PlayerUI extends InputAdapter {
 //                System.out.println("FROM PlayerUI: ready button pressed! Player is ready for some action!");
                 player.setCardSlotsFromUserInput(gameScreenCards.getCardChoices());
                 player.getGame().executeCardsChoices();
-                gameScreenCards.clearCards();
+                gameScreenCards.clearReceivedCards();
             }
         });
 
@@ -103,7 +103,7 @@ public class PlayerUI extends InputAdapter {
             public void clicked(InputEvent event, float x, float y) {
 //                System.out.println("--------------------------------------------------------------------");
 //                System.out.println("FROM PlayerUI: generated new cards button pressed. Passing this information along.");
-                gameScreenCards.clearCards();
+                gameScreenCards.clearAllCards();
                 player.getGame().newRound();
                 gameScreenCards = new GameScreenCards(player);
                 for (int slotNumber = 0; slotNumber < player.numberOfCardSlots(); slotNumber++)
@@ -116,11 +116,14 @@ public class PlayerUI extends InputAdapter {
         return generateCardsTable;
     }
 
-    public void updateOpponentCardSlots(boolean cardsFacingUp) {
+    public void updateOpponentCardSlotsCardsFacingUp() {
         opponentHUDTable = new OpponentHUDTable(player, true);
         stage.addActor(opponentHUDTable.getOpponentTable());
     }
 
 
-
+    public void updateForNewRound() {
+        opponentHUDTable = new OpponentHUDTable(player, false);
+        stage.addActor(opponentHUDTable.getOpponentTable());
+    }
 }

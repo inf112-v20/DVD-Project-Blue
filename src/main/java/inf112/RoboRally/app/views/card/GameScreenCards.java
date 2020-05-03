@@ -26,7 +26,7 @@ public class GameScreenCards extends InputAdapter {
 
     public GameScreenCards(Player player) {
         numberOfCardSlots = player.numberOfCardSlots();
-        amountOfReceivedCards = player.amountOfReceivedCards();
+        amountOfReceivedCards = player.numberOfReceivedCards();
         receivedCards = new ReceivedCards(player.getReceivedCards());
         cardSlots = new CardSlots(player.numberOfCardSlots());
         setUpCardSlotTableListener();
@@ -137,18 +137,7 @@ public class GameScreenCards extends InputAdapter {
 
 
     // For clearing cards when card execution is finished
-    public void clearCards() {
-
-        // clearing all cards that are not dropped into slots
-        Table receivedCardsTable = receivedCards.getReceivedCardsTable();
-        ICardDragAndDrop[] receivedCards = this.receivedCards.getReceivedCardViews();
-        for (int i = 0; i < amountOfReceivedCards; i++) {
-            ICardDragAndDrop receivedCard = receivedCards[i];
-            if (receivedCard.getModelCard() != null) {
-                receivedCardsTable.getCells().get(i).clearActor().setActor(receivedCard.createCardGroup(null));
-            }
-
-        }
+    public void clearCardsInSlots() {
 
         // clearing cards that are dropped into slots
         for (int slotNumber = 0; slotNumber < numberOfCardSlots; slotNumber++) {
@@ -161,6 +150,25 @@ public class GameScreenCards extends InputAdapter {
         }
 
 
+    }
+
+    public void clearReceivedCards() {
+
+        // clearing all cards that are not dropped into slots
+        Table receivedCardsTable = receivedCards.getReceivedCardsTable();
+        ICardDragAndDrop[] receivedCards = this.receivedCards.getReceivedCardViews();
+        for (int i = 0; i < amountOfReceivedCards; i++) {
+            ICardDragAndDrop receivedCard = receivedCards[i];
+            if (receivedCard.getModelCard() != null) {
+                receivedCardsTable.getCells().get(i).clearActor().setActor(receivedCard.createCardGroup(null));
+            }
+
+        }
+    }
+
+    public void clearAllCards() {
+        clearReceivedCards();
+        clearCardsInSlots();
     }
 
 

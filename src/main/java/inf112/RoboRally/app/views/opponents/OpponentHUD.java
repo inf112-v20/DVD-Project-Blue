@@ -46,8 +46,8 @@ public class OpponentHUD {
         damageTokens = new Table();
         powerDown = new Table();
         opponentHudTable = new Table();
-//        System.out.println("Getting tp OPPHUD, player"+player.getPlayerNumber());
         opponentCardSlots = new OpponentCardSlots(player, cardsFacingUp);
+
     }
 
     public Group opponentHudGroup() {

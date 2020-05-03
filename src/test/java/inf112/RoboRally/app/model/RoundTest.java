@@ -53,7 +53,7 @@ public class RoundTest {
         round.dealCards();
         for (Player player: players) {
             ICard[] receivedCards = player.getReceivedCards();
-            for (int i = 0; i < player.amountOfReceivedCards(); i++) {
+            for (int i = 0; i < player.numberOfReceivedCards(); i++) {
                 ICard card = receivedCards[i];
                 assertEquals(true, player == card.getPlayer());
                 assertEquals(false, card == null);
@@ -68,7 +68,7 @@ public class RoundTest {
         round.dealCards();
         for (Player player: players) {
             ICard[] receivedCards = player.getReceivedCards();
-            assertEquals(true,receivedCards.length != player.amountOfReceivedCards());
+            assertEquals(true,receivedCards.length != player.numberOfReceivedCards());
             for (int i = 0; i < receivedCards.length; i++) {
                 ICard card = receivedCards[i];
                 if (i < 7) {

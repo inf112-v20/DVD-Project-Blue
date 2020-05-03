@@ -24,7 +24,7 @@ public class GameCardController {
     }
 
     public int amountOfReceivedCards() {
-        return humanPlayer.amountOfReceivedCards();
+        return humanPlayer.numberOfReceivedCards();
     }
 
     public int numberOfCardSlots() {

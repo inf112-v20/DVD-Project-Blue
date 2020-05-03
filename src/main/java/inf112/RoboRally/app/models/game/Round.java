@@ -39,7 +39,7 @@ public class Round {
 //        System.out.println("FROM Round: Sure thing. Lets do it one more time.");
         removeDealtCards(); // does not do anything the first round
         for (Player player : players) {
-            for (int i = 0; i < player.amountOfReceivedCards(); i++) {
+            for (int i = 0; i < player.numberOfReceivedCards(); i++) {
                 ICard card = cardFactory.randomCard();
                 player.receiveCard(i, card);
             }
@@ -112,7 +112,7 @@ public class Round {
 
     private void updateOpponentHUDCardSlots() {
         for (Player player: players)
-            player.updateOpponentCardSlots(true);
+            player.updateOpponentCardSlotsCardsFacingUp();
     }
 
 

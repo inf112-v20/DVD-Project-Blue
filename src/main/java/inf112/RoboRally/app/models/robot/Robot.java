@@ -16,7 +16,7 @@ public class Robot implements IRobot {
     private int hp;
     private int lives;
     private boolean poweredDown;
-    private int playerNumber;
+    private int playerNumber;  // NOT NEEDED?
 
     // Controllers
     private RobotViewController viewController;

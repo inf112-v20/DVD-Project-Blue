@@ -44,7 +44,7 @@ public class Player {
         return cardSlots;
     }
 
-    public int amountOfReceivedCards() {
+    public int numberOfReceivedCards() {
         return robot.getHP();
     }
 
@@ -116,8 +116,8 @@ public class Player {
         return playerUI;
     }
 
-    public void updateOpponentCardSlots(boolean cardsFacingUp) {
-        playerUI.updateOpponentCardSlots(cardsFacingUp);
+    public void updateOpponentCardSlotsCardsFacingUp() {
+        playerUI.updateOpponentCardSlotsCardsFacingUp();
     }
 
     public int getNumberOfPlayersInGame() {
@@ -134,5 +134,19 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+
+    public void clearAllCards() {
+        for (int slotNumber = 0; slotNumber < numberOfCardSlots(); slotNumber++) {
+            cardSlots[slotNumber] = null;
+        }
+        for (int receivedCardNumber = 0; receivedCardNumber < numberOfReceivedCards(); receivedCardNumber++) {
+            receivedCards[receivedCardNumber] = null;
+        }
+
+    }
+
+    public void setupUIForNewRound() {
+        playerUI.updateForNewRound();
     }
 }

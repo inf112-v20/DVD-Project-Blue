@@ -34,12 +34,8 @@ public class Game {
         gameCardController = new GameCardController(this);
         
         round = new Round(this);
-        newRound();
+        startFirstRound();
 
-        // playerUI needs to be set up after round is started, because round deals out cards etc.
-        for (Player player: players) {
-            player.setupUI();
-        }
     }
 
     public Board getBoard() {
@@ -70,13 +66,37 @@ public class Game {
         return players[playerNumber];
     }
 
+    public void startFirstRound() {
+        round.startNewRound();
+        setupPlayerUIsNewGame();
+    }
+
 
     public void newRound() {
+        clearAllCards();
         round.startNewRound();
+        setupPlayerUIForNewRound();
+    }
+
+    private void setupPlayerUIForNewRound() {
+        for (Player player: players)
+            player.setupUIForNewRound();
+    }
+
+    private void clearAllCards() {
+        for (Player player: players) {
+            player.clearAllCards();
+        }
     }
 
     public void executeCardsChoices() {
         round.executeCardChoices();
+    }
+
+    public void setupPlayerUIsNewGame() {
+        for (Player player: players) {
+            player.setupUI();
+        }
     }
 
 
