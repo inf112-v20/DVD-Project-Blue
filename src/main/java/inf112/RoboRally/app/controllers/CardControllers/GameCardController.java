@@ -13,11 +13,13 @@ public class GameCardController {
 
     private Player humanPlayer; // our human player
     private Player[] players;
-    private Game game;
+    private static int numberOfPlayers;
+    private static Game game;
 
     public GameCardController(Game game) {
         this.game = game;
         this.players = game.players();
+        numberOfPlayers = players.length;
         this.humanPlayer = game.getHumanPlayer();
     }
 
@@ -57,7 +59,7 @@ public class GameCardController {
 
     }
 
-    public void newRound() {
+    public static void newRound() {
         System.out.println("---------------------------------------------------------------------------");
         System.out.println("FROM GameCardController: Roger that. Telling mr. Round to start a new round");
         game.newRound();
@@ -72,8 +74,8 @@ public class GameCardController {
         return players;
     }
 
-    public int numberOfPlayers() {
-        return players.length;
+    public static int numberOfPlayers() {
+        return numberOfPlayers;
     }
 
 

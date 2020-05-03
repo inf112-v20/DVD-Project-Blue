@@ -1,8 +1,8 @@
 package inf112.RoboRally.app.models.game;
 
-import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 import inf112.RoboRally.app.models.cards.ICard;
 import inf112.RoboRally.app.models.robot.Robot;
+import inf112.RoboRally.app.views.card.ICardDragAndDrop;
 import inf112.RoboRally.app.views.player.PlayerUI;
 
 public class Player {
@@ -14,10 +14,14 @@ public class Player {
     private ICard[] receivedCards = new ICard[10];
     private ICard[] cardSlots = new ICard[5];
 
+    private Game game;
     private volatile PlayerUI playerUI;
+    private int numberOfPlayersInGame;
 
     public Player(Game game, int playerNumber) {
         this.playerNumber = playerNumber;
+        this.game = game;
+        this.numberOfPlayersInGame = game.players().length;
         robot = new Robot(game, playerNumber);
         isHuman = false;
     }
@@ -83,8 +87,28 @@ public class Player {
         }
     }
 
-    public void setupUI(GameCardController controller) {
-        playerUI = new PlayerUI(this, controller);
+    public void setCardSlotsFromUserInput(ICardDragAndDrop[] cardsFromView) {
+        for (ICardDragAndDrop viewCard : cardsFromView) {
+            if (viewCard.getModelCard() != null)
+                fillPlayerCardSlot(viewCard.getModelCard());
+        }
+    }
+
+    private void fillPlayerCardSlot(ICard card) {
+
+        for (int slotNumber = 0; slotNumber < numberOfCardSlots(); slotNumber++) {
+            if (cardSlots[slotNumber] == null) {
+//                System.out.println("FROM GameCardController: found a card in the slot. I am giving it to the Player model");
+                cardSlots[slotNumber] = card;
+                break;
+            }
+
+        }
+
+    }
+
+    public void setupUI() {
+        playerUI = new PlayerUI(this);
     }
 
     public PlayerUI getPlayerUI() {
@@ -93,5 +117,17 @@ public class Player {
 
     public void updateOpponentCardSlots(int slotNumberFacingUp) {
         playerUI.updateOpponentCardSlots(slotNumberFacingUp);
+    }
+
+    public int getNumberOfPlayersInGame() {
+        return numberOfPlayersInGame;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public Player[] getAllPlayersInGame() {
+        return game.players();
     }
 }

@@ -63,7 +63,7 @@ public class CollectCardFromSlotExecutor {
             ICard[] slottedCards = player.getCardSlots();
             if (slottedCards[slotNumber] != null) {
 
-                player.updateOpponentCardSlots(slotNumber); // not working
+//                player.updateOpponentCardSlots(slotNumber); // not working
 
                 cards.add(slottedCards[slotNumber]);
                 slottedCards[slotNumber] = null;

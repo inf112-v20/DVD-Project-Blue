@@ -32,10 +32,13 @@ public class Game {
         players[humanPlayerNumberChoice].setAsHumanPlayer();
         humanPlayer = players[humanPlayerNumberChoice];
         gameCardController = new GameCardController(this);
+        
         round = new Round(this);
         newRound();
+
+        // playerUI needs to be set up after round is started, because round deals out cards etc.
         for (Player player: players) {
-            player.setupUI(gameCardController);
+            player.setupUI();
         }
     }
 
@@ -70,5 +73,9 @@ public class Game {
 
     public void newRound() {
         round.startNewRound();
+    }
+
+    public void executeCardsChoices() {
+        round.executeCardChoices();
     }
 }

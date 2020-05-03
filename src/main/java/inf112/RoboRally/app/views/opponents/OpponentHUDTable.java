@@ -1,7 +1,6 @@
 package inf112.RoboRally.app.views.opponents;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 import inf112.RoboRally.app.models.game.Player;
 
 public class OpponentHUDTable {
@@ -11,14 +10,14 @@ public class OpponentHUDTable {
     private Table opponentTable;
     private OpponentHUD[] huds;
 
-    public OpponentHUDTable(Player player, GameCardController gameCardController, int slotNumberFacingUp) {
+    public OpponentHUDTable(Player player, int slotNumberFacingUp) {
         opponentTable = new Table();
         opponentTable.left();
         opponentTable.setFillParent(true);
-        int numberOfPlayers = gameCardController.numberOfPlayers();
+        int numberOfPlayers = player.getNumberOfPlayersInGame();
         huds = new OpponentHUD[numberOfPlayers];
         for (int playerNumber = 0; playerNumber < numberOfPlayers; playerNumber++) {
-            Player opponentPlayer = gameCardController.getPlayer(playerNumber);
+            Player opponentPlayer = player.getGame().getPlayer(playerNumber);
             if (!opponentPlayer.equals(player)) {
                 if (slotNumberFacingUp != -1) System.out.println("Getting to OPPHUDTABLE, player"+player.getPlayerNumber());
                 huds[playerNumber] = new OpponentHUD(opponentPlayer, slotNumberFacingUp);
