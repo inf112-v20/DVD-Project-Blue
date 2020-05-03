@@ -40,6 +40,7 @@ public class Robot implements IRobot {
     @Override
     public void move(int steps) {
 
+        // updating steps if a wall is blocking path
         steps = boardElements.getWall().effectRobot(positionClone(), direction, steps);
 
         switch (direction) {

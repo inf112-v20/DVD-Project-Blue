@@ -7,12 +7,15 @@ import inf112.RoboRally.app.views.player.PlayerUI;
 
 public class Player {
 
+    private final int NUMBER_OF_CARDS_TO_RECEIVE = 9;
+    private final int NUMBER_OF_CARD_SLOTS = 5;
+
     private String name;
     private int playerNumber;
     private boolean isHuman;
     private Robot robot;
-    private ICard[] receivedCards = new ICard[10];
-    private ICard[] cardSlots = new ICard[5];
+    private ICard[] receivedCards = new ICard[NUMBER_OF_CARDS_TO_RECEIVE];
+    private ICard[] cardSlots = new ICard[NUMBER_OF_CARD_SLOTS];
 
     private Game game;
     private PlayerUI playerUI;
@@ -45,7 +48,7 @@ public class Player {
     }
 
     public int numberOfReceivedCards() {
-        return robot.getHP();
+        return Math.min(robot.getHP(), NUMBER_OF_CARDS_TO_RECEIVE);
     }
 
     public int numberOfCardSlots() {
