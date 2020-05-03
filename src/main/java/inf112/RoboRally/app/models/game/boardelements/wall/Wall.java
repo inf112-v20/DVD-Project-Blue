@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.models.game.boardelements;
+package inf112.RoboRally.app.models.game.boardelements.wall;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.RoboRally.app.models.robot.Direction;

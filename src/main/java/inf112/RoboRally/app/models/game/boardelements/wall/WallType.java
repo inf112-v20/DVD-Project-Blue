@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.models.game.boardelements;
+package inf112.RoboRally.app.models.game.boardelements.wall;
 
 public enum WallType {
     TOPSIDE {

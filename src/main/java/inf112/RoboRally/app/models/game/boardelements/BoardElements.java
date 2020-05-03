@@ -2,6 +2,7 @@ package inf112.RoboRally.app.models.game.boardelements;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.RoboRally.app.models.game.TiledMapLoader;
+import inf112.RoboRally.app.models.game.boardelements.wall.Wall;
 
 public class BoardElements {
 

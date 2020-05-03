@@ -86,12 +86,6 @@ public class Robot implements IRobot {
     }
 
 
-    public void rotateDepr(Rotation rotation) {
-        RobotRotateMoveExecutor robotRotateExecutor = new RobotRotateMoveExecutor(this, rotation);
-        robotRotateExecutor.rotate();
-        System.out.println("robot's direction = "+direction);
-    }
-
     public Pos position() {
         return pos;
     }
