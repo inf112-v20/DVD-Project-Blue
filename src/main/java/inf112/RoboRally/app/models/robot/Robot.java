@@ -35,10 +35,20 @@ public class Robot implements IRobot {
     @Override
     public void move(int steps) {
 
+        // ROBOT blir gitt beskjed å bevege seg steps, en funksjon som sjekker for Wall må være her, og returnere riktig antall steps
+        // kjør denne funksjonen her: checkWall(this (denne roboten), steps) (altså - ( checkWall(Robot robot, int steps) ))
+        // funksjonen vil ligne på funksjonen du screenshotet meg
+        // funksjonen vil prøve å la roboten gå  i retningen den peker
+        // F.eks hvis den peker opp og skal gå 3 steps, og møter på en vegg ved siste step:
+        // sjekk for vegg, hvis ikke gå et steg
+        // sjekk for vegg, hvis ikke gå et steg
+        // sjekk for vegg -> møter vegg: return 2 steps
+
+        // sjekker retning -> gå steps i den retningen
         switch (direction) {
             case UP:
-                pos.setY(steps);
-                viewController.getRobotView().updateY(pos.getY());
+                pos.setY(steps); // her settes endelig posisjon
+                viewController.getRobotView().updateY(pos.getY()); // den endelige posisjonen gis til robotview
                 break;
             case DOWN:
                 pos.setY(-steps);

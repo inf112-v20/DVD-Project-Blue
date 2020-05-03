@@ -12,13 +12,18 @@ public class OpponentCardSlots {
     private OpponentHUDCard[] slotCardViews; // not needed?
     private Group[] cardSlotGroup;
 
-    public OpponentCardSlots(Player player, boolean cardsFacingUp) {
+    public OpponentCardSlots(Player player, int slotNumberFacingUp) {
         int numberOfCardSlots = player.numberOfCardSlots();
         cardSlotGroup = new Group[numberOfCardSlots];
         slotCardViews = new OpponentHUDCard[numberOfCardSlots];
         for (int slotNumber = 0; slotNumber < numberOfCardSlots; slotNumber++) {
             ICard card = player.getCardFromSlotNumber(slotNumber);
-            OpponentHUDCard oppCard = new OpponentHUDCard(card, cardsFacingUp);
+            OpponentHUDCard oppCard;
+            if (slotNumber == slotNumberFacingUp) {
+                oppCard = new OpponentHUDCard(card, true);
+            } else {
+                oppCard = new OpponentHUDCard(card, false);
+            }
             formatGroupSlot(oppCard, slotNumber);
         }
     }

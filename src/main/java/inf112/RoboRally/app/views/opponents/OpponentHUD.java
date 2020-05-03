@@ -34,7 +34,7 @@ public class OpponentHUD {
 
     private Table opponentHudTable;
 
-    public OpponentHUD(Player player, boolean cardsFacingUp) {
+    public OpponentHUD(Player player, int slotNumberFacingUp) {
         this.player = player;
         opponentNumber = player.getPlayerNumber();
         life = player.robot().livesLeft();
@@ -46,7 +46,8 @@ public class OpponentHUD {
         damageTokens = new Table();
         powerDown = new Table();
         opponentHudTable = new Table();
-        opponentCardSlots = new OpponentCardSlots(player, cardsFacingUp);
+//        System.out.println("Getting tp OPPHUD, player"+player.getPlayerNumber());
+        opponentCardSlots = new OpponentCardSlots(player, slotNumberFacingUp);
     }
 
     public Group opponentHudGroup() {

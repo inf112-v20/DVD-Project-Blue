@@ -14,7 +14,7 @@ public class Player {
     private ICard[] receivedCards = new ICard[10];
     private ICard[] cardSlots = new ICard[5];
 
-    private PlayerUI playerUI;
+    private volatile PlayerUI playerUI;
 
     public Player(Game game, int playerNumber) {
         this.playerNumber = playerNumber;
@@ -91,7 +91,7 @@ public class Player {
         return playerUI;
     }
 
-    public void updateOpponentCardSlots(boolean cardsFacingUp) {
-        playerUI.updateOpponentCardSlots(cardsFacingUp);
+    public void updateOpponentCardSlots(int slotNumberFacingUp) {
+        playerUI.updateOpponentCardSlots(slotNumberFacingUp);
     }
 }

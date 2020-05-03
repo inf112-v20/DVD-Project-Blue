@@ -11,7 +11,7 @@ public class OpponentHUDTable {
     private Table opponentTable;
     private OpponentHUD[] huds;
 
-    public OpponentHUDTable(Player player, GameCardController gameCardController, boolean cardsFacingUp) {
+    public OpponentHUDTable(Player player, GameCardController gameCardController, int slotNumberFacingUp) {
         opponentTable = new Table();
         opponentTable.left();
         opponentTable.setFillParent(true);
@@ -20,7 +20,9 @@ public class OpponentHUDTable {
         for (int playerNumber = 0; playerNumber < numberOfPlayers; playerNumber++) {
             Player opponentPlayer = gameCardController.getPlayer(playerNumber);
             if (!opponentPlayer.equals(player)) {
-                huds[playerNumber] = new OpponentHUD(opponentPlayer, cardsFacingUp);
+                if (slotNumberFacingUp != -1) System.out.println("Getting to OPPHUDTABLE, player"+player.getPlayerNumber());
+                huds[playerNumber] = new OpponentHUD(opponentPlayer, slotNumberFacingUp);
+                System.out.println(huds[playerNumber] == null);
                 opponentTable.add(huds[playerNumber].opponentHudGroup());
                 opponentTable.row().padTop(ROW_PADDING);
             }

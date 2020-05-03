@@ -112,20 +112,15 @@ public class Round {
     }
 
     public void executeCardChoices() {
-        updateOpponentHUDCardSlots();
-        showOpponentHUDCardSlots();
+//        updateOpponentHUDCardSlots();
         CollectCardFromSlotExecutor cardChoiceExecutor = new CollectCardFromSlotExecutor(players);
         cardChoiceExecutor.CardChoiceRoundExecutor();
     }
 
-    private void showOpponentHUDCardSlots() {
-
-    }
 
     private void updateOpponentHUDCardSlots() {
-        boolean cardsFacingUp = true;
         for (Player player: players)
-            player.updateOpponentCardSlots(cardsFacingUp);
+            player.updateOpponentCardSlots(0);
     }
 
 

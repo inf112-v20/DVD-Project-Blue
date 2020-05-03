@@ -23,9 +23,12 @@ public class CollectCardFromSlotExecutor {
         NUMBER_OF_SLOTS = new AtomicInteger(players[0].numberOfCardSlots());
     }
 
+
     public void CardChoiceRoundExecutor() {
         Runnable collectCards = () -> {
+
             CountDownLatch countDownLatch = new CountDownLatch(1);
+
             ArrayList<ICard> cards = collectCardsFromSlotNumber(slotNumber.get());
 
             if (cards == null)
@@ -47,21 +50,30 @@ public class CollectCardFromSlotExecutor {
         scheduler.scheduleAtFixedRate(collectCards, 500, 5000, TimeUnit.MILLISECONDS);
     }
 
+
     private void sortCardsByPriority(ArrayList<ICard> allCardsFromSlots) {
         Collections.sort(allCardsFromSlots, new SortCardByPriority());
     }
 
+
     private ArrayList<ICard> collectCardsFromSlotNumber(int slotNumber) {
         ArrayList<ICard> cards = new ArrayList<>();
         for (Player player: players) {
+
             ICard[] slottedCards = player.getCardSlots();
             if (slottedCards[slotNumber] != null) {
+
+                player.updateOpponentCardSlots(slotNumber); // not working
+
                 cards.add(slottedCards[slotNumber]);
                 slottedCards[slotNumber] = null;
+
             }
         }
         if (cards.isEmpty()) return null; // no more card choices left to execute
         return cards;
     }
+
+
 
 }

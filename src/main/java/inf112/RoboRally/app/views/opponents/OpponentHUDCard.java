@@ -26,9 +26,9 @@ public class OpponentHUDCard {
     private Image cardImage;
     private boolean cardsFacingUp;
 
-    public OpponentHUDCard(ICard card, boolean cardsFacingUp) {
+    public OpponentHUDCard(ICard card, boolean cardFacingUp) {
         this.modelCard = card;
-        createGroup(card, cardsFacingUp);
+        createGroup(card, cardFacingUp);
     }
 
     public Group createCardGroup(ICard card, int index, int priority) {
