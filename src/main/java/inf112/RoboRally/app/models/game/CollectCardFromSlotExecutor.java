@@ -16,11 +16,10 @@ public class CollectCardFromSlotExecutor {
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private Player[] players;
     private AtomicInteger slotNumber = new AtomicInteger(0);
-    private final AtomicInteger NUMBER_OF_SLOTS;
+    private final int NUMBER_OF_SLOTS = 5;
 
     public CollectCardFromSlotExecutor(Player[] players) {
         this.players = players;
-        NUMBER_OF_SLOTS = new AtomicInteger(players[0].numberOfCardSlots());
     }
 
 
@@ -35,6 +34,7 @@ public class CollectCardFromSlotExecutor {
                 scheduler.shutdown(); // no more cards in slots
 
             sortCardsByPriority(cards);
+
             CardMoveExecutor cardExecutor = new CardMoveExecutor(cards, countDownLatch);
             cardExecutor.executeCards();
             System.out.println("--------------- " + (slotNumber.get() + 1) + " slot performing ------------------");
@@ -44,7 +44,7 @@ public class CollectCardFromSlotExecutor {
                 e.printStackTrace();
             }
 
-            if (slotNumber.incrementAndGet() == NUMBER_OF_SLOTS.get())
+            if (slotNumber.incrementAndGet() == NUMBER_OF_SLOTS)
                 scheduler.shutdown();
         };
         scheduler.scheduleAtFixedRate(collectCards, 500, 5000, TimeUnit.MILLISECONDS);
@@ -62,8 +62,6 @@ public class CollectCardFromSlotExecutor {
 
             ICard[] slottedCards = player.getCardSlots();
             if (slottedCards[slotNumber] != null) {
-
-//                player.updateOpponentCardSlots(slotNumber); // not working
 
                 cards.add(slottedCards[slotNumber]);
                 slottedCards[slotNumber] = null;

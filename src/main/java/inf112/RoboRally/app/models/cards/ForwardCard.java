@@ -1,7 +1,6 @@
 package inf112.RoboRally.app.models.cards;
 
 import inf112.RoboRally.app.models.game.Player;
-import inf112.RoboRally.app.models.robot.Robot;
 
 /*
 Card to move robot forward.
@@ -31,9 +30,9 @@ public class ForwardCard implements ICard {
     }
 
     @Override
-    public void moveRobot(Robot robot) {
+    public void moveRobot() {
 //        System.out.println("FROM ForwardCard: I am moving the robot");
-        robot.move(STEPS_TO_MOVE);
+        player.robot().move(STEPS_TO_MOVE);
     }
 
 

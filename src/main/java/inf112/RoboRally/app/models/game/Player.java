@@ -15,11 +15,12 @@ public class Player {
     private ICard[] cardSlots = new ICard[5];
 
     private Game game;
-    private volatile PlayerUI playerUI;
+    private PlayerUI playerUI;
     private int numberOfPlayersInGame;
 
     public Player(Game game, int playerNumber) {
         this.playerNumber = playerNumber;
+        name = "PLAYER" + (playerNumber+1);
         this.game = game;
         this.numberOfPlayersInGame = game.players().length;
         robot = new Robot(game, playerNumber);
@@ -108,15 +109,15 @@ public class Player {
     }
 
     public void setupUI() {
-        playerUI = new PlayerUI(this);
+        playerUI = new PlayerUI(this, false);
     }
 
     public PlayerUI getPlayerUI() {
         return playerUI;
     }
 
-    public void updateOpponentCardSlots(int slotNumberFacingUp) {
-        playerUI.updateOpponentCardSlots(slotNumberFacingUp);
+    public void updateOpponentCardSlots(boolean cardsFacingUp) {
+        playerUI.updateOpponentCardSlots(cardsFacingUp);
     }
 
     public int getNumberOfPlayersInGame() {
@@ -129,5 +130,9 @@ public class Player {
 
     public Player[] getAllPlayersInGame() {
         return game.players();
+    }
+
+    public String getName() {
+        return name;
     }
 }

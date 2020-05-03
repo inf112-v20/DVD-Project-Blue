@@ -1,7 +1,6 @@
 package inf112.RoboRally.app.models.cards;
 
 import inf112.RoboRally.app.models.game.Player;
-import inf112.RoboRally.app.models.robot.Robot;
 
 /*
 Card to do all rotations of robots: right, left and right two times (u-turn).
@@ -28,9 +27,9 @@ public class RotateCard implements ICard {
     }
 
     @Override
-    public void moveRobot(Robot robot) {
+    public void moveRobot() {
 //        System.out.println("FROM RotateCard: I am moving the robot");
-        robot.rotate(ROTATION);
+        player.robot().rotate(ROTATION);
     }
 
 

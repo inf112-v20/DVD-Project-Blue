@@ -24,7 +24,6 @@ public class OpponentHUDCard {
     private ICard modelCard;
     private Group cardGroup;
     private Image cardImage;
-    private boolean cardsFacingUp;
 
     public OpponentHUDCard(ICard card, boolean cardFacingUp) {
         this.modelCard = card;
@@ -57,29 +56,17 @@ public class OpponentHUDCard {
         cardGroup.addActor(cardImage);
         cardGroup.addActor(priorityCardLabel);
 
-        // listener for making the card bigger when the card is in a card slot
-        cardGroup.addListener(new ClickListener() {
-            @Override
-            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                cardGroup.setOriginX(cardImage.getWidth()/2);
-                cardGroup.setScale(2.2f);
-            }
-            @Override
-            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                cardGroup.setScale(1f);
-            }
-        });
 
 
         return cardGroup;
     }
 
-    public void createGroup(ICard newCard, boolean cardsFacingUp) {
+    public void createGroup(ICard newCard, boolean cardFacingUp) {
         modelCard = newCard;
         String cardTexturePath = TEXTURE_PATH;
         if (modelCard != null) {
             texturePathToCardFacingUp += modelCard.getFileName();
-            if (cardsFacingUp) cardTexturePath = texturePathToCardFacingUp;
+            if (cardFacingUp) cardTexturePath = texturePathToCardFacingUp;
             else  cardTexturePath += FACING_DOWN_CARD_PATH;
         } else {
             cardTexturePath += EMPTY_CARD_PATH;
@@ -92,26 +79,33 @@ public class OpponentHUDCard {
         cardGroup = new Group();
         cardGroup.addActor(cardImage);
 
-//        if (card != null) {
-//            Label priorityCardLabel = new Label(String.format("%04d", card.priority()), SKIN);
-//            priorityCardLabel.setFontScale(1/7.5f);
-//            priorityCardLabel.setPosition(27, 31);
-//        }
+        if (newCard != null && cardFacingUp) {
+            Label priorityCardLabel = new Label(String.format("%04d", newCard.priority()), SKIN);
+            priorityCardLabel.setFontScale(1/7.5f);
+            priorityCardLabel.setPosition(27, 31);
+            cardGroup.addActor(priorityCardLabel);
+        }
 
+        setupListener();
+
+    }
+
+    private void setupListener() {
+        cardGroup.addListener(new ClickListener() {
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                cardGroup.setOriginX(cardImage.getWidth()/2);
+                cardGroup.setScale(3.2f);
+            }
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                cardGroup.setScale(1f);
+            }
+        });
     }
 
     public Group getCardGroup() {
         return cardGroup;
-    }
-
-
-    public void faceUp() {
-        Texture cardTexture = new Texture(texturePathToCardFacingUp);
-        cardTexture.setFilter(Linear, Linear);
-        cardImage = new Image(cardTexture);
-        cardImage.setOrigin(cardTexture.getWidth()/2,cardTexture.getHeight()/2);
-        cardGroup = new Group();
-        cardGroup.addActor(cardImage);
     }
 
 

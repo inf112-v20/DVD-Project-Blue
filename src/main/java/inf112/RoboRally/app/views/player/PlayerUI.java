@@ -32,7 +32,7 @@ public class PlayerUI extends InputAdapter {
     private PlayerHUD playerHUD;
     private GameScreenCards gameScreenCards;
 
-    public PlayerUI (Player player) {
+    public PlayerUI (Player player, boolean cardsFacingUp) {
         this.player = player;
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT);
         stage = new Stage(viewport);
@@ -41,7 +41,7 @@ public class PlayerUI extends InputAdapter {
         generateCardsTable = new Table();
 
         playerHUD = new PlayerHUD(player);
-        opponentHUDTable = new OpponentHUDTable(player, -1); // -1 means no cards are facing up
+        opponentHUDTable = new OpponentHUDTable(player, cardsFacingUp); // -1 means no cards are facing up
 
         stage.addActor(opponentHUDTable.getOpponentTable());
         stage.addActor(playerHUD.getPlayerHudDashBoardTable());
@@ -116,19 +116,11 @@ public class PlayerUI extends InputAdapter {
         return generateCardsTable;
     }
 
-
-    public void updateOpponentCardSlots(int slotNumberFacingUp) {
-        synchronized (this) {
-            System.out.println("getting here, Player"+player.getPlayerNumber());
-            System.out.println("slotNumberFacingUp : " + slotNumberFacingUp);
-            opponentHUDTable = new OpponentHUDTable(player, slotNumberFacingUp);
-            stage.addActor(opponentHUDTable.getOpponentTable());
-        }
-//        System.out.println("getting here, Player"+player.getPlayerNumber());
-//        System.out.println("slotNumberFacingUp : " + slotNumberFacingUp);
-//        opponentHUDTable = new OpponentHUDTable(player, gameCardController, slotNumberFacingUp);
-//        stage.addActor(opponentHUDTable.getOpponentTable());
+    public void updateOpponentCardSlots(boolean cardsFacingUp) {
+        opponentHUDTable = new OpponentHUDTable(player, true);
+        stage.addActor(opponentHUDTable.getOpponentTable());
     }
+
 
 
 }

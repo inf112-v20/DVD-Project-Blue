@@ -34,7 +34,7 @@ public class OpponentHUD {
 
     private Table opponentHudTable;
 
-    public OpponentHUD(Player player, int slotNumberFacingUp) {
+    public OpponentHUD(Player player, boolean cardsFacingUp) {
         this.player = player;
         opponentNumber = player.getPlayerNumber();
         life = player.robot().livesLeft();
@@ -47,7 +47,7 @@ public class OpponentHUD {
         powerDown = new Table();
         opponentHudTable = new Table();
 //        System.out.println("Getting tp OPPHUD, player"+player.getPlayerNumber());
-        opponentCardSlots = new OpponentCardSlots(player, slotNumberFacingUp);
+        opponentCardSlots = new OpponentCardSlots(player, cardsFacingUp);
     }
 
     public Group opponentHudGroup() {
@@ -72,7 +72,7 @@ public class OpponentHUD {
         Texture txt = new Texture("assets/OpponentHud/OpponentHUD.png");
         txt.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        Label names = new Label("PLAYER " + (opponentNumber+1), SKIN);
+        Label names = new Label(player.getName(), SKIN);
         names.setFontScale(1/2.3f);
         names.setPosition(165, 128);
 
@@ -180,7 +180,7 @@ public class OpponentHUD {
         return powerDown;
     }
 
-    public void updateOpponentHUDCardsFacingUp() {
-        opponentCardSlots.faceCardsUp(player);
-    }
+
+
+
 }

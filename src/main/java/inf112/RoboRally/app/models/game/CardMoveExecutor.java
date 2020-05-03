@@ -25,13 +25,13 @@ public class CardMoveExecutor {
         final Runnable cardExec = () -> {
             ICard card = cards.get(iterator.get());
             System.out.println("player" + card.getPlayer().getPlayerNumber() + " is moving with priority : " + card.priority()+" , "+card.getFileName());
-            card.moveRobot(card.getPlayer().robot());
+            card.moveRobot();
             if (iterator.incrementAndGet() == cards.size()) {
                 countDownLatch.countDown();
                 scheduler.shutdown();
             }
         };
-        scheduler.scheduleAtFixedRate(cardExec, 0, 3, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(cardExec, 0, 3000, TimeUnit.MILLISECONDS);
     }
 
 

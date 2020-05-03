@@ -54,7 +54,7 @@ public class Round {
             ICard card = cardChoices[slotNumber];
             if (card == null) break;    // means no cards are left to execute
 //            System.out.println("FROM Round: I am moving the robot with a slotted card");
-            card.moveRobot(humanPlayer.robot());
+//            card.moveRobot(humanPlayer.robot());
             cardChoices[slotNumber] = null;   // card is executed, remove it from the slot
         }
         removeDealtCards();
@@ -97,30 +97,22 @@ public class Round {
         return cards;
     }
 
-    private ArrayList<ICard> sortCardsByPriority(ArrayList<ICard> allCardsFromSlots) {
+    private void sortCardsByPriority(ArrayList<ICard> allCardsFromSlots) {
         Collections.sort(allCardsFromSlots, new SortCardByPriority());
-        return allCardsFromSlots;
     }
 
-    public void executeCardChoicesDepriecated() {
-        for (int slotNumber = 0; slotNumber < CARD_SLOT_AMOUNT; slotNumber++) {
-            ArrayList<ICard> cards = sortCardsByPriority(collectCardsFromSlotNumber(slotNumber));
-//            CardMoveExecutor cardExecutor = new CardMoveExecutor(cards);
-//            cardExecutor.executeCards();
-        }
-
-    }
 
     public void executeCardChoices() {
-//        updateOpponentHUDCardSlots();
+        updateOpponentHUDCardSlots(); // flipping all cards to face up
         CollectCardFromSlotExecutor cardChoiceExecutor = new CollectCardFromSlotExecutor(players);
         cardChoiceExecutor.CardChoiceRoundExecutor();
     }
 
 
+
     private void updateOpponentHUDCardSlots() {
         for (Player player: players)
-            player.updateOpponentCardSlots(0);
+            player.updateOpponentCardSlots(true);
     }
 
 
