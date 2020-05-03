@@ -4,7 +4,7 @@ import java.util.Random;
 /*
 Class that randomly creates cards. The probability is equal for all types of cards in the game.
 The following cards are created: three steps forward, two steps forward, one step forward,
-reverse, rotate right, rotate left, uturn.
+reverse, rotate right, rotate left, u-turn.
 Each cards priority is generated randomly.
  */
 public class CardFactory {

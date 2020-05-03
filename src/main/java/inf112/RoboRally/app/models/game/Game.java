@@ -3,6 +3,7 @@ package inf112.RoboRally.app.models.game;
 import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 import inf112.RoboRally.app.controllers.MapChoiceControllers.SinglePlayerSettingsController;
 import inf112.RoboRally.app.models.board.Board;
+import inf112.RoboRally.app.models.game.boardelements.BoardElements;
 
 public class Game {
 
@@ -23,9 +24,13 @@ public class Game {
     //MapLoader
     private TiledMapLoader tiledMapLoader;
 
+    // Elements on the board
+    private BoardElements boardElements;
+
     public Game(SinglePlayerSettingsController settings) {
         board = settings.getMap();
         tiledMapLoader = new TiledMapLoader(board.tiledMapFile());
+        boardElements = new BoardElements(tiledMapLoader);
         players = new Player[settings.getPlayerCount()];
         for (int nPlayer = 0; nPlayer < settings.getPlayerCount(); nPlayer++)
             players[nPlayer] = new Player(this, nPlayer);
@@ -99,6 +104,7 @@ public class Game {
         }
     }
 
-
-
+    public BoardElements getBoardElements() {
+        return boardElements;
+    }
 }

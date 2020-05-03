@@ -3,6 +3,7 @@ package inf112.RoboRally.app.models.robot;
 import inf112.RoboRally.app.controllers.RobotViewController;
 import inf112.RoboRally.app.models.cards.Rotation;
 import inf112.RoboRally.app.models.game.Game;
+import inf112.RoboRally.app.models.game.boardelements.BoardElements;
 
 public class Robot implements IRobot {
 
@@ -21,6 +22,9 @@ public class Robot implements IRobot {
     // Controllers
     private RobotViewController viewController;
 
+    // Board elements for robot interaction
+    private BoardElements boardElements;
+
     public Robot(Game game, int playerNumber) {
         hp = MAX_HP;
         lives = STARTING_LIVES;
@@ -29,22 +33,15 @@ public class Robot implements IRobot {
         pos = game.getBoard().getRobotStartingPos(playerNumber);
         direction = game.getBoard().getRobotStartingDirection(playerNumber);
         viewController = new RobotViewController(playerNumber, pos, direction);
+        boardElements = game.getBoardElements();
     }
 
 
     @Override
     public void move(int steps) {
 
-        // ROBOT blir gitt beskjed å bevege seg steps, en funksjon som sjekker for Wall må være her, og returnere riktig antall steps
-        // kjør denne funksjonen her: checkWall(this (denne roboten), steps) (altså - ( checkWall(Robot robot, int steps) ))
-        // funksjonen vil ligne på funksjonen du screenshotet meg
-        // funksjonen vil prøve å la roboten gå  i retningen den peker
-        // F.eks hvis den peker opp og skal gå 3 steps, og møter på en vegg ved siste step:
-        // sjekk for vegg, hvis ikke gå et steg
-        // sjekk for vegg, hvis ikke gå et steg
-        // sjekk for vegg -> møter vegg: return 2 steps
+        steps = boardElements.getWall().effectRobot(positionClone(), direction, steps);
 
-        // sjekker retning -> gå steps i den retningen
         switch (direction) {
             case UP:
                 pos.setY(steps); // her settes endelig posisjon
@@ -70,12 +67,7 @@ public class Robot implements IRobot {
 
     @Override
     public void rotate(Rotation rotation) {
-//        System.out.println("FROM Robot: I was told to rotate");
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+
         switch (rotation) {
             case LEFT:
                 direction = direction.rotateLeft();
@@ -139,4 +131,10 @@ public class Robot implements IRobot {
     public RobotViewController getViewController() {
         return viewController;
     }
+
+    public Pos positionClone() {
+        return new Pos(pos.getX(), pos.getY());
+    }
+
+
 }
