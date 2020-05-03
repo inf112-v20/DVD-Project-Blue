@@ -27,6 +27,18 @@ public class ServerHandler implements Runnable {
                 serverResponse = in.readLine();
                 if (serverResponse == null) break;
                 System.out.println("Response: " + serverResponse);
+
+
+
+
+                // Handle responses from the Server
+                // E.G., (uses methods from the Client class)
+                if (serverResponse.equals("test")) {
+                    System.out.println("test");
+                    Client.test();
+                }
+
+
             }
         } catch (IOException e) {
             e.printStackTrace();

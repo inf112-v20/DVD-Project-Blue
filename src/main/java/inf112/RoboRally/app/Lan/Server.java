@@ -1,5 +1,7 @@
 package inf112.RoboRally.app.Lan;
 
+import inf112.RoboRally.app.models.robot.Robot;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -51,8 +53,17 @@ public class Server {
         } finally {
             lock.unlock();
         }
+
+    }
+    public static String responseTest() {
+        return "test";
     }
 
+    public static int updateALL() {
+
+
+        return 1;
+    }
 
 
 

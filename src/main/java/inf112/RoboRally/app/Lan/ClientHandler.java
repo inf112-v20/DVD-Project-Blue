@@ -63,10 +63,13 @@ public class ClientHandler implements Runnable {
                 /*
                 respond HP...
                  */
-                } else if (request.startsWith("getHP")){
+                } else if (request.startsWith("getHP")) {
 
                     send(message);
                     //out.println(message);
+
+                } else if (request.startsWith("test")) {
+                out.println(Server.responseTest());
 
 
 
