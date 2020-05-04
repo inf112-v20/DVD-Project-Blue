@@ -9,8 +9,11 @@ import inf112.RoboRally.app.models.robot.Robot;
 public class TwoFourPusher implements IElement {
 
     private TiledMapTileLayer layer;
+    public final boolean ACTIVE;
 
     public TwoFourPusher(TiledMapTileLayer layer) {
+        if (layer != null) ACTIVE = true;
+        else               ACTIVE = false;
         this.layer = layer;
     }
 
@@ -36,6 +39,7 @@ public class TwoFourPusher implements IElement {
     @Override
     public boolean inEffectForSlotNumber(int slotNumber) {
         slotNumber++;
-        return slotNumber == 2 || slotNumber == 4;
+        return (ACTIVE && ( slotNumber == 2 || slotNumber == 4 ) );
     }
+
 }

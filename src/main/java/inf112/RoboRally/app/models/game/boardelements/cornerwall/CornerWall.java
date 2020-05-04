@@ -6,14 +6,16 @@ import inf112.RoboRally.app.models.robot.Pos;
 
 public class CornerWall {
 
-    TiledMapTileLayer layer;
+    private TiledMapTileLayer layer;
+    public final boolean ACTIVE;
 
     public CornerWall(TiledMapTileLayer layer) {
+        if (layer != null) ACTIVE = true;
+        else               ACTIVE = false;
         this.layer = layer;
     }
 
     public int effectRobot(Pos pos, Direction direction, int steps) {
-
         if (steps == -1) {
             return checkForCornerWallsMovingBack(pos, direction, steps);
         }

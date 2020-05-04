@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.models.game;
+package inf112.RoboRally.app.models.game.executors;
 
 import inf112.RoboRally.app.models.cards.ICard;
 

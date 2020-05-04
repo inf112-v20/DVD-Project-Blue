@@ -43,9 +43,12 @@ public class Robot implements IRobot {
     public void move(int steps) {
 
         // updating steps in accordance with board element potentially blocking path
-        steps = boardElements.getWall().effectRobot(positionClone(), direction, steps);
-        steps = boardElements.getCornerWall().effectRobot(positionClone(), direction, steps);
-        steps = boardElements.getHole().effectRobot(positionClone(), direction, steps);
+        if (boardElements.getWall().ACTIVE)
+            steps = boardElements.getWall().effectRobot(positionClone(), direction, steps);
+        if (boardElements.getCornerWall().ACTIVE)
+            steps = boardElements.getCornerWall().effectRobot(positionClone(), direction, steps);
+        if (boardElements.getHole().ACTIVE)
+            steps = boardElements.getHole().effectRobot(positionClone(), direction, steps);
 
         switch (direction) {
             case UP:

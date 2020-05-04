@@ -3,6 +3,7 @@ package inf112.RoboRally.app.models.game;
 import inf112.RoboRally.app.models.cards.CardFactory;
 import inf112.RoboRally.app.models.cards.ICard;
 import inf112.RoboRally.app.models.game.boardelements.IElement;
+import inf112.RoboRally.app.models.game.executors.CollectCardFromSlotExecutor;
 
 import java.util.ArrayList;
 

@@ -7,8 +7,11 @@ import inf112.RoboRally.app.models.robot.Pos;
 public class Hole {
 
     private TiledMapTileLayer layer;
+    public final boolean ACTIVE;
 
     public Hole(TiledMapTileLayer tiledMapTileLayer) {
+        if (tiledMapTileLayer != null) ACTIVE = true;
+        else                           ACTIVE = false;
         layer = tiledMapTileLayer;
     }
 

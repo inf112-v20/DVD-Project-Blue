@@ -7,8 +7,11 @@ import inf112.RoboRally.app.models.robot.Pos;
 public class Wall {
 
     private TiledMapTileLayer layer;
+    public final boolean ACTIVE;
 
     public Wall(TiledMapTileLayer wallLayer) {
+        if (wallLayer != null) ACTIVE = true;
+        else                   ACTIVE = false;
         layer = wallLayer;
     }
 
@@ -83,6 +86,7 @@ public class Wall {
 
         for (int step = 1; step <= steps; step++) {
             pos.setX(1);
+            System.out.println("getting here, step = " + step);
             if (checkForWall(pos.getX(), y, WallType.RIGHTSIDE)) return step;
             else if (checkForWall(pos.getX() + 1, y , WallType.LEFTSIDE)) return step;
         }

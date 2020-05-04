@@ -1,5 +1,6 @@
-package inf112.RoboRally.app.models.game;
+package inf112.RoboRally.app.models.game.executors;
 
+import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.models.game.boardelements.IElement;
 
 import java.util.concurrent.CountDownLatch;
@@ -38,7 +39,7 @@ public class BoardElementExecutor {
                 scheduler.shutdown();
             }
         };
-        scheduler.scheduleAtFixedRate(boardExec, 1000, 3000, TimeUnit.MILLISECONDS);
+        scheduler.scheduleAtFixedRate(boardExec, 1000, 1000, TimeUnit.MILLISECONDS);
     }
 
 }
