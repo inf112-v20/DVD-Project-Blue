@@ -18,7 +18,7 @@ public class OpponentHUDCard {
     final private Skin SKIN = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
     final private String EMPTY_CARD_PATH = "EmptyCard.png";
     final private String FACING_DOWN_CARD_PATH = "FacingDownCard.png";
-    final private String TEXTURE_PATH = "assets/Cards/Opponent/";
+    final private String TEXTURE_PATH = "assets/Cards/SMALL/";
     private String texturePathToCardFacingUp = TEXTURE_PATH;
 
     private ICard modelCard;
@@ -28,37 +28,6 @@ public class OpponentHUDCard {
     public OpponentHUDCard(ICard card, boolean cardFacingUp) {
         this.modelCard = card;
         createGroup(card, cardFacingUp);
-    }
-
-    public Group createCardGroup(ICard card, int index, int priority) {
-//        this.card = card;
-//        createGroup(card);
-
-        String texturePath = "assets/Cards/Opponent/";
-
-        if (index == 0) {
-            texturePath += "Move1.png";
-        } else if (index == 1) {
-            texturePath += "Move2.png";
-        }
-
-
-        Texture cardTexture = new Texture(texturePath);
-        cardTexture.setFilter(Linear, Linear);
-        cardImage = new Image(cardTexture);
-        cardImage.setOrigin(cardTexture.getWidth()/2,cardTexture.getHeight()/2);
-
-        Label priorityCardLabel = new Label(String.format("%04d", priority), SKIN);
-        priorityCardLabel.setFontScale(1/7.5f);
-        priorityCardLabel.setPosition(27, 31);
-
-        cardGroup = new Group();
-        cardGroup.addActor(cardImage);
-        cardGroup.addActor(priorityCardLabel);
-
-
-
-        return cardGroup;
     }
 
     public void createGroup(ICard newCard, boolean cardFacingUp) {
@@ -75,6 +44,7 @@ public class OpponentHUDCard {
         Texture cardTexture = new Texture(cardTexturePath);
         cardTexture.setFilter(Linear, Linear);
         cardImage = new Image(cardTexture);
+        cardImage.setSize(54, 76);
         cardImage.setOrigin(cardTexture.getWidth()/2,cardTexture.getHeight()/2);
         cardGroup = new Group();
         cardGroup.addActor(cardImage);
@@ -87,7 +57,6 @@ public class OpponentHUDCard {
         }
 
         setupListener();
-
     }
 
     private void setupListener() {
@@ -108,9 +77,7 @@ public class OpponentHUDCard {
         return cardGroup;
     }
 
-
-
-    public ICard getModelCard() {
-        return modelCard;
+    public Image getCardImage() {
+        return cardImage;
     }
 }

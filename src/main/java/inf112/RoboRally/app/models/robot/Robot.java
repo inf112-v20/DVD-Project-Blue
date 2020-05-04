@@ -69,7 +69,7 @@ public class Robot implements IRobot {
         }
         if (boardElements.getHole().standingInHole(positionClone())) {
             System.out.println("standing in hole");
-            pos = START_POS; // died because of hole, restarting at start pos
+            pos = START_POS; // died because of hole, restarting at start position
             viewController.getRobotView().updateX(pos.getX());
             viewController.getRobotView().updateY(pos.getY());
         }
