@@ -28,8 +28,8 @@ public class RobotViewController {
         robotView = new OldRobotView(new Sprite(robotTexture), startPos, startDirection, playerNumber);
     }
 
-    public void updateRobotViewPosition() {
-
+    public void setToPosition(Pos pos) {
+        robotView.setStartPosition(pos);
     }
 
     public OldRobotView getRobotView() {

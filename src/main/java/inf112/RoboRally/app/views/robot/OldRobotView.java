@@ -90,8 +90,7 @@ public class OldRobotView extends Sprite {
         }
     }
 
-
-    private void setStartPosition(Pos startPos) {
+    public void setStartPosition(Pos startPos) {
         setX( (startPos.getX() * TILE_WIDTH_PX) );
         setY( (startPos.getY() * TILE_HEIGHT_PX) );
         targetX = getX();

@@ -8,6 +8,7 @@ import inf112.RoboRally.app.models.game.boardelements.BoardElements;
 public class Robot implements IRobot {
 
     // Position
+    private final Pos START_POS;
     private Direction direction;
     private Pos pos;
 
@@ -30,6 +31,7 @@ public class Robot implements IRobot {
         lives = STARTING_LIVES;
         this.playerNumber = playerNumber;
         poweredDown = false;
+        START_POS = game.getBoard().getRobotStartingPos(playerNumber);
         pos = game.getBoard().getRobotStartingPos(playerNumber);
         direction = game.getBoard().getRobotStartingDirection(playerNumber);
         viewController = new RobotViewController(playerNumber, pos, direction);
@@ -65,8 +67,12 @@ public class Robot implements IRobot {
             default:
                 throw new IllegalStateException("robot has direction '"+direction+"', which is supported");
         }
-        if (boardElements.getHole().standingInHole(positionClone()))
-            System.out.println("Robot is standing in hole");
+        if (boardElements.getHole().standingInHole(positionClone())) {
+            System.out.println("standing in hole");
+            pos = START_POS; // died because of hole, restarting at start pos
+            viewController.getRobotView().updateX(pos.getX());
+            viewController.getRobotView().updateY(pos.getY());
+        }
     }
 
     @Override
