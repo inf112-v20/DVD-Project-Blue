@@ -4,6 +4,7 @@ import inf112.RoboRally.app.controllers.RobotViewController;
 import inf112.RoboRally.app.models.cards.Rotation;
 import inf112.RoboRally.app.models.game.Game;
 import inf112.RoboRally.app.models.game.boardelements.BoardElements;
+import inf112.RoboRally.app.models.game.boardelements.flag.FlagType;
 
 public class Robot implements IRobot {
 
@@ -18,6 +19,7 @@ public class Robot implements IRobot {
     private int hp;
     private int lives;
     private boolean poweredDown;
+    private boolean[] flagsTouched = new boolean[2]; // three flags must be touched
 //    private int playerNumber;  // NOT NEEDED?
 
     // Controllers
@@ -167,4 +169,34 @@ public class Robot implements IRobot {
                 throw new IllegalArgumentException("Robot is told to move in '"+direction+"', which is not supported");
         }
     }
+
+    public void touchFlag(FlagType flag, int x, int y) {
+        switch (flag) {
+            case FIRST_FLAG:
+                if (!flagsTouched[0]) {
+                    flagsTouched[0] = true;
+                    System.out.println("Robot now has one flag");
+                }
+                pos.setNewRestrtPos(x, y);
+                break;
+            case SECOND_FLAG:
+                if (flagsTouched[0] && !flagsTouched[1]) {
+                    flagsTouched[1] = true;
+
+                }
+                pos.setNewRestrtPos(x, y);
+                System.out.println("touched second flag");
+                break;
+            case THIRD_FLAG:
+                if (flagsTouched[1] && !flagsTouched[2]) {
+                    flagsTouched[2] = true; // we have a winner
+                    System.out.println("We have a winner");
+                }
+                pos.setNewRestrtPos(x, y);
+                break;
+        }
+    }
+
+
+
 }

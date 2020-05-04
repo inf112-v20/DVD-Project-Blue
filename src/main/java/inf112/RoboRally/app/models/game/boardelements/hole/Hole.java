@@ -15,6 +15,7 @@ public class Hole {
         layer = tiledMapTileLayer;
     }
 
+    // bug på chopshop??
     public int effectRobot(Pos pos, Direction direction, int steps) {
         switch (direction) {
             case UP:

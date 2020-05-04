@@ -2,21 +2,24 @@ package inf112.RoboRally.app.models.robot;
 
 public class Pos {
 
-    private final int START_X;
-    private final int START_Y;
+    private int restartX;
+    private int restartY;
     private int x;
     private int y;
 
     public Pos(int x, int y) {
-        START_X = x;
-        START_Y = y;
+        restartX = x;
+        restartY = y;
         this.x = x;
         this.y = y;
     }
 
+    public void setNewRestrtPos(int x, int y) {
+        restartX = x; restartY = y;
+    }
+
     public void restart() {
-        this.x = START_X;
-        this.y = START_Y;
+        this.x = restartX; this.y = restartY;
     }
 
     public void setX(int x) {
