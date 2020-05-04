@@ -25,4 +25,8 @@ public class BoardElements {
     public CornerWall getCornerWall() {
         return cornerWall;
     }
+
+    public Hole getHole() {
+        return hole;
+    }
 }

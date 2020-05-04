@@ -37,17 +37,17 @@ public class Wall {
         int y = pos.getY();
         switch (direction) {
             case UP:
-                if (getWallType(x, y, WallType.DOWNSIDE)) return 0;
-                else if (getWallType(x, y-1, WallType.TOPSIDE)) return 0;
+                if (checkForWall(x, y, WallType.DOWNSIDE)) return 0;
+                else if (checkForWall(x, y-1, WallType.TOPSIDE)) return 0;
             case DOWN:
-                if (getWallType(x, y, WallType.TOPSIDE)) return 0;
-                else if (getWallType(x, y+1, WallType.DOWNSIDE)) return 0;
+                if (checkForWall(x, y, WallType.TOPSIDE)) return 0;
+                else if (checkForWall(x, y+1, WallType.DOWNSIDE)) return 0;
             case RIGHT:
-                if (getWallType(x, y, WallType.LEFTSIDE)) return 0;
-                else if (getWallType(x-1, y, WallType.RIGHTSIDE)) return 0;
+                if (checkForWall(x, y, WallType.LEFTSIDE)) return 0;
+                else if (checkForWall(x-1, y, WallType.RIGHTSIDE)) return 0;
             case LEFT:
-                if (getWallType(x, y, WallType.RIGHTSIDE)) return 0;
-                else if (getWallType(x+1, y, WallType.LEFTSIDE)) return 0;
+                if (checkForWall(x, y, WallType.RIGHTSIDE)) return 0;
+                else if (checkForWall(x+1, y, WallType.LEFTSIDE)) return 0;
         }
         return steps;
     }
@@ -57,13 +57,13 @@ public class Wall {
 
         // zero steps because we are standing on tile with wall on left side
         // or next to tile with right side on top side
-        if (getWallType(pos.getX(), y, WallType.LEFTSIDE))            return 0;
-        else if (getWallType(pos.getX()-1, y, WallType.RIGHTSIDE))   return 0;
+        if (checkForWall(pos.getX(), y, WallType.LEFTSIDE))            return 0;
+        else if (checkForWall(pos.getX()-1, y, WallType.RIGHTSIDE))   return 0;
 
         for (int step = 1; step <= steps; step++) {
             pos.setX(-1);
-            if (getWallType(pos.getX(), y, WallType.LEFTSIDE))                return step;
-            else if (getWallType(pos.getX() - 1, y , WallType.RIGHTSIDE))   return step;
+            if (checkForWall(pos.getX(), y, WallType.LEFTSIDE))                return step;
+            else if (checkForWall(pos.getX() - 1, y , WallType.RIGHTSIDE))   return step;
 
         }
         return steps;
@@ -74,13 +74,13 @@ public class Wall {
 
         // zero steps because we are standing on tile with wall on rightside
         // or next to tile with wall on left side
-        if (getWallType(pos.getX(), y, WallType.RIGHTSIDE))            return 0;
-        else if (getWallType(pos.getX()+1, y, WallType.LEFTSIDE))   return 0;
+        if (checkForWall(pos.getX(), y, WallType.RIGHTSIDE))            return 0;
+        else if (checkForWall(pos.getX()+1, y, WallType.LEFTSIDE))   return 0;
 
         for (int step = 1; step <= steps; step++) {
             pos.setX(1);
-            if (getWallType(pos.getX(), y, WallType.RIGHTSIDE)) return step;
-            else if (getWallType(pos.getX() + 1, y , WallType.LEFTSIDE)) return step;
+            if (checkForWall(pos.getX(), y, WallType.RIGHTSIDE)) return step;
+            else if (checkForWall(pos.getX() + 1, y , WallType.LEFTSIDE)) return step;
         }
         return steps;
     }
@@ -90,13 +90,13 @@ public class Wall {
 
         // zero steps because we are standing on tile with wall on downside
         // or under tile with wall on top side
-        if (getWallType(x, pos.getY(), WallType.DOWNSIDE))            return 0;
-        else if (getWallType(x, pos.getY()-1, WallType.TOPSIDE))   return 0;
+        if (checkForWall(x, pos.getY(), WallType.DOWNSIDE))            return 0;
+        else if (checkForWall(x, pos.getY()-1, WallType.TOPSIDE))   return 0;
 
         for (int step = 1; step <= steps; step++) {
             pos.setY(-1);
-            if (getWallType(x, pos.getY(), WallType.TOPSIDE))                return step;
-            else if (getWallType(x, pos.getY() -1 , WallType.DOWNSIDE))  return step;
+            if (checkForWall(x, pos.getY(), WallType.TOPSIDE))                return step;
+            else if (checkForWall(x, pos.getY() -1 , WallType.DOWNSIDE))  return step;
 
         }
         return steps;
@@ -107,19 +107,19 @@ public class Wall {
 
         // zero steps because we are standing on tile with wall on topside
         // or under tile with wall on down side
-        if (getWallType(x, pos.getY(), WallType.TOPSIDE))            return 0;
-        else if (getWallType(x, pos.getY()+1, WallType.DOWNSIDE)) return 0;
+        if (checkForWall(x, pos.getY(), WallType.TOPSIDE))            return 0;
+        else if (checkForWall(x, pos.getY()+1, WallType.DOWNSIDE)) return 0;
 
         for (int step = 1; step <= steps; step++) {
             pos.setY(1);
-            if (getWallType(x, pos.getY(), WallType.TOPSIDE))                return step;
-            else if (getWallType(x, pos.getY() + 1 , WallType.DOWNSIDE))  return step;
+            if (checkForWall(x, pos.getY(), WallType.TOPSIDE))                return step;
+            else if (checkForWall(x, pos.getY() + 1 , WallType.DOWNSIDE))  return step;
 
         }
         return steps;
     }
 
-    private boolean getWallType(int x, int y, WallType wallType) {
+    private boolean checkForWall(int x, int y, WallType wallType) {
         return layer.getCell(x, y) != null && layer.getCell(x, y).getTile().getId() == wallType.getTileId();
     }
 

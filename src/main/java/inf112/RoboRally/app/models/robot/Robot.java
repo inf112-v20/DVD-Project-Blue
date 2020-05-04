@@ -40,9 +40,10 @@ public class Robot implements IRobot {
     @Override
     public void move(int steps) {
 
-        // updating steps if a wall is blocking path
+        // updating steps if board element is blocking path
         steps = boardElements.getWall().effectRobot(positionClone(), direction, steps);
         steps = boardElements.getCornerWall().effectRobot(positionClone(), direction, steps);
+        steps = boardElements.getHole().effectRobot(positionClone(), direction, steps);
 
         switch (direction) {
             case UP:
@@ -64,7 +65,8 @@ public class Robot implements IRobot {
             default:
                 throw new IllegalStateException("robot has direction '"+direction+"', which is supported");
         }
-
+        if (boardElements.getHole().standingInHole(positionClone()))
+            System.out.println("Robot is standing in hole");
     }
 
     @Override
