@@ -1,22 +1,22 @@
 package inf112.RoboRally.app.models.game.boardelements.cornerwall;
 
 public enum CornerWallType {
-    TOPRIGHT {
+    TOP_RIGHT {
         public int getTileId() {
             return 98;
         }
     },
-    TOPLEFT {
+    TOP_LEFT {
         public int getTileId() {
             return 97;
         }
     },
-    BOTTOMRIGHT {
+    BOTTOM_RIGHT {
         public int getTileId() {
             return 106;
         }
     },
-    BOTTOMLEFT {
+    BOTTOM_LEFT {
         public int getTileId() {
             return 105;
         }

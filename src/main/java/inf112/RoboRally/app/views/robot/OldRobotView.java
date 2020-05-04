@@ -71,7 +71,7 @@ public class OldRobotView extends Sprite {
     }
 
 
-    private void setStartDirection(Direction startDirection) {
+    public void setStartDirection(Direction startDirection) {
         switch (startDirection) {
             case RIGHT:
                 rotate90(true);
@@ -89,6 +89,7 @@ public class OldRobotView extends Sprite {
                 throw new IllegalStateException("RobotView was given start direction '"+startDirection+"', which is not supported");
         }
     }
+
 
     public void setStartPosition(Pos startPos) {
         setX( (startPos.getX() * TILE_WIDTH_PX) );

@@ -37,17 +37,17 @@ public class CornerWall {
         int y = pos.getY();
         switch (direction) {
             case UP:
-                if (checkForCornerWall(x, y, CornerWallType.BOTTOMRIGHT) || checkForCornerWall(x, y, CornerWallType.BOTTOMLEFT)) return 0;
-                else if (checkForCornerWall(x, y-1, CornerWallType.TOPRIGHT) || checkForCornerWall(x, y-1, CornerWallType.TOPLEFT)) return 0;
+                if (checkForCornerWall(x, y, CornerWallType.BOTTOM_RIGHT) || checkForCornerWall(x, y, CornerWallType.BOTTOM_LEFT)) return 0;
+                else if (checkForCornerWall(x, y-1, CornerWallType.TOP_RIGHT) || checkForCornerWall(x, y-1, CornerWallType.TOP_LEFT)) return 0;
             case DOWN:
-                if (checkForCornerWall(x, y, CornerWallType.TOPRIGHT) || checkForCornerWall(x, y, CornerWallType.TOPLEFT)) return 0;
-                else if (checkForCornerWall(x, y+1, CornerWallType.BOTTOMRIGHT) || checkForCornerWall(x, y+1, CornerWallType.BOTTOMLEFT)) return 0;
+                if (checkForCornerWall(x, y, CornerWallType.TOP_RIGHT) || checkForCornerWall(x, y, CornerWallType.TOP_LEFT)) return 0;
+                else if (checkForCornerWall(x, y+1, CornerWallType.BOTTOM_RIGHT) || checkForCornerWall(x, y+1, CornerWallType.BOTTOM_LEFT)) return 0;
             case RIGHT:
-                if (checkForCornerWall(x, y, CornerWallType.TOPLEFT) || checkForCornerWall(x, y, CornerWallType.BOTTOMLEFT)) return 0;
-                else if (checkForCornerWall(x-1, y, CornerWallType.TOPRIGHT) || checkForCornerWall(x-1, y, CornerWallType.BOTTOMRIGHT)) return 0;
+                if (checkForCornerWall(x, y, CornerWallType.TOP_LEFT) || checkForCornerWall(x, y, CornerWallType.BOTTOM_LEFT)) return 0;
+                else if (checkForCornerWall(x-1, y, CornerWallType.TOP_RIGHT) || checkForCornerWall(x-1, y, CornerWallType.BOTTOM_RIGHT)) return 0;
             case LEFT:
-                if (checkForCornerWall(x, y, CornerWallType.TOPRIGHT) || checkForCornerWall(x, y, CornerWallType.BOTTOMRIGHT)) return 0;
-                else if (checkForCornerWall(x+1, y, CornerWallType.TOPLEFT) || checkForCornerWall(x+1, y, CornerWallType.BOTTOMLEFT)) return 0;
+                if (checkForCornerWall(x, y, CornerWallType.TOP_RIGHT) || checkForCornerWall(x, y, CornerWallType.BOTTOM_RIGHT)) return 0;
+                else if (checkForCornerWall(x+1, y, CornerWallType.TOP_LEFT) || checkForCornerWall(x+1, y, CornerWallType.BOTTOM_LEFT)) return 0;
         }
         return steps;
     }
@@ -55,16 +55,16 @@ public class CornerWall {
     private int checkForCornerWallsMovingLeft(Pos pos, int steps) {
         int y = pos.getY();
 
-        if (checkForCornerWall(pos.getX(), y, CornerWallType.TOPLEFT) || checkForCornerWall(pos.getX(), y, CornerWallType.BOTTOMLEFT))
+        if (checkForCornerWall(pos.getX(), y, CornerWallType.TOP_LEFT) || checkForCornerWall(pos.getX(), y, CornerWallType.BOTTOM_LEFT))
             return 0;
-        else if (checkForCornerWall(pos.getX()-1, y, CornerWallType.TOPRIGHT) || checkForCornerWall(pos.getX()-1, y, CornerWallType.TOPLEFT) )
+        else if (checkForCornerWall(pos.getX()-1, y, CornerWallType.TOP_RIGHT) || checkForCornerWall(pos.getX()-1, y, CornerWallType.TOP_LEFT) )
             return 0;
 
         for (int step = 1; step <= steps; step++) {
             pos.setX(1);
-            if (checkForCornerWall(pos.getX(), y, CornerWallType.TOPLEFT) || checkForCornerWall(pos.getX(), y, CornerWallType.BOTTOMLEFT))
+            if (checkForCornerWall(pos.getX(), y, CornerWallType.TOP_LEFT) || checkForCornerWall(pos.getX(), y, CornerWallType.BOTTOM_LEFT))
                 return step;
-            else if (checkForCornerWall(pos.getX()-1, y, CornerWallType.TOPRIGHT) || checkForCornerWall(pos.getX()-1, y, CornerWallType.BOTTOMRIGHT) )
+            else if (checkForCornerWall(pos.getX()-1, y, CornerWallType.TOP_RIGHT) || checkForCornerWall(pos.getX()-1, y, CornerWallType.BOTTOM_RIGHT) )
                 return step;
         }
         return steps;
@@ -73,16 +73,16 @@ public class CornerWall {
     private int checkForCornerWallsMovingRight(Pos pos, int steps) {
         int y = pos.getY();
 
-        if (checkForCornerWall(pos.getX(), y, CornerWallType.TOPRIGHT) || checkForCornerWall(pos.getX(), y, CornerWallType.BOTTOMRIGHT))
+        if (checkForCornerWall(pos.getX(), y, CornerWallType.TOP_RIGHT) || checkForCornerWall(pos.getX(), y, CornerWallType.BOTTOM_RIGHT))
             return 0;
-        else if (checkForCornerWall(pos.getX()+1, y, CornerWallType.TOPLEFT) || checkForCornerWall(pos.getX()+1, y, CornerWallType.BOTTOMLEFT) )
+        else if (checkForCornerWall(pos.getX()+1, y, CornerWallType.TOP_LEFT) || checkForCornerWall(pos.getX()+1, y, CornerWallType.BOTTOM_LEFT) )
             return 0;
 
         for (int step = 1; step <= steps; step++) {
             pos.setX(1);
-            if (checkForCornerWall(pos.getX(), y, CornerWallType.TOPRIGHT) || checkForCornerWall(pos.getX(), y, CornerWallType.BOTTOMRIGHT))
+            if (checkForCornerWall(pos.getX(), y, CornerWallType.TOP_RIGHT) || checkForCornerWall(pos.getX(), y, CornerWallType.BOTTOM_RIGHT))
                 return step;
-            else if (checkForCornerWall(pos.getX()+1, y, CornerWallType.TOPLEFT) || checkForCornerWall(pos.getX()+1, y, CornerWallType.BOTTOMLEFT) )
+            else if (checkForCornerWall(pos.getX()+1, y, CornerWallType.TOP_LEFT) || checkForCornerWall(pos.getX()+1, y, CornerWallType.BOTTOM_LEFT) )
                 return step;
         }
         return steps;
@@ -91,16 +91,16 @@ public class CornerWall {
     private int checkForCornerWallsMovingDown(Pos pos, int steps) {
         int x = pos.getX();
 
-        if ( checkForCornerWall(x, pos.getY(), CornerWallType.BOTTOMLEFT) || checkForCornerWall(x, pos.getY(), CornerWallType.BOTTOMRIGHT ) )
+        if ( checkForCornerWall(x, pos.getY(), CornerWallType.BOTTOM_LEFT) || checkForCornerWall(x, pos.getY(), CornerWallType.BOTTOM_RIGHT) )
             return 0;
-        else if ( checkForCornerWall(x, pos.getY()-1, CornerWallType.TOPLEFT) || checkForCornerWall(x, pos.getY()-1, CornerWallType.TOPRIGHT) )
+        else if ( checkForCornerWall(x, pos.getY()-1, CornerWallType.TOP_LEFT) || checkForCornerWall(x, pos.getY()-1, CornerWallType.TOP_RIGHT) )
             return 0;
 
         for (int step = 1; step <= steps; step++) {
             pos.setY(1);
-            if ( checkForCornerWall(x, pos.getY(), CornerWallType.BOTTOMLEFT) || checkForCornerWall(x, pos.getY(), CornerWallType.BOTTOMRIGHT ) )
+            if ( checkForCornerWall(x, pos.getY(), CornerWallType.BOTTOM_LEFT) || checkForCornerWall(x, pos.getY(), CornerWallType.BOTTOM_RIGHT) )
                 return step;
-            else if ( checkForCornerWall(x, pos.getY()-1, CornerWallType.TOPLEFT) || checkForCornerWall(x, pos.getY()-1, CornerWallType.TOPRIGHT) )
+            else if ( checkForCornerWall(x, pos.getY()-1, CornerWallType.TOP_LEFT) || checkForCornerWall(x, pos.getY()-1, CornerWallType.TOP_RIGHT) )
                 return step;
         }
 
@@ -110,16 +110,16 @@ public class CornerWall {
     private int checkForCornerWallsMovingUp(Pos pos, int steps) {
         int x = pos.getX();
 
-        if ( checkForCornerWall(x, pos.getY(), CornerWallType.TOPLEFT) || checkForCornerWall(x, pos.getY(), CornerWallType.TOPRIGHT ) )
+        if ( checkForCornerWall(x, pos.getY(), CornerWallType.TOP_LEFT) || checkForCornerWall(x, pos.getY(), CornerWallType.TOP_RIGHT) )
             return 0;
-        else if ( checkForCornerWall(x, pos.getY()+1, CornerWallType.BOTTOMLEFT) || checkForCornerWall(x, pos.getY()+1, CornerWallType.BOTTOMRIGHT) )
+        else if ( checkForCornerWall(x, pos.getY()+1, CornerWallType.BOTTOM_LEFT) || checkForCornerWall(x, pos.getY()+1, CornerWallType.BOTTOM_RIGHT) )
             return 0;
 
         for (int step = 1; step <= steps; step++) {
             pos.setY(1);
-            if ( checkForCornerWall(x, pos.getY(), CornerWallType.TOPLEFT) || checkForCornerWall(x, pos.getY(), CornerWallType.TOPRIGHT ) )
+            if ( checkForCornerWall(x, pos.getY(), CornerWallType.TOP_LEFT) || checkForCornerWall(x, pos.getY(), CornerWallType.TOP_RIGHT) )
                 return step;
-            else if ( checkForCornerWall(x, pos.getY()+1, CornerWallType.BOTTOMLEFT) || checkForCornerWall(x, pos.getY()+1, CornerWallType.BOTTOMRIGHT) )
+            else if ( checkForCornerWall(x, pos.getY()+1, CornerWallType.BOTTOM_LEFT) || checkForCornerWall(x, pos.getY()+1, CornerWallType.BOTTOM_RIGHT) )
                 return step;
         }
 

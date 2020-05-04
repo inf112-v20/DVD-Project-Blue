@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.models.game.boardelements;
+package inf112.RoboRally.app.models.game.boardelements.hole;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.RoboRally.app.models.robot.Direction;
@@ -31,7 +31,7 @@ public class Hole {
         int y = pos.getY();
         for (int step = 1; step <= steps; step++) {
             pos.setX(-1);
-            if (checkForHole(pos.getX(), y)) return step;
+            if (checkForHole(pos.getX(), y, HoleType.SINGLE_HOLE)) return step;
         }
         return steps;
     }
@@ -40,7 +40,7 @@ public class Hole {
         int y = pos.getY();
         for (int step = 1; step <= steps; step++) {
             pos.setX(1);
-            if (checkForHole(pos.getX(), y)) return step;
+            if (checkForHole(pos.getX(), y, HoleType.SINGLE_HOLE)) return step;
         }
         return steps;
     }
@@ -49,7 +49,7 @@ public class Hole {
         int x = pos.getX();
         for (int step = 1; step <= steps; step++) {
             pos.setY(-1);
-            if (checkForHole(x, pos.getY())) return step;
+            if (checkForHole(x, pos.getY(), HoleType.SINGLE_HOLE)) return step;
         }
         return steps;
     }
@@ -58,17 +58,17 @@ public class Hole {
         int x = pos.getX();
         for (int step = 1; step <= steps; step++) {
             pos.setY(1);
-            if (checkForHole(x, pos.getY())) return step;
+            if (checkForHole(x, pos.getY(), HoleType.SINGLE_HOLE)) return step;
         }
         return steps;
     }
 
     public boolean standingInHole(Pos pos) {
-        return checkForHole(pos.getX(), pos.getY());
+        return checkForHole(pos.getX(), pos.getY(), HoleType.SINGLE_HOLE);
     }
 
-    private boolean checkForHole(int x, int y) {
-        return layer.getCell(x, y) != null && layer.getCell(x, y).getTile().getId() == HoleType.HOLE.getTileId();
+    private boolean checkForHole(int x, int y, HoleType holeType) {
+        return layer.getCell(x, y) != null && layer.getCell(x, y).getTile().getId() == holeType.getTileId();
     }
 
 

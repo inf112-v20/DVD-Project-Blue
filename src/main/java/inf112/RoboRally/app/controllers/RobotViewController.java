@@ -14,6 +14,7 @@ public class RobotViewController {
     // files
     private final String IMAGE_PATH = "assets/smallrobot/Player";
     private final String FILE_EXTENSION = ".png";
+    private final String DEAD_BOT_IMAGE_PATH = "deadBot";
 
     // view image
     private Texture robotTexture;
@@ -28,19 +29,22 @@ public class RobotViewController {
         robotView = new OldRobotView(new Sprite(robotTexture), startPos, startDirection);
     }
 
-    public void setToPosition(Pos pos) {
-        robotView.setStartPosition(pos);
-    }
 
-    public void updateXCordRobotView(int x) {
+    public void updateXCord(int x) {
         robotView.updateX(x);
     }
 
-    public void updateYCordRobotView(int y) {
+    public void updateYCord(int y) {
         robotView.updateY(y);
     }
 
     public OldRobotView getRobotView() {
         return robotView;
     }
+
+    public void updateDirection(Direction startDirection) {
+        robotView.setStartDirection(startDirection);
+    }
+
+
 }

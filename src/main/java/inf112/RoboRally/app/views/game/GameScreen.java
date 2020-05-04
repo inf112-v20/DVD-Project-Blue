@@ -94,7 +94,7 @@ public class GameScreen extends InputAdapter implements Screen {
         // drawing the robots
         Player[] players = game.players();
         for (int playerNumber = 0; playerNumber < players.length; playerNumber++) {
-            robotViews[playerNumber] = players[playerNumber].robot().getViewController().getRobotView();
+            robotViews[playerNumber] = players[playerNumber].robot().getRobotViewController().getRobotView();
             robotViews[playerNumber].draw(gameLauncher.batch);
         }
 

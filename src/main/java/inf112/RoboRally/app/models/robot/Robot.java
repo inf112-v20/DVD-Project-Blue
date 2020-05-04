@@ -8,9 +8,9 @@ import inf112.RoboRally.app.models.game.boardelements.BoardElements;
 public class Robot implements IRobot {
 
     // Position
-    private final Pos START_POS;
+    private final Direction START_DIRECTION;
     private Direction direction;
-    private Pos pos;
+    private volatile Pos pos;
 
     // Game stats
     private final int MAX_HP = 10;
@@ -18,10 +18,10 @@ public class Robot implements IRobot {
     private int hp;
     private int lives;
     private boolean poweredDown;
-    private int playerNumber;  // NOT NEEDED?
+//    private int playerNumber;  // NOT NEEDED?
 
     // Controllers
-    private RobotViewController viewController;
+    private RobotViewController robotViewController;
 
     // Board elements for robot interaction
     private BoardElements boardElements;
@@ -29,12 +29,12 @@ public class Robot implements IRobot {
     public Robot(Game game, int playerNumber) {
         hp = MAX_HP;
         lives = STARTING_LIVES;
-        this.playerNumber = playerNumber;
+//        this.playerNumber = playerNumber;
         poweredDown = false;
-        START_POS = game.getBoard().getRobotStartingPos(playerNumber);
         pos = game.getBoard().getRobotStartingPos(playerNumber);
+        START_DIRECTION = game.getBoard().getRobotStartingDirection(playerNumber);
         direction = game.getBoard().getRobotStartingDirection(playerNumber);
-        viewController = new RobotViewController(playerNumber, pos, direction);
+        robotViewController = new RobotViewController(playerNumber, pos, direction);
         boardElements = game.getBoardElements();
     }
 
@@ -42,7 +42,7 @@ public class Robot implements IRobot {
     @Override
     public void move(int steps) {
 
-        // updating steps if board element is blocking path
+        // updating steps in accordance with board element potentially blocking path
         steps = boardElements.getWall().effectRobot(positionClone(), direction, steps);
         steps = boardElements.getCornerWall().effectRobot(positionClone(), direction, steps);
         steps = boardElements.getHole().effectRobot(positionClone(), direction, steps);
@@ -50,32 +50,29 @@ public class Robot implements IRobot {
         switch (direction) {
             case UP:
                 pos.setY(steps);
-                viewController.updateYCordRobotView(pos.getY());
-//                viewController.getRobotView().updateY(pos.getY());
+                robotViewController.updateYCord(pos.getY());
                 break;
             case DOWN:
                 pos.setY(-steps);
-                viewController.updateYCordRobotView(pos.getY());
-//                viewController.getRobotView().updateY(pos.getY());
+                robotViewController.updateYCord(pos.getY());
                 break;
             case RIGHT:
                 pos.setX(steps);
-                viewController.updateXCordRobotView(pos.getX());
-//                viewController.getRobotView().updateX(pos.getX());
+                robotViewController.updateXCord(pos.getX());
                 break;
             case LEFT:
                 pos.setX(-steps);
-                viewController.updateXCordRobotView(pos.getX());
-//                viewController.getRobotView().updateX(pos.getX());
+                robotViewController.updateXCord(pos.getX());
                 break;
             default:
                 throw new IllegalStateException("robot has direction '"+direction+"', which is supported");
         }
         if (boardElements.getHole().standingInHole(positionClone())) {
-            System.out.println("standing in hole");
-            pos.restart();
-            viewController.getRobotView().updateX(pos.getX());
-            viewController.getRobotView().updateY(pos.getY());
+            pos.restart(); // restart to init position, as robot died
+            direction = START_DIRECTION;
+            robotViewController.updateXCord(pos.getX());
+            robotViewController.updateYCord(pos.getY());
+            robotViewController.updateDirection(START_DIRECTION);
         }
     }
 
@@ -96,7 +93,7 @@ public class Robot implements IRobot {
             default:
                 throw new IllegalArgumentException("Robot is told to rotate '"+rotation+"', which is not supported");
         }
-        viewController.getRobotView().updateDirection(rotation);
+        robotViewController.getRobotView().updateDirection(rotation);
     }
 
 
@@ -136,8 +133,8 @@ public class Robot implements IRobot {
         return MAX_HP;
     }
 
-    public RobotViewController getViewController() {
-        return viewController;
+    public RobotViewController getRobotViewController() {
+        return robotViewController;
     }
 
     public Pos positionClone() {
@@ -145,4 +142,28 @@ public class Robot implements IRobot {
     }
 
 
+    public void moveOneStepInDirection(Direction direction) {
+        System.out.println("getting to the robot from board effect");
+        switch (direction) {
+            case DOWN:
+                pos.setY(-1);
+                robotViewController.updateYCord(pos.getY());
+                break;
+            case UP:
+                pos.setY(1);
+                robotViewController.updateYCord(pos.getY());
+                break;
+            case LEFT:
+                System.out.println("getting to left direction");
+                pos.setX(-1);
+                robotViewController.updateXCord(pos.getX());
+                break;
+            case RIGHT:
+                pos.setX(1);
+                robotViewController.updateXCord(pos.getX());
+                break;
+            default:
+                throw new IllegalArgumentException("Robot is told to rotate '"+direction+"', which is not supported");
+        }
+    }
 }

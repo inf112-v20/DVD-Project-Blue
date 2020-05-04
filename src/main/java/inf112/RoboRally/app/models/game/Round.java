@@ -2,10 +2,9 @@ package inf112.RoboRally.app.models.game;
 
 import inf112.RoboRally.app.models.cards.CardFactory;
 import inf112.RoboRally.app.models.cards.ICard;
-import inf112.RoboRally.app.models.cards.SortCardByPriority;
+import inf112.RoboRally.app.models.game.boardelements.IElement;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /*
 Next delivery
@@ -16,10 +15,12 @@ public class Round {
     private Player[] players;
     private Player humanPlayer;
     private final int CARD_SLOT_AMOUNT;
+    private IElement[] boardElements;
 
     public Round(Game game) {
         this.players = game.players();
         this.humanPlayer = game.getHumanPlayer();
+        this.boardElements = game.getBoardElements().boardEffects();
         CARD_SLOT_AMOUNT = humanPlayer.numberOfCardSlots();
     }
 
@@ -97,14 +98,10 @@ public class Round {
         return cards;
     }
 
-    private void sortCardsByPriority(ArrayList<ICard> allCardsFromSlots) {
-        Collections.sort(allCardsFromSlots, new SortCardByPriority());
-    }
-
 
     public void executeCardChoices() {
         updateOpponentHUDCardSlots(); // flipping all cards to face up
-        CollectCardFromSlotExecutor cardChoiceExecutor = new CollectCardFromSlotExecutor(players);
+        CollectCardFromSlotExecutor cardChoiceExecutor = new CollectCardFromSlotExecutor(players, boardElements);
         cardChoiceExecutor.CardChoiceRoundExecutor();
     }
 

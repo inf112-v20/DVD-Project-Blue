@@ -2,6 +2,7 @@ package inf112.RoboRally.app.models.game;
 
 import inf112.RoboRally.app.models.cards.ICard;
 import inf112.RoboRally.app.models.cards.SortCardByPriority;
+import inf112.RoboRally.app.models.game.boardelements.IElement;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,19 +15,21 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class CollectCardFromSlotExecutor {
 
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    private Player[] players;
     private AtomicInteger slotNumber = new AtomicInteger(0);
+    private Player[] players;
+    private IElement[] boardElements;
     private final int NUMBER_OF_SLOTS = 5;
 
-    public CollectCardFromSlotExecutor(Player[] players) {
+    public CollectCardFromSlotExecutor(Player[] players, IElement[] boardElements) {
         this.players = players;
+        this.boardElements = boardElements;
     }
 
 
     public void CardChoiceRoundExecutor() {
         Runnable collectCards = () -> {
 
-            CountDownLatch countDownLatch = new CountDownLatch(1);
+            CountDownLatch cardExecutionLatch = new CountDownLatch(1);
 
             ArrayList<ICard> cards = collectCardsFromSlotNumber(slotNumber.get());
 
@@ -35,11 +38,22 @@ public class CollectCardFromSlotExecutor {
 
             sortCardsByPriority(cards);
 
-            CardMoveExecutor cardExecutor = new CardMoveExecutor(cards, countDownLatch);
+            CardMoveExecutor cardExecutor = new CardMoveExecutor(cards, cardExecutionLatch);
             cardExecutor.executeCards();
             System.out.println("--------------- " + (slotNumber.get() + 1) + " slot performing ------------------");
             try {
-                countDownLatch.await();
+                cardExecutionLatch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            CountDownLatch boardElementLatch = new CountDownLatch(1);
+
+            BoardElementExecutor boardElementExecutor = new BoardElementExecutor(players, slotNumber.get(), boardElements, boardElementLatch);
+            boardElementExecutor.executeBoardElements();
+
+            try {
+                boardElementLatch.await();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
