@@ -1,7 +1,7 @@
 package inf112.RoboRally.app.models.game.boardelements;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import inf112.RoboRally.app.models.robot.Robot;
+import inf112.RoboRally.app.models.robot.Pos;
 
 public class Hole {
 
@@ -11,7 +11,7 @@ public class Hole {
         layer = tiledMapTileLayer;
     }
 
-    public void effectRobot(Robot robot, int steps) {
+    public void effectRobot(Pos pos, int steps) {
 
     }
 }
