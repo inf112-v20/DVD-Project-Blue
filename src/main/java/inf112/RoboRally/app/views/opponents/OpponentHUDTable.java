@@ -6,13 +6,14 @@ import inf112.RoboRally.app.models.game.Player;
 public class OpponentHUDTable {
 
     private final int ROW_PADDING = 12;
+    private final int LEFT_PADDING = 32;
 
     private Table opponentTable;
     private OpponentHUD[] huds;
 
     public OpponentHUDTable(Player player, boolean cardsFacingUp) {
         opponentTable = new Table();
-        opponentTable.left();
+        opponentTable.left().padLeft(LEFT_PADDING);
         opponentTable.setFillParent(true);
         int numberOfPlayers = player.getNumberOfPlayersInGame();
         huds = new OpponentHUD[numberOfPlayers];

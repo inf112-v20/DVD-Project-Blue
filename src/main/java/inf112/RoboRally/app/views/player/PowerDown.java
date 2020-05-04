@@ -7,8 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 public class PowerDown {
 
     // positioning
-    private final int PAD_RIGHT = 1380;
-    private final int PAD_BOTTOM = 10;
+    private final int PAD_RIGHT = 1384;
+    private final int PAD_BOTTOM = 9;
 
     // image file path
     private final String POWER_DOWN_IMG_PATH = "assets/PlayerHud/PowerDown.png";
