@@ -27,10 +27,11 @@ public class BoardElementExecutor {
 
     public void executeBoardElements() {
         final Runnable boardExec = () -> {
-            System.out.println("----------------- " + (iterator.get()+1) + " element performing -----------------");
+            System.out.println("---------- " + (iterator.get()+1) + " element performing ----------");
             IElement effect = boardElements[iterator.get()];
             for (Player player: players) {
-                effect.effectRobot(player.robot());
+                if (effect.inEffectForSlotNumber(slotNumber.get()))
+                    effect.effectRobotAfterCardExec(player.robot());
             }
             if (iterator.incrementAndGet() == boardElements.length){
                 countDownLatch.countDown();

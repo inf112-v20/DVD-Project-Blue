@@ -143,7 +143,6 @@ public class Robot implements IRobot {
 
 
     public void moveOneStepInDirection(Direction direction) {
-        System.out.println("getting to the robot from board effect");
         switch (direction) {
             case DOWN:
                 pos.setY(-1);
@@ -154,7 +153,6 @@ public class Robot implements IRobot {
                 robotViewController.updateYCord(pos.getY());
                 break;
             case LEFT:
-                System.out.println("getting to left direction");
                 pos.setX(-1);
                 robotViewController.updateXCord(pos.getX());
                 break;
@@ -163,7 +161,7 @@ public class Robot implements IRobot {
                 robotViewController.updateXCord(pos.getX());
                 break;
             default:
-                throw new IllegalArgumentException("Robot is told to rotate '"+direction+"', which is not supported");
+                throw new IllegalArgumentException("Robot is told to move in '"+direction+"', which is not supported");
         }
     }
 }

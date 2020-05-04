@@ -13,16 +13,18 @@ public class BoardElements {
     private Wall wall;
     private Hole hole;
     private CornerWall cornerWall;
-//    private TwoFourPusher pusher;
+    private TwoFourPusher pusher;
 
     IElement[] elementsThatMoveRobot;
 
     public BoardElements(TiledMapLoader tiledMapLoader) {
-        elementsThatMoveRobot = new IElement[1];
-        elementsThatMoveRobot[0] = new TwoFourPusher( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("pusher") );
+        pusher = new TwoFourPusher( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("pusher") );
         wall = new Wall( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("wall") );
         hole = new Hole( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("hole") );
         cornerWall = new CornerWall( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("doubleWall") );
+
+        elementsThatMoveRobot = new IElement[1];
+        elementsThatMoveRobot[0] = pusher;
     }
 
     public Wall getWall() {
@@ -37,9 +39,9 @@ public class BoardElements {
         return hole;
     }
 
-//    public TwoFourPusher getPusher() {
-//        return pusher;
-//    }
+    public TwoFourPusher getPusher() {
+        return pusher;
+    }
 
     public IElement[] boardEffects() {
         return elementsThatMoveRobot;

@@ -39,15 +39,19 @@ public class Wall {
             case UP:
                 if (checkForWall(x, y, WallType.DOWNSIDE)) return 0;
                 else if (checkForWall(x, y-1, WallType.TOPSIDE)) return 0;
+                break;
             case DOWN:
                 if (checkForWall(x, y, WallType.TOPSIDE)) return 0;
                 else if (checkForWall(x, y+1, WallType.DOWNSIDE)) return 0;
+                break;
             case RIGHT:
                 if (checkForWall(x, y, WallType.LEFTSIDE)) return 0;
                 else if (checkForWall(x-1, y, WallType.RIGHTSIDE)) return 0;
+                break;
             case LEFT:
                 if (checkForWall(x, y, WallType.RIGHTSIDE)) return 0;
                 else if (checkForWall(x+1, y, WallType.LEFTSIDE)) return 0;
+                break;
         }
         return steps;
     }
@@ -95,8 +99,8 @@ public class Wall {
 
         for (int step = 1; step <= steps; step++) {
             pos.setY(-1);
-            if (checkForWall(x, pos.getY(), WallType.TOPSIDE))                return step;
-            else if (checkForWall(x, pos.getY() -1 , WallType.DOWNSIDE))  return step;
+            if (checkForWall(x, pos.getY(), WallType.DOWNSIDE))                return step;
+            else if (checkForWall(x, pos.getY() - 1 , WallType.TOPSIDE))  return step;
 
         }
         return steps;

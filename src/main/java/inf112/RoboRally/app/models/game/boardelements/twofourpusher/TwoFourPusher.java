@@ -14,8 +14,13 @@ public class TwoFourPusher implements IElement {
         this.layer = layer;
     }
 
+    // not used for this
+    public int effectRobotSteps(int steps) {
+        return -1;
+    }
+
     @Override
-    public void effectRobot(Robot robot) {
+    public void effectRobotAfterCardExec(Robot robot) {
         Pos pos = robot.position();
         int x = pos.getX(); int y = pos.getY();
         if (checkForPusher(x, y, TwoFourPusherType.TWO_FOUR_PUSH_DOWN)) robot.moveOneStepInDirection(Direction.DOWN);
@@ -28,5 +33,9 @@ public class TwoFourPusher implements IElement {
         return layer.getCell(x, y) != null && layer.getCell(x, y).getTile().getId() == pusherType.getTileId();
     }
 
-
+    @Override
+    public boolean inEffectForSlotNumber(int slotNumber) {
+        slotNumber++;
+        return slotNumber == 2 || slotNumber == 4;
+    }
 }
