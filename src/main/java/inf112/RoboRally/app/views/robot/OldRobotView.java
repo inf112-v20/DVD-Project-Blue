@@ -16,7 +16,7 @@ public class OldRobotView extends Sprite {
     private float targetX;
     private float targetY;
 
-    public OldRobotView(Sprite sprite, Pos startPos, Direction startDirection, int playerNumber) {
+    public OldRobotView(Sprite sprite, Pos startPos, Direction startDirection) {
         super(sprite);
         setStartDirection(startDirection);
         setStartPosition(startPos);

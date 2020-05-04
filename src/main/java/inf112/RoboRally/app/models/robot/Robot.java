@@ -49,27 +49,31 @@ public class Robot implements IRobot {
 
         switch (direction) {
             case UP:
-                pos.setY(steps); // her settes endelig posisjon
-                viewController.getRobotView().updateY(pos.getY()); // den endelige posisjonen gis til robotview
+                pos.setY(steps);
+                viewController.updateYCordRobotView(pos.getY());
+//                viewController.getRobotView().updateY(pos.getY());
                 break;
             case DOWN:
                 pos.setY(-steps);
-                viewController.getRobotView().updateY(pos.getY());
+                viewController.updateYCordRobotView(pos.getY());
+//                viewController.getRobotView().updateY(pos.getY());
                 break;
             case RIGHT:
                 pos.setX(steps);
-                viewController.getRobotView().updateX(pos.getX());
+                viewController.updateXCordRobotView(pos.getX());
+//                viewController.getRobotView().updateX(pos.getX());
                 break;
             case LEFT:
                 pos.setX(-steps);
-                viewController.getRobotView().updateX(pos.getX());
+                viewController.updateXCordRobotView(pos.getX());
+//                viewController.getRobotView().updateX(pos.getX());
                 break;
             default:
                 throw new IllegalStateException("robot has direction '"+direction+"', which is supported");
         }
         if (boardElements.getHole().standingInHole(positionClone())) {
             System.out.println("standing in hole");
-            pos = START_POS; // died because of hole, restarting at start position
+            pos.restart();
             viewController.getRobotView().updateX(pos.getX());
             viewController.getRobotView().updateY(pos.getY());
         }
