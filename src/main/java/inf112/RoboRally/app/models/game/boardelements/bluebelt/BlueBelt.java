@@ -1,6 +1,7 @@
 package inf112.RoboRally.app.models.game.boardelements.bluebelt;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import inf112.RoboRally.app.models.cards.Rotation;
 import inf112.RoboRally.app.models.game.boardelements.IElement;
 import inf112.RoboRally.app.models.robot.Direction;
 import inf112.RoboRally.app.models.robot.Pos;
@@ -26,10 +27,50 @@ public class BlueBelt implements IElement {
     public void effectRobotAfterCardExec(Robot robot) {
         Pos pos = robot.position();
         int x = pos.getX(); int y = pos.getY();
-        if (checkForBlueBelt(x, y, BlueBeltType.PUSH_UP)) robot.moveOneStepInDirection(Direction.UP);
+        if (checkForBlueBelt(x,y, BlueBeltType.PUSH_UP) && checkForBlueBelt(x, y+1, BlueBeltType.UP_AND_DOWN_TO_RIGHT)) {
+            robot.rotate(Rotation.RIGHT);
+            robot.moveOneStepInDirection(Direction.UP);
+        } else if (checkForBlueBelt(x, y, BlueBeltType.PUSH_UP)) robot.moveOneStepInDirection(Direction.UP);
+        else if (checkForBlueBelt(x,y, BlueBeltType.PUSH_DOWN) || checkForBlueBelt(x, y-1, BlueBeltType.UP_AND_DOWN_TO_RIGHT)) {
+            robot.rotate(Rotation.LEFT);
+            robot.moveOneStepInDirection(Direction.DOWN);
+        }
         else if (checkForBlueBelt(x, y, BlueBeltType.PUSH_DOWN)) robot.moveOneStepInDirection(Direction.DOWN);
         else if (checkForBlueBelt(x, y, BlueBeltType.PUSH_LEFT)) robot.moveOneStepInDirection(Direction.LEFT);
+        else if (checkForBlueBelt(x+1, y, BlueBeltType.UP_FROM_RIGHT) && checkForBlueBelt(x, y, BlueBeltType.PUSH_RIGHT)) {
+            robot.rotate(Rotation.LEFT);
+            robot.moveOneStepInDirection(Direction.RIGHT);
+        }
         else if (checkForBlueBelt(x, y, BlueBeltType.PUSH_RIGHT)) robot.moveOneStepInDirection(Direction.RIGHT);
+        else if (checkForBlueBelt(x, y, BlueBeltType.ROTATE_RIGHT_TO_RIGHT)) {
+            robot.rotate(Rotation.RIGHT);
+            robot.moveOneStepInDirection(Direction.RIGHT);
+        } else if (checkForBlueBelt(x, y, BlueBeltType.ROTATE_RIGHT_TO_DOWN)) {
+            robot.rotate(Rotation.RIGHT);
+            robot.moveOneStepInDirection(Direction.DOWN);
+        } else if (checkForBlueBelt(x, y, BlueBeltType.ROTATE_RIGHT_TO_LEFT)) {
+            robot.rotate(Rotation.RIGHT);
+            robot.moveOneStepInDirection(Direction.LEFT);
+        } else if (checkForBlueBelt(x, y, BlueBeltType.ROTATE_RIGHT_TO_UP)) {
+            robot.rotate(Rotation.RIGHT);
+            robot.moveOneStepInDirection(Direction.UP);
+        } else if (checkForBlueBelt(x, y, BlueBeltType.ROTATE_LEFT_TO_LEFT)) {
+            robot.rotate(Rotation.LEFT);
+            robot.moveOneStepInDirection(Direction.LEFT);
+        } else if (checkForBlueBelt(x, y, BlueBeltType.ROTATING_LEFT_TO_DOWN)) {
+            robot.rotate(Rotation.LEFT);
+            robot.moveOneStepInDirection(Direction.DOWN);
+        } else if (checkForBlueBelt(x, y, BlueBeltType.ROTATING_LEFT_TO_RIGHT)) {
+            robot.rotate(Rotation.LEFT);
+            robot.moveOneStepInDirection(Direction.RIGHT);
+        } else if (checkForBlueBelt(x, y, BlueBeltType.ROTATE_LEFT_TO_UP)) {
+            robot.rotate(Rotation.LEFT);
+            robot.moveOneStepInDirection(Direction.UP);
+        } else if (checkForBlueBelt(x, y, BlueBeltType.UP_FROM_RIGHT)) {
+            robot.moveOneStepInDirection(Direction.UP);
+        } else if (checkForBlueBelt(x, y, BlueBeltType.UP_AND_DOWN_TO_RIGHT)) {
+            robot.moveOneStepInDirection(Direction.RIGHT);
+        }
     }
 
     @Override

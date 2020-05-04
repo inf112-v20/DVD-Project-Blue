@@ -27,50 +27,50 @@ public enum BlueBeltType {
         }
     },
     // rotating left belts
-    TURN_UP_TO_LEFT {
-        @Override
-        public int getTileId() {
-            return 10;
-        }
-    },
-    TURN_LEFT_TO_DOWN {
-        @Override
-        public int getTileId() {
-            return 9;
-        }
-    },
-    TURN_DOWN_TO_RIGHT {
-        @Override
-        public int getTileId() {
-            return 17;
-        }
-    },
-    TURN_RIGHT_TO_UP {
+    ROTATE_LEFT_TO_UP {
         @Override
         public int getTileId() {
             return 18;
         }
     },
+    ROTATE_LEFT_TO_LEFT {
+        @Override
+        public int getTileId() {
+            return 10;
+        }
+    },
+    ROTATING_LEFT_TO_DOWN {
+        @Override
+        public int getTileId() {
+            return 9;
+        }
+    },
+    ROTATING_LEFT_TO_RIGHT {
+        @Override
+        public int getTileId() {
+            return 17;
+        }
+    },
     // rotating right belts
-    TURN_LEFT_TO_UP {
+    ROTATE_RIGHT_TO_UP {
         @Override
         public int getTileId() {
             return 19;
         }
     },
-    TURN_UP_TO_RIGHT {
+    ROTATE_RIGHT_TO_RIGHT {
         @Override
         public int getTileId() {
             return 11;
         }
     },
-    TURN_RIGHT_TO_DOWN {
+    ROTATE_RIGHT_TO_DOWN {
         @Override
         public int getTileId() {
             return 12;
         }
     },
-    TURN_DOWN_TO_LEFT {
+    ROTATE_RIGHT_TO_LEFT {
         @Override
         public int getTileId() {
             return 20;
@@ -86,19 +86,19 @@ public enum BlueBeltType {
     LEFT_AND_RIGHT_TO_UP {
         @Override
         public int getTileId() {
-            return 22;
+            return 14;
         }
     },
     UP_AND_DOWN_TO_RIGHT {
         @Override
         public int getTileId() {
-            return 13;
+            return 21;
         }
     },
     UP_AND_DOWN_TO_LEFT {
         @Override
         public int getTileId() {
-            return 14;
+            return 13;
         }
     },
     // belts that go in one direction and has a left turn into them
@@ -108,7 +108,7 @@ public enum BlueBeltType {
             return 27;
         }
     },
-    RIGHT_FROM_DOWN {
+    RIGHT_FROM_ABOVE {
         @Override
         public int getTileId() {
             return 35;
