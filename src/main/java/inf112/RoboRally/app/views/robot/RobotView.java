@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import inf112.RoboRally.app.models.cards.Rotation;
 import inf112.RoboRally.app.models.robot.Direction;
 import inf112.RoboRally.app.models.robot.Pos;
-import inf112.RoboRally.app.views.game.GameScreen;
 
 public class RobotView extends Sprite {
 
@@ -15,12 +14,10 @@ public class RobotView extends Sprite {
 
     private final float TILE_HEIGHT_PX = 96.053575f; // 256 /  2.665179302
     private final float TILE_WIDTH_PX = 98.46153846153846f; // 256 / 2.6 (tile px size / scaling down property)
-    private final int SPRITE_MOVEMENT_SPEED = 300;
 
     private float targetX;
     private float targetY;
 
-    private GameScreen screen;
 
     public RobotView(Sprite sprite, Pos startPos, Direction startDirection) {
         super(sprite);
@@ -36,18 +33,21 @@ public class RobotView extends Sprite {
     }
 
     private void update(float delta) {
+        int spriteMovementSpeed;
+        if (isDeadThisRound) spriteMovementSpeed = 150; // move slower when getting reset
+        else                 spriteMovementSpeed = 300;
 
         if (getX() < targetX) {
-            setX(getX() + SPRITE_MOVEMENT_SPEED * delta);
+            setX(getX() + spriteMovementSpeed * delta);
         }
         if (getX() > targetX) {
-            setX(getX() - SPRITE_MOVEMENT_SPEED * delta);
+            setX(getX() - spriteMovementSpeed * delta);
         }
         if (getY() < targetY) {
-            setY(getY() + SPRITE_MOVEMENT_SPEED * delta);
+            setY(getY() + spriteMovementSpeed * delta);
         }
         if (getY() > targetY) {
-            setY(getY() - SPRITE_MOVEMENT_SPEED * delta);
+            setY(getY() - spriteMovementSpeed * delta);
         }
     }
 
