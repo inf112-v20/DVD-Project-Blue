@@ -75,31 +75,6 @@ public enum YellowBeltType {
             return 52;
         }
     },
-    // belts that come from two sides and become one
-    LEFT_AND_RIGHT_TO_DOWN {
-        @Override
-        public int getTileId() {
-            return 45;
-        }
-    },
-    LEFT_AND_RIGHT_TO_UP {
-        @Override
-        public int getTileId() {
-            return 46;
-        }
-    },
-    UP_AND_DOWN_TO_RIGHT {
-        @Override
-        public int getTileId() {
-            return 53;
-        }
-    },
-    UP_AND_DOWN_TO_LEFT {
-        @Override
-        public int getTileId() {
-            return 54;
-        }
-    },
     YELLOW_1 {
         @Override
         public int getTileId() {
@@ -139,6 +114,30 @@ public enum YellowBeltType {
     YELLOW_8 {
         @Override
         public int getTileId() { return 70; }
+    },
+    YELLOW_9 {
+        @Override
+        public int getTileId() {
+            return 45;
+        }
+    },
+    YELLOW_10 {
+        @Override
+        public int getTileId() {
+            return 46;
+        }
+    },
+    YELLOW_11 {
+        @Override
+        public int getTileId() {
+            return 53;
+        }
+    },
+    YELLOW_12 {
+        @Override
+        public int getTileId() {
+            return 54;
+        }
     };
     public abstract int getTileId();
 }
