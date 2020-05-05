@@ -1,10 +1,12 @@
 package inf112.RoboRally.app.models.game.boardelements.hole;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import inf112.RoboRally.app.models.game.boardelements.IElement;
 import inf112.RoboRally.app.models.robot.Direction;
 import inf112.RoboRally.app.models.robot.Pos;
+import inf112.RoboRally.app.models.robot.Robot;
 
-public class Hole {
+public class Hole implements IElement {
 
     private TiledMapTileLayer layer;
     public final boolean ACTIVE;
@@ -15,8 +17,8 @@ public class Hole {
         layer = tiledMapTileLayer;
     }
 
-    // bug på chopshop??
-    public int effectRobot(Pos pos, Direction direction, int steps) {
+    // bug på chopshop?
+    public int effectRobotSteps(Pos pos, Direction direction, int steps) {
         switch (direction) {
             case UP:
                 return checkForHolesMovingUp(pos, steps);
@@ -76,5 +78,22 @@ public class Hole {
     }
 
 
+    @Override
+    public void effectRobotAfterCardExec(Robot robot) {
+        Pos pos = robot.position();
+        int x = pos.getX(), y = pos.getY();
+        if (checkForHole(x, y, HoleType.SINGLE_HOLE)) {
+            robot.reset(true);
+        }
+    }
 
+    @Override
+    public boolean inEffectForSlotNumber(int slotNumber) {
+        return ACTIVE;
+    }
+
+    @Override
+    public int effectRobotSteps(int steps) {
+        return 0;
+    }
 }

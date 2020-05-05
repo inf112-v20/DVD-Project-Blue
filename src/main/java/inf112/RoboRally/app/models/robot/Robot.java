@@ -3,10 +3,13 @@ package inf112.RoboRally.app.models.robot;
 import inf112.RoboRally.app.controllers.RobotViewController;
 import inf112.RoboRally.app.models.cards.Rotation;
 import inf112.RoboRally.app.models.game.Game;
+import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.models.game.boardelements.BoardElements;
 import inf112.RoboRally.app.models.game.boardelements.flag.FlagType;
 
 public class Robot implements IRobot {
+
+    private Player player;
 
     // Position
     private final Direction START_DIRECTION;
@@ -22,21 +25,22 @@ public class Robot implements IRobot {
     private boolean[] flagsTouched = new boolean[2]; // three flags must be touched
 //    private int playerNumber;  // NOT NEEDED?
 
-    // Controllers
+    // View controllers
     private RobotViewController robotViewController;
 
     // Board elements for robot interaction
     private BoardElements boardElements;
 
-    public Robot(Game game, int playerNumber) {
+    public Robot(Player player, Game game) {
+        this.player = player;
         hp = MAX_HP;
         lives = STARTING_LIVES;
 //        this.playerNumber = playerNumber;
         poweredDown = false;
-        pos = game.getBoard().getRobotStartingPos(playerNumber);
-        START_DIRECTION = game.getBoard().getRobotStartingDirection(playerNumber);
-        direction = game.getBoard().getRobotStartingDirection(playerNumber);
-        robotViewController = new RobotViewController(playerNumber, pos, direction);
+        pos = game.getBoard().getRobotStartingPos(player.getPlayerNumber());
+        START_DIRECTION = game.getBoard().getRobotStartingDirection(player.getPlayerNumber());
+        direction = game.getBoard().getRobotStartingDirection(player.getPlayerNumber());
+        robotViewController = new RobotViewController(player.getPlayerNumber(), pos, direction);
         boardElements = game.getBoardElements();
     }
 
@@ -50,7 +54,7 @@ public class Robot implements IRobot {
         if (boardElements.getCornerWall().ACTIVE)
             steps = boardElements.getCornerWall().effectRobot(positionClone(), direction, steps);
         if (boardElements.getHole().ACTIVE)
-            steps = boardElements.getHole().effectRobot(positionClone(), direction, steps);
+            steps = boardElements.getHole().effectRobotSteps(positionClone(), direction, steps);
 
         switch (direction) {
             case UP:
@@ -72,13 +76,7 @@ public class Robot implements IRobot {
             default:
                 throw new IllegalStateException("robot has direction '"+direction+"', which is supported");
         }
-        if (boardElements.getHole().standingInHole(positionClone())) {
-            pos.restart(); // restart to init position, as robot died
-            direction = START_DIRECTION;
-            robotViewController.updateXCord(pos.getX());
-            robotViewController.updateYCord(pos.getY());
-            robotViewController.updateDirection(START_DIRECTION);
-        }
+
     }
 
     @Override
@@ -177,14 +175,14 @@ public class Robot implements IRobot {
                     flagsTouched[0] = true;
                     System.out.println("Robot now has one flag");
                 }
-                pos.setNewRestrtPos(x, y);
+                pos.setNewRestartPos(x, y);
                 break;
             case SECOND_FLAG:
                 if (flagsTouched[0] && !flagsTouched[1]) {
                     flagsTouched[1] = true;
 
                 }
-                pos.setNewRestrtPos(x, y);
+                pos.setNewRestartPos(x, y);
                 System.out.println("touched second flag");
                 break;
             case THIRD_FLAG:
@@ -192,11 +190,19 @@ public class Robot implements IRobot {
                     flagsTouched[2] = true; // we have a winner
                     System.out.println("We have a winner");
                 }
-                pos.setNewRestrtPos(x, y);
+                pos.setNewRestartPos(x, y);
                 break;
         }
     }
 
 
-
+    public void reset(boolean looseLife) {
+        if (looseLife) lives--;
+        player.clearAllCards();
+        pos.restart();
+        direction = START_DIRECTION;
+        robotViewController.updateXCord(pos.getX());
+        robotViewController.updateYCord(pos.getY());
+        robotViewController.updateDirection(START_DIRECTION);
+    }
 }

@@ -14,7 +14,7 @@ public class Pos {
         this.y = y;
     }
 
-    public void setNewRestrtPos(int x, int y) {
+    public void setNewRestartPos(int x, int y) {
         restartX = x; restartY = y;
     }
 

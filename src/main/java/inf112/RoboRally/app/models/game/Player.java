@@ -26,7 +26,7 @@ public class Player {
         name = "PLAYER" + (playerNumber+1);
         this.game = game;
         this.numberOfPlayersInGame = game.players().length;
-        robot = new Robot(game, playerNumber);
+        robot = new Robot(this, game);
         isHuman = false;
     }
 

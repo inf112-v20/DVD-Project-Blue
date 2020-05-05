@@ -34,13 +34,14 @@ public class BoardElements {
         wall = new Wall( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("wall") );
         hole = new Hole( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("hole") );
         cornerWall = new CornerWall( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("doubleWall") );
-        elementsThatEffectRobot = new IElement[6];
-        elementsThatEffectRobot[0] = blueBelt;
+        elementsThatEffectRobot = new IElement[7];
+        elementsThatEffectRobot[0] = hole;
         elementsThatEffectRobot[1] = blueBelt;
-        elementsThatEffectRobot[2] = yellowBelt;
-        elementsThatEffectRobot[3] = pusher;
-        elementsThatEffectRobot[4] = cog;
-        elementsThatEffectRobot[5] = flag;
+        elementsThatEffectRobot[2] = blueBelt;
+        elementsThatEffectRobot[3] = yellowBelt;
+        elementsThatEffectRobot[4] = pusher;
+        elementsThatEffectRobot[5] = cog;
+        elementsThatEffectRobot[6] = flag;
 
     }
 
