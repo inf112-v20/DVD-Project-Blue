@@ -21,6 +21,7 @@ public class Robot implements IRobot {
     private final int STARTING_LIVES = 3;
     private int hp;
     private int lives;
+    private boolean deadThisRound = false; // when robot falls out of map or in hole
     private boolean poweredDown;
     private int flagsCaptured = 0;
 //    private int playerNumber;  // NOT NEEDED?
@@ -35,7 +36,6 @@ public class Robot implements IRobot {
         this.player = player;
         hp = MAX_HP;
         lives = STARTING_LIVES;
-//        this.playerNumber = playerNumber;
         poweredDown = false;
         pos = game.getBoard().getRobotStartingPos(player.getPlayerNumber());
         START_DIRECTION = game.getBoard().getRobotStartingDirection(player.getPlayerNumber());
@@ -200,8 +200,13 @@ public class Robot implements IRobot {
     }
 
 
+    // used when robot is dead
     public void reset(boolean looseLife) {
-        if (looseLife) lives--;
+        if (looseLife) {
+            deadThisRound = true;
+            lives--;
+            robotViewController.updateViewToDead();
+        }
         hp = getMAX_HP();
         player.clearAllCards();
         pos.restart();
@@ -209,6 +214,6 @@ public class Robot implements IRobot {
         robotViewController.updateXCord(pos.getX());
         robotViewController.updateYCord(pos.getY());
         robotViewController.resetDir();
-//        robotViewController.updateDirection(START_DIRECTION);
     }
+
 }

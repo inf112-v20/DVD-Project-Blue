@@ -11,6 +11,7 @@ import inf112.RoboRally.app.views.game.GameScreen;
 public class RobotView extends Sprite {
 
     private int flags = 0;
+    private boolean isDeadThisRound = false;
 
     private final float TILE_HEIGHT_PX = 96.053575f; // 256 /  2.665179302
     private final float TILE_WIDTH_PX = 98.46153846153846f; // 256 / 2.6 (tile px size / scaling down property)
@@ -129,5 +130,13 @@ public class RobotView extends Sprite {
 
     public void setFlags(int flagsCaptured) {
         flags = flagsCaptured;
+    }
+
+    public void setDeadThisRound(boolean deadThisRound) {
+        this.isDeadThisRound = deadThisRound;
+    }
+
+    public boolean isDeadThisRound() {
+        return isDeadThisRound;
     }
 }

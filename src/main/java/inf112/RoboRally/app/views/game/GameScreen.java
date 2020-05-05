@@ -92,9 +92,12 @@ public class GameScreen extends InputAdapter implements Screen {
             robotViews[playerNumber] = players[playerNumber].robot().getRobotViewController().getRobotView();
             robotViews[playerNumber].draw(gameLauncher.batch);
 
+            if (robotViews[playerNumber].isDeadThisRound()) {
+                robotViews[playerNumber].setTexture(new Texture(PATH+playerNumber+"dead.png"));
+            }
 
             if ( robotViews[playerNumber].capturedFirstFlag() ) {
-                robotViews[playerNumber].setTexture(new Texture(PATH+playerNumber+"flag.png"));
+                robotViews[playerNumber].setTexture(new Texture(PATH+playerNumber+"flag1.png"));
                 if (robotViews[playerNumber].capturedSecondFlag()) {
                     robotViews[playerNumber].setTexture(new Texture(PATH+playerNumber+"flag2.png"));
                     if (robotViews[playerNumber].capturedThirdFlag()) {
