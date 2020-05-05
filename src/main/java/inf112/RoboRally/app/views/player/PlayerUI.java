@@ -78,14 +78,17 @@ public class PlayerUI extends InputAdapter {
         powerDownTable.pad(0, 1170, 176, 0);
         powerDownTable.add(powerDownButton);
 
-        if (powerDownButton.isChecked()) {
-            //gjør ting her
-            System.out.println("POWER DOWN BUTTON PRESSED");
-        }
-//        else {
-//            //gjør ting her
-//            System.out.println("NOT ACTIVE");
-//        }
+        //testet, funker nå :D
+        powerDownButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (powerDownButton.isChecked()) {
+                    System.out.println("YOU ACTIVATED THE POWERDOWN FUNCTION");
+                } else {
+                    System.out.println("POWER DOWN IS FINISHED, YOU ARE GOOD TO GO");
+                }
+            }
+        });
 
         return powerDownTable;
     }
