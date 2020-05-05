@@ -7,6 +7,7 @@ import inf112.RoboRally.app.models.game.boardelements.cog.Cog;
 import inf112.RoboRally.app.models.game.boardelements.cornerwall.CornerWall;
 import inf112.RoboRally.app.models.game.boardelements.flag.Flag;
 import inf112.RoboRally.app.models.game.boardelements.hole.Hole;
+import inf112.RoboRally.app.models.game.boardelements.laserbeam.LaserBeam;
 import inf112.RoboRally.app.models.game.boardelements.onethreefivepusher.OneThreeFivePusher;
 import inf112.RoboRally.app.models.game.boardelements.repair.Repair;
 import inf112.RoboRally.app.models.game.boardelements.twofourpusher.TwoFourPusher;

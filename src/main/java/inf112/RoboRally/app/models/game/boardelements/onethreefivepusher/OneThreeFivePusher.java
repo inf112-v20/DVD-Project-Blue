@@ -40,6 +40,7 @@ public class OneThreeFivePusher implements IElement {
 
     @Override
     public boolean inEffectForSlotNumber(int slotNumber) {
+        slotNumber++;
         return ACTIVE && (slotNumber == 1 || slotNumber == 3 || slotNumber == 5);
     }
 }
