@@ -86,7 +86,6 @@ public class Wall {
 
         for (int step = 1; step <= steps; step++) {
             pos.setX(1);
-            System.out.println("getting here, step = " + step);
             if (checkForWall(pos.getX(), y, WallType.RIGHTSIDE)) return step;
             else if (checkForWall(pos.getX() + 1, y , WallType.LEFTSIDE)) return step;
         }

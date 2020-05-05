@@ -4,16 +4,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import inf112.RoboRally.app.models.robot.Direction;
 import inf112.RoboRally.app.models.robot.Pos;
-import inf112.RoboRally.app.views.robot.OldRobotView;
+import inf112.RoboRally.app.views.robot.RobotView;
 
 public class RobotViewController {
 
     // game stat
     private int playerNumber;
-    private boolean hasOneFlag;
 
     // files
-    private final String IMAGE_PATH = "assets/smallrobot/Player";
+    private final String IMAGE_PATH = "assets/smallrobot/player";
     private final String FILE_EXTENSION = ".png";
     private final String DEAD_BOT_IMAGE_PATH = "deadBot";
 
@@ -21,13 +20,13 @@ public class RobotViewController {
     private Texture robotTexture;
 
     // the view
-    private OldRobotView robotView;
+    private RobotView robotView;
 
     public RobotViewController(int playerNumber, Pos startPos, Direction startDirection) {
         this.playerNumber = playerNumber;
         robotTexture = new Texture(IMAGE_PATH+playerNumber+FILE_EXTENSION);
         robotTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        robotView = new OldRobotView(new Sprite(robotTexture), robotTexture,  startPos, startDirection);
+        robotView = new RobotView(new Sprite(robotTexture),  startPos, startDirection);
     }
 
 
@@ -39,7 +38,7 @@ public class RobotViewController {
         robotView.updateY(y);
     }
 
-    public OldRobotView getRobotView() {
+    public RobotView getRobotView() {
         return robotView;
     }
 
@@ -48,8 +47,8 @@ public class RobotViewController {
     }
 
 
-    public void touchedAFlag() {
-        robotView.setHasOneFlag();
+    public void touchedFlag(int flagsCaptured) {
+        robotView.setFlags(flagsCaptured);
     }
 
 
@@ -57,4 +56,6 @@ public class RobotViewController {
         robotView.setStartDirection();
         robotView.setRotation(270.0f);
     }
+
+
 }

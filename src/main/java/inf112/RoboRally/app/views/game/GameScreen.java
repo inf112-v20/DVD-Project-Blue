@@ -16,9 +16,11 @@ import inf112.RoboRally.app.GameLauncher;
 import inf112.RoboRally.app.models.game.Game;
 import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.views.player.PlayerUI;
-import inf112.RoboRally.app.views.robot.OldRobotView;
+import inf112.RoboRally.app.views.robot.RobotView;
 
 public class GameScreen extends InputAdapter implements Screen {
+
+    private final String PATH = "assets/smallrobot/player";
 
     private GameLauncher gameLauncher;
     private OrthographicCamera camera;
@@ -27,7 +29,7 @@ public class GameScreen extends InputAdapter implements Screen {
     private OrthogonalTiledMapRenderer mapRenderer;
     private static Game game;
     private PlayerUI playerUI;
-    private OldRobotView[] robotViews;
+    private RobotView[] robotViews;
 
     private InputMultiplexer multiplexer;
 
@@ -40,7 +42,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         // setting up the game and board
         game = new Game(gameLauncher.settings());
-        robotViews = new OldRobotView[game.getGameCardController().numberOfPlayers()];
+        robotViews = new RobotView[game.getGameCardController().numberOfPlayers()];
         TiledMap tiledMap = game.setUpMadLoader().getMap();
 
 
@@ -88,11 +90,20 @@ public class GameScreen extends InputAdapter implements Screen {
         Player[] players = game.players();
         for (int playerNumber = 0; playerNumber < players.length; playerNumber++) {
             robotViews[playerNumber] = players[playerNumber].robot().getRobotViewController().getRobotView();
-//            robotViews[playerNumber].setGameScreen(this);
             robotViews[playerNumber].draw(gameLauncher.batch);
-            if ( robotViews[playerNumber].hasOneFlag() ) {
-                robotViews[playerNumber].setTexture(new Texture("assets/smallrobot/player"+playerNumber+"flag.png"));
+
+
+            if ( robotViews[playerNumber].capturedFirstFlag() ) {
+                robotViews[playerNumber].setTexture(new Texture(PATH+playerNumber+"flag.png"));
+                if (robotViews[playerNumber].capturedSecondFlag()) {
+                    robotViews[playerNumber].setTexture(new Texture(PATH+playerNumber+"flag2.png"));
+                    if (robotViews[playerNumber].capturedThirdFlag()) {
+                        robotViews[playerNumber].setTexture(new Texture(PATH+playerNumber+"won.png"));
+                    }
+                }
             }
+
+
         }
 
         gameLauncher.batch.end();
