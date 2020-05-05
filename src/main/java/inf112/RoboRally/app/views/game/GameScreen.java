@@ -79,6 +79,8 @@ public class GameScreen extends InputAdapter implements Screen {
         gameLauncher.batch.begin();
 
         gameLauncher.batch.setProjectionMatrix(camera.combined);
+        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1));
+        stage.draw();
 
         mapRenderer.render();
 
@@ -115,8 +117,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
 
         }
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1));
-        stage.draw();
+
         gameLauncher.batch.end();
     }
 
