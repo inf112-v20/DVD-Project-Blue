@@ -10,11 +10,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
-import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
+import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.views.card.GameScreenCards;
 import inf112.RoboRally.app.views.menus.Button;
+import inf112.RoboRally.app.views.opponents.OpponentHUDTable;
 
 public class PlayerUI extends InputAdapter {
+
+    private Player player; // the player who's thus UI belongs to
 
     private Table readyButtonTable;
     private TextButton readyButton;
@@ -22,30 +25,34 @@ public class PlayerUI extends InputAdapter {
     private Table generateCardsTable;
     private TextButton generateCardsButton;
 
+    private OpponentHUDTable opponentHUDTable;
+
     private Stage stage;
     private Viewport viewport;
     private PlayerHUD playerHUD;
     private GameScreenCards gameScreenCards;
-    private GameCardController gameCardController;
 
-    public PlayerUI (GameCardController controller) {
-        this.gameCardController = controller;
+    public PlayerUI (Player player, boolean cardsFacingUp) {
+        this.player = player;
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT);
         stage = new Stage(viewport);
 
         readyButtonTable = new Table();
         generateCardsTable = new Table();
 
-        playerHUD = new PlayerHUD(3, 9, false); // connection to models between player health and lives not implemented
-        stage.addActor(playerHUD.create());
-        stage.addActor(playerHUD.powerDown());
-        stage.addActor(playerHUD.damageTokens());
-        stage.addActor(playerHUD.lifeTokens());
+        playerHUD = new PlayerHUD(player);
+        opponentHUDTable = new OpponentHUDTable(player, cardsFacingUp);
+
+        stage.addActor(opponentHUDTable.getOpponentTable());
+        stage.addActor(playerHUD.getPlayerHudDashBoardTable());
+        stage.addActor(playerHUD.getDamageTokensTable());
+        stage.addActor(playerHUD.getPowerDownTable());
+        stage.addActor(playerHUD.getLifeTokensTable());
         stage.addActor(readyButtonTable());
         stage.addActor(generateCardsTable());
 
-        gameScreenCards = new GameScreenCards(gameCardController);
-        for (int slotNumber = 0; slotNumber < gameCardController.numberOfCardSlots(); slotNumber++)
+        gameScreenCards = new GameScreenCards(player);
+        for (int slotNumber = 0; slotNumber < player.numberOfCardSlots(); slotNumber++)
             stage.addActor(gameScreenCards.getCardSlotTable(slotNumber));
 
         stage.addActor(gameScreenCards.getReceivedCardsTable());
@@ -63,7 +70,7 @@ public class PlayerUI extends InputAdapter {
 
     public Table readyButtonTable() {
 
-        readyButtonTable.pad(0, 3830, 370, 0);
+        readyButtonTable.pad(0, 3765, 430, 0);
         readyButton = new Button().createTextButton("READY");
 
         readyButtonTable.row().padTop(20);
@@ -72,10 +79,11 @@ public class PlayerUI extends InputAdapter {
         readyButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("--------------------------------------------------------------------");
-                System.out.println("FROM PlayerUI: ready button pressed! Player is ready for some action!");
-                gameCardController.setCardSlotsFromUserInput(gameScreenCards.getCardChoices());
-                gameScreenCards.clearCards();
+//                System.out.println("--------------------------------------------------------------------");
+//                System.out.println("FROM PlayerUI: ready button pressed! Player is ready for some action!");
+                player.setCardSlotsFromUserInput(gameScreenCards.getCardChoices());
+                player.getGame().executeCardsChoices();
+                gameScreenCards.clearReceivedCards();
             }
         });
 
@@ -84,7 +92,7 @@ public class PlayerUI extends InputAdapter {
 
     public Table generateCardsTable() {
 
-        generateCardsTable.pad(0, 3830, 120, 0);
+        generateCardsTable.pad(0, 3765, 180, 0);
         generateCardsButton = new Button().createTextButton("CARDS");
 
         generateCardsTable.row().padTop(20);
@@ -93,12 +101,12 @@ public class PlayerUI extends InputAdapter {
         generateCardsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("--------------------------------------------------------------------");
-                System.out.println("FROM PlayerUI: generated new cards button pressed. Passing this information along.");
-                gameScreenCards.clearCards();
-                gameCardController.newRound();
-                gameScreenCards = new GameScreenCards(gameCardController);
-                for (int slotNumber = 0; slotNumber < gameCardController.numberOfCardSlots(); slotNumber++)
+//                System.out.println("--------------------------------------------------------------------");
+//                System.out.println("FROM PlayerUI: generated new cards button pressed. Passing this information along.");
+                gameScreenCards.clearAllCards();
+                player.getGame().newRound();
+                gameScreenCards = new GameScreenCards(player);
+                for (int slotNumber = 0; slotNumber < player.numberOfCardSlots(); slotNumber++)
                     stage.addActor(gameScreenCards.getCardSlotTable(slotNumber));
 
                 stage.addActor(gameScreenCards.getReceivedCardsTable());
@@ -106,5 +114,16 @@ public class PlayerUI extends InputAdapter {
         });
 
         return generateCardsTable;
+    }
+
+    public void updateOpponentCardSlotsCardsFacingUp() {
+        opponentHUDTable = new OpponentHUDTable(player, true);
+        stage.addActor(opponentHUDTable.getOpponentTable());
+    }
+
+
+    public void updateForNewRound() {
+        opponentHUDTable = new OpponentHUDTable(player, false);
+        stage.addActor(opponentHUDTable.getOpponentTable());
     }
 }

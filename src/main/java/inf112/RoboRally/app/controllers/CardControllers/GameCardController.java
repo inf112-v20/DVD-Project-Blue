@@ -11,24 +11,28 @@ from the view to the model player class
  */
 public class GameCardController {
 
-    private Player player; // our human player
-    private Game game;
+    private Player humanPlayer; // our human player
+    private Player[] players;
+    private static int numberOfPlayers;
+    private static Game game;
 
     public GameCardController(Game game) {
         this.game = game;
-        this.player = game.getHumanPlayer();
+        this.players = game.players();
+        numberOfPlayers = players.length;
+        this.humanPlayer = game.getHumanPlayer();
     }
 
     public int amountOfReceivedCards() {
-        return player.amountOfReceivedCards();
+        return humanPlayer.numberOfReceivedCards();
     }
 
     public int numberOfCardSlots() {
-        return player.numberOfCardSlots();
+        return humanPlayer.numberOfCardSlots();
     }
 
     public ICard[] getReceivedPlayerCards() {
-        return player.getReceivedCards();
+        return humanPlayer.getReceivedCards();
     }
 
     public void setCardSlotsFromUserInput(ICardDragAndDrop[] cardsFromView) {
@@ -37,14 +41,16 @@ public class GameCardController {
                 fillPlayerCardSlot(viewCard.getModelCard());
         }
 
+//        game.round().executeHumanCardChoices();
+//        game.round().executeCardChoicesDepriecated();
         game.round().executeCardChoices();
     }
 
     private void fillPlayerCardSlot(ICard card) {
-        ICard[] playerModelCardSlots = player.getCardSlots();
+        ICard[] playerModelCardSlots = humanPlayer.getCardSlots();
         for (int i = 0; i < playerModelCardSlots.length; i++) {
             if (playerModelCardSlots[i] == null) {
-                System.out.println("FROM GameCardController: found a card in the slot. I am giving it to the Player model");
+//                System.out.println("FROM GameCardController: found a card in the slot. I am giving it to the Player model");
                 playerModelCardSlots[i] = card;
                 break;
             }
@@ -53,11 +59,27 @@ public class GameCardController {
 
     }
 
-    public void newRound() {
+    public static void newRound() {
+        System.out.println("---------------------------------------------------------------------------");
         System.out.println("FROM GameCardController: Roger that. Telling mr. Round to start a new round");
-        game.round().dealCards();
+        game.newRound();
     }
 
 
+    public Player humanPlayer() {
+        return humanPlayer;
+    }
 
+    public Player[] players() {
+        return players;
+    }
+
+    public static int numberOfPlayers() {
+        return numberOfPlayers;
+    }
+
+
+    public Player getPlayer(int playerNumber) {
+        return game.getPlayer(playerNumber);
+    }
 }

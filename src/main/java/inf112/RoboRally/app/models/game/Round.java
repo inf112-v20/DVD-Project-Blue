@@ -2,6 +2,8 @@ package inf112.RoboRally.app.models.game;
 
 import inf112.RoboRally.app.models.cards.CardFactory;
 import inf112.RoboRally.app.models.cards.ICard;
+import inf112.RoboRally.app.models.game.boardelements.IElement;
+import inf112.RoboRally.app.models.game.executors.CollectCardFromSlotExecutor;
 
 import java.util.ArrayList;
 
@@ -11,19 +13,35 @@ Next delivery
 public class Round {
 
     private CardFactory cardFactory = new CardFactory();
-    private Player[] players;      // players in the game
+    private Player[] players;
     private Player humanPlayer;
+    private final int CARD_SLOT_AMOUNT;
+    private IElement[] boardElements;
 
-    public Round(Player[] players, Player humanPlayer) {
-        this.players = players;
-        this.humanPlayer = humanPlayer;
+    public Round(Game game) {
+        this.players = game.players();
+        this.humanPlayer = game.getHumanPlayer();
+        this.boardElements = game.getBoardElements().boardEffects();
+        CARD_SLOT_AMOUNT = humanPlayer.numberOfCardSlots();
     }
 
-    public void dealCards() {
-        System.out.println("FROM Round: Sure thing. Lets do it one more time.");
-        removeDealtCards(); // does not do anything the first round
+    public void startNewRound() {
+        dealCards();
+        botPlayersChooseCards();
+    }
+
+    private void botPlayersChooseCards() {
         for (Player player: players) {
-            for (int i = 0; i < player.amountOfReceivedCards(); i++) {
+            if (player.isBotPlayer())
+                player.chooseCards();
+        }
+    }
+
+    public void dealCards () {
+//        System.out.println("FROM Round: Sure thing. Lets do it one more time.");
+        removeDealtCards(); // does not do anything the first round
+        for (Player player : players) {
+            for (int i = 0; i < player.numberOfReceivedCards(); i++) {
                 ICard card = cardFactory.randomCard();
                 player.receiveCard(i, card);
             }
@@ -31,39 +49,72 @@ public class Round {
 
     }
 
-
     // only executes our human players card choices for now
-    public void executeCardChoices() {
+    public void executeHumanCardChoices() {
         ICard[] cardChoices = humanPlayer.getCardSlots();
         for (int slotNumber = 0; slotNumber < cardChoices.length; slotNumber++) {
             ICard card = cardChoices[slotNumber];
             if (card == null) break;    // means no cards are left to execute
-            System.out.println("FROM Round: I am moving the robot with a slotted card");
-            card.moveRobot(humanPlayer.robot());
+//            System.out.println("FROM Round: I am moving the robot with a slotted card");
+//            card.moveRobot(humanPlayer.robot());
             cardChoices[slotNumber] = null;   // card is executed, remove it from the slot
         }
-
         removeDealtCards();
     }
 
-    private void removeDealtCards() {
+    private void removeDealtCards () {
         for (Player player: players) {
             ICard[] dealtCards = player.getReceivedCards();
             for (int i = 0; i < dealtCards.length; i++) {
                 dealtCards[i] = null;
             }
+
         }
 
     }
 
-    // TODO - implement
-    public void executeNextCardChoices(Player[] players, ArrayList<ICard> nextPlayerChoices) {
+    private ArrayList<ICard> collectAllCardsFromSlots() {
+        ArrayList<ICard> allCards = new ArrayList<>();
+        for (Player player: players) {
+            ICard[] cardSlots = player.getCardSlots();
+            for (int slotNumber = 0; slotNumber < CARD_SLOT_AMOUNT; slotNumber++) {
+                if (cardSlots[slotNumber] != null)
+                    allCards.add(cardSlots[slotNumber]);
+            }
 
+        }
+
+        return allCards;
     }
 
-    // TODO - implement
-    private ArrayList<ICard> getNextCardChoices(Player[] players) {
-        return null;
+    private ArrayList<ICard> collectCardsFromSlotNumber(int slotNumber) {
+        ArrayList<ICard> cards = new ArrayList<>();
+        for (Player player: players) {
+            ICard[] slottedCards = player.getCardSlots();
+            if (slottedCards[slotNumber] != null) {
+                cards.add(slottedCards[slotNumber]);
+                slottedCards[slotNumber] = null;
+            }
+        }
+        return cards;
     }
+
+
+    public void executeCardChoices() {
+        updateOpponentHUDCardSlots(); // flipping all cards to face up
+        CollectCardFromSlotExecutor cardChoiceExecutor = new CollectCardFromSlotExecutor(players, boardElements);
+        cardChoiceExecutor.CardChoiceRoundExecutor();
+    }
+
+
+
+    private void updateOpponentHUDCardSlots() {
+        for (Player player: players)
+            player.updateOpponentCardSlotsCardsFacingUp();
+    }
+
 
 }
+
+
+

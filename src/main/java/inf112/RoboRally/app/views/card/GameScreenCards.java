@@ -5,8 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 import inf112.RoboRally.app.models.cards.ICard;
+import inf112.RoboRally.app.models.game.Player;
 
 
 /*
@@ -14,7 +14,9 @@ Class that connects the card slot and received card in the game screen to each o
  */
 public class GameScreenCards extends InputAdapter {
 
-    private GameCardController gameCardController;       // Player card controller - communicates player information
+    private int numberOfCardSlots;
+    private int amountOfReceivedCards;
+
     private CardSlots cardSlots;                         // Class that holds all card slot tables for dropping cards
     private ReceivedCards receivedCards;                 // Class that holds table with the received cards
 
@@ -22,13 +24,14 @@ public class GameScreenCards extends InputAdapter {
     private DragAndDrop dragAndDrop;
 
 
-    public GameScreenCards(GameCardController controller) {
-        this.gameCardController = controller;
-        receivedCards = new ReceivedCards(gameCardController.getReceivedPlayerCards());
-        cardSlots = new CardSlots(gameCardController.numberOfCardSlots());
+    public GameScreenCards(Player player) {
+        numberOfCardSlots = player.numberOfCardSlots();
+        amountOfReceivedCards = player.numberOfReceivedCards();
+        receivedCards = new ReceivedCards(player.getReceivedCards());
+        cardSlots = new CardSlots(player.numberOfCardSlots());
         setUpCardSlotTableListener();
         setUpDragAndDrop();
-        for (int slotNumber = 0; slotNumber < gameCardController.numberOfCardSlots(); slotNumber++)
+        for (int slotNumber = 0; slotNumber < player.numberOfCardSlots(); slotNumber++)
             addDragAndDropTarget(slotNumber);
 
     }
@@ -87,7 +90,7 @@ public class GameScreenCards extends InputAdapter {
 
     // setting up mouse click listeners on all card slots for undoing card choice
     private void setUpCardSlotTableListener() {
-        for (int slotNumber = 0; slotNumber < gameCardController.numberOfCardSlots(); slotNumber++) {
+        for (int slotNumber = 0; slotNumber < numberOfCardSlots; slotNumber++) {
             Table slotTable = cardSlots.getCardSlotTable(slotNumber);
             ICardDragAndDrop card = cardSlots.getSlotCard(slotNumber);
             slotTable.addListener(new ClickListener() {
@@ -105,7 +108,7 @@ public class GameScreenCards extends InputAdapter {
         Table receivedCardsTable = receivedCards.getReceivedCardsTable();
         ICardDragAndDrop[] receivedCards = this.receivedCards.getReceivedCardViews();
         if (modelCard != null) {
-            for (int i = 0; i < gameCardController.amountOfReceivedCards(); i++) {
+            for (int i = 0; i < amountOfReceivedCards; i++) {
                 if (this.receivedCards.getReceivedCard(i).getModelCard() == null) {
                     receivedCardsTable.getCells().get(i).clearActor().setActor(receivedCards[i].createCardGroup(card.getModelCard()));
                     receivedCardsTable.getCells().get(i).getActor().setZIndex(i);
@@ -134,21 +137,10 @@ public class GameScreenCards extends InputAdapter {
 
 
     // For clearing cards when card execution is finished
-    public void clearCards() {
-
-        // clearing all cards that are not dropped into slots
-        Table receivedCardsTable = receivedCards.getReceivedCardsTable();
-        ICardDragAndDrop[] receivedCards = this.receivedCards.getReceivedCardViews();
-        for (int i = 0; i < gameCardController.amountOfReceivedCards(); i++) {
-            ICardDragAndDrop receivedCard = receivedCards[i];
-            if (receivedCard.getModelCard() != null) {
-                receivedCardsTable.getCells().get(i).clearActor().setActor(receivedCard.createCardGroup(null));
-            }
-
-        }
+    public void clearCardsInSlots() {
 
         // clearing cards that are dropped into slots
-        for (int slotNumber = 0; slotNumber < gameCardController.numberOfCardSlots(); slotNumber++) {
+        for (int slotNumber = 0; slotNumber < numberOfCardSlots; slotNumber++) {
             Table slotTable = cardSlots.getCardSlotTable(slotNumber);
             ICardDragAndDrop cardInSlot = cardSlots.getSlotCard(slotNumber);
             if (cardInSlot.getModelCard() != null) {
@@ -160,9 +152,25 @@ public class GameScreenCards extends InputAdapter {
 
     }
 
+    public void clearReceivedCards() {
 
-    public void generateNewCards() {
+        // clearing all cards that are not dropped into slots
+        Table receivedCardsTable = receivedCards.getReceivedCardsTable();
+        ICardDragAndDrop[] receivedCards = this.receivedCards.getReceivedCardViews();
+        for (int i = 0; i < amountOfReceivedCards; i++) {
+            ICardDragAndDrop receivedCard = receivedCards[i];
+            if (receivedCard.getModelCard() != null) {
+                receivedCardsTable.getCells().get(i).clearActor().setActor(receivedCard.createCardGroup(null));
+            }
 
+        }
     }
+
+    public void clearAllCards() {
+        clearReceivedCards();
+        clearCardsInSlots();
+    }
+
+
 
 }

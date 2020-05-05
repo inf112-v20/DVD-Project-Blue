@@ -1,7 +1,7 @@
 package inf112.RoboRally.app.models.board;
 
-import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.models.robot.Direction;
+import inf112.RoboRally.app.models.robot.Pos;
 
 /*
 Passes on information about the board to showBard. This structure will change soon.
@@ -11,16 +11,27 @@ public class ChopShopChallenge extends Board {
     public final String NAME = "ChopShopChallenge";
     public final String FILE_NAME = "ChopShopChallenge";
 
-    private Vector2[] startRobotVectors = {
-            new Vector2(6, 8),
-            new Vector2(6, 9),
-            new Vector2(6, 11),
-            new Vector2(6, 6),
-            new Vector2(6, 13),
-            new Vector2(6, 4),
-            new Vector2(6, 14),
-            new Vector2(6, 3)
+    private Pos[] startRobotPosition = {
+            new Pos(6, 8),
+            new Pos(6, 9),
+            new Pos(6, 11),
+            new Pos(6, 6),
+            new Pos(6, 13),
+            new Pos(6, 4),
+            new Pos(6, 14),
+            new Pos(6, 3)
     };
+
+//    private Vector2[] startRobotVectors = {
+//            new Vector2(6, 8),
+//            new Vector2(6, 9),
+//            new Vector2(6, 11),
+//            new Vector2(6, 6),
+//            new Vector2(6, 13),
+//            new Vector2(6, 4),
+//            new Vector2(6, 14),
+//            new Vector2(6, 3)
+//    };
 
     private Direction[] startRobotDirections = {
             Direction.RIGHT,
@@ -35,8 +46,9 @@ public class ChopShopChallenge extends Board {
 
     public ChopShopChallenge(String path) {
         super();
+        super.setRobotStartPositions(startRobotPosition);
         super.setRobotStartDirections(startRobotDirections);
-        super.setRobotStartVectors(startRobotVectors);
+//        super.setRobotStartVectors(startRobotVectors);
         super.setFilePath(path+FILE_NAME);
         super.setMapName(NAME);
     }

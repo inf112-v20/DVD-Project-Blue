@@ -1,82 +1,89 @@
 package inf112.RoboRally.app.models.robot;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
-import com.badlogic.gdx.math.Vector2;
+import inf112.RoboRally.app.controllers.RobotViewController;
 import inf112.RoboRally.app.models.cards.Rotation;
 import inf112.RoboRally.app.models.game.Game;
+import inf112.RoboRally.app.models.game.Player;
+import inf112.RoboRally.app.models.game.boardelements.BoardElements;
+import inf112.RoboRally.app.models.game.boardelements.flag.FlagType;
 
-/*
-Model of a robot. Initialized with position and direction. This information is passed on by
-the board it is initialized on.
- */
 public class Robot implements IRobot {
 
+    private Player player;
+
     // Position
-    private Vector2 vector2;
+    private final Direction START_DIRECTION;
     private Direction direction;
+    private volatile Pos pos;
 
-    // Views
-    private TiledMapTileLayer boardLayer;
-    private TiledMapTileLayer.Cell boardCell;
-    private Sprite sprite;
-
-    // Robot stats
-    private final int MAX_HP = 9;
+    // Game stats
+    private final int MAX_HP = 10;
     private final int STARTING_LIVES = 3;
-    private int HP;
+    private int hp;
     private int lives;
+    private boolean poweredDown;
+    private boolean[] flagsTouched = new boolean[2]; // three flags must be touched
+//    private int playerNumber;  // NOT NEEDED?
 
-    public Robot(Game game, int playerNumber) {
-        HP = MAX_HP;
+    // View controllers
+    private RobotViewController robotViewController;
+
+    // Board elements for robot interaction
+    private BoardElements boardElements;
+
+    public Robot(Player player, Game game) {
+        this.player = player;
+        hp = MAX_HP;
         lives = STARTING_LIVES;
-        setupOnBoard(game, playerNumber);
+//        this.playerNumber = playerNumber;
+        poweredDown = false;
+        pos = game.getBoard().getRobotStartingPos(player.getPlayerNumber());
+        START_DIRECTION = game.getBoard().getRobotStartingDirection(player.getPlayerNumber());
+        direction = game.getBoard().getRobotStartingDirection(player.getPlayerNumber());
+        robotViewController = new RobotViewController(player.getPlayerNumber(), pos, direction);
+        boardElements = game.getBoardElements();
     }
-
-    // bare bones constructor used for testing
-    public Robot() {
-        HP = MAX_HP;
-        lives = STARTING_LIVES;
-    }
-
-    // for testing
-    public Robot(int x, int y) {
-        vector2 = new Vector2(x, y);
-        direction = Direction.RIGHT;
-    }
-
 
 
     @Override
     public void move(int steps) {
-        System.out.println("FROM Robot: I was told to a certain amount of steps");
-        removeOldPositionOnBoard();
+
+        // updating steps in accordance with board element potentially blocking path
+        if (boardElements.getWall().ACTIVE)
+            steps = boardElements.getWall().effectRobot(positionClone(), direction, steps);
+        if (boardElements.getCornerWall().ACTIVE)
+            steps = boardElements.getCornerWall().effectRobot(positionClone(), direction, steps);
+        if (boardElements.getHole().ACTIVE)
+            steps = boardElements.getHole().effectRobotSteps(positionClone(), direction, steps);
+        if (boardElements.getMapBounds().ACTIVE)
+            steps = boardElements.getMapBounds().effectRobotSteps(positionClone(), direction, steps);
+
         switch (direction) {
             case UP:
-                vector2.y = vector2.y + steps;
+                pos.setY(steps);
+                robotViewController.updateYCord(pos.getY());
                 break;
             case DOWN:
-                vector2.y = vector2.y - steps;
+                pos.setY(-steps);
+                robotViewController.updateYCord(pos.getY());
                 break;
             case RIGHT:
-                vector2.x = vector2.x + steps;
+                pos.setX(steps);
+                robotViewController.updateXCord(pos.getX());
                 break;
             case LEFT:
-                vector2.x = vector2.x - steps;
+                pos.setX(-steps);
+                robotViewController.updateXCord(pos.getX());
                 break;
             default:
                 throw new IllegalStateException("robot has direction '"+direction+"', which is supported");
         }
-        updateOnBoard();
-    }
 
+    }
 
     @Override
     public void rotate(Rotation rotation) {
-        System.out.println("FROM Robot: I was told to rotate");
-        removeOldPositionOnBoard();
+
         switch (rotation) {
             case LEFT:
                 direction = direction.rotateLeft();
@@ -89,54 +96,118 @@ public class Robot implements IRobot {
                 direction = direction.rotateRight();
                 break;
             default:
-                throw new IllegalArgumentException("robot is told to rotate '"+rotation+"', which is not supported");
+                throw new IllegalArgumentException("Robot is told to rotate '"+rotation+"', which is not supported");
         }
-        updateOnBoard();
+        robotViewController.getRobotView().updateDirection(rotation);
     }
 
-    private void removeOldPositionOnBoard() {
-        boardLayer.setCell((int) vector2.x, (int) vector2.y, null); // setting its prev cell to null - the robot is not there anymore
+
+    public Pos position() {
+        return pos;
     }
 
-    private void updateOnBoard() {
-        // setting cell in accordance with current direction and vector values
-        boardCell.setRotation(direction.CellDirectionNumber());
-        boardLayer.setCell((int) vector2.x, (int) vector2.y, boardCell);
+    public Direction direction() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 
     @Override
     public void looseHP() {
-
+        // TODO - if zer hp -> reboot robot on board, loose one life etc etc.
+        hp--;
     }
 
     @Override
     public int getHP() {
-        return HP;
+        return hp;
     }
 
-    private void setupOnBoard(Game game, int playerNumber) {
-        direction = game.getBoard().getRobotStartingDirection(playerNumber);
-        vector2 = game.getBoard().getRobotStartingVector(playerNumber);
-        boardLayer = (TiledMapTileLayer) game.getMap().getLayers().get("player");
-        this.sprite = new Sprite(new Texture("Robots/colorBots/player"+(playerNumber+1)+".png"));
-        boardCell = new TiledMapTileLayer.Cell().setTile(new StaticTiledMapTile(sprite));
-        boardCell.setRotation(direction.CellDirectionNumber());
-        boardLayer.setCell((int) vector2.x,(int) vector2.y, boardCell);
+
+    public int livesLeft() {
+        return lives;
     }
 
-    // for testing
-    public int getX() {
-        return (int) vector2.x;
+    public boolean isPoweredDown() {
+        return poweredDown;
     }
 
-    // for testing
-    public int getY() {
-        return (int) vector2.y;
+    public int getMAX_HP() {
+        return MAX_HP;
     }
 
-    // for testing
-    public Direction getDirection() {
-        return direction;
+    public RobotViewController getRobotViewController() {
+        return robotViewController;
     }
 
+    public Pos positionClone() {
+        return new Pos(pos.getX(), pos.getY());
+    }
+
+
+    public void moveOneStepInDirection(Direction direction) {
+        switch (direction) {
+            case DOWN:
+                pos.setY(-1);
+                robotViewController.updateYCord(pos.getY());
+                break;
+            case UP:
+                pos.setY(1);
+                robotViewController.updateYCord(pos.getY());
+                break;
+            case LEFT:
+                pos.setX(-1);
+                robotViewController.updateXCord(pos.getX());
+                break;
+            case RIGHT:
+                pos.setX(1);
+                robotViewController.updateXCord(pos.getX());
+                break;
+            default:
+                throw new IllegalArgumentException("Robot is told to move in '"+direction+"', which is not supported");
+        }
+    }
+
+    public void touchFlag(FlagType flag, int x, int y) {
+        switch (flag) {
+            case FIRST_FLAG:
+                if (!flagsTouched[0]) {
+                    flagsTouched[0] = true;
+                    robotViewController.touchedAFlag();
+                    System.out.println("Robot now has one flag");
+                }
+                pos.setNewRestartPos(x, y);
+                break;
+            case SECOND_FLAG:
+                if (flagsTouched[0] && !flagsTouched[1]) {
+                    flagsTouched[1] = true;
+
+                }
+                pos.setNewRestartPos(x, y);
+                System.out.println("touched second flag");
+                break;
+            case THIRD_FLAG:
+                if (flagsTouched[1] && !flagsTouched[2]) {
+                    flagsTouched[2] = true; // we have a winner
+                    System.out.println("We have a winner");
+                }
+                pos.setNewRestartPos(x, y);
+                break;
+        }
+    }
+
+
+    public void reset(boolean looseLife) {
+        if (looseLife) lives--;
+        hp = getMAX_HP();
+        player.clearAllCards();
+        pos.restart();
+        direction = START_DIRECTION;
+        robotViewController.updateXCord(pos.getX());
+        robotViewController.updateYCord(pos.getY());
+        robotViewController.resetDir();
+//        robotViewController.updateDirection(START_DIRECTION);
+    }
 }

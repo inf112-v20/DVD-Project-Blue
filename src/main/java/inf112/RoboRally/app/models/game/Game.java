@@ -1,65 +1,47 @@
 package inf112.RoboRally.app.models.game;
 
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 import inf112.RoboRally.app.controllers.MapChoiceControllers.SinglePlayerSettingsController;
 import inf112.RoboRally.app.models.board.Board;
+import inf112.RoboRally.app.models.game.boardelements.BoardElements;
 
 public class Game {
 
     // the board
-    private TmxMapLoader mapLoader;
     private Board board;
-    private TiledMap map;
 
     // game execution
-    Round round;
+    private Round round;
 
     // players
+    private int humanPlayerNumberChoice = 0; // player1 hardcoded as human player for now
     private Player[] players;
-    private Player humanPlayer;
-    private boolean playerHasWon;
+    private Player humanPlayer; // player 1 is given as human player for now
 
-    // Controllers
-    GameCardController gameCardController;
+    // controllers
+    private GameCardController gameCardController;
+
+    //MapLoader
+    private TiledMapLoader tiledMapLoader;
+
+    // Elements on the board
+    private BoardElements boardElements;
 
     public Game(SinglePlayerSettingsController settings) {
-
-        // the board
-        mapLoader = new TmxMapLoader();
-        map = mapLoader.load(settings.getMap().tiledMapFile());
         board = settings.getMap();
-
-        // the players
+        tiledMapLoader = new TiledMapLoader(board.tiledMapFile());
+        boardElements = new BoardElements(tiledMapLoader);
         players = new Player[settings.getPlayerCount()];
-        for (int i = 0; i < settings.getPlayerCount(); i++) {
-            players[i] = new Player(this, i);
-        }
-        humanPlayer = players[0]; // player1 is given as human player for now
+        for (int nPlayer = 0; nPlayer < settings.getPlayerCount(); nPlayer++)
+            players[nPlayer] = new Player(this, nPlayer);
+        players[humanPlayerNumberChoice].setAsHumanPlayer();
+        humanPlayer = players[humanPlayerNumberChoice];
         gameCardController = new GameCardController(this);
-        round = new Round(players, humanPlayer);
-        round.dealCards();
+        
+        round = new Round(this);
+        startFirstRound();
 
     }
-
-    // constructor without maploader for testing purposes
-    public Game() {
-        SinglePlayerSettingsController settings = new SinglePlayerSettingsController();
-        settings.choosePlayerCount();
-        settings.choosePlayerCount();
-        board = settings.getMap();
-        players = new Player[settings.getPlayerCount()];
-        for (int i = 0; i < settings.getPlayerCount(); i++) {
-            players[i] = new Player(this, i);
-        }
-    }
-
-
-    public TiledMap getMap () {
-        return map;
-    }
-
 
     public Board getBoard() {
         return board;
@@ -69,16 +51,8 @@ public class Game {
         return players;
     }
 
-    // TODO - implement
-    private void phase() {
-    }
-
     public GameCardController getGameCardController() {
         return gameCardController;
-    }
-
-    public boolean playerReady() {
-        return humanPlayer.readyForRound();
     }
 
     public Player getHumanPlayer() {
@@ -87,5 +61,50 @@ public class Game {
 
     public Round round() {
         return round;
+    }
+
+    public TiledMapLoader setUpMadLoader() {
+        return tiledMapLoader;
+    }
+
+    public Player getPlayer(int playerNumber) {
+        return players[playerNumber];
+    }
+
+    public void startFirstRound() {
+        round.startNewRound();
+        setupPlayerUIsNewGame();
+    }
+
+
+    public void newRound() {
+        clearAllCards();
+        round.startNewRound();
+        setupPlayerUIForNewRound();
+    }
+
+    private void setupPlayerUIForNewRound() {
+        for (Player player: players)
+            player.setupUIForNewRound();
+    }
+
+    private void clearAllCards() {
+        for (Player player: players) {
+            player.clearAllCards();
+        }
+    }
+
+    public void executeCardsChoices() {
+        round.executeCardChoices();
+    }
+
+    public void setupPlayerUIsNewGame() {
+        for (Player player: players) {
+            player.setupUI();
+        }
+    }
+
+    public BoardElements getBoardElements() {
+        return boardElements;
     }
 }

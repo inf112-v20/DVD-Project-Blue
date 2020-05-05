@@ -84,7 +84,7 @@ public class SinglePlayerSettingsMenu implements Screen {
         START.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.8f), Actions.run(new Runnable() {
+                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.1f), Actions.run(new Runnable() {
                     @Override
                     public void run() {
                         gameLauncher.setScreen(new GameScreen(gameLauncher));
@@ -97,7 +97,7 @@ public class SinglePlayerSettingsMenu implements Screen {
         BACK.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.8f), Actions.run(new Runnable() {
+                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.1f), Actions.run(new Runnable() {
                     @Override
                     public void run() {
                         gameLauncher.setScreen(new MainMenu(gameLauncher));

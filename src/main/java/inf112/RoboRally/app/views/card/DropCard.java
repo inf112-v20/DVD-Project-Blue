@@ -48,6 +48,7 @@ public class DropCard implements ICardDragAndDrop {
         Texture cardTexture = new Texture(texturePath);
         cardTexture.setFilter(Linear, Linear);
         cardImage = new Image(cardTexture);
+        cardImage.setSize(98, 137);
         cardImage.setOrigin(cardTexture.getWidth()/2,cardTexture.getHeight()/2);
 
         cardGroup = new Group();
