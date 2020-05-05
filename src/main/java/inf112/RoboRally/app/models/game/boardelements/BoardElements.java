@@ -7,6 +7,7 @@ import inf112.RoboRally.app.models.game.boardelements.cog.Cog;
 import inf112.RoboRally.app.models.game.boardelements.cornerwall.CornerWall;
 import inf112.RoboRally.app.models.game.boardelements.flag.Flag;
 import inf112.RoboRally.app.models.game.boardelements.hole.Hole;
+import inf112.RoboRally.app.models.game.boardelements.onethreefivepusher.OneThreeFivePusher;
 import inf112.RoboRally.app.models.game.boardelements.repair.Repair;
 import inf112.RoboRally.app.models.game.boardelements.twofourpusher.TwoFourPusher;
 import inf112.RoboRally.app.models.game.boardelements.wall.Wall;
@@ -19,7 +20,8 @@ public class BoardElements {
     private Hole hole;
     private MapBounds mapBounds;
     private CornerWall cornerWall;
-    private TwoFourPusher pusher;
+    private TwoFourPusher pushTwoFour;
+    private OneThreeFivePusher pushOneThreeFive;
     private BlueBelt blueBelt;
     private YellowBelt yellowBelt;
     private Cog cog;
@@ -32,7 +34,8 @@ public class BoardElements {
     public BoardElements(TiledMapLoader tiledMapLoader) {
         // elements that effect robot after cards
         mapBounds = new MapBounds();
-        pusher = new TwoFourPusher( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("pusher") );
+        pushTwoFour = new TwoFourPusher( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("pusher") );
+        pushOneThreeFive = new OneThreeFivePusher( ( TiledMapTileLayer ) tiledMapLoader.getMap().getLayers().get("pusher") );
         laserBeam = new LaserBeam( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("laserBeam") );
         repair = new Repair( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("repair") );
         flag = new Flag( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("flag") );
@@ -42,17 +45,18 @@ public class BoardElements {
         wall = new Wall( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("wall") );
         hole = new Hole( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("hole") );
         cornerWall = new CornerWall( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("doubleWall") );
-        elementsThatEffectRobot = new IElement[10];
+        elementsThatEffectRobot = new IElement[11];
         elementsThatEffectRobot[0] = hole;
         elementsThatEffectRobot[1] = mapBounds;
         elementsThatEffectRobot[2] = blueBelt;
         elementsThatEffectRobot[3] = blueBelt;
         elementsThatEffectRobot[4] = yellowBelt;
-        elementsThatEffectRobot[5] = pusher;
-        elementsThatEffectRobot[6] = cog;
-        elementsThatEffectRobot[7] = laserBeam;
-        elementsThatEffectRobot[8] = flag;
-        elementsThatEffectRobot[9] = repair;
+        elementsThatEffectRobot[5] = pushTwoFour;
+        elementsThatEffectRobot[6] = pushOneThreeFive;
+        elementsThatEffectRobot[7] = cog;
+        elementsThatEffectRobot[8] = laserBeam;
+        elementsThatEffectRobot[9] = flag;
+        elementsThatEffectRobot[10] = repair;
 
     }
 
