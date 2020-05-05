@@ -1,9 +1,6 @@
 package inf112.RoboRally.app.views.game;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,9 +12,12 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
 import inf112.RoboRally.app.models.game.Game;
 import inf112.RoboRally.app.models.game.Player;
+import inf112.RoboRally.app.views.player.Bullet;
 import inf112.RoboRally.app.views.player.PlayerUI;
 import inf112.RoboRally.app.views.player.Timer;
 import inf112.RoboRally.app.views.robot.RobotView;
+
+import java.util.ArrayList;
 
 public class GameScreen extends InputAdapter implements Screen {
 
@@ -35,6 +35,11 @@ public class GameScreen extends InputAdapter implements Screen {
     private InputMultiplexer multiplexer;
     private Timer timer;
 
+    //shooting
+    ArrayList<Bullet> bullets;
+    public static final float SHOOT_WAIT_TIME = 1f;
+    float shootTimer;
+    //shooting
 
     public GameScreen(GameLauncher launcher) {
         // rendering stuff
@@ -54,6 +59,11 @@ public class GameScreen extends InputAdapter implements Screen {
 
         timer = new Timer(60);
         stage.addActor(timer.getTimeTable());
+
+        //shooting
+        bullets = new ArrayList<Bullet>();
+        shootTimer = 0;
+        //shooting
 
         mapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1/256f);
         camera.setToOrtho(false, 26, 15);
@@ -90,8 +100,32 @@ public class GameScreen extends InputAdapter implements Screen {
 
         gameLauncher.batch.end();
 
+        //shooting
+        shootTimer += Gdx.graphics.getDeltaTime();
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && shootTimer >= SHOOT_WAIT_TIME) {
+            shootTimer = 0;
+            //kan du fikse denne? den må vite hvor spilleren er, slik at den skytter fra rett sted.
+            //bullets.add(new Bullet(playerMovementDemo.getX()+47, playerMovementDemo.getY()+50));
+        }
+
+        ArrayList<Bullet> bulletsToRemove = new ArrayList<Bullet>();
+        for (Bullet bullet : bullets) {
+            bullet.update(Gdx.graphics.getDeltaTime());
+            if (bullet.remove) {
+                bulletsToRemove.add(bullet);
+            }
+        }
+        bullets.removeAll(bulletsToRemove);
+        //shooting
+
         // depreciated
         gameLauncher.batch.begin();
+
+        //shooting
+        for (Bullet bullet : bullets) {
+            bullet.render(gameLauncher.batch);
+        }
+        //shooting
 
         // drawing the robots
         Player[] players = game.players();
