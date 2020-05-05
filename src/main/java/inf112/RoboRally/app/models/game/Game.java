@@ -27,8 +27,12 @@ public class Game {
     // Elements on the board
     private BoardElements boardElements;
 
+    // timer that counts down to round execution
+    private Timer timer;
+
     public Game(SinglePlayerSettingsController settings) {
         board = settings.getMap();
+        timer = new Timer(60, this);
         tiledMapLoader = new TiledMapLoader(board.tiledMapFile());
         boardElements = new BoardElements(tiledMapLoader);
         players = new Player[settings.getPlayerCount()];
@@ -94,8 +98,11 @@ public class Game {
         }
     }
 
-    public void executeCardsChoices() {
-        round.executeCardChoices();
+    public void executeRound() {
+        for (Player player: players) {
+            //TODO implement timer
+        }
+        round.executeRound();
     }
 
     public void setupPlayerUIsNewGame() {
@@ -106,5 +113,9 @@ public class Game {
 
     public BoardElements getBoardElements() {
         return boardElements;
+    }
+
+    public Timer getTimer() {
+        return timer;
     }
 }

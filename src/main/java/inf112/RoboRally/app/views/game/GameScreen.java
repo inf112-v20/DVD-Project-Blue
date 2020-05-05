@@ -15,7 +15,7 @@ import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.models.robot.Direction;
 import inf112.RoboRally.app.views.player.Bullet;
 import inf112.RoboRally.app.views.player.PlayerUI;
-import inf112.RoboRally.app.views.player.Timer;
+import inf112.RoboRally.app.models.game.Timer;
 import inf112.RoboRally.app.views.robot.RobotView;
 
 import java.util.ArrayList;
@@ -55,10 +55,8 @@ public class GameScreen extends InputAdapter implements Screen {
         TiledMap tiledMap = game.setUpMadLoader().getMap();
 
 
-//        playerUI = new PlayerUI(game.getHumanPlayer(), game.getGameCardController()); // working
         playerUI = game.getHumanPlayer().getPlayerUI();
-
-        timer = new Timer(60);
+        timer = game.getTimer();
         stage.addActor(timer.getTimeTable());
 
         //shooting

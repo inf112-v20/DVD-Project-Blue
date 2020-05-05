@@ -23,7 +23,6 @@ public class RobotView extends Sprite {
         super(sprite);
         setRotation(270.0f);
         setStartPosition(startPos);
-        System.out.println("degrees after : "+getRotation());
     }
 
     @Override
@@ -79,28 +78,7 @@ public class RobotView extends Sprite {
 
 
     public void setStartDirection() {
-        System.out.println("Degrees before : "+getRotation());
         setRotation(270.0f);
-//        setRotation(270.0f);
-//        System.out.println("rotation after reset:" +getRotation());
-//        setRotation(resetDegrees);
-//        System.out.println(getRotation());
-//        switch (startDirection) {
-//            case RIGHT:
-//                rotate90(true);
-//                return;
-//            case LEFT:
-//                rotate90(false);
-//                return;
-//            case DOWN:
-//                rotate90(true);
-//                rotate90(true);
-//                return;
-//            case UP:
-//                return;
-//            default:
-//                throw new IllegalStateException("RobotView was given start direction '"+startDirection+"', which is not supported");
-//        }
     }
 
 
@@ -109,10 +87,6 @@ public class RobotView extends Sprite {
         setY( (startPos.getY() * TILE_HEIGHT_PX) );
         targetX = getX();
         targetY = getY();
-    }
-
-    public void setResetDegrees(float resetDegrees) {
-
     }
 
 

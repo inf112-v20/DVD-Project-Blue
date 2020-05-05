@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.views.player;
+package inf112.RoboRally.app.models.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -9,12 +9,17 @@ public class Timer {
 
     final private Skin SKIN = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
     private float timeCount;
-    private int time;
+    private final int SECONDS_TO_CHOOSE_CARDS;
+    private int secondsToChooseCards;
     private Table timeTable;
     private Label timeLabel;
 
-    public Timer(int time) {
-        this.time = time;
+    private Game game;
+
+    public Timer(int seconds, Game game) {
+        SECONDS_TO_CHOOSE_CARDS = seconds;
+        secondsToChooseCards = SECONDS_TO_CHOOSE_CARDS;
+        this.game = game;
         timeCount = 0;
         timeTable = new Table();
     }
@@ -22,7 +27,7 @@ public class Timer {
     public Table getTimeTable() {
         timeTable.pad(1050, 2280, 0, 0);
 
-        timeLabel = new Label(String.format("%02d", time), SKIN);
+        timeLabel = new Label(String.format("%02d", secondsToChooseCards), SKIN);
 
         timeTable.add(timeLabel);
 
@@ -31,12 +36,19 @@ public class Timer {
 
     public void updateTimer(float delta) {
         timeCount += delta;
-        if (time > 0) {
+        if (secondsToChooseCards > 0) {
             if (timeCount >= 1) {
-                time--;
-                timeLabel.setText(String.format("%02d", time));
+                secondsToChooseCards--;
+                timeLabel.setText(String.format("%02d", secondsToChooseCards));
                 timeCount = 0;
             }
+        } else {
+            secondsToChooseCards = 0;
+            game.executeRound();
         }
+    }
+
+    public void reset() {
+        secondsToChooseCards = SECONDS_TO_CHOOSE_CARDS;
     }
 }

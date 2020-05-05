@@ -78,15 +78,14 @@ public class PlayerUI extends InputAdapter {
         powerDownTable.pad(0, 1170, 176, 0);
         powerDownTable.add(powerDownButton);
 
-        //powerDownButton.isChecked() == true - pressed down
-        //sjekk videre om du trenger
         if (powerDownButton.isChecked()) {
             //gjør ting her
-            System.out.println("PRESSED DOWN");
-        } else {
-            //gjør ting her
-            System.out.println("NOT ACTIVE");
+            System.out.println("POWER DOWN BUTTON PRESSED");
         }
+//        else {
+//            //gjør ting her
+//            System.out.println("NOT ACTIVE");
+//        }
 
         return powerDownTable;
     }
@@ -105,7 +104,7 @@ public class PlayerUI extends InputAdapter {
 //                System.out.println("--------------------------------------------------------------------");
 //                System.out.println("FROM PlayerUI: ready button pressed! Player is ready for some action!");
                 player.setCardSlotsFromUserInput(gameScreenCards.getCardChoices());
-                player.getGame().executeCardsChoices();
+                player.getGame().executeRound();
                 gameScreenCards.clearReceivedCards();
             }
         });

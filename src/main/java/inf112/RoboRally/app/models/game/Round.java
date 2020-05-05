@@ -100,7 +100,7 @@ public class Round {
     }
 
 
-    public void executeCardChoices() {
+    public void executeRound() {
         updateOpponentHUDCardSlots(); // flipping all cards to face up, game stats, etc.
         updateRobots(); // making all robots that died the previous round alive again
         CollectCardFromSlotExecutor cardChoiceExecutor = new CollectCardFromSlotExecutor(players, boardElements);

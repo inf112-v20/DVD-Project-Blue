@@ -6,7 +6,7 @@ import inf112.RoboRally.app.models.robot.Direction;
 
 public class Bullet {
 
-    public static final int SPEED = 300;
+    public static final int SPEED = 1000;
     private Texture bulletTexture;
     float x, y;
 
