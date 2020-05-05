@@ -79,19 +79,19 @@ public enum YellowBeltType {
     LEFT_AND_RIGHT_TO_DOWN {
         @Override
         public int getTileId() {
-            return 0;
+            return 45;
         }
     },
     LEFT_AND_RIGHT_TO_UP {
         @Override
         public int getTileId() {
-            return 0;
+            return 46;
         }
     },
     UP_AND_DOWN_TO_RIGHT {
         @Override
         public int getTileId() {
-            return 0;
+            return 53;
         }
     },
     UP_AND_DOWN_TO_LEFT {
@@ -100,55 +100,45 @@ public enum YellowBeltType {
             return 54;
         }
     },
-    // belts that go in one direction and has a left turn into them
-    DOWN_FROM_LEFT {
+    YELLOW_1 {
         @Override
         public int getTileId() {
             return 59;
         }
     },
-    RIGHT_FROM_ABOVE {
+    YELLOW_2 {
         @Override
         public int getTileId() {
-            return 0;
+            return 60;
         }
     },
-    UP_FROM_RIGHT {
+    YELLOW_3 {
         @Override
         public int getTileId() {
-            return 0;
+            return 67;
         }
     },
-    LEFT_FROM_UP {
+    YELLOW_4 {
         @Override
         public int getTileId() {
-            return 0;
+            return 68;
         }
     },
-    // belts that go in one direction and has a right turn into them
-    RIGHT_FROM_UP {
+    YELLOW_5 {
         @Override
-        public int getTileId() {
-            return 0;
-        }
+        public int getTileId() { return 61; }
     },
-    DOWN_FROM_RIGHT {
+    YELLOW_6 {
         @Override
-        public int getTileId() {
-            return 0;
-        }
+        public int getTileId() { return 62; }
     },
-    LEFT_FROM_DOWN {
+    YELLOW_7 {
         @Override
-        public int getTileId() {
-            return 0;
-        }
+        public int getTileId() { return 69; }
     },
-    UP_FROM_LEFT {
+    YELLOW_8 {
         @Override
-        public int getTileId() {
-            return 0;
-        }
+        public int getTileId() { return 70; }
     };
     public abstract int getTileId();
 }
