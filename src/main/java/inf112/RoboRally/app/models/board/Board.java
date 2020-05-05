@@ -18,12 +18,11 @@ public class Board {
     private Vector2[] robotStartVectors;
     private Direction[] robotStartDirections;
 
-    private int width;
-    private int height;
+    private final int Y_LOWER_BOUND = 3;
+    private final int Y_UPPER_BOUND = 14;
+    private final int X_LOWER_BOUND = 5;
+    private final int X_UPPER_BOUND = 20;
 
-    // walls
-    // lasers
-    // other pieces
 
     public Board() {}
 
@@ -85,5 +84,21 @@ public class Board {
 
     public String imgFile() {
         return filePath+".png";
+    }
+
+    public int getY_LOWER_BOUND() {
+        return Y_LOWER_BOUND;
+    }
+
+    public int getY_UPPER_BOUND() {
+        return Y_UPPER_BOUND;
+    }
+
+    public int getX_LOWER_BOUND() {
+        return X_LOWER_BOUND;
+    }
+
+    public int getX_UPPER_BOUND() {
+        return X_UPPER_BOUND;
     }
 }

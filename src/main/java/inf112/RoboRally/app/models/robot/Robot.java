@@ -55,6 +55,8 @@ public class Robot implements IRobot {
             steps = boardElements.getCornerWall().effectRobot(positionClone(), direction, steps);
         if (boardElements.getHole().ACTIVE)
             steps = boardElements.getHole().effectRobotSteps(positionClone(), direction, steps);
+        if (boardElements.getMapBounds().ACTIVE)
+            steps = boardElements.getMapBounds().effectRobotSteps(positionClone(), direction, steps);
 
         switch (direction) {
             case UP:

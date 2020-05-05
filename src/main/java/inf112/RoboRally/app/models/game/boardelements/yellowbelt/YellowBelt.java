@@ -1,12 +1,13 @@
-package inf112.RoboRally.app.models.game.boardelements;
+package inf112.RoboRally.app.models.game.boardelements.yellowbelt;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.RoboRally.app.models.cards.Rotation;
+import inf112.RoboRally.app.models.game.boardelements.IElement;
 import inf112.RoboRally.app.models.robot.Direction;
 import inf112.RoboRally.app.models.robot.Pos;
 import inf112.RoboRally.app.models.robot.Robot;
 
-public class YellowBelt implements  IElement {
+public class YellowBelt implements IElement {
 
     private TiledMapTileLayer layer;
     private final Boolean ACTIVE;

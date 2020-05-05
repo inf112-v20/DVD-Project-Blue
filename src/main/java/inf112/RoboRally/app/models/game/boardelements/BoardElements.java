@@ -9,12 +9,14 @@ import inf112.RoboRally.app.models.game.boardelements.flag.Flag;
 import inf112.RoboRally.app.models.game.boardelements.hole.Hole;
 import inf112.RoboRally.app.models.game.boardelements.twofourpusher.TwoFourPusher;
 import inf112.RoboRally.app.models.game.boardelements.wall.Wall;
+import inf112.RoboRally.app.models.game.boardelements.yellowbelt.YellowBelt;
 
 public class BoardElements {
 
     // Elements that are supported in RoboRally
     private Wall wall;
     private Hole hole;
+    private MapBounds mapBounds;
     private CornerWall cornerWall;
     private TwoFourPusher pusher;
     private BlueBelt blueBelt;
@@ -26,6 +28,7 @@ public class BoardElements {
 
     public BoardElements(TiledMapLoader tiledMapLoader) {
         // elements that effect robot after cards
+         mapBounds = new MapBounds();
         pusher = new TwoFourPusher( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("pusher") );
         flag = new Flag( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("flag") );
         cog = new Cog( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("cog") );
@@ -34,14 +37,15 @@ public class BoardElements {
         wall = new Wall( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("wall") );
         hole = new Hole( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("hole") );
         cornerWall = new CornerWall( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("doubleWall") );
-        elementsThatEffectRobot = new IElement[7];
+        elementsThatEffectRobot = new IElement[8];
         elementsThatEffectRobot[0] = hole;
-        elementsThatEffectRobot[1] = blueBelt;
+        elementsThatEffectRobot[1] = mapBounds;
         elementsThatEffectRobot[2] = blueBelt;
-        elementsThatEffectRobot[3] = yellowBelt;
-        elementsThatEffectRobot[4] = pusher;
-        elementsThatEffectRobot[5] = cog;
-        elementsThatEffectRobot[6] = flag;
+        elementsThatEffectRobot[3] = blueBelt;
+        elementsThatEffectRobot[4] = yellowBelt;
+        elementsThatEffectRobot[5] = pusher;
+        elementsThatEffectRobot[6] = cog;
+        elementsThatEffectRobot[7] = flag;
 
     }
 
@@ -57,11 +61,12 @@ public class BoardElements {
         return hole;
     }
 
-    public TwoFourPusher getPusher() {
-        return pusher;
-    }
 
     public IElement[] boardEffects() {
         return elementsThatEffectRobot;
+    }
+
+    public MapBounds getMapBounds() {
+        return mapBounds;
     }
 }
