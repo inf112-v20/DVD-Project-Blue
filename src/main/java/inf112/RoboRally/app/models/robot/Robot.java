@@ -22,7 +22,7 @@ public class Robot implements IRobot {
     private int hp;
     private int lives;
     private boolean poweredDown;
-    private boolean[] flagsTouched = new boolean[2]; // three flags must be touched
+    private int flagsCaptured = 0;
 //    private int playerNumber;  // NOT NEEDED?
 
     // View controllers
@@ -173,24 +173,25 @@ public class Robot implements IRobot {
     public void touchFlag(FlagType flag, int x, int y) {
         switch (flag) {
             case FIRST_FLAG:
-                if (!flagsTouched[0]) {
-                    flagsTouched[0] = true;
-                    robotViewController.touchedAFlag();
+                if (flagsCaptured == 0) {
+                    flagsCaptured++;
+                    robotViewController.touchedFlag(flagsCaptured);
                     System.out.println("Robot now has one flag");
                 }
                 pos.setNewRestartPos(x, y);
                 break;
             case SECOND_FLAG:
-                if (flagsTouched[0] && !flagsTouched[1]) {
-                    flagsTouched[1] = true;
-
+                if (flagsCaptured == 1) {
+                    flagsCaptured++;
+                    robotViewController.touchedFlag(flagsCaptured);
                 }
                 pos.setNewRestartPos(x, y);
                 System.out.println("touched second flag");
                 break;
             case THIRD_FLAG:
-                if (flagsTouched[1] && !flagsTouched[2]) {
-                    flagsTouched[2] = true; // we have a winner
+                if (flagsCaptured == 2) {
+                    flagsCaptured++;
+                    robotViewController.touchedFlag(flagsCaptured);
                     System.out.println("We have a winner");
                 }
                 pos.setNewRestartPos(x, y);
