@@ -41,6 +41,23 @@ public class Hole implements IElement {
         for (int step = 1; step <= steps; step++) {
             pos.setX(-1);
             if (checkForHole(pos.getX(), y, HoleType.SINGLE_HOLE)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.BIG_HOLE_LEFT_TOP)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.BIG_HOLE_RIGHT_TOP)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.BIG_HOLE_LEFT_BOTTOM)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.BIG_HOLE_RIGHT_BOTTOM)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.BIG_HOLE_EXTENSION)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_LEFT_TOP)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_LEFT_TOP_2)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_LEFT_TOP_3)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_RIGHT_TOP)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_RIGHT_TOP_2)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_RIGHT_TOP_3)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_LEFT_BOTTOM)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_LEFT_BOTTOM_2)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_LEFT_BOTTOM_3)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_RIGHT_BOTTOM)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_RIGHT_BOTTOM_2)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_RIGHT_BOTTOM_3)) return step;
         }
         return steps;
     }
@@ -50,6 +67,23 @@ public class Hole implements IElement {
         for (int step = 1; step <= steps; step++) {
             pos.setX(1);
             if (checkForHole(pos.getX(), y, HoleType.SINGLE_HOLE)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.BIG_HOLE_LEFT_TOP)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.BIG_HOLE_RIGHT_TOP)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.BIG_HOLE_LEFT_BOTTOM)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.BIG_HOLE_RIGHT_BOTTOM)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.BIG_HOLE_EXTENSION)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_LEFT_TOP)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_LEFT_TOP_2)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_LEFT_TOP_3)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_RIGHT_TOP)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_RIGHT_TOP_2)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_RIGHT_TOP_3)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_LEFT_BOTTOM)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_LEFT_BOTTOM_2)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_LEFT_BOTTOM_3)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_RIGHT_BOTTOM)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_RIGHT_BOTTOM_2)) return step;
+            else if (checkForHole(pos.getX(), y, HoleType.HOLE_RIGHT_BOTTOM_3)) return step;
         }
         return steps;
     }
@@ -59,6 +93,23 @@ public class Hole implements IElement {
         for (int step = 1; step <= steps; step++) {
             pos.setY(-1);
             if (checkForHole(x, pos.getY(), HoleType.SINGLE_HOLE)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.BIG_HOLE_LEFT_TOP)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.BIG_HOLE_RIGHT_TOP)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.BIG_HOLE_LEFT_BOTTOM)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.BIG_HOLE_RIGHT_BOTTOM)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.BIG_HOLE_EXTENSION)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_LEFT_TOP)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_LEFT_TOP_2)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_LEFT_TOP_3)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_RIGHT_TOP)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_RIGHT_TOP_2)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_RIGHT_TOP_3)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_LEFT_BOTTOM)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_LEFT_BOTTOM_2)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_LEFT_BOTTOM_3)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_RIGHT_BOTTOM)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_RIGHT_BOTTOM_2)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_RIGHT_BOTTOM_3)) return step;
         }
         return steps;
     }
@@ -68,6 +119,23 @@ public class Hole implements IElement {
         for (int step = 1; step <= steps; step++) {
             pos.setY(1);
             if (checkForHole(x, pos.getY(), HoleType.SINGLE_HOLE)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.BIG_HOLE_LEFT_TOP)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.BIG_HOLE_RIGHT_TOP)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.BIG_HOLE_LEFT_BOTTOM)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.BIG_HOLE_RIGHT_BOTTOM)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.BIG_HOLE_EXTENSION)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_LEFT_TOP)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_LEFT_TOP_2)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_LEFT_TOP_3)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_RIGHT_TOP)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_RIGHT_TOP_2)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_RIGHT_TOP_3)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_LEFT_BOTTOM)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_LEFT_BOTTOM_2)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_LEFT_BOTTOM_3)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_RIGHT_BOTTOM)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_RIGHT_BOTTOM_2)) return step;
+            else if (checkForHole(x, pos.getY(), HoleType.HOLE_RIGHT_BOTTOM_3)) return step;
         }
         return steps;
     }
