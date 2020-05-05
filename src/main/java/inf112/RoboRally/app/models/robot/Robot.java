@@ -198,6 +198,7 @@ public class Robot implements IRobot {
 
     public void reset(boolean looseLife) {
         if (looseLife) lives--;
+        hp = getMAX_HP();
         player.clearAllCards();
         pos.restart();
         direction = START_DIRECTION;
