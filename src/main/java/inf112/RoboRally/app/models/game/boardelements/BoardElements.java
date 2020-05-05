@@ -7,6 +7,7 @@ import inf112.RoboRally.app.models.game.boardelements.cog.Cog;
 import inf112.RoboRally.app.models.game.boardelements.cornerwall.CornerWall;
 import inf112.RoboRally.app.models.game.boardelements.flag.Flag;
 import inf112.RoboRally.app.models.game.boardelements.hole.Hole;
+import inf112.RoboRally.app.models.game.boardelements.repair.Repair;
 import inf112.RoboRally.app.models.game.boardelements.twofourpusher.TwoFourPusher;
 import inf112.RoboRally.app.models.game.boardelements.wall.Wall;
 import inf112.RoboRally.app.models.game.boardelements.yellowbelt.YellowBelt;
@@ -23,13 +24,15 @@ public class BoardElements {
     private YellowBelt yellowBelt;
     private Cog cog;
     private Flag flag;
+    private Repair repair;
 
     IElement[] elementsThatEffectRobot;
 
     public BoardElements(TiledMapLoader tiledMapLoader) {
         // elements that effect robot after cards
-         mapBounds = new MapBounds();
+        mapBounds = new MapBounds();
         pusher = new TwoFourPusher( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("pusher") );
+        repair = new Repair( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("repair") );
         flag = new Flag( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("flag") );
         cog = new Cog( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("cog") );
         blueBelt = new BlueBelt( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("blueArrow") );
@@ -37,7 +40,7 @@ public class BoardElements {
         wall = new Wall( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("wall") );
         hole = new Hole( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("hole") );
         cornerWall = new CornerWall( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("doubleWall") );
-        elementsThatEffectRobot = new IElement[8];
+        elementsThatEffectRobot = new IElement[9];
         elementsThatEffectRobot[0] = hole;
         elementsThatEffectRobot[1] = mapBounds;
         elementsThatEffectRobot[2] = blueBelt;
@@ -46,6 +49,7 @@ public class BoardElements {
         elementsThatEffectRobot[5] = pusher;
         elementsThatEffectRobot[6] = cog;
         elementsThatEffectRobot[7] = flag;
+        elementsThatEffectRobot[8] = repair;
 
     }
 

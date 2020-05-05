@@ -1,16 +1,16 @@
-package inf112.RoboRally.app.models.game.boardelements.flag;
+package inf112.RoboRally.app.models.game.boardelements.repair;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.RoboRally.app.models.game.boardelements.IElement;
 import inf112.RoboRally.app.models.robot.Pos;
 import inf112.RoboRally.app.models.robot.Robot;
 
-public class Flag implements IElement {
+public class Repair implements IElement {
 
     private TiledMapTileLayer layer;
     private final boolean ACTIVE;
 
-    public Flag(TiledMapTileLayer layer) {
+    public Repair(TiledMapTileLayer layer) {
         ACTIVE = layer != null;
         this.layer = layer;
     }
@@ -24,13 +24,10 @@ public class Flag implements IElement {
     public void effectRobotAfterCardExec(Robot robot) {
         Pos pos = robot.position();
         int x = pos.getX(), y = pos.getY();
-        if (checkFlagType(x, y, FlagType.FIRST_FLAG))
-            robot.touchFlag(FlagType.FIRST_FLAG);
-        else if (checkFlagType(x, y, FlagType.SECOND_FLAG))
-            robot.touchFlag(FlagType.SECOND_FLAG);
-        else if (checkFlagType(x, y, FlagType.THIRD_FLAG)) {
-            robot.touchFlag(FlagType.THIRD_FLAG);
-        }
+        if (checkForRepair(x, y, RepairType.WRENCH))
+            robot.repair(RepairType.WRENCH);
+        else if (checkForRepair(x, y, RepairType.WRENCH_AND_HAMMER))
+            robot.repair(RepairType.WRENCH_AND_HAMMER);
     }
 
     @Override
@@ -38,7 +35,7 @@ public class Flag implements IElement {
         return ACTIVE;
     }
 
-    private boolean checkFlagType(int x, int y, FlagType flagType) {
-        return layer.getCell(x, y) != null && layer.getCell(x, y).getTile().getId() == flagType.getTileId();
+    private boolean checkForRepair(int x, int y, RepairType type) {
+        return layer.getCell(x, y) != null && layer.getCell(x, y).getTile().getId() == type.getTileId();
     }
 }

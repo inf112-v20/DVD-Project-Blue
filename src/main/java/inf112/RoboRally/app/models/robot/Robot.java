@@ -6,6 +6,7 @@ import inf112.RoboRally.app.models.game.Game;
 import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.models.game.boardelements.BoardElements;
 import inf112.RoboRally.app.models.game.boardelements.flag.FlagType;
+import inf112.RoboRally.app.models.game.boardelements.repair.RepairType;
 
 public class Robot implements IRobot {
 
@@ -169,7 +170,7 @@ public class Robot implements IRobot {
         }
     }
 
-    public void touchFlag(FlagType flag, int x, int y) {
+    public void touchFlag(FlagType flag) {
         switch (flag) {
             case FIRST_FLAG:
                 if (flagsCaptured == 0) {
@@ -177,14 +178,14 @@ public class Robot implements IRobot {
                     robotViewController.touchedFlag(flagsCaptured);
                     System.out.println("Robot now has one flag");
                 }
-                pos.setNewRestartPos(x, y);
+                pos.setNewRestartPos(pos.getX(), pos.getY());
                 break;
             case SECOND_FLAG:
                 if (flagsCaptured == 1) {
                     flagsCaptured++;
                     robotViewController.touchedFlag(flagsCaptured);
                 }
-                pos.setNewRestartPos(x, y);
+                pos.setNewRestartPos(pos.getX(), pos.getY());
                 System.out.println("touched second flag");
                 break;
             case THIRD_FLAG:
@@ -193,7 +194,7 @@ public class Robot implements IRobot {
                     robotViewController.touchedFlag(flagsCaptured);
                     System.out.println("We have a winner");
                 }
-                pos.setNewRestartPos(x, y);
+                pos.setNewRestartPos(pos.getX(), pos.getY());
                 break;
         }
     }
@@ -217,5 +218,15 @@ public class Robot implements IRobot {
 
     public void setAlive() {
         robotViewController.updateViewToAlive();
+    }
+
+    public void repair(RepairType repair) {
+        switch (repair) {
+            case WRENCH:
+                hp = Math.max(MAX_HP, hp++); // discard three damage tokens
+            case WRENCH_AND_HAMMER:
+                hp = Math.max(MAX_HP, hp += 2); // discard two damage tokens
+        }
+        pos.setNewRestartPos(pos.getX(), pos.getY());
     }
 }
