@@ -175,6 +175,7 @@ public class Robot implements IRobot {
             case FIRST_FLAG:
                 if (!flagsTouched[0]) {
                     flagsTouched[0] = true;
+                    robotViewController.touchedAFlag();
                     System.out.println("Robot now has one flag");
                 }
                 pos.setNewRestartPos(x, y);
@@ -206,6 +207,7 @@ public class Robot implements IRobot {
         direction = START_DIRECTION;
         robotViewController.updateXCord(pos.getX());
         robotViewController.updateYCord(pos.getY());
-        robotViewController.updateDirection(START_DIRECTION);
+        robotViewController.resetDir();
+//        robotViewController.updateDirection(START_DIRECTION);
     }
 }

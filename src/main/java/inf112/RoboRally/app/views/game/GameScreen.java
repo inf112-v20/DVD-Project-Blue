@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -41,14 +42,6 @@ public class GameScreen extends InputAdapter implements Screen {
         game = new Game(gameLauncher.settings());
         robotViews = new OldRobotView[game.getGameCardController().numberOfPlayers()];
         TiledMap tiledMap = game.setUpMadLoader().getMap();
-
-        // given to view to correct layer
-//        Player[] players = game.players();
-//        robotViews = new RobotView[players.length];
-//        for (int playerNumber = 0; playerNumber < players.length; playerNumber++) {
-//            robotViews[playerNumber] = players[playerNumber].robot().getViewController().getRobotView();
-//            robotViews[playerNumber].setUpAtBoard((TiledMapTileLayer) tiledMap.getLayers().get("player"));
-//        }
 
 
 //        playerUI = new PlayerUI(game.getHumanPlayer(), game.getGameCardController()); // working
@@ -95,7 +88,11 @@ public class GameScreen extends InputAdapter implements Screen {
         Player[] players = game.players();
         for (int playerNumber = 0; playerNumber < players.length; playerNumber++) {
             robotViews[playerNumber] = players[playerNumber].robot().getRobotViewController().getRobotView();
+//            robotViews[playerNumber].setGameScreen(this);
             robotViews[playerNumber].draw(gameLauncher.batch);
+            if ( robotViews[playerNumber].hasOneFlag() ) {
+                robotViews[playerNumber].setTexture(new Texture("assets/smallrobot/player"+playerNumber+"flag.png"));
+            }
         }
 
         gameLauncher.batch.end();
@@ -124,5 +121,9 @@ public class GameScreen extends InputAdapter implements Screen {
         gameLauncher.batch.dispose();
         playerUI.dispose();
         mapRenderer.dispose();
+    }
+
+    public void updateTexture(int playerNumber, Texture texture) {
+        robotViews[playerNumber].setTexture(texture);
     }
 }

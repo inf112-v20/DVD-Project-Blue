@@ -10,6 +10,7 @@ public class RobotViewController {
 
     // game stat
     private int playerNumber;
+    private boolean hasOneFlag;
 
     // files
     private final String IMAGE_PATH = "assets/smallrobot/Player";
@@ -26,7 +27,7 @@ public class RobotViewController {
         this.playerNumber = playerNumber;
         robotTexture = new Texture(IMAGE_PATH+playerNumber+FILE_EXTENSION);
         robotTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        robotView = new OldRobotView(new Sprite(robotTexture), startPos, startDirection);
+        robotView = new OldRobotView(new Sprite(robotTexture), robotTexture,  startPos, startDirection);
     }
 
 
@@ -43,8 +44,17 @@ public class RobotViewController {
     }
 
     public void updateDirection(Direction startDirection) {
-        robotView.setStartDirection(startDirection);
+        robotView.setStartDirection();
     }
 
 
+    public void touchedAFlag() {
+        robotView.setHasOneFlag();
+    }
+
+
+    public void resetDir() {
+        robotView.setStartDirection();
+        robotView.setRotation(270.0f);
+    }
 }
