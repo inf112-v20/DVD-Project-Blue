@@ -61,8 +61,8 @@ public class RoundTest {
             }
         }
         for (Player player: players) {
-            player.robot().looseHP();
-            player.robot().looseHP();
+            //player.robot().looseHP();
+            //player.robot().looseHP();
         }
         // each player has lost two HP, therefore, the last two cards should now be null
         round.dealCards();

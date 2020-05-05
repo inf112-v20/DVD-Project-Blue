@@ -19,7 +19,6 @@ public class PlayerHUD {
     // Elements on playerHUD stemming from robot stats
     private LifeTokens lifeTokens;
     private DamageTokens damageTokens;
-    private PowerDown powerDown;
 
 
     public PlayerHUD(Player player) {
@@ -28,7 +27,6 @@ public class PlayerHUD {
 //        Robot robot = gameCardController.humanPlayer().robot();
         Robot robot = player.robot();
         lifeTokens = new LifeTokens(robot.livesLeft());
-        powerDown = new PowerDown(robot.isPoweredDown());
         damageTokens = new DamageTokens(robot.getHP(), robot.getMAX_HP());
     }
 
@@ -45,11 +43,4 @@ public class PlayerHUD {
     protected Table getDamageTokensTable() {
         return damageTokens.damageTokensTable();
     }
-
-    protected Table getPowerDownTable() {
-        return powerDown.powerDownTable();
-    }
-
-
-
 }

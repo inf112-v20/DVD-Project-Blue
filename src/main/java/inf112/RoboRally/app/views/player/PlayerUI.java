@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -25,6 +26,9 @@ public class PlayerUI extends InputAdapter {
     private Table generateCardsTable;
     private TextButton generateCardsButton;
 
+    private Table powerDownTable;
+    private ImageButton powerDownButton;
+
     private OpponentHUDTable opponentHUDTable;
 
     private Stage stage;
@@ -40,13 +44,16 @@ public class PlayerUI extends InputAdapter {
         readyButtonTable = new Table();
         generateCardsTable = new Table();
 
+        powerDownTable = new Table();
+        powerDownButton = new PowerDownButton().createImageButton();
+
         playerHUD = new PlayerHUD(player);
         opponentHUDTable = new OpponentHUDTable(player, cardsFacingUp);
 
         stage.addActor(opponentHUDTable.getOpponentTable());
         stage.addActor(playerHUD.getPlayerHudDashBoardTable());
         stage.addActor(playerHUD.getDamageTokensTable());
-        stage.addActor(playerHUD.getPowerDownTable());
+        stage.addActor(powerDownTable());
         stage.addActor(playerHUD.getLifeTokensTable());
         stage.addActor(readyButtonTable());
         stage.addActor(generateCardsTable());
@@ -67,6 +74,22 @@ public class PlayerUI extends InputAdapter {
         stage.dispose();
     }
 
+    public Table powerDownTable() {
+        powerDownTable.pad(0, 1170, 176, 0);
+        powerDownTable.add(powerDownButton);
+
+        //powerDownButton.isChecked() == true - pressed down
+        //sjekk videre om du trenger
+        if (powerDownButton.isChecked()) {
+            //gjør ting her
+            System.out.println("PRESSED DOWN");
+        } else {
+            //gjør ting her
+            System.out.println("NOT ACTIVE");
+        }
+
+        return powerDownTable;
+    }
 
     public Table readyButtonTable() {
 
