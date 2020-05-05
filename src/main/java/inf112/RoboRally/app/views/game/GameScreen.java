@@ -94,7 +94,9 @@ public class GameScreen extends InputAdapter implements Screen {
 
             if (robotViews[playerNumber].isDeadThisRound()) {
                 robotViews[playerNumber].setTexture(new Texture(PATH+playerNumber+"dead.png"));
+            } else {
             }
+                robotViews[playerNumber].setTexture(new Texture(PATH+playerNumber+".png"));
 
             if ( robotViews[playerNumber].capturedFirstFlag() ) {
                 robotViews[playerNumber].setTexture(new Texture(PATH+playerNumber+"flag1.png"));

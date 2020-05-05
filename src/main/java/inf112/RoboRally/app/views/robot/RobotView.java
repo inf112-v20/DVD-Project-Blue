@@ -15,7 +15,7 @@ public class RobotView extends Sprite {
 
     private final float TILE_HEIGHT_PX = 96.053575f; // 256 /  2.665179302
     private final float TILE_WIDTH_PX = 98.46153846153846f; // 256 / 2.6 (tile px size / scaling down property)
-    private final int SPRITE_MOVEMENT_SPEED = 180;
+    private final int SPRITE_MOVEMENT_SPEED = 300;
 
     private float targetX;
     private float targetY;
@@ -24,7 +24,7 @@ public class RobotView extends Sprite {
 
     public RobotView(Sprite sprite, Pos startPos, Direction startDirection) {
         super(sprite);
-        setStartDirection();
+        setRotation(270.0f);
         setStartPosition(startPos);
         System.out.println("degrees after : "+getRotation());
     }
@@ -139,4 +139,6 @@ public class RobotView extends Sprite {
     public boolean isDeadThisRound() {
         return isDeadThisRound;
     }
+
+
 }

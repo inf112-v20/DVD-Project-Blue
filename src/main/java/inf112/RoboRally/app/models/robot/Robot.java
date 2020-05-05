@@ -21,7 +21,6 @@ public class Robot implements IRobot {
     private final int STARTING_LIVES = 3;
     private int hp;
     private int lives;
-    private boolean deadThisRound = false; // when robot falls out of map or in hole
     private boolean poweredDown;
     private int flagsCaptured = 0;
 //    private int playerNumber;  // NOT NEEDED?
@@ -203,7 +202,6 @@ public class Robot implements IRobot {
     // used when robot is dead
     public void reset(boolean looseLife) {
         if (looseLife) {
-            deadThisRound = true;
             lives--;
             robotViewController.updateViewToDead();
         }
@@ -216,4 +214,8 @@ public class Robot implements IRobot {
         robotViewController.resetDir();
     }
 
+
+    public void setAlive() {
+        robotViewController.updateViewToAlive();
+    }
 }

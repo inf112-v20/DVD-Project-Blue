@@ -55,6 +55,10 @@ public class RobotViewController {
         robotView.setDeadThisRound(true);
     }
 
+    public void updateViewToAlive() {
+        robotView.setDeadThisRound(false);
+    }
+
 
     public void resetDir() {
         robotView.setStartDirection();
