@@ -1,8 +1,8 @@
-package inf112.RoboRally.app.models.game.boardelements;
+package inf112.RoboRally.app.models.game.boardelements.cog;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.RoboRally.app.models.cards.Rotation;
-import inf112.RoboRally.app.models.game.boardelements.cog.CogType;
+import inf112.RoboRally.app.models.game.boardelements.IElement;
 import inf112.RoboRally.app.models.robot.Pos;
 import inf112.RoboRally.app.models.robot.Robot;
 

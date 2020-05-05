@@ -78,7 +78,7 @@ public class BlueBelt implements IElement {
             robot.rotate(Rotation.LEFT);
             robot.moveOneStepInDirection(Direction.DOWN);
         }
-        else if (checkForBlueBelt(x, y, BlueBeltType.ROTATING_LEFT_TO_RIGHT)) {
+        else if (checkForBlueBelt(x, y, BlueBeltType.ROTATE_LEFT_TO_RIGHT)) {
             robot.rotate(Rotation.LEFT);
             robot.moveOneStepInDirection(Direction.RIGHT);
         }

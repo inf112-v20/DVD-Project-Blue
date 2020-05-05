@@ -45,7 +45,7 @@ public enum BlueBeltType {
             return 9;
         }
     },
-    ROTATING_LEFT_TO_RIGHT {
+    ROTATE_LEFT_TO_RIGHT {
         @Override
         public int getTileId() {
             return 17;
