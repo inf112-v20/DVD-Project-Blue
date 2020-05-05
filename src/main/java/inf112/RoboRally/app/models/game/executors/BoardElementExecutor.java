@@ -39,7 +39,7 @@ public class BoardElementExecutor {
                 scheduler.shutdown();
             }
         };
-        scheduler.scheduleAtFixedRate(boardExec, 2000, 1000, TimeUnit.MILLISECONDS);
+        scheduler.scheduleAtFixedRate(boardExec, 1000, 500, TimeUnit.MILLISECONDS);
     }
 
 }

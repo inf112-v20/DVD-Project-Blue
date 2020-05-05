@@ -31,7 +31,7 @@ public class CardMoveExecutor {
                 scheduler.shutdown();
             }
         };
-        scheduler.scheduleAtFixedRate(cardExec, 0, 3000, TimeUnit.MILLISECONDS);
+        scheduler.scheduleAtFixedRate(cardExec, 0, 1500, TimeUnit.MILLISECONDS);
     }
 
 

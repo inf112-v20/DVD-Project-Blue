@@ -117,6 +117,7 @@ public class Robot implements IRobot {
     @Override
     public void looseHP(int hpToLoose) {
         hp -= hpToLoose;
+        if (hp <= 0) reset(true);
     }
 
     @Override
