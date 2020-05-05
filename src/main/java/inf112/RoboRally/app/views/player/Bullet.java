@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Bullet {
 
     public static final int SPEED = 500;
-    private static Texture bulletTexture;
+    private Texture bulletTexture;
     float x, y;
 
     public boolean remove = false;
@@ -15,7 +15,7 @@ public class Bullet {
         this.x = x;
         this.y = y;
         if (bulletTexture == null) {
-            bulletTexture = new Texture("Robots/Laser.png");
+            bulletTexture = new Texture("assets/smallrobot/Laser.png");
         }
     }
 

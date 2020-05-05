@@ -100,32 +100,8 @@ public class GameScreen extends InputAdapter implements Screen {
 
         gameLauncher.batch.end();
 
-        //shooting
-        shootTimer += Gdx.graphics.getDeltaTime();
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && shootTimer >= SHOOT_WAIT_TIME) {
-            shootTimer = 0;
-            //kan du fikse denne? den må vite hvor spilleren er, slik at den skytter fra rett sted.
-            //bullets.add(new Bullet(playerMovementDemo.getX()+47, playerMovementDemo.getY()+50));
-        }
-
-        ArrayList<Bullet> bulletsToRemove = new ArrayList<Bullet>();
-        for (Bullet bullet : bullets) {
-            bullet.update(Gdx.graphics.getDeltaTime());
-            if (bullet.remove) {
-                bulletsToRemove.add(bullet);
-            }
-        }
-        bullets.removeAll(bulletsToRemove);
-        //shooting
-
         // depreciated
         gameLauncher.batch.begin();
-
-        //shooting
-        for (Bullet bullet : bullets) {
-            bullet.render(gameLauncher.batch);
-        }
-        //shooting
 
         // drawing the robots
         Player[] players = game.players();
@@ -151,6 +127,30 @@ public class GameScreen extends InputAdapter implements Screen {
 
 
         }
+
+        //shooting
+        shootTimer += Gdx.graphics.getDeltaTime();
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && shootTimer >= SHOOT_WAIT_TIME) {
+            shootTimer = 0;
+            //kan du fikse denne? den må vite hvor spilleren er, slik at den skytter fra rett sted.
+            bullets.add(new Bullet(robotViews[0].getX()+47, robotViews[0].getY()+50));
+        }
+
+        ArrayList<Bullet> bulletsToRemove = new ArrayList<Bullet>();
+        for (Bullet bullet : bullets) {
+            bullet.update(Gdx.graphics.getDeltaTime());
+            if (bullet.remove) {
+                bulletsToRemove.add(bullet);
+            }
+        }
+        bullets.removeAll(bulletsToRemove);
+        //shooting
+
+        //shooting
+        for (Bullet bullet : bullets) {
+            bullet.render(gameLauncher.batch);
+        }
+        //shooting
 
         gameLauncher.batch.end();
     }
