@@ -1,5 +1,7 @@
 package inf112.RoboRally.app.models.game.boardelements.cog;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.RoboRally.app.models.cards.Rotation;
 import inf112.RoboRally.app.models.game.boardelements.IElement;
@@ -10,6 +12,7 @@ public class Cog implements IElement {
 
     private TiledMapTileLayer layer;
     private final boolean ACTIVE;
+    private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/Rotate-Cog.wav"));
 
     public Cog(TiledMapTileLayer layer) {
         ACTIVE = layer != null;
@@ -25,8 +28,14 @@ public class Cog implements IElement {
     public void effectRobotAfterCardExec(Robot robot) {
         Pos pos = robot.position();
         int x = pos.getX(), y = pos.getY();
-        if (checkCogType(x, y, CogType.ROTATE_RIGHT)) robot.rotate(Rotation.RIGHT);
-        else if (checkCogType(x, y, CogType.ROTATE_LEFT)) robot.rotate(Rotation.LEFT);
+        if (checkCogType(x, y, CogType.ROTATE_RIGHT)) {
+            robot.rotate(Rotation.RIGHT);
+            sound.play();
+        }
+        else if (checkCogType(x, y, CogType.ROTATE_LEFT)) {
+            robot.rotate(Rotation.LEFT);
+            sound.play();
+        }
     }
 
     @Override

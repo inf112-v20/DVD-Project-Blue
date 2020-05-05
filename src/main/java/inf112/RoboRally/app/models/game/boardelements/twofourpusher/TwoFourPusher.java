@@ -1,5 +1,7 @@
 package inf112.RoboRally.app.models.game.boardelements.twofourpusher;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.RoboRally.app.models.game.boardelements.IElement;
 import inf112.RoboRally.app.models.robot.Direction;
@@ -10,6 +12,7 @@ public class TwoFourPusher implements IElement {
 
     private TiledMapTileLayer layer;
     public final boolean ACTIVE;
+    private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/Hole.wav"));
 
     public TwoFourPusher(TiledMapTileLayer layer) {
         if (layer != null) ACTIVE = true;
@@ -26,10 +29,22 @@ public class TwoFourPusher implements IElement {
     public void effectRobotAfterCardExec(Robot robot) {
         Pos pos = robot.position();
         int x = pos.getX(); int y = pos.getY();
-        if (checkForPusher(x, y, TwoFourPusherType.TWO_FOUR_PUSH_DOWN)) robot.moveOneStepInDirection(Direction.DOWN);
-        else if (checkForPusher(x, y, TwoFourPusherType.TWO_FOUR_PUSH_UP)) robot.moveOneStepInDirection(Direction.UP);
-        else if (checkForPusher(x, y, TwoFourPusherType.TWO_FOUR_PUSH_LEFT)) robot.moveOneStepInDirection(Direction.LEFT);
-        else if (checkForPusher(x, y, TwoFourPusherType.TWO_FOUR_PUSH_RIGHT)) robot.moveOneStepInDirection(Direction.RIGHT);
+        if (checkForPusher(x, y, TwoFourPusherType.TWO_FOUR_PUSH_DOWN)) {
+            robot.moveOneStepInDirection(Direction.DOWN);
+            sound.play();
+        }
+        else if (checkForPusher(x, y, TwoFourPusherType.TWO_FOUR_PUSH_UP)) {
+            robot.moveOneStepInDirection(Direction.UP);
+            sound.play();
+        }
+        else if (checkForPusher(x, y, TwoFourPusherType.TWO_FOUR_PUSH_LEFT)) {
+            robot.moveOneStepInDirection(Direction.LEFT);
+            sound.play();
+        }
+        else if (checkForPusher(x, y, TwoFourPusherType.TWO_FOUR_PUSH_RIGHT)) {
+            robot.moveOneStepInDirection(Direction.RIGHT);
+            sound.play();
+        }
     }
 
     private boolean checkForPusher(int x, int y, TwoFourPusherType pusherType) {

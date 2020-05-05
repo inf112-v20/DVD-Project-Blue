@@ -16,6 +16,7 @@ import inf112.RoboRally.app.GameLauncher;
 import inf112.RoboRally.app.models.game.Game;
 import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.views.player.PlayerUI;
+import inf112.RoboRally.app.views.player.Timer;
 import inf112.RoboRally.app.views.robot.RobotView;
 
 public class GameScreen extends InputAdapter implements Screen {
@@ -32,6 +33,8 @@ public class GameScreen extends InputAdapter implements Screen {
     private RobotView[] robotViews;
 
     private InputMultiplexer multiplexer;
+    private Timer timer;
+
 
     public GameScreen(GameLauncher launcher) {
         // rendering stuff
@@ -48,6 +51,9 @@ public class GameScreen extends InputAdapter implements Screen {
 
 //        playerUI = new PlayerUI(game.getHumanPlayer(), game.getGameCardController()); // working
         playerUI = game.getHumanPlayer().getPlayerUI();
+
+        timer = new Timer(60);
+        stage.addActor(timer.getTimeTable());
 
         mapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1/256f);
         camera.setToOrtho(false, 26, 15);
@@ -68,19 +74,17 @@ public class GameScreen extends InputAdapter implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        timer.updateTimer(Gdx.graphics.getDeltaTime());
         camera.update();
         gameLauncher.batch.begin();
 
         gameLauncher.batch.setProjectionMatrix(camera.combined);
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1));
-        stage.draw();
 
         mapRenderer.render();
 
         gameLauncher.batch.setProjectionMatrix(playerUI.getStage().getCamera().combined);
         playerUI.getStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1));
         playerUI.getStage().draw();
-        playerUI.updatePlayerCardTimer();
 
         gameLauncher.batch.end();
 
@@ -111,7 +115,8 @@ public class GameScreen extends InputAdapter implements Screen {
 
 
         }
-
+        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1));
+        stage.draw();
         gameLauncher.batch.end();
     }
 

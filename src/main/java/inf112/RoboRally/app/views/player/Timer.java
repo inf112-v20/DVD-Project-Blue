@@ -13,14 +13,14 @@ public class Timer {
     private Table timeTable;
     private Label timeLabel;
 
-    protected Timer(int time) {
+    public Timer(int time) {
         this.time = time;
         timeCount = 0;
         timeTable = new Table();
     }
 
-    protected Table getTimeTable() {
-        timeTable.pad(0, 4830, 350, 0);
+    public Table getTimeTable() {
+        timeTable.pad(1050, 2280, 0, 0);
 
         timeLabel = new Label(String.format("%02d", time), SKIN);
 
@@ -29,12 +29,14 @@ public class Timer {
         return timeTable;
     }
 
-    protected void updateTimer(float delta) {
+    public void updateTimer(float delta) {
         timeCount += delta;
-        if (timeCount >= 1) {
-            time--;
-            timeLabel.setText(String.format("%02d", time));
-            timeCount = 0;
+        if (time > 0) {
+            if (timeCount >= 1) {
+                time--;
+                timeLabel.setText(String.format("%02d", time));
+                timeCount = 0;
+            }
         }
     }
 }

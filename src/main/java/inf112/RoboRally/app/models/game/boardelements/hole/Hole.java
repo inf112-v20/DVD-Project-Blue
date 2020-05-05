@@ -1,5 +1,7 @@
 package inf112.RoboRally.app.models.game.boardelements.hole;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.RoboRally.app.models.game.boardelements.IElement;
 import inf112.RoboRally.app.models.robot.Direction;
@@ -10,6 +12,7 @@ public class Hole implements IElement {
 
     private TiledMapTileLayer layer;
     public final boolean ACTIVE;
+    private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/Hole.wav"));
 
     public Hole(TiledMapTileLayer tiledMapTileLayer) {
         if (tiledMapTileLayer != null) ACTIVE = true;
@@ -83,6 +86,7 @@ public class Hole implements IElement {
         Pos pos = robot.position();
         int x = pos.getX(), y = pos.getY();
         if (checkForHole(x, y, HoleType.SINGLE_HOLE)) {
+            sound.play();
             robot.reset(true);
         }
     }

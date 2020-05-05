@@ -1,5 +1,7 @@
 package inf112.RoboRally.app.models.game.boardelements.laserbeam;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.RoboRally.app.models.game.boardelements.IElement;
 import inf112.RoboRally.app.models.robot.Pos;
@@ -9,6 +11,7 @@ public class LaserBeam implements IElement {
 
     private TiledMapTileLayer layer;
     private final boolean ACTIVE;
+    private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/LaserHit.wav"));
 
     public LaserBeam(TiledMapTileLayer layer) {
         ACTIVE = layer != null;
@@ -24,18 +27,30 @@ public class LaserBeam implements IElement {
     public void effectRobotAfterCardExec(Robot robot) {
         Pos pos = robot.position();
         int x = pos.getX(), y = pos.getY();
-        if (checkForLaserBeam(x, y, LaserBeamType.SINGLE_LASER_VERTICAL))
+        if (checkForLaserBeam(x, y, LaserBeamType.SINGLE_LASER_VERTICAL)) {
             robot.looseHP(1);
-        else if (checkForLaserBeam(x, y, LaserBeamType.SINGLE_LASER_HORIZONTAL))
+            sound.play();
+        }
+        else if (checkForLaserBeam(x, y, LaserBeamType.SINGLE_LASER_HORIZONTAL)) {
             robot.looseHP(1);
-        else if (checkForLaserBeam(x, y, LaserBeamType.SINGLE_LASER_CROSS))
+            sound.play();
+        }
+        else if (checkForLaserBeam(x, y, LaserBeamType.SINGLE_LASER_CROSS)) {
             robot.looseHP(2);
-        else if (checkForLaserBeam(x, y, LaserBeamType.DOUBLE_LASER_HORIZONTAL))
+            sound.play();
+        }
+        else if (checkForLaserBeam(x, y, LaserBeamType.DOUBLE_LASER_HORIZONTAL)) {
             robot.looseHP(2);
-        else if (checkForLaserBeam(x, y, LaserBeamType.DOUBLE_LASER_VERTICAL))
+            sound.play();
+        }
+        else if (checkForLaserBeam(x, y, LaserBeamType.DOUBLE_LASER_VERTICAL)) {
             robot.looseHP(2);
-        else if (checkForLaserBeam(x, y, LaserBeamType.DOUBLE_LASER_CROSS))
+            sound.play();
+        }
+        else if (checkForLaserBeam(x, y, LaserBeamType.DOUBLE_LASER_CROSS)) {
             robot.looseHP(4);
+            sound.play();
+        }
     }
 
     @Override

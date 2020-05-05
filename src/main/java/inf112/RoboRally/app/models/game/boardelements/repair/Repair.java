@@ -1,5 +1,7 @@
 package inf112.RoboRally.app.models.game.boardelements.repair;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.RoboRally.app.models.game.boardelements.IElement;
 import inf112.RoboRally.app.models.robot.Pos;
@@ -9,6 +11,7 @@ public class Repair implements IElement {
 
     private TiledMapTileLayer layer;
     private final boolean ACTIVE;
+    private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/Repair.wav"));
 
     public Repair(TiledMapTileLayer layer) {
         ACTIVE = layer != null;
@@ -24,10 +27,14 @@ public class Repair implements IElement {
     public void effectRobotAfterCardExec(Robot robot) {
         Pos pos = robot.position();
         int x = pos.getX(), y = pos.getY();
-        if (checkForRepair(x, y, RepairType.WRENCH))
+        if (checkForRepair(x, y, RepairType.WRENCH)) {
             robot.repair(RepairType.WRENCH);
-        else if (checkForRepair(x, y, RepairType.WRENCH_AND_HAMMER))
+            sound.play();
+        }
+        else if (checkForRepair(x, y, RepairType.WRENCH_AND_HAMMER)) {
             robot.repair(RepairType.WRENCH_AND_HAMMER);
+            sound.play();
+        }
     }
 
     @Override
