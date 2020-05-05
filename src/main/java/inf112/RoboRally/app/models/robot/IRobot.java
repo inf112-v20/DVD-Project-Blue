@@ -8,7 +8,7 @@ public interface IRobot {
 
     void rotate(Rotation rotation);
 
-    void looseHP();
+    void looseHP(int hpToLoose);
 
     int getHP();
 

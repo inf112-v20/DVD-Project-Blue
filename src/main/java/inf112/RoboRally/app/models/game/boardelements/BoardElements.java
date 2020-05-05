@@ -25,6 +25,7 @@ public class BoardElements {
     private Cog cog;
     private Flag flag;
     private Repair repair;
+    private LaserBeam laserBeam;
 
     IElement[] elementsThatEffectRobot;
 
@@ -32,6 +33,7 @@ public class BoardElements {
         // elements that effect robot after cards
         mapBounds = new MapBounds();
         pusher = new TwoFourPusher( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("pusher") );
+        laserBeam = new LaserBeam( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("laserBeam") );
         repair = new Repair( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("repair") );
         flag = new Flag( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("flag") );
         cog = new Cog( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("cog") );
@@ -40,7 +42,7 @@ public class BoardElements {
         wall = new Wall( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("wall") );
         hole = new Hole( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("hole") );
         cornerWall = new CornerWall( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("doubleWall") );
-        elementsThatEffectRobot = new IElement[9];
+        elementsThatEffectRobot = new IElement[10];
         elementsThatEffectRobot[0] = hole;
         elementsThatEffectRobot[1] = mapBounds;
         elementsThatEffectRobot[2] = blueBelt;
@@ -48,8 +50,9 @@ public class BoardElements {
         elementsThatEffectRobot[4] = yellowBelt;
         elementsThatEffectRobot[5] = pusher;
         elementsThatEffectRobot[6] = cog;
-        elementsThatEffectRobot[7] = flag;
-        elementsThatEffectRobot[8] = repair;
+        elementsThatEffectRobot[7] = laserBeam;
+        elementsThatEffectRobot[8] = flag;
+        elementsThatEffectRobot[9] = repair;
 
     }
 

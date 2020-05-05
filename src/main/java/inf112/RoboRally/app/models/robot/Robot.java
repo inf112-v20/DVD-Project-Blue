@@ -115,9 +115,8 @@ public class Robot implements IRobot {
     }
 
     @Override
-    public void looseHP() {
-        // TODO - if zer hp -> reboot robot on board, loose one life etc etc.
-        hp--;
+    public void looseHP(int hpToLoose) {
+        hp -= hpToLoose;
     }
 
     @Override
