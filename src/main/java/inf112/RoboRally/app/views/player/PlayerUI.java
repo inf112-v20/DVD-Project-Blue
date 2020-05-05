@@ -29,6 +29,8 @@ public class PlayerUI extends InputAdapter {
     private Table powerDownTable;
     private ImageButton powerDownButton;
 
+    private Timer timer;
+
     private OpponentHUDTable opponentHUDTable;
 
     private Stage stage;
@@ -47,6 +49,8 @@ public class PlayerUI extends InputAdapter {
         powerDownTable = new Table();
         powerDownButton = new PowerDownButton().createImageButton();
 
+        timer = new Timer(60);
+
         playerHUD = new PlayerHUD(player);
         opponentHUDTable = new OpponentHUDTable(player, cardsFacingUp);
 
@@ -55,6 +59,7 @@ public class PlayerUI extends InputAdapter {
         stage.addActor(playerHUD.getDamageTokensTable());
         stage.addActor(powerDownTable());
         stage.addActor(playerHUD.getLifeTokensTable());
+        stage.addActor(timer.getTimeTable());
         stage.addActor(readyButtonTable());
         stage.addActor(generateCardsTable());
 
@@ -148,5 +153,9 @@ public class PlayerUI extends InputAdapter {
     public void updateForNewRound() {
         opponentHUDTable = new OpponentHUDTable(player, false);
         stage.addActor(opponentHUDTable.getOpponentTable());
+    }
+
+    public void updatePlayerCardTimer() {
+        timer.updateTimer(Gdx.graphics.getDeltaTime());
     }
 }

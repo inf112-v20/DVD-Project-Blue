@@ -80,6 +80,7 @@ public class GameScreen extends InputAdapter implements Screen {
         gameLauncher.batch.setProjectionMatrix(playerUI.getStage().getCamera().combined);
         playerUI.getStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1));
         playerUI.getStage().draw();
+        playerUI.updatePlayerCardTimer();
 
         gameLauncher.batch.end();
 
