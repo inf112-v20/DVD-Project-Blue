@@ -125,37 +125,38 @@ public class GameScreen extends InputAdapter implements Screen {
                 robotView.setTexture(new Texture(PATH+playerNumber+".png"));
             }
 
-
-        }
-
-        //shooting
-        shootTimer += Gdx.graphics.getDeltaTime();
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && shootTimer >= SHOOT_WAIT_TIME) {
-            shootTimer = 0;
-            if (players[0].robot().direction() == Direction.UP ||
-                    players[0].robot().direction() == Direction.DOWN) {
-                bullets.add(new Bullet(robotViews[0].getX()+40, robotViews[0].getY()+47));
-            } else if (players[0].robot().direction() == Direction.RIGHT ||
-                    players[0].robot().direction() == Direction.LEFT) {
-                bullets.add(new Bullet(robotViews[0].getX()+47, robotViews[0].getY()+40));
+            //shooting
+            shootTimer += Gdx.graphics.getDeltaTime();
+            if (robotView.getTimeToShoot() && shootTimer >= SHOOT_WAIT_TIME) {
+                robotView.setTimeToShoot(false);
+                shootTimer = 0;
+                if (players[0].robot().direction() == Direction.UP ||
+                        players[0].robot().direction() == Direction.DOWN) {
+                    bullets.add(new Bullet(robotViews[0].getX()+40, robotViews[0].getY()+47));
+                } else if (players[0].robot().direction() == Direction.RIGHT ||
+                        players[0].robot().direction() == Direction.LEFT) {
+                    bullets.add(new Bullet(robotViews[0].getX()+47, robotViews[0].getY()+40));
+                }
             }
-        }
 
-        ArrayList<Bullet> bulletsToRemove = new ArrayList<Bullet>();
-        for (Bullet bullet : bullets) {
-            bullet.update(Gdx.graphics.getDeltaTime(), players[0].robot().direction());
-            if (bullet.remove) {
-                bulletsToRemove.add(bullet);
+            ArrayList<Bullet> bulletsToRemove = new ArrayList<Bullet>();
+            for (Bullet bullet : bullets) {
+                bullet.update(Gdx.graphics.getDeltaTime(), players[0].robot().direction());
+                if (bullet.remove) {
+                    bulletsToRemove.add(bullet);
+                }
             }
-        }
-        bullets.removeAll(bulletsToRemove);
-        //shooting
+            bullets.removeAll(bulletsToRemove);
+            //shooting
 
-        //shooting
-        for (Bullet bullet : bullets) {
-            bullet.render(gameLauncher.batch);
+            //shooting
+            for (Bullet bullet : bullets) {
+                bullet.render(gameLauncher.batch);
+            }
+            //shooting
+
+
         }
-        //shooting
 
         gameLauncher.batch.end();
     }

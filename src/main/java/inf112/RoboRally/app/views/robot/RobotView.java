@@ -13,6 +13,7 @@ public class RobotView extends Sprite {
     private boolean isDeadThisRound = false;
     private boolean isPoweredDown = false;
     private boolean hasWon = false;
+    private boolean timeToShoot = false;
 
     private final float TILE_HEIGHT_PX = 96.053575f; // 256 /  2.665179302
     private final float TILE_WIDTH_PX = 98.46153846153846f; // 256 / 2.6 (tile px size / scaling down property)
@@ -123,5 +124,13 @@ public class RobotView extends Sprite {
 
     public void changePoweredDown(boolean isPoweredDown) {
         this.isPoweredDown = isPoweredDown;
+    }
+
+    public void setTimeToShoot(boolean shoot) {
+        timeToShoot = shoot;
+    }
+
+    public boolean getTimeToShoot() {
+        return timeToShoot;
     }
 }

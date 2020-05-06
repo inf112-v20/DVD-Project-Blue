@@ -73,4 +73,8 @@ public class RobotViewController {
     public void updateViewPoweredDown(boolean powerDown) {
         robotView.changePoweredDown(powerDown);
     }
+
+    public void timeToShoot(boolean shoot) {
+        robotView.setTimeToShoot(shoot);
+    }
 }
