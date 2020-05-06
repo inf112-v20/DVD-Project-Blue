@@ -239,8 +239,15 @@ public class Robot implements IRobot {
 
     public void changePowerDown(boolean poweredDown, boolean gainLife) {
         this.poweredDown = poweredDown;
-        if (gainLife) lives = Math.min(STARTING_LIVES, lives += 1);
+        if (gainLife) {
+            lives++;
+            if (lives > 3) lives = 3;
+        }
         if (poweredDown) robotViewController.updateViewPoweredDown(true);
         else             robotViewController.updateViewPoweredDown(false);
+    }
+
+    public boolean isWinner() {
+        return hasWon;
     }
 }

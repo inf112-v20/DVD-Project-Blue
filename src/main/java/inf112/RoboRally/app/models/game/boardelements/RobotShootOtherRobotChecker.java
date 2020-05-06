@@ -19,7 +19,8 @@ public class RobotShootOtherRobotChecker implements IElement {
     public void effectRobotAfterCardExec(Robot robot) {
         Pos robotPos = robot.position();
 
-        robot.getRobotViewController().timeToShoot(true);
+        if (!robot.isPoweredDown() && !robot.isDead())
+            robot.getRobotViewController().timeToShoot(true);
 
         for (Robot enemyRobot: robots) {
 

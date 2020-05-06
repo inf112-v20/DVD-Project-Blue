@@ -98,7 +98,8 @@ public class CollectCardFromSlotExecutor {
 
     private void turnRobotsThatWerePoweredDownOnForNextRound() {
         for (Player player: players) {
-            player.robot().changePowerDown(false, true);
+            if (player.robot().isPoweredDown())
+                player.robot().changePowerDown(false, true);
         }
     }
 

@@ -73,16 +73,13 @@ public class Player {
 
     // only chooses one card for now
     public void botPlayerChooseCards() {
-        if (robot.livesLeft() == 1) {
-            robot.changePowerDown(true, false);
-        } else {
-            for (ICard card: receivedCards) {
-                if (card != null) {
-                    putReceivedCardInCardSlot(card);
+        for (ICard card: receivedCards) {
+            if (card != null) {
+                fillPlayerCardSlot(card);
                 }
             }
-        }
     }
+
 
     // puts card in the first empty slot
     private void putReceivedCardInCardSlot(ICard card) {

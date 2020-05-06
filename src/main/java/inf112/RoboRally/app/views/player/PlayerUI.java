@@ -78,7 +78,6 @@ public class PlayerUI extends InputAdapter {
         powerDownTable.pad(0, 1170, 176, 0);
         powerDownTable.add(powerDownButton);
 
-        //testet, funker nå :D
         powerDownButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -109,11 +108,9 @@ public class PlayerUI extends InputAdapter {
         readyButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-//                System.out.println("--------------------------------------------------------------------");
-//                System.out.println("FROM PlayerUI: ready button pressed! Player is ready for some action!");
-                player.setCardSlotsFromUserInput(gameScreenCards.getCardChoices());
-                player.getGame().executeRound();
-                gameScreenCards.clearReceivedCards();
+                if (roundIsNotInExecution()) {
+                    player.getGame().getTimer().forceStartRoundIfPlayersAreReady();
+                }
             }
         });
 
@@ -131,20 +128,15 @@ public class PlayerUI extends InputAdapter {
         generateCardsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-//                System.out.println("--------------------------------------------------------------------");
-//                System.out.println("FROM PlayerUI: generated new cards button pressed. Passing this information along.");
-//                gameScreenCards.clearAllCards();
-//                player.getGame().newRound();
-//                gameScreenCards = new GameScreenCards(player);
-//                for (int slotNumber = 0; slotNumber < player.numberOfCardSlots(); slotNumber++)
-//                    stage.addActor(gameScreenCards.getCardSlotTable(slotNumber));
-//
-//                stage.addActor(gameScreenCards.getReceivedCardsTable());
                 if (roundIsNotInExecution()) getReceivedCardsForThisRound(); // for fetching received cards at beginning of round
             }
         });
 
         return generateCardsTable;
+    }
+
+    private void setTimerToZeroAndStartRoundWhenReadyButtonPressed() {
+
     }
 
     private boolean roundIsNotInExecution() {
@@ -154,12 +146,6 @@ public class PlayerUI extends InputAdapter {
 
     public void updateOpponentCardSlots(boolean cardsFacingUp) {
         opponentHUDTable = new OpponentHUDTable(player, cardsFacingUp);
-        stage.addActor(opponentHUDTable.getOpponentTable());
-    }
-
-
-    public void updateOpponentHUDForNewRound() {
-        opponentHUDTable = new OpponentHUDTable(player, false);
         stage.addActor(opponentHUDTable.getOpponentTable());
     }
 

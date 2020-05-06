@@ -56,9 +56,26 @@ public class Round {
 
         powerDownRobots();                      // power down robots that have announced powerdown
         updateRobotsThatDiedThePreviousRound(); // making all robots that died the previous round alive again
+        checkForWinner();
         CollectCardFromSlotExecutor cardChoiceExecutor = new CollectCardFromSlotExecutor(players, boardElements, timer);
         cardChoiceExecutor.CardChoiceRoundExecutor();
 
+    }
+
+    private void checkForWinner() {
+        int playersAlive = 0;
+        for (Player player: players) {
+            if (player.robot().livesLeft() > 0) playersAlive++;
+            if (player.robot().isWinner()) return;
+        }
+        if (playersAlive == 1) {
+            for (Player player: players) {
+                if (player.robot().livesLeft() > 0) {
+                    player.robot().getRobotViewController().hasWon();
+                    return;
+                }
+            }
+        }
     }
 
 
@@ -74,7 +91,8 @@ public class Round {
 
     private void updateRobotsThatDiedThePreviousRound() {
         for (Player player: players) {
-            player.robot().setAlive();
+            if (player.robot().livesLeft() > 0)
+                player.robot().setAlive();
         }
     }
 
