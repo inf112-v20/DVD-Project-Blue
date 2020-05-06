@@ -100,11 +100,11 @@ public class Round {
     }
 
 
-    public void executeRound() {
+    public void executeRound(Timer timer) {
         updateOpponentHUDCardSlots(); // flipping all cards to face up, game stats, etc.
         updateRobots(); // making all robots that died the previous round alive again
 
-        CollectCardFromSlotExecutor cardChoiceExecutor = new CollectCardFromSlotExecutor(players, boardElements);
+        CollectCardFromSlotExecutor cardChoiceExecutor = new CollectCardFromSlotExecutor(players, boardElements, timer);
         cardChoiceExecutor.CardChoiceRoundExecutor();
 
 

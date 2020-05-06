@@ -156,7 +156,8 @@ public class Hole implements IElement {
         if (checkForHole(x, y, HoleType.SINGLE_HOLE)) {
             sound.play();
             robot.reset(true);
-        } else if (checkForHole(x, y, HoleType.BIG_HOLE_LEFT_TOP)) {
+        }
+        else if (checkForHole(x, y, HoleType.BIG_HOLE_LEFT_TOP)) {
             sound.play();
             robot.reset(true);
         }

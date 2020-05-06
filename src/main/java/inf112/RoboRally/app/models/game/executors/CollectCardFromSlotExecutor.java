@@ -3,6 +3,7 @@ package inf112.RoboRally.app.models.game.executors;
 import inf112.RoboRally.app.models.cards.ICard;
 import inf112.RoboRally.app.models.cards.SortCardByPriority;
 import inf112.RoboRally.app.models.game.Player;
+import inf112.RoboRally.app.models.game.Timer;
 import inf112.RoboRally.app.models.game.boardelements.IElement;
 
 import java.util.ArrayList;
@@ -17,13 +18,15 @@ public class CollectCardFromSlotExecutor {
 
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private AtomicInteger slotNumber = new AtomicInteger(0);
+    private final int NUMBER_OF_SLOTS = 5;
     private Player[] players;
     private IElement[] boardElements;
-    private final int NUMBER_OF_SLOTS = 5;
+    private Timer timer; // access to timer in game for reset when round execution is complete
 
-    public CollectCardFromSlotExecutor(Player[] players, IElement[] boardElements) {
+    public CollectCardFromSlotExecutor(Player[] players, IElement[] boardElements, Timer timer) {
         this.players = players;
         this.boardElements = boardElements;
+        this.timer = timer;
     }
 
 
@@ -60,6 +63,7 @@ public class CollectCardFromSlotExecutor {
             }
 
             if (slotNumber.incrementAndGet() == NUMBER_OF_SLOTS) {
+                timer.reset();
                 scheduler.shutdown();
             }
         };

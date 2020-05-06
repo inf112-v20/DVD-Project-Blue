@@ -102,9 +102,7 @@ public class Game {
         for (Player player: players) {
             player.setupCardsForRoundExecution();
         }
-        round.executeRound();
-        timer.reset();
-
+        round.executeRound(timer);
     }
 
     public void setupPlayerUIsNewGame() {

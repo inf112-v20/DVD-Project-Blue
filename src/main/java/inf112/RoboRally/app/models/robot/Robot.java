@@ -207,12 +207,10 @@ public class Robot implements IRobot {
             robotViewController.updateViewToDead();
         }
         hp = getMAX_HP();
-        player.clearAllCards();
+        player.clearCardSlots();
         pos.restart();
-        direction = START_DIRECTION;
         robotViewController.updateXCord(pos.getX());
         robotViewController.updateYCord(pos.getY());
-        robotViewController.resetDir();
     }
 
 

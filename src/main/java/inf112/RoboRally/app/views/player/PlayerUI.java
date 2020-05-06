@@ -160,4 +160,8 @@ public class PlayerUI extends InputAdapter {
     public void clearAllCardsOnScreen() {
         gameScreenCards.clearAllCards();
     }
+
+    public void clearCardSlotCardsOnScreen() {
+        gameScreenCards.clearCardsInSlots();
+    }
 }
