@@ -65,6 +65,7 @@ public class CollectCardFromSlotExecutor {
             }
 
             if (slotNumber.incrementAndGet() == NUMBER_OF_SLOTS) {
+                turnRobotsThatWerePoweredDownOnForNextRound();
                 timer.reset();
                 scheduler.shutdown();
             }
@@ -92,6 +93,13 @@ public class CollectCardFromSlotExecutor {
         }
         if (cards.isEmpty()) return null; // no more card choices left to execute
         return cards;
+    }
+
+
+    private void turnRobotsThatWerePoweredDownOnForNextRound() {
+        for (Player player: players) {
+            player.robot().changePowerDown(false, true);
+        }
     }
 
 

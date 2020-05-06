@@ -178,7 +178,6 @@ public class PlayerUI extends InputAdapter {
 
     public void getReceivedCardsForThisRound() {
         player.clearCardSlots();
-        System.out.println("getting here for round exec");
         gameScreenCards.clearAllCards();
         gameScreenCards = new GameScreenCards(player);
         for (int slotNumber = 0; slotNumber < player.numberOfCardSlots(); slotNumber++)

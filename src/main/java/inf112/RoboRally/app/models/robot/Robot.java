@@ -179,6 +179,7 @@ public class Robot implements IRobot {
                     robotViewController.touchedFlag();
                     System.out.println("Robot now has one flag");
                 }
+                hp = Math.max(++hp, MAX_HP);
                 pos.setNewRestartPos(pos.getX(), pos.getY());
                 break;
             case SECOND_FLAG:
@@ -186,6 +187,7 @@ public class Robot implements IRobot {
                     flagsCaptured++;
                     robotViewController.touchedFlag();
                 }
+                hp = Math.max(++hp, MAX_HP);
                 pos.setNewRestartPos(pos.getX(), pos.getY());
                 System.out.println("touched second flag");
                 break;

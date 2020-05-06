@@ -32,7 +32,7 @@ public class Round {
     private void botPlayersChooseCards() {
         for (Player player: players) {
             if (player.isBotPlayer())
-                player.chooseCards();
+                player.botPlayerChooseCards();
         }
     }
 
@@ -49,34 +49,18 @@ public class Round {
     }
 
 
-    private void removeDealtCards () {
-        for (Player player: players) {
-            ICard[] dealtCards = player.getReceivedCards();
-            for (int i = 0; i < dealtCards.length; i++) {
-                dealtCards[i] = null;
-            }
-
-        }
-
-    }
-
 
     public void executeRound(Timer timer) {
+
         System.out.println("----------------------------------------- ROUND "+(++roundNumber)+" ------------------------------------------" );
-        updateRobotsThatWerePoweredDownPreviousRound();
+
+        powerDownRobots();                      // power down robots that have announced powerdown
         updateRobotsThatDiedThePreviousRound(); // making all robots that died the previous round alive again
-        powerDownRobots();                      // power down robots that have announces powerdown
         CollectCardFromSlotExecutor cardChoiceExecutor = new CollectCardFromSlotExecutor(players, boardElements, timer);
         cardChoiceExecutor.CardChoiceRoundExecutor();
 
-
     }
 
-    private void updateRobotsThatWerePoweredDownPreviousRound() {
-        for (Player player: players) {
-            player.robot().changePowerDown(false, true);
-        }
-    }
 
     private void powerDownRobots() {
         for (Player player: players) {
@@ -85,6 +69,7 @@ public class Round {
                 player.robot().reset(false);
             }
         }
+
     }
 
     private void updateRobotsThatDiedThePreviousRound() {
@@ -93,11 +78,6 @@ public class Round {
         }
     }
 
-
-    private void updateOpponentHUDCardSlotsCardsFacingUp() {
-        for (Player player: players)
-            player.updateOpponentCardSlots(true);
-    }
 
 
 }
