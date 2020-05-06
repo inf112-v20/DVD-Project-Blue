@@ -14,19 +14,21 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
+
 import static com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
 
-public class LanMenu implements Screen {
+public class JoinLobbyMenu implements Screen {
+
+    final private Skin SKIN = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
 
     private GameLauncher gameLauncher;
     private OrthographicCamera camera;
     private Viewport viewport;
     private Stage stage;
     private Table table;
+    private final int PORT = 1337;
 
-    final private Skin SKIN = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
-
-    public LanMenu(GameLauncher game) {
+    public JoinLobbyMenu(GameLauncher game) {
         this.gameLauncher = game;
         camera = new OrthographicCamera();
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT, camera);
@@ -44,37 +46,24 @@ public class LanMenu implements Screen {
         background.setFilter(Linear, Linear);
         table.setBackground(new TextureRegionDrawable(background));
 
-        TextButton newLobby = new Button().createTextButton("CREATE NEW LOBBY");
-        TextButton existingGame = new Button().createTextButton("JOIN EXISTING GAME");
+        Label ipAddressLabel = new Label("ENTER IP ADDRESS:", SKIN);
+        TextField ipAddress = new TextField("", SKIN);
+        ipAddress.setMessageText("IP");
+        TextButton joinGame = new Button().createTextButton("JOIN");
         TextButton goBack = new Button().createTextButton("GO BACK");
 
-        table.add(newLobby).padBottom(25);
+        table.add(ipAddressLabel).padBottom(25).padRight(20);
+        table.add(ipAddress).width(500).padBottom(25);
         table.row();
-        table.add(existingGame).padBottom(25);
-        table.row();
+        table.add(joinGame);
         table.add(goBack);
 
-        newLobby.addListener(new ClickListener() {
+        joinGame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.8f), Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-                        gameLauncher.setScreen(new CreateLobbyMenu(gameLauncher));
-                    }
-                })));
-            }
-        });
-
-        existingGame.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.8f), Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-                        gameLauncher.setScreen(new JoinLobbyMenu(gameLauncher));
-                    }
-                })));
+                System.out.println("JOINED");
+                System.out.println(ipAddress.getText());
+                System.out.println(PORT);
             }
         });
 
@@ -84,7 +73,7 @@ public class LanMenu implements Screen {
                 stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.8f), Actions.run(new Runnable() {
                     @Override
                     public void run() {
-                        gameLauncher.setScreen(new MainMenu(gameLauncher));
+                        gameLauncher.setScreen(new LanMenu(gameLauncher));
                     }
                 })));
             }

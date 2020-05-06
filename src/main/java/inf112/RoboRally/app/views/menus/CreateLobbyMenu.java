@@ -14,9 +14,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
+
 import static com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
 
-public class LanMenu implements Screen {
+public class CreateLobbyMenu implements Screen {
+
+    final private Skin SKIN = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
 
     private GameLauncher gameLauncher;
     private OrthographicCamera camera;
@@ -24,9 +27,7 @@ public class LanMenu implements Screen {
     private Stage stage;
     private Table table;
 
-    final private Skin SKIN = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
-
-    public LanMenu(GameLauncher game) {
+    public CreateLobbyMenu(GameLauncher game) {
         this.gameLauncher = game;
         camera = new OrthographicCamera();
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT, camera);
@@ -44,37 +45,27 @@ public class LanMenu implements Screen {
         background.setFilter(Linear, Linear);
         table.setBackground(new TextureRegionDrawable(background));
 
-        TextButton newLobby = new Button().createTextButton("CREATE NEW LOBBY");
-        TextButton existingGame = new Button().createTextButton("JOIN EXISTING GAME");
+        Label mapNameLabel = new Label("Choose map: ", SKIN);
+        TextButton mapButton = new Button().createTextButton(this.gameLauncher.settings().getMap().name());
+        Image mapImg = new Image(new Texture(gameLauncher.settings().getMap().imgFile()));
+
+        TextButton createGame = new Button().createTextButton("CREATE");
         TextButton goBack = new Button().createTextButton("GO BACK");
 
-        table.add(newLobby).padBottom(25);
+        table.add(mapNameLabel).padBottom(25).padRight(20);
+        table.add(mapButton).padBottom(25).width(750);
         table.row();
-        table.add(existingGame).padBottom(25);
+        table.add(mapImg).colspan(2).padBottom(20);
         table.row();
+        table.add(createGame);
         table.add(goBack);
 
-        newLobby.addListener(new ClickListener() {
+        mapButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.8f), Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-                        gameLauncher.setScreen(new CreateLobbyMenu(gameLauncher));
-                    }
-                })));
-            }
-        });
-
-        existingGame.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.8f), Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-                        gameLauncher.setScreen(new JoinLobbyMenu(gameLauncher));
-                    }
-                })));
+                gameLauncher.settings().chooseMap();
+                mapButton.getLabel().setText(gameLauncher.settings().getMap().name());
+                mapImg.setDrawable(new TextureRegionDrawable(new Texture(gameLauncher.settings().getMap().imgFile())));
             }
         });
 
@@ -84,7 +75,7 @@ public class LanMenu implements Screen {
                 stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.8f), Actions.run(new Runnable() {
                     @Override
                     public void run() {
-                        gameLauncher.setScreen(new MainMenu(gameLauncher));
+                        gameLauncher.setScreen(new LanMenu(gameLauncher));
                     }
                 })));
             }
