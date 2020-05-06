@@ -6,7 +6,6 @@ import inf112.RoboRally.app.models.game.boardelements.IElement;
 import inf112.RoboRally.app.models.game.executors.CollectCardFromSlotExecutor;
 
 import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
 
 /*
 Next delivery
@@ -101,11 +100,11 @@ public class Round {
     }
 
 
-    public void executeRound(CountDownLatch roundFinishedLatch) {
+    public void executeRound() {
         updateOpponentHUDCardSlots(); // flipping all cards to face up, game stats, etc.
         updateRobots(); // making all robots that died the previous round alive again
 
-        CollectCardFromSlotExecutor cardChoiceExecutor = new CollectCardFromSlotExecutor(players, boardElements, roundFinishedLatch);
+        CollectCardFromSlotExecutor cardChoiceExecutor = new CollectCardFromSlotExecutor(players, boardElements);
         cardChoiceExecutor.CardChoiceRoundExecutor();
 
 

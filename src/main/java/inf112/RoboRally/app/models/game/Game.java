@@ -5,8 +5,6 @@ import inf112.RoboRally.app.controllers.MapChoiceControllers.SinglePlayerSetting
 import inf112.RoboRally.app.models.board.Board;
 import inf112.RoboRally.app.models.game.boardelements.BoardElements;
 
-import java.util.concurrent.CountDownLatch;
-
 public class Game {
 
     // the board
@@ -104,13 +102,7 @@ public class Game {
         for (Player player: players) {
             player.setupCardsForRoundExecution();
         }
-        CountDownLatch roundFinishedLatch = new CountDownLatch(1);
-        round.executeRound(roundFinishedLatch);
-        try {
-            roundFinishedLatch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        round.executeRound();
         timer.reset();
 
     }
