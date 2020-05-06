@@ -143,6 +143,7 @@ public class PlayerUI extends InputAdapter {
     }
 
     private boolean roundIsNotInExecution() {
+        // is the timer is active, the time su currently counting down -> not in round register phase
         return player.getGame().getTimer().timerIsActive();
     }
 
@@ -162,8 +163,8 @@ public class PlayerUI extends InputAdapter {
         gameScreenCards.clearReceivedCards();
     }
 
-    public void clearAllCardsOnScreen() {
-        gameScreenCards.clearAllCards();
+    public void clearAllCardsBeforeGettingNewCards() {
+        getReceivedCardsForThisRound();
     }
 
     public void clearCardSlotCardsOnScreen() {
@@ -172,6 +173,7 @@ public class PlayerUI extends InputAdapter {
 
     public void getReceivedCardsForThisRound() {
         player.clearCardSlots();
+        System.out.println("getting here for round exec");
         gameScreenCards.clearAllCards();
         gameScreenCards = new GameScreenCards(player);
         for (int slotNumber = 0; slotNumber < player.numberOfCardSlots(); slotNumber++)

@@ -131,9 +131,6 @@ public class Player {
         return game;
     }
 
-    public Player[] getAllPlayersInGame() {
-        return game.players();
-    }
 
     public String getName() {
         return name;
@@ -142,12 +139,9 @@ public class Player {
     public void clearAllCards() {
         clearCardSlots();
         clearReceivedCards();
-        playerUI.clearAllCardsOnScreen();
+        playerUI.clearAllCardsBeforeGettingNewCards();
     }
 
-    public void updateOpponentHUDForNewRound() {
-        playerUI.updateOpponentHUDForNewRound();
-    }
 
     private void clearReceivedCards() {
         for (int receivedCardNumber = 0; receivedCardNumber < numberOfReceivedCards(); receivedCardNumber++) {
@@ -168,5 +162,10 @@ public class Player {
 
     public void clearCardSlotsOnScreen() {
         playerUI.clearCardSlotCardsOnScreen();
+    }
+
+    public void resetCards() {
+        cardSlots = new ICard[numberOfCardSlots()];
+        receivedCards = new ICard[numberOfReceivedCards()];
     }
 }
