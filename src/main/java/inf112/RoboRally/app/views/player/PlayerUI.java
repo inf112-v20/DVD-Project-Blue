@@ -175,5 +175,6 @@ public class PlayerUI extends InputAdapter {
             stage.addActor(gameScreenCards.getCardSlotTable(slotNumber));
 
         stage.addActor(gameScreenCards.getReceivedCardsTable());
+//        updateOpponentCardSlots(false);
     }
 }

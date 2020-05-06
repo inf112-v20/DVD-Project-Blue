@@ -27,14 +27,18 @@ public class Repair implements IElement {
     public void effectRobotAfterCardExec(Robot robot) {
         Pos pos = robot.position();
         int x = pos.getX(), y = pos.getY();
-        if (checkForRepair(x, y, RepairType.WRENCH)) {
-            robot.repair(RepairType.WRENCH);
-            sound.play();
+
+        if (!robot.isDead()) {
+            if (checkForRepair(x, y, RepairType.WRENCH)) {
+                robot.repair(RepairType.WRENCH);
+                sound.play();
+            }
+            else if (checkForRepair(x, y, RepairType.WRENCH_AND_HAMMER)) {
+                robot.repair(RepairType.WRENCH_AND_HAMMER);
+                sound.play();
+            }
         }
-        else if (checkForRepair(x, y, RepairType.WRENCH_AND_HAMMER)) {
-            robot.repair(RepairType.WRENCH_AND_HAMMER);
-            sound.play();
-        }
+
     }
 
     @Override

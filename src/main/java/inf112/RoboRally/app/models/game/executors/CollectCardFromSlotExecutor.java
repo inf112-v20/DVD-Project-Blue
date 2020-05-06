@@ -37,8 +37,10 @@ public class CollectCardFromSlotExecutor {
 
             ArrayList<ICard> cards = collectCardsFromSlotNumber(slotNumber.get());
 
-            if (cards == null)
+            if (cards == null) {
+                timer.reset();
                 scheduler.shutdown(); // no more cards in slots
+            }
 
             sortCardsByPriority(cards);
 

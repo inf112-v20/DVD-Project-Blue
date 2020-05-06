@@ -23,6 +23,7 @@ public class Robot implements IRobot {
     private int hp;
     private int lives;
     private boolean poweredDown;
+    private boolean isDead;
     private int flagsCaptured = 0;
 //    private int playerNumber;  // NOT NEEDED?
 
@@ -37,6 +38,7 @@ public class Robot implements IRobot {
         hp = MAX_HP;
         lives = STARTING_LIVES;
         poweredDown = false;
+        isDead = false;
         pos = game.getBoard().getRobotStartingPos(player.getPlayerNumber());
         START_DIRECTION = game.getBoard().getRobotStartingDirection(player.getPlayerNumber());
         direction = game.getBoard().getRobotStartingDirection(player.getPlayerNumber());
@@ -204,6 +206,7 @@ public class Robot implements IRobot {
     public void reset(boolean looseLife) {
         if (looseLife) {
             lives--;
+            isDead = true;
             robotViewController.updateViewToDead();
         }
         hp = getMAX_HP();
@@ -226,5 +229,9 @@ public class Robot implements IRobot {
                 hp = Math.max(MAX_HP, hp += 2); // discard two damage tokens
         }
         pos.setNewRestartPos(pos.getX(), pos.getY());
+    }
+
+    public boolean isDead() {
+        return isDead;
     }
 }

@@ -165,4 +165,8 @@ public class Player {
         clearReceivedCards();
         playerUI.setupCardsForRoundExecution();
     }
+
+    public void clearCardSlotsOnScreen() {
+        playerUI.clearCardSlotCardsOnScreen();
+    }
 }

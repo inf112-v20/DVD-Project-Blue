@@ -84,9 +84,15 @@ public class Game {
     public void newRound() {
 //        clearAllCards();
         round.dealCardsAndBotsChooseCards();
-        updateOpponentHUDCardSlots(false);
         setupPlayerUIsNewGame();
+//        updateOpponentHUDCardSlots(false);
 //        updateOpponentHUDSForNewRound();
+    }
+
+    private void clearCardSlotsOnScreen() {
+        for (Player player: players) {
+            player.clearCardSlotsOnScreen();
+        }
     }
 
     private void updateOpponentHUDCardSlots(boolean cardsFacingUp) {
