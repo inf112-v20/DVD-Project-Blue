@@ -32,7 +32,7 @@ public class Game {
 
     public Game(SinglePlayerSettingsController settings) {
         board = settings.getMap();
-        timer = new Timer(15, this);
+        timer = new Timer(this);
         tiledMapLoader = new TiledMapLoader(board.tiledMapFile());
         boardElements = new BoardElements(tiledMapLoader);
         players = new Player[settings.getPlayerCount()];
