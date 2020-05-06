@@ -46,7 +46,7 @@ public class Timer {
                     timeCount = 0;
                 }
             } else {
-                secondsToChooseCards = 0;
+                secondsToChooseCards = SECONDS_TO_CHOOSE_CARDS;
                 timerIsActive = false;
                 game.executeRound();
             }
@@ -55,6 +55,5 @@ public class Timer {
 
     public void reset() {
         timerIsActive = true;
-        secondsToChooseCards = SECONDS_TO_CHOOSE_CARDS;
     }
 }
