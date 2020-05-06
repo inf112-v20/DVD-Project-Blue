@@ -135,12 +135,15 @@ public class PlayerUI extends InputAdapter {
 //                    stage.addActor(gameScreenCards.getCardSlotTable(slotNumber));
 //
 //                stage.addActor(gameScreenCards.getReceivedCardsTable());
-
-                getReceivedCardsForThisRound(); // for fetching received cards at beginning of round
+                if (roundIsNotInExecution()) getReceivedCardsForThisRound(); // for fetching received cards at beginning of round
             }
         });
 
         return generateCardsTable;
+    }
+
+    private boolean roundIsNotInExecution() {
+        return player.getGame().getTimer().timerIsActive();
     }
 
     public void updateOpponentCardSlots(boolean cardsFacingUp) {
@@ -175,6 +178,6 @@ public class PlayerUI extends InputAdapter {
             stage.addActor(gameScreenCards.getCardSlotTable(slotNumber));
 
         stage.addActor(gameScreenCards.getReceivedCardsTable());
-//        updateOpponentCardSlots(false);
+        updateOpponentCardSlots(false);
     }
 }

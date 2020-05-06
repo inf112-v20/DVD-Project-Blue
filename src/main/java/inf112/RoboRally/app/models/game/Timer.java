@@ -58,4 +58,8 @@ public class Timer {
         timerIsActive = true;
         game.newRound();
     }
+
+    public boolean timerIsActive() {
+        return timerIsActive;
+    }
 }
