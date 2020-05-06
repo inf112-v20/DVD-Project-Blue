@@ -41,8 +41,10 @@ public class LobbyMenu implements Screen {
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT, camera);
         stage = new Stage(viewport);
 
+
         server = new Server();
         client = new Client();
+        //new Thread(client).start();
 
         Gdx.input.setInputProcessor(stage);
     }
@@ -58,27 +60,24 @@ public class LobbyMenu implements Screen {
         table.setBackground(new TextureRegionDrawable(background));
 
         if (host) {
-            try {
-                server.serverInit();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            new Thread(server).start();
         } else {
-            try {
-                client.clientInit("127.0.0.1");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            new Thread(client).start();
         }
 
+
         stage.addActor(table);
-        stage.getRoot().getColor().a = 0;
-        stage.getRoot().addAction(Actions.fadeIn(0.8f));
+        stage.getRoot().
+
+                getColor().a = 0;
+        stage.getRoot().
+
+                addAction(Actions.fadeIn(0.8f));
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         gameLauncher.batch.begin();
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1));
