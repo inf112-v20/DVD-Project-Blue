@@ -47,8 +47,8 @@ public class RobotViewController {
     }
 
 
-    public void touchedFlag(int flagsCaptured) {
-        robotView.setFlags(flagsCaptured);
+    public void touchedFlag() {
+        robotView.capturedFlag();
     }
 
     public void updateViewToDead() {
@@ -66,4 +66,11 @@ public class RobotViewController {
     }
 
 
+    public void hasWon() {
+        robotView.setToWinSprite();
+    }
+
+    public void updateViewPoweredDown(boolean powerDown) {
+        robotView.changePoweredDown(powerDown);
+    }
 }

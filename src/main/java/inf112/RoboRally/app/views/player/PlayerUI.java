@@ -82,11 +82,16 @@ public class PlayerUI extends InputAdapter {
         powerDownButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (powerDownButton.isChecked()) {
-                    System.out.println("YOU ACTIVATED THE POWERDOWN FUNCTION");
-                } else {
-                    System.out.println("POWER DOWN IS FINISHED, YOU ARE GOOD TO GO");
+                if (roundIsNotInExecution()) {
+                    if (powerDownButton.isChecked()) {
+                        player.setPowerDown(true, false);
+                        System.out.println( "POWERDOWN IS CHECKED" );
+                    } else {
+                        System.out.println( "POWERDOWN IS UNCHECKED" );
+                        player.setPowerDown(false, false);
+                    }
                 }
+
             }
         });
 

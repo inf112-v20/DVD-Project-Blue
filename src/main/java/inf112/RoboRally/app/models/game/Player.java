@@ -168,4 +168,8 @@ public class Player {
         cardSlots = new ICard[numberOfCardSlots()];
         receivedCards = new ICard[numberOfReceivedCards()];
     }
+
+    public void setPowerDown(boolean powerDown, boolean gainLife) {
+        robot.changePowerDown(powerDown, gainLife);
+    }
 }

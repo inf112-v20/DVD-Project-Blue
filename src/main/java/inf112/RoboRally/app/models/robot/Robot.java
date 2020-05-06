@@ -24,8 +24,8 @@ public class Robot implements IRobot {
     private int lives;
     private boolean poweredDown;
     private boolean isDead;
+    private boolean hasWon = false;
     private int flagsCaptured = 0;
-//    private int playerNumber;  // NOT NEEDED?
 
     // View controllers
     private RobotViewController robotViewController;
@@ -50,7 +50,6 @@ public class Robot implements IRobot {
     @Override
     public void move(int steps) {
 
-        // updating steps in accordance with board element potentially blocking path
         if (boardElements.getWall().ACTIVE)
             steps = boardElements.getWall().effectRobot(positionClone(), direction, steps);
         if (boardElements.getCornerWall().ACTIVE)
@@ -177,7 +176,7 @@ public class Robot implements IRobot {
             case FIRST_FLAG:
                 if (flagsCaptured == 0) {
                     flagsCaptured++;
-                    robotViewController.touchedFlag(flagsCaptured);
+                    robotViewController.touchedFlag();
                     System.out.println("Robot now has one flag");
                 }
                 pos.setNewRestartPos(pos.getX(), pos.getY());
@@ -185,7 +184,7 @@ public class Robot implements IRobot {
             case SECOND_FLAG:
                 if (flagsCaptured == 1) {
                     flagsCaptured++;
-                    robotViewController.touchedFlag(flagsCaptured);
+                    robotViewController.touchedFlag();
                 }
                 pos.setNewRestartPos(pos.getX(), pos.getY());
                 System.out.println("touched second flag");
@@ -193,7 +192,8 @@ public class Robot implements IRobot {
             case THIRD_FLAG:
                 if (flagsCaptured == 2) {
                     flagsCaptured++;
-                    robotViewController.touchedFlag(flagsCaptured);
+                    hasWon = true;
+                    robotViewController.hasWon();
                     System.out.println("We have a winner");
                 }
                 pos.setNewRestartPos(pos.getX(), pos.getY());
@@ -233,5 +233,12 @@ public class Robot implements IRobot {
 
     public boolean isDead() {
         return isDead;
+    }
+
+    public void changePowerDown(boolean poweredDown, boolean gainLife) {
+        this.poweredDown = poweredDown;
+        if (gainLife) lives = Math.min(STARTING_LIVES, lives += 1);
+        if (poweredDown) robotViewController.updateViewPoweredDown(true);
+        else             robotViewController.updateViewPoweredDown(false);
     }
 }

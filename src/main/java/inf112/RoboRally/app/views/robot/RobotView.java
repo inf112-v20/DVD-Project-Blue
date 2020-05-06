@@ -11,6 +11,8 @@ public class RobotView extends Sprite {
 
     private int flags = 0;
     private boolean isDeadThisRound = false;
+    private boolean isPoweredDown = false;
+    private boolean hasWon = false;
 
     private final float TILE_HEIGHT_PX = 96.053575f; // 256 /  2.665179302
     private final float TILE_WIDTH_PX = 98.46153846153846f; // 256 / 2.6 (tile px size / scaling down property)
@@ -90,20 +92,8 @@ public class RobotView extends Sprite {
     }
 
 
-    public boolean capturedFirstFlag() {
-        return flags == 1;
-    }
-
-    public boolean capturedSecondFlag() {
-        return flags == 2;
-    }
-
-    public boolean capturedThirdFlag() {
-        return flags == 3;
-    }
-
-    public void setFlags(int flagsCaptured) {
-        flags = flagsCaptured;
+    public void capturedFlag() {
+        flags++;
     }
 
     public void setDeadThisRound(boolean deadThisRound) {
@@ -115,4 +105,23 @@ public class RobotView extends Sprite {
     }
 
 
+    public int flagCaptures() {
+        return flags;
+    }
+
+    public boolean hasWon() {
+        return hasWon;
+    }
+
+    public void setToWinSprite() {
+        hasWon = true;
+    }
+
+    public boolean isPoweredDown() {
+        return isPoweredDown;
+    }
+
+    public void changePoweredDown(boolean isPoweredDown) {
+        this.isPoweredDown = isPoweredDown;
+    }
 }

@@ -63,14 +63,28 @@ public class Round {
 
     public void executeRound(Timer timer) {
         System.out.println("----------------------------------------- ROUND "+(++roundNumber)+" ------------------------------------------" );
-//        updateOpponentHUDCardSlotsCardsFacingUp(); // flipping all cards to face up, game stats, etc.
+        updateRobotsThatWerePoweredDownPreviousRound();
         updateRobotsThatDiedThePreviousRound(); // making all robots that died the previous round alive again
-
+        powerDownRobots();                      // power down robots that have announces powerdown
         CollectCardFromSlotExecutor cardChoiceExecutor = new CollectCardFromSlotExecutor(players, boardElements, timer);
         cardChoiceExecutor.CardChoiceRoundExecutor();
 
 
+    }
 
+    private void updateRobotsThatWerePoweredDownPreviousRound() {
+        for (Player player: players) {
+            player.robot().changePowerDown(false, true);
+        }
+    }
+
+    private void powerDownRobots() {
+        for (Player player: players) {
+            if (player.robot().isPoweredDown()) {
+                player.clearCardSlots();
+                player.robot().reset(false);
+            }
+        }
     }
 
     private void updateRobotsThatDiedThePreviousRound() {

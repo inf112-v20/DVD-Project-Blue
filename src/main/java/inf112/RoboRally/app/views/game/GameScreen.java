@@ -106,22 +106,23 @@ public class GameScreen extends InputAdapter implements Screen {
         Player[] players = game.players();
         for (int playerNumber = 0; playerNumber < players.length; playerNumber++) {
             robotViews[playerNumber] = players[playerNumber].robot().getRobotViewController().getRobotView();
-            robotViews[playerNumber].draw(gameLauncher.batch);
+            RobotView robotView = robotViews[playerNumber];
+            robotView.draw(gameLauncher.batch);
 
-            if (robotViews[playerNumber].isDeadThisRound()) {
-                robotViews[playerNumber].setTexture(new Texture(PATH+playerNumber+"dead.png"));
-            } else {
-                robotViews[playerNumber].setTexture(new Texture(PATH+playerNumber+".png"));
+            if (robotView.isDeadThisRound()) {
+                robotView.setTexture(new Texture(PATH+playerNumber+"dead.png"));
             }
-
-            if ( robotViews[playerNumber].capturedFirstFlag() ) {
-                robotViews[playerNumber].setTexture(new Texture(PATH+playerNumber+"flag1.png"));
-                if (robotViews[playerNumber].capturedSecondFlag()) {
-                    robotViews[playerNumber].setTexture(new Texture(PATH+playerNumber+"flag2.png"));
-                    if (robotViews[playerNumber].capturedThirdFlag()) {
-                        robotViews[playerNumber].setTexture(new Texture(PATH+playerNumber+"won.png"));
-                    }
-                }
+            else if ( robotView.isPoweredDown() ) {
+                robotView.setTexture(new Texture(PATH+playerNumber+"powrdown.png"));
+            }
+            else if ( robotView.flagCaptures() > 0 ) {
+                robotView.setTexture(new Texture(PATH+playerNumber+"flag" + robotView.flagCaptures() +".png"));
+            }
+            else if ( robotView.hasWon() ) {
+                robotView.setTexture(new Texture(PATH+playerNumber+"won.png"));
+            }
+            else {
+                robotView.setTexture(new Texture(PATH+playerNumber+".png"));
             }
 
 
