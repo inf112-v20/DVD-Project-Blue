@@ -54,6 +54,7 @@ public class Timer {
     }
 
     public void reset() {
+        System.out.println("getting to the reset in our timer");
         timerIsActive = true;
         game.newRound();
     }

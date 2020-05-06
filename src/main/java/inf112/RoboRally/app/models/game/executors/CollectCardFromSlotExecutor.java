@@ -44,7 +44,7 @@ public class CollectCardFromSlotExecutor {
 
             CardMoveExecutor cardExecutor = new CardMoveExecutor(cards, cardExecutionLatch);
             cardExecutor.executeCards();
-            System.out.println("--------------- " + (slotNumber.get() + 1) + " slot performing ------------------");
+            System.out.println("-------------------- " + (slotNumber.get() + 1) + " slot performing -----------------------");
             try {
                 cardExecutionLatch.await();
             } catch (InterruptedException e) {

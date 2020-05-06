@@ -76,20 +76,22 @@ public class Game {
     }
 
     public void startFirstRound() {
-        round.startNewRound();
+        round.dealCardsAndBotsChooseCards();
         setupPlayerUIsNewGame();
     }
 
 
     public void newRound() {
-        clearAllCards();
-        round.startNewRound();
-        setupPlayerUIForNewRound();
+//        clearAllCards();
+        round.dealCardsAndBotsChooseCards();
+        updateOpponentHUDCardSlots(false);
+        setupPlayerUIsNewGame();
+//        updateOpponentHUDSForNewRound();
     }
 
-    private void setupPlayerUIForNewRound() {
+    private void updateOpponentHUDCardSlots(boolean cardsFacingUp) {
         for (Player player: players)
-            player.setupUIForNewRound();
+            player.updateOpponentCardSlots(cardsFacingUp);
     }
 
     private void clearAllCards() {
@@ -102,6 +104,7 @@ public class Game {
         for (Player player: players) {
             player.setupCardsForRoundExecution();
         }
+        updateOpponentHUDCardSlots(true);
         round.executeRound(timer);
     }
 

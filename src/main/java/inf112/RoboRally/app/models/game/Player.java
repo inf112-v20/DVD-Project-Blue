@@ -119,8 +119,8 @@ public class Player {
         return playerUI;
     }
 
-    public void updateOpponentCardSlotsCardsFacingUp() {
-        playerUI.updateOpponentCardSlotsCardsFacingUp();
+    public void updateOpponentCardSlots(boolean cardsFacingUp) {
+        playerUI.updateOpponentCardSlots(cardsFacingUp);
     }
 
     public int getNumberOfPlayersInGame() {
@@ -145,8 +145,8 @@ public class Player {
         playerUI.clearAllCardsOnScreen();
     }
 
-    public void setupUIForNewRound() {
-        playerUI.updateForNewRound();
+    public void updateOpponentHUDForNewRound() {
+        playerUI.updateOpponentHUDForNewRound();
     }
 
     private void clearReceivedCards() {

@@ -128,26 +128,28 @@ public class PlayerUI extends InputAdapter {
             public void clicked(InputEvent event, float x, float y) {
 //                System.out.println("--------------------------------------------------------------------");
 //                System.out.println("FROM PlayerUI: generated new cards button pressed. Passing this information along.");
-                gameScreenCards.clearAllCards();
-                player.getGame().newRound();
-                gameScreenCards = new GameScreenCards(player);
-                for (int slotNumber = 0; slotNumber < player.numberOfCardSlots(); slotNumber++)
-                    stage.addActor(gameScreenCards.getCardSlotTable(slotNumber));
+//                gameScreenCards.clearAllCards();
+//                player.getGame().newRound();
+//                gameScreenCards = new GameScreenCards(player);
+//                for (int slotNumber = 0; slotNumber < player.numberOfCardSlots(); slotNumber++)
+//                    stage.addActor(gameScreenCards.getCardSlotTable(slotNumber));
+//
+//                stage.addActor(gameScreenCards.getReceivedCardsTable());
 
-                stage.addActor(gameScreenCards.getReceivedCardsTable());
+                getReceivedCardsForThisRound(); // for fetching received cards at beginning of round
             }
         });
 
         return generateCardsTable;
     }
 
-    public void updateOpponentCardSlotsCardsFacingUp() {
-        opponentHUDTable = new OpponentHUDTable(player, true);
+    public void updateOpponentCardSlots(boolean cardsFacingUp) {
+        opponentHUDTable = new OpponentHUDTable(player, cardsFacingUp);
         stage.addActor(opponentHUDTable.getOpponentTable());
     }
 
 
-    public void updateForNewRound() {
+    public void updateOpponentHUDForNewRound() {
         opponentHUDTable = new OpponentHUDTable(player, false);
         stage.addActor(opponentHUDTable.getOpponentTable());
     }
@@ -163,5 +165,15 @@ public class PlayerUI extends InputAdapter {
 
     public void clearCardSlotCardsOnScreen() {
         gameScreenCards.clearCardsInSlots();
+    }
+
+    public void getReceivedCardsForThisRound() {
+        player.clearCardSlots();
+        gameScreenCards.clearAllCards();
+        gameScreenCards = new GameScreenCards(player);
+        for (int slotNumber = 0; slotNumber < player.numberOfCardSlots(); slotNumber++)
+            stage.addActor(gameScreenCards.getCardSlotTable(slotNumber));
+
+        stage.addActor(gameScreenCards.getReceivedCardsTable());
     }
 }
