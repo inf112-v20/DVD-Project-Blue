@@ -47,6 +47,10 @@ public class CreateLobbyMenu implements Screen {
         background.setFilter(Linear, Linear);
         table.setBackground(new TextureRegionDrawable(background));
 
+        Label hostLabel = new Label("Enter your name:", SKIN);
+        TextField hostName = new TextField("", SKIN);
+        hostName.setMessageText("NAME");
+
         Label mapNameLabel = new Label("Choose map: ", SKIN);
         TextButton mapButton = new Button().createTextButton(this.gameLauncher.settings().getMap().name());
         Image mapImg = new Image(new Texture(gameLauncher.settings().getMap().imgFile()));
@@ -54,6 +58,9 @@ public class CreateLobbyMenu implements Screen {
         TextButton createGame = new Button().createTextButton("CREATE");
         TextButton goBack = new Button().createTextButton("GO BACK");
 
+        table.add(hostLabel).padRight(70);
+        table.add(hostName).width(750).center();
+        table.row();
         table.add(mapNameLabel).padBottom(25).padRight(20);
         table.add(mapButton).padBottom(25).width(750);
         table.row();
@@ -78,7 +85,7 @@ public class CreateLobbyMenu implements Screen {
                     @Override
                     public void run() {
                         try {
-                            gameLauncher.setScreen(new LobbyMenu(gameLauncher, true));
+                            gameLauncher.setScreen(new LobbyMenu(gameLauncher, true, hostName.getText()));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
