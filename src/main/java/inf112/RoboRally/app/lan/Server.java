@@ -1,7 +1,5 @@
 package inf112.RoboRally.app.lan;
 
-import inf112.RoboRally.app.models.robot.Robot;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -11,9 +9,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Server {
-
-
-
 
     private static int PORT = 1337;
     private static int[] ID = {1, 2, 3, 4, 5, 6, 7, 8};
@@ -25,7 +20,7 @@ public class Server {
 
     private static ExecutorService pool = Executors.newFixedThreadPool(8);
 
-    public static void serverInit(String[] args) throws IOException {
+    public static void serverInit() throws IOException {
 
         ServerSocket ss = new ServerSocket(PORT);
 
@@ -37,7 +32,6 @@ public class Server {
             clients.add(clientThread);
 
             pool.execute(clientThread);
-
         }
     }
 
@@ -45,7 +39,6 @@ public class Server {
     // Replace 1-8 ID with random generated IDs.
     // Needs to be done for security.
     public static int getRandomID() {
-
         lock.lock();
         try {
             int identities = clients.size();
@@ -53,18 +46,12 @@ public class Server {
         } finally {
             lock.unlock();
         }
-
     }
     public static String responseTest() {
         return "test";
     }
 
     public static int updateALL() {
-
-
         return 1;
     }
-
-
-
 }

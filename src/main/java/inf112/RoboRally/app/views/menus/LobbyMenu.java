@@ -14,12 +14,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
+import inf112.RoboRally.app.lan.Client;
+import inf112.RoboRally.app.lan.Server;
 
 import java.io.IOException;
 
 import static com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
 
-public class JoinLobbyMenu implements Screen {
+public class LobbyMenu implements Screen {
 
     final private Skin SKIN = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
 
@@ -28,13 +30,20 @@ public class JoinLobbyMenu implements Screen {
     private Viewport viewport;
     private Stage stage;
     private Table table;
-    private final int PORT = 1337;
+    private Server server;
+    private Client client;
+    private boolean host;
 
-    public JoinLobbyMenu(GameLauncher game) {
+    public LobbyMenu(GameLauncher game, boolean host) throws IOException {
         this.gameLauncher = game;
+        this.host = host;
         camera = new OrthographicCamera();
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT, camera);
         stage = new Stage(viewport);
+
+        server = new Server();
+        client = new Client();
+
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -48,49 +57,19 @@ public class JoinLobbyMenu implements Screen {
         background.setFilter(Linear, Linear);
         table.setBackground(new TextureRegionDrawable(background));
 
-        Label ipAddressLabel = new Label("ENTER IP ADDRESS:", SKIN);
-        TextField ipAddress = new TextField("", SKIN);
-        ipAddress.setMessageText("IP");
-        TextButton joinGame = new Button().createTextButton("JOIN");
-        TextButton goBack = new Button().createTextButton("GO BACK");
-
-        table.add(ipAddressLabel).padBottom(25).padRight(20);
-        table.add(ipAddress).width(500).padBottom(25);
-        table.row();
-        table.add(joinGame);
-        table.add(goBack);
-
-        joinGame.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.8f), Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            gameLauncher.setScreen(new LobbyMenu(gameLauncher, false));
-                            System.out.println("JOINED");
-                            System.out.println(ipAddress.getText());
-                            System.out.println(PORT);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        ;
-                    }
-                })));
+        if (host) {
+            try {
+                server.serverInit();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        });
-
-        goBack.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.8f), Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-                        gameLauncher.setScreen(new LanMenu(gameLauncher));
-                    }
-                })));
+        } else {
+            try {
+                client.clientInit("127.0.0.1");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        });
+        }
 
         stage.addActor(table);
         stage.getRoot().getColor().a = 0;

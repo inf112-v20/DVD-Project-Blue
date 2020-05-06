@@ -8,14 +8,12 @@ public class ServerHandler implements Runnable {
     private Socket server;
     private BufferedReader in;
 
-
     public ServerHandler(Socket s) throws IOException {
 
         server = s;
         in = new BufferedReader(new InputStreamReader(server.getInputStream()));
 
     }
-
 
     boolean runnning = true;
 
@@ -28,17 +26,12 @@ public class ServerHandler implements Runnable {
                 if (serverResponse == null) break;
                 System.out.println("Response: " + serverResponse);
 
-
-
-
                 // Handle responses from the Server
                 // E.G., (uses methods from the Client class)
                 if (serverResponse.equals("test")) {
                     System.out.println("test");
                     Client.test();
                 }
-
-
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,8 +42,5 @@ public class ServerHandler implements Runnable {
                 e.printStackTrace();
             }
         }
-
-
     }
-
 }

@@ -25,8 +25,8 @@ public class Client {
 
 
 
-    public static void clientInit(String[] args) throws IOException {
-        s = new Socket(IP, PORT);
+    public void clientInit(String ip) throws IOException {
+        s = new Socket(ip, PORT);
 
 
         ServerHandler fromServer = new ServerHandler(s);

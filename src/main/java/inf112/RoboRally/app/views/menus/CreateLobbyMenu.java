@@ -15,6 +15,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
 
+import java.io.IOException;
+
 import static com.badlogic.gdx.graphics.Texture.TextureFilter.Linear;
 
 public class CreateLobbyMenu implements Screen {
@@ -66,6 +68,22 @@ public class CreateLobbyMenu implements Screen {
                 gameLauncher.settings().chooseMap();
                 mapButton.getLabel().setText(gameLauncher.settings().getMap().name());
                 mapImg.setDrawable(new TextureRegionDrawable(new Texture(gameLauncher.settings().getMap().imgFile())));
+            }
+        });
+
+        createGame.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.8f), Actions.run(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            gameLauncher.setScreen(new LobbyMenu(gameLauncher, true));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                })));
             }
         });
 
