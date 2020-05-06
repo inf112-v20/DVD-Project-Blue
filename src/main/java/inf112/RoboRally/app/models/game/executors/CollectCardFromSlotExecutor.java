@@ -16,12 +16,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class CollectCardFromSlotExecutor {
 
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private CountDownLatch roundFinishedLatch;
     private AtomicInteger slotNumber = new AtomicInteger(0);
     private Player[] players;
     private IElement[] boardElements;
     private final int NUMBER_OF_SLOTS = 5;
 
-    public CollectCardFromSlotExecutor(Player[] players, IElement[] boardElements) {
+    public CollectCardFromSlotExecutor(Player[] players, IElement[] boardElements, CountDownLatch roundFinishedLatch) {
+        this.roundFinishedLatch = roundFinishedLatch;
         this.players = players;
         this.boardElements = boardElements;
     }
@@ -59,8 +61,10 @@ public class CollectCardFromSlotExecutor {
                 e.printStackTrace();
             }
 
-            if (slotNumber.incrementAndGet() == NUMBER_OF_SLOTS)
+            if (slotNumber.incrementAndGet() == NUMBER_OF_SLOTS) {
+                roundFinishedLatch.countDown();
                 scheduler.shutdown();
+            }
         };
         scheduler.scheduleAtFixedRate(collectCards, 500, 5000, TimeUnit.MILLISECONDS);
     }

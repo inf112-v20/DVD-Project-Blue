@@ -43,7 +43,7 @@ public class GameCardController {
 
 //        game.round().executeHumanCardChoices();
 //        game.round().executeCardChoicesDepriecated();
-        game.round().executeRound();
+//        game.round().executeRound();
     }
 
     private void fillPlayerCardSlot(ICard card) {

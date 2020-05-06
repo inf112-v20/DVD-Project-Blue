@@ -140,16 +140,31 @@ public class Player {
     }
 
     public void clearAllCards() {
+        // clearing all cards in slots
         for (int slotNumber = 0; slotNumber < numberOfCardSlots(); slotNumber++) {
             cardSlots[slotNumber] = null;
         }
+        // clearing all received cards
         for (int receivedCardNumber = 0; receivedCardNumber < numberOfReceivedCards(); receivedCardNumber++) {
             receivedCards[receivedCardNumber] = null;
         }
-
+        // clearing all the images on screen
+        playerUI.clearAllCardsOnScreen();
     }
 
     public void setupUIForNewRound() {
         playerUI.updateForNewRound();
+    }
+
+    private void clearReceivedCards() {
+        // clearing model cards
+        for (int receivedCardNumber = 0; receivedCardNumber < numberOfReceivedCards(); receivedCardNumber++) {
+            receivedCards[receivedCardNumber] = null;
+        }
+    }
+
+    public void setupCardsForRoundExecution() {
+        clearReceivedCards();
+        playerUI.setupCardsForRoundExecution();
     }
 }

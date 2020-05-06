@@ -151,4 +151,13 @@ public class PlayerUI extends InputAdapter {
         opponentHUDTable = new OpponentHUDTable(player, false);
         stage.addActor(opponentHUDTable.getOpponentTable());
     }
+
+    public void setupCardsForRoundExecution() {
+        player.setCardSlotsFromUserInput(gameScreenCards.getCardChoices());
+        gameScreenCards.clearReceivedCards();
+    }
+
+    public void clearAllCardsOnScreen() {
+        gameScreenCards.clearAllCards();
+    }
 }
