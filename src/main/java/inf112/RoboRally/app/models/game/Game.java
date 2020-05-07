@@ -1,6 +1,5 @@
 package inf112.RoboRally.app.models.game;
 
-import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 import inf112.RoboRally.app.controllers.MapChoiceControllers.SinglePlayerSettingsController;
 import inf112.RoboRally.app.models.board.Board;
 import inf112.RoboRally.app.models.game.boardelements.BoardElements;
@@ -20,9 +19,6 @@ public class Game {
     private int humanPlayerNumberChoice = 0; // player1 hardcoded as human player for now
     private Player[] players;
     private Player humanPlayer; // player 1 is given as human player for now
-
-    // controllers
-    private GameCardController gameCardController;
 
     //MapLoader
     private TiledMapLoader tiledMapLoader;
@@ -63,7 +59,6 @@ public class Game {
         boardElements.setupRobotShootOtherRobotChecker(allRobotsInGame());
 
         // starting the game
-        gameCardController = new GameCardController(this);
         round = new Round(players);
         startFirstRound();
 
@@ -78,25 +73,15 @@ public class Game {
         return players;
     }
 
-    public GameCardController getGameCardController() {
-        return gameCardController;
-    }
-
     public Player getHumanPlayer() {
         return humanPlayer;
     }
 
-    public Round round() {
-        return round;
-    }
 
     public TiledMapLoader setUpMadLoader() {
         return tiledMapLoader;
     }
 
-    public Player getPlayer(int playerNumber) {
-        return players[playerNumber];
-    }
 
     public void startFirstRound() {
         round.dealCardsAndBotsChooseCards();
@@ -143,9 +128,6 @@ public class Game {
         }
     }
 
-    public BoardElements getBoardElements() {
-        return boardElements;
-    }
 
     public Timer getTimer() {
         return timer;
@@ -158,6 +140,10 @@ public class Game {
             robots[playerNumber] = players[playerNumber].robot();
         }
         return robots;
+    }
+
+    public int getNumberOfPlayers() {
+        return players.length;
     }
 
 
