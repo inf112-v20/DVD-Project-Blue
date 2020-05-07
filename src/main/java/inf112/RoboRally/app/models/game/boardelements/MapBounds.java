@@ -25,9 +25,10 @@ public class MapBounds implements IElement {
     @Override
     public void effectRobotAfterCardExec(Robot robot) {
         Pos pos = robot.position();
-        if (checkForYBound(pos.getY()) || checkForXBound(pos.getX()))
-            sound.play();
+        if (checkForYBound(pos.getY()) || checkForXBound(pos.getX())) {
             robot.reset(true);
+            sound.play();
+        }
     }
 
     @Override

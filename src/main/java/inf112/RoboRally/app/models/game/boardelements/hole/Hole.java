@@ -154,76 +154,76 @@ public class Hole implements IElement {
         Pos pos = robot.position();
         int x = pos.getX(), y = pos.getY();
         if (checkForHole(x, y, HoleType.SINGLE_HOLE)) {
-            sound.play();
             robot.reset(true);
+            sound.play();
         }
         else if (checkForHole(x, y, HoleType.BIG_HOLE_LEFT_TOP)) {
-            sound.play();
             robot.reset(true);
+            sound.play();
         }
         else if (checkForHole(x, y, HoleType.BIG_HOLE_RIGHT_TOP)) {
-            sound.play();
             robot.reset(true);
+            sound.play();
         }
         else if (checkForHole(x, y, HoleType.BIG_HOLE_LEFT_BOTTOM)) {
-            sound.play();
             robot.reset(true);
+            sound.play();
         }
         else if (checkForHole(x, y, HoleType.BIG_HOLE_RIGHT_BOTTOM)) {
-            sound.play();
             robot.reset(true);
+            sound.play();
         }
         else if (checkForHole(x, y, HoleType.BIG_HOLE_EXTENSION)) {
-            sound.play();
             robot.reset(true);
+            sound.play();
         }
         else if (checkForHole(x, y, HoleType.HOLE_LEFT_TOP)) {
-            sound.play();
             robot.reset(true);
+            sound.play();
         }
         else if (checkForHole(x, y, HoleType.HOLE_LEFT_TOP_2)) {
-            sound.play();
             robot.reset(true);
+            sound.play();
         }
         else if (checkForHole(x, y, HoleType.HOLE_LEFT_TOP_3)) {
-            sound.play();
             robot.reset(true);
+            sound.play();
         }
         else if (checkForHole(x, y, HoleType.HOLE_RIGHT_TOP)) {
-            sound.play();
             robot.reset(true);
+            sound.play();
         }
         else if (checkForHole(x, y, HoleType.HOLE_RIGHT_TOP_2)) {
-            sound.play();
             robot.reset(true);
+            sound.play();
         }
         else if (checkForHole(x, y, HoleType.HOLE_RIGHT_TOP_3)) {
-            sound.play();
             robot.reset(true);
+            sound.play();
         }
         else if (checkForHole(x, y, HoleType.HOLE_LEFT_BOTTOM)) {
-            sound.play();
             robot.reset(true);
+            sound.play();
         }
         else if (checkForHole(x, y, HoleType.HOLE_LEFT_BOTTOM_2)) {
-            sound.play();
             robot.reset(true);
+            sound.play();
         }
         else if (checkForHole(x, y, HoleType.HOLE_LEFT_BOTTOM_3)) {
-            sound.play();
             robot.reset(true);
+            sound.play();
         }
         else if (checkForHole(x, y, HoleType.HOLE_RIGHT_BOTTOM)) {
-            sound.play();
             robot.reset(true);
+            sound.play();
         }
         else if (checkForHole(x, y, HoleType.HOLE_RIGHT_BOTTOM_2)) {
-            sound.play();
             robot.reset(true);
+            sound.play();
         }
         else if (checkForHole(x, y, HoleType.HOLE_RIGHT_BOTTOM_3)) {
-            sound.play();
             robot.reset(true);
+            sound.play();
         }
     }
 
