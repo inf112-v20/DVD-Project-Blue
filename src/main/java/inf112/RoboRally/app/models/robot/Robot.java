@@ -14,7 +14,7 @@ public class Robot implements IRobot {
 
     // Game stats
     private final int MAX_HP = 10;
-    private final int STARTING_LIVES = 3;
+    private final int MAX_LIVES = 3;
     private int hp;
     private int lives;
     private boolean poweredDown;
@@ -30,7 +30,7 @@ public class Robot implements IRobot {
 
     public Robot(Pos startingPos, Direction startingDir) {
         hp = MAX_HP;
-        lives = STARTING_LIVES;
+        lives = MAX_LIVES;
         poweredDown = false;
         isDead = false;
         pos = startingPos;
@@ -197,7 +197,6 @@ public class Robot implements IRobot {
     }
 
 
-    // used when robot is dead
     public void reset(boolean looseLife) {
         if (looseLife) {
             lives--;
@@ -235,10 +234,7 @@ public class Robot implements IRobot {
 
     public void changePowerDown(boolean poweredDown, boolean gainLife) {
         this.poweredDown = poweredDown;
-        if (gainLife) {
-            lives++;
-            if (lives > 3) lives = 3;
-        }
+        if (gainLife) lives = Math.min(MAX_LIVES, lives += 1);
         if (poweredDown) {
             if (robotViewController != null) robotViewController.updateViewPoweredDown(true);
         }

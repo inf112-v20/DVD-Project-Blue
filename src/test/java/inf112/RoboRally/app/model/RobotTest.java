@@ -33,14 +33,41 @@ public class RobotTest {
     public void robotLooseHpTest() {
         robot.looseHP(3);
         assertEquals(7, robot.getHP());
+        robot.looseHP(6);
+        assertEquals(1, robot.getHP());
     }
 
     @Test
-    public void looseLifeWhenHpIsZero() {
+    public void looseLifeAndResetHpWhenHpIsSetToZero() {
         robot.looseHP(10);
-        assertEquals(0, robot.getHP());
         assertEquals(2, robot.livesLeft());
+        assertEquals(10, robot.getHP());
     }
+
+
+    @Test
+    public void testSetRobotToPoweredDownTest() {
+        robot.changePowerDown(true, true);
+        assertTrue(robot.isPoweredDown());
+    }
+
+    @Test
+    public void robotGainsLifeAfterBeingPoweredDown() {
+        robot.looseHP(10);
+        assertEquals(2, robot.livesLeft());
+        robot.changePowerDown(true, true);
+        assertEquals(3, robot.livesLeft());
+    }
+
+    @Test
+    public void testRobotDoesNotGainLifeAfterPoweringDownWithoutLoosingLifeFirst() {
+        assertEquals(3, robot.livesLeft());
+        robot.changePowerDown(true, true);
+        assertEquals(3, robot.livesLeft());
+    }
+
+    @Test
+    public void
 
 
     @Test
@@ -127,15 +154,30 @@ public class RobotTest {
 
     }
 
+
     @Test
-    public void testSetRobotToPoweredDownTest() {
-        robot.changePowerDown(true, true);
-        assertTrue(robot.isPoweredDown());
+    public void robotMovesOneStepInDirectionTest() {
+
+    }
+
+
+    @Test
+    public void robotCanCaptureFlagTest() {
+
     }
 
     @Test
-    public void testRobotDoesNotGainLifeAfterPoweringDownWithoutLoosingLifeFirst() {
+    public void robotCanCapture() {
+        
+    }
+
+
+    @Test
+    public void robotCannotCaptureFlagTwoBeforeFlagOne() {
 
     }
+
+
+
 
 }
