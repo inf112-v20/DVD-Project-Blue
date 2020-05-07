@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
+import inf112.RoboRally.app.models.cards.Rotation;
 import inf112.RoboRally.app.models.game.Game;
 import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.models.game.Timer;
@@ -27,6 +28,7 @@ public class GameScreenForTesting extends InputAdapter implements Screen {
     private OrthogonalTiledMapRenderer mapRenderer;
     private static Game game;
     private PlayerUI playerUI;
+    private Player[] players;
     private RobotView[] robotViews;
     private int playerNumber = 0;
 
@@ -83,7 +85,7 @@ public class GameScreenForTesting extends InputAdapter implements Screen {
         gameLauncher.batch.begin();
 
         // drawing the robots
-        Player[] players = game.players();
+        players = game.players();
         robotViews[playerNumber] = players[playerNumber].robot().getRobotViewController().getRobotView();
         RobotView robotView = robotViews[playerNumber];
         robotView.draw(gameLauncher.batch);
@@ -129,13 +131,13 @@ public class GameScreenForTesting extends InputAdapter implements Screen {
     @Override
     public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.UP) {
-
+            players[0].robot().move(1);
         } else if (keycode == Input.Keys.DOWN) {
-
+            players[0].robot().move(-1);
         } else if (keycode == Input.Keys.LEFT) {
-
+            players[0].robot().rotate(Rotation.LEFT);
         } else if (keycode == Input.Keys.RIGHT) {
-            
+            players[0].robot().rotate(Rotation.RIGHT);
         }
         return super.keyUp(keycode);
     }
