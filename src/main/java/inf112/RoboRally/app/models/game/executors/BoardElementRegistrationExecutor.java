@@ -9,7 +9,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class BoardElementExecutor {
+public class BoardElementRegistrationExecutor {
 
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private CountDownLatch countDownLatch;
@@ -19,7 +19,7 @@ public class BoardElementExecutor {
     private IElement[] boardElements;
 
 
-    public BoardElementExecutor(Player[] players, int slotNumber, IElement[] boardElements, CountDownLatch countDownLatch) {
+    public BoardElementRegistrationExecutor(Player[] players, int slotNumber, IElement[] boardElements, CountDownLatch countDownLatch) {
         this.players = players;
         this.slotNumber = new AtomicInteger(slotNumber);
         this.boardElements = boardElements;

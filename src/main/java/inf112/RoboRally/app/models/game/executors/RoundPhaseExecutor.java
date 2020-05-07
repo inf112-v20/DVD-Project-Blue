@@ -14,7 +14,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class CollectCardFromSlotExecutor {
+public class RoundPhaseExecutor {
 
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private AtomicInteger slotNumber = new AtomicInteger(0);
@@ -23,7 +23,7 @@ public class CollectCardFromSlotExecutor {
     private IElement[] registrationPhaseEffects;
     private Timer timer; // access to timer in game for reset when round execution is complete
 
-    public CollectCardFromSlotExecutor(Player[] players, IElement[] boardEffects, Timer timer) {
+    public RoundPhaseExecutor(Player[] players, IElement[] boardEffects, Timer timer) {
         this.players = players;
         this.registrationPhaseEffects = boardEffects;
         this.timer = timer;
@@ -44,7 +44,7 @@ public class CollectCardFromSlotExecutor {
 
             sortCardsByPriority(cards);
 
-            CardMoveExecutor cardExecutor = new CardMoveExecutor(cards, cardExecutionLatch);
+            CardMoveRobotExecutor cardExecutor = new CardMoveRobotExecutor(cards, cardExecutionLatch);
             cardExecutor.executeCards();
             System.out.println("-------------------- " + (slotNumber.get() + 1) + " slot performing -----------------------");
             try {
@@ -55,7 +55,7 @@ public class CollectCardFromSlotExecutor {
 
             CountDownLatch boardElementLatch = new CountDownLatch(1);
 
-            BoardElementExecutor boardElementExecutor = new BoardElementExecutor(players, slotNumber.get(), registrationPhaseEffects, boardElementLatch);
+            BoardElementRegistrationExecutor boardElementExecutor = new BoardElementRegistrationExecutor(players, slotNumber.get(), registrationPhaseEffects, boardElementLatch);
             boardElementExecutor.executeBoardElements();
 
             try {

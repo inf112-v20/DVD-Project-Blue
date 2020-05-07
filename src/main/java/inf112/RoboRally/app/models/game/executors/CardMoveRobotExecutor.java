@@ -9,14 +9,14 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class CardMoveExecutor {
+public class CardMoveRobotExecutor {
 
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private ArrayList<ICard> cards;
     private AtomicInteger iterator = new AtomicInteger(0);
     private CountDownLatch countDownLatch;
 
-    public CardMoveExecutor(ArrayList<ICard> cards, CountDownLatch countDownLatch) {
+    public CardMoveRobotExecutor(ArrayList<ICard> cards, CountDownLatch countDownLatch) {
         this.cards = cards;
         this.countDownLatch = countDownLatch;
     }

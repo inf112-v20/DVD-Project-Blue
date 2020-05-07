@@ -86,7 +86,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="inf112.RoboRally.app.controllers.MapChoiceControllers.MapList" project="INF112" 
+  <class id="10" language="java" name="inf112.RoboRally.app.controllers.settingscontroller.MapList" project="INF112"
     file="/INF112/src/main/java/inf112/RoboRally/app/controllers/MapChoiceControllers/MapList.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="470" y="116"/>    
@@ -97,7 +97,7 @@
     </display>  
   </class>  
   <class id="11" language="java" 
-    name="inf112.RoboRally.app.controllers.MapChoiceControllers.SinglePlayerSettingsController" project="INF112" 
+    name="inf112.RoboRally.app.controllers.settingscontroller.SinglePlayerSettingsController" project="INF112"
     file="/INF112/src/main/java/inf112/RoboRally/app/controllers/MapChoiceControllers/SinglePlayerSettingsController.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="758" y="85"/>    

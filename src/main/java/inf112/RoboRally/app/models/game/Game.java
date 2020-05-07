@@ -1,6 +1,6 @@
 package inf112.RoboRally.app.models.game;
 
-import inf112.RoboRally.app.controllers.MapChoiceControllers.SinglePlayerSettingsController;
+import inf112.RoboRally.app.controllers.settingscontroller.SinglePlayerSettingsController;
 import inf112.RoboRally.app.models.board.Board;
 import inf112.RoboRally.app.models.game.boardelements.BoardElements;
 import inf112.RoboRally.app.models.robot.Direction;

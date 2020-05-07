@@ -1,6 +1,6 @@
 package inf112.RoboRally.app.controller;
 
-import inf112.RoboRally.app.controllers.MapChoiceControllers.SinglePlayerSettingsController;
+import inf112.RoboRally.app.controllers.settingscontroller.SinglePlayerSettingsController;
 import inf112.RoboRally.app.models.board.*;
 import org.junit.Before;
 import org.junit.Test;

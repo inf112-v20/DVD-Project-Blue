@@ -3,7 +3,7 @@ package inf112.RoboRally.app.models.game;
 import inf112.RoboRally.app.models.cards.CardFactory;
 import inf112.RoboRally.app.models.cards.ICard;
 import inf112.RoboRally.app.models.game.boardelements.IElement;
-import inf112.RoboRally.app.models.game.executors.CollectCardFromSlotExecutor;
+import inf112.RoboRally.app.models.game.executors.RoundPhaseExecutor;
 
 
 public class Round {
@@ -47,7 +47,7 @@ public class Round {
         activePowerDownIfPlayerAnnouncesPowerDown();                      // power down robots that have announced powerdown
         updateRobotsThatDiedThePreviousRound();                           // making all robots that died the previous round alive again
         if (checkForWinner()) return;
-        CollectCardFromSlotExecutor cardChoiceExecutor = new CollectCardFromSlotExecutor(players, registrationPhaseEffects, timer);
+        RoundPhaseExecutor cardChoiceExecutor = new RoundPhaseExecutor(players, registrationPhaseEffects, timer);
         cardChoiceExecutor.CardChoiceRoundExecutor();
 
     }
