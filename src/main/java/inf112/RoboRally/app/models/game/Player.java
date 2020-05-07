@@ -72,13 +72,14 @@ public class Player {
     }
 
     // only chooses one card for now
-    public void chooseCards() {
+    public void botPlayerChooseCards() {
         for (ICard card: receivedCards) {
             if (card != null) {
-                putReceivedCardInCardSlot(card);
+                fillPlayerCardSlot(card);
+                }
             }
-        }
     }
+
 
     // puts card in the first empty slot
     private void putReceivedCardInCardSlot(ICard card) {
@@ -119,8 +120,8 @@ public class Player {
         return playerUI;
     }
 
-    public void updateOpponentCardSlotsCardsFacingUp() {
-        playerUI.updateOpponentCardSlotsCardsFacingUp();
+    public void updateOpponentCardSlots(boolean cardsFacingUp) {
+        playerUI.updateOpponentCardSlots(cardsFacingUp);
     }
 
     public int getNumberOfPlayersInGame() {
@@ -131,9 +132,6 @@ public class Player {
         return game;
     }
 
-    public Player[] getAllPlayersInGame() {
-        return game.players();
-    }
 
     public String getName() {
         return name;
@@ -142,12 +140,9 @@ public class Player {
     public void clearAllCards() {
         clearCardSlots();
         clearReceivedCards();
-        playerUI.clearAllCardsOnScreen();
+        playerUI.clearAllCardsBeforeGettingNewCards();
     }
 
-    public void setupUIForNewRound() {
-        playerUI.updateForNewRound();
-    }
 
     private void clearReceivedCards() {
         for (int receivedCardNumber = 0; receivedCardNumber < numberOfReceivedCards(); receivedCardNumber++) {
@@ -164,5 +159,18 @@ public class Player {
     public void setupCardsForRoundExecution() {
         clearReceivedCards();
         playerUI.setupCardsForRoundExecution();
+    }
+
+    public void clearCardSlotsOnScreen() {
+        playerUI.clearCardSlotCardsOnScreen();
+    }
+
+    public void resetCards() {
+        cardSlots = new ICard[numberOfCardSlots()];
+        receivedCards = new ICard[numberOfReceivedCards()];
+    }
+
+    public void setPowerDown(boolean powerDown, boolean gainLife) {
+        robot.changePowerDown(powerDown, gainLife);
     }
 }

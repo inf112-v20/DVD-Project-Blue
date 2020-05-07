@@ -1,6 +1,9 @@
 package inf112.RoboRally.app.views.game;
 
-import com.badlogic.gdx.*;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,13 +15,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
 import inf112.RoboRally.app.models.game.Game;
 import inf112.RoboRally.app.models.game.Player;
-import inf112.RoboRally.app.models.robot.Direction;
-import inf112.RoboRally.app.views.player.Bullet;
-import inf112.RoboRally.app.views.player.PlayerUI;
 import inf112.RoboRally.app.models.game.Timer;
+import inf112.RoboRally.app.views.player.PlayerUI;
 import inf112.RoboRally.app.views.robot.RobotView;
-
-import java.util.ArrayList;
 
 public class GameScreen extends InputAdapter implements Screen {
 
@@ -36,12 +35,6 @@ public class GameScreen extends InputAdapter implements Screen {
     private InputMultiplexer multiplexer;
     private Timer timer;
 
-    //shooting
-    ArrayList<Bullet> bullets;
-    public static final float SHOOT_WAIT_TIME = 1f;
-    float shootTimer;
-    //shooting
-
     public GameScreen(GameLauncher launcher) {
         // rendering stuff
         this.gameLauncher = launcher;
@@ -58,11 +51,6 @@ public class GameScreen extends InputAdapter implements Screen {
         playerUI = game.getHumanPlayer().getPlayerUI();
         timer = game.getTimer();
         stage.addActor(timer.getTimeTable());
-
-        //shooting
-        bullets = new ArrayList<Bullet>();
-        shootTimer = 0;
-        //shooting
 
         mapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1/256f);
         camera.setToOrtho(false, 26, 15);
@@ -106,55 +94,27 @@ public class GameScreen extends InputAdapter implements Screen {
         Player[] players = game.players();
         for (int playerNumber = 0; playerNumber < players.length; playerNumber++) {
             robotViews[playerNumber] = players[playerNumber].robot().getRobotViewController().getRobotView();
-            robotViews[playerNumber].draw(gameLauncher.batch);
+            RobotView robotView = robotViews[playerNumber];
+            robotView.draw(gameLauncher.batch);
 
-            if (robotViews[playerNumber].isDeadThisRound()) {
-                robotViews[playerNumber].setTexture(new Texture(PATH+playerNumber+"dead.png"));
-            } else {
-                robotViews[playerNumber].setTexture(new Texture(PATH+playerNumber+".png"));
+            if (robotView.isDeadThisRound()) {
+                robotView.setTexture(new Texture(PATH+playerNumber+"dead.png"));
             }
-
-            if ( robotViews[playerNumber].capturedFirstFlag() ) {
-                robotViews[playerNumber].setTexture(new Texture(PATH+playerNumber+"flag1.png"));
-                if (robotViews[playerNumber].capturedSecondFlag()) {
-                    robotViews[playerNumber].setTexture(new Texture(PATH+playerNumber+"flag2.png"));
-                    if (robotViews[playerNumber].capturedThirdFlag()) {
-                        robotViews[playerNumber].setTexture(new Texture(PATH+playerNumber+"won.png"));
-                    }
-                }
+            else if ( robotView.isPoweredDown() ) {
+                robotView.setTexture(new Texture(PATH+playerNumber+"powrdown.png"));
+            }
+            else if ( robotView.hasWon() ) {
+                robotView.setTexture(new Texture(PATH+playerNumber+"won.png"));
+            }
+            else if ( robotView.flagCaptures() > 0 ) {
+                robotView.setTexture(new Texture(PATH+playerNumber+"flag" + robotView.flagCaptures() +".png"));
+            }
+            else {
+                robotView.setTexture(new Texture(PATH+playerNumber+".png"));
             }
 
 
         }
-
-        //shooting
-        shootTimer += Gdx.graphics.getDeltaTime();
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && shootTimer >= SHOOT_WAIT_TIME) {
-            shootTimer = 0;
-            if (players[0].robot().direction() == Direction.UP ||
-                    players[0].robot().direction() == Direction.DOWN) {
-                bullets.add(new Bullet(robotViews[0].getX()+40, robotViews[0].getY()+47));
-            } else if (players[0].robot().direction() == Direction.RIGHT ||
-                    players[0].robot().direction() == Direction.LEFT) {
-                bullets.add(new Bullet(robotViews[0].getX()+47, robotViews[0].getY()+40));
-            }
-        }
-
-        ArrayList<Bullet> bulletsToRemove = new ArrayList<Bullet>();
-        for (Bullet bullet : bullets) {
-            bullet.update(Gdx.graphics.getDeltaTime(), players[0].robot().direction());
-            if (bullet.remove) {
-                bulletsToRemove.add(bullet);
-            }
-        }
-        bullets.removeAll(bulletsToRemove);
-        //shooting
-
-        //shooting
-        for (Bullet bullet : bullets) {
-            bullet.render(gameLauncher.batch);
-        }
-        //shooting
 
         gameLauncher.batch.end();
     }

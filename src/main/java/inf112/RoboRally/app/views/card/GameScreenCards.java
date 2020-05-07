@@ -28,7 +28,7 @@ public class GameScreenCards extends InputAdapter {
         numberOfCardSlots = player.numberOfCardSlots();
         amountOfReceivedCards = player.numberOfReceivedCards();
         receivedCards = new ReceivedCards(player.getReceivedCards());
-        cardSlots = new CardSlots(player.numberOfCardSlots());
+        cardSlots = new CardSlots(player.getCardSlots(), player.numberOfCardSlots());
         setUpCardSlotTableListener();
         setUpDragAndDrop();
         for (int slotNumber = 0; slotNumber < player.numberOfCardSlots(); slotNumber++)
@@ -159,8 +159,10 @@ public class GameScreenCards extends InputAdapter {
         ICardDragAndDrop[] receivedCards = this.receivedCards.getReceivedCardViews();
         for (int i = 0; i < amountOfReceivedCards; i++) {
             ICardDragAndDrop receivedCard = receivedCards[i];
-            if (receivedCard.getModelCard() != null) {
-                receivedCardsTable.getCells().get(i).clearActor().setActor(receivedCard.createCardGroup(null));
+            if (receivedCard != null) {
+                if (receivedCard.getModelCard() != null) {
+                    receivedCardsTable.getCells().get(i).clearActor().setActor(receivedCard.createCardGroup(null));
+                }
             }
 
         }

@@ -4,6 +4,7 @@ import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 import inf112.RoboRally.app.controllers.MapChoiceControllers.SinglePlayerSettingsController;
 import inf112.RoboRally.app.models.board.Board;
 import inf112.RoboRally.app.models.game.boardelements.BoardElements;
+import inf112.RoboRally.app.models.robot.Robot;
 
 public class Game {
 
@@ -31,21 +32,29 @@ public class Game {
     private Timer timer;
 
     public Game(SinglePlayerSettingsController settings) {
+
+        // setting up the board
         board = settings.getMap();
         timer = new Timer(this);
         tiledMapLoader = new TiledMapLoader(board.tiledMapFile());
         boardElements = new BoardElements(tiledMapLoader);
+
+        // setting up players
         players = new Player[settings.getPlayerCount()];
         for (int nPlayer = 0; nPlayer < settings.getPlayerCount(); nPlayer++)
             players[nPlayer] = new Player(this, nPlayer);
         players[humanPlayerNumberChoice].setAsHumanPlayer();
         humanPlayer = players[humanPlayerNumberChoice];
+
+        boardElements.setupRobotShootOtherRobotChecker(allRobotsInGame());
+
+        // starting the game
         gameCardController = new GameCardController(this);
-        
         round = new Round(this);
         startFirstRound();
 
     }
+
 
     public Board getBoard() {
         return board;
@@ -76,36 +85,45 @@ public class Game {
     }
 
     public void startFirstRound() {
-        round.startNewRound();
-        setupPlayerUIsNewGame();
+        round.dealCardsAndBotsChooseCards();
+        setupPlayerUIsNewRound();
     }
 
 
     public void newRound() {
-        clearAllCards();
-        round.startNewRound();
-        setupPlayerUIForNewRound();
+        resetPlayerCards();
+        round.dealCardsAndBotsChooseCards();
+        setupPlayerUIsNewRound();
+        giveReceivedCardsToPlayersForNewRound();
     }
 
-    private void setupPlayerUIForNewRound() {
+    private void giveReceivedCardsToPlayersForNewRound() {
         for (Player player: players)
-            player.setupUIForNewRound();
+            player.getPlayerUI().getReceivedCardsForThisRound();
     }
 
-    private void clearAllCards() {
-        for (Player player: players) {
-            player.clearAllCards();
-        }
+    private void resetPlayerCards() {
+        for (Player player: players)
+            player.resetCards();
     }
+
+
+
+    private void updateOpponentHUDCardSlots(boolean cardsFacingUp) {
+        for (Player player: players)
+            player.updateOpponentCardSlots(cardsFacingUp);
+    }
+
 
     public void executeRound() {
         for (Player player: players) {
             player.setupCardsForRoundExecution();
         }
+        updateOpponentHUDCardSlots(true);
         round.executeRound(timer);
     }
 
-    public void setupPlayerUIsNewGame() {
+    public void setupPlayerUIsNewRound() {
         for (Player player: players) {
             player.setupUI();
         }
@@ -117,5 +135,14 @@ public class Game {
 
     public Timer getTimer() {
         return timer;
+    }
+
+
+    private Robot[] allRobotsInGame() {
+        Robot[] robots = new Robot[players.length];
+        for (int playerNumber = 0; playerNumber < robots.length; playerNumber++) {
+            robots[playerNumber] = players[playerNumber].robot();
+        }
+        return robots;
     }
 }

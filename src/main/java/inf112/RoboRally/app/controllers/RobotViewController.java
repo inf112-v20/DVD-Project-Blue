@@ -8,13 +8,9 @@ import inf112.RoboRally.app.views.robot.RobotView;
 
 public class RobotViewController {
 
-    // game stat
-    private int playerNumber;
-
     // files
     private final String IMAGE_PATH = "assets/smallrobot/player";
     private final String FILE_EXTENSION = ".png";
-    private final String DEAD_BOT_IMAGE_PATH = "deadBot";
 
     // view image
     private Texture robotTexture;
@@ -23,7 +19,6 @@ public class RobotViewController {
     private RobotView robotView;
 
     public RobotViewController(int playerNumber, Pos startPos, Direction startDirection) {
-        this.playerNumber = playerNumber;
         robotTexture = new Texture(IMAGE_PATH+playerNumber+FILE_EXTENSION);
         robotTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         robotView = new RobotView(new Sprite(robotTexture),  startPos, startDirection);
@@ -42,13 +37,8 @@ public class RobotViewController {
         return robotView;
     }
 
-    public void updateDirection(Direction startDirection) {
-        robotView.setStartDirection();
-    }
-
-
-    public void touchedFlag(int flagsCaptured) {
-        robotView.setFlags(flagsCaptured);
+    public void touchedFlag() {
+        robotView.capturedFlag();
     }
 
     public void updateViewToDead() {
@@ -59,11 +49,15 @@ public class RobotViewController {
         robotView.setDeadThisRound(false);
     }
 
-
-    public void resetDir() {
-        robotView.setStartDirection();
-        robotView.setRotation(270.0f);
+    public void hasWon() {
+        robotView.setToWinSprite();
     }
 
+    public void updateViewPoweredDown(boolean powerDown) {
+        robotView.changePoweredDown(powerDown);
+    }
 
+    public void timeToShoot(boolean shoot) {
+        robotView.setTimeToShoot(shoot);
+    }
 }

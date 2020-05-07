@@ -5,8 +5,6 @@ import inf112.RoboRally.app.models.cards.ICard;
 import inf112.RoboRally.app.models.game.boardelements.IElement;
 import inf112.RoboRally.app.models.game.executors.CollectCardFromSlotExecutor;
 
-import java.util.ArrayList;
-
 /*
 Next delivery
  */
@@ -17,6 +15,7 @@ public class Round {
     private Player humanPlayer;
     private final int CARD_SLOT_AMOUNT;
     private IElement[] boardElements;
+    private int roundNumber = 0; // only used for system.out
 
     public Round(Game game) {
         this.players = game.players();
@@ -25,7 +24,7 @@ public class Round {
         CARD_SLOT_AMOUNT = humanPlayer.numberOfCardSlots();
     }
 
-    public void startNewRound() {
+    public void dealCardsAndBotsChooseCards() {
         dealCards();
         botPlayersChooseCards();
     }
@@ -33,13 +32,13 @@ public class Round {
     private void botPlayersChooseCards() {
         for (Player player: players) {
             if (player.isBotPlayer())
-                player.chooseCards();
+                player.botPlayerChooseCards();
         }
     }
 
     public void dealCards () {
 //        System.out.println("FROM Round: Sure thing. Lets do it one more time.");
-        removeDealtCards(); // does not do anything the first round
+//        removeDealtCards(); // does not do anything the first round
         for (Player player : players) {
             for (int i = 0; i < player.numberOfReceivedCards(); i++) {
                 ICard card = cardFactory.randomCard();
@@ -49,78 +48,54 @@ public class Round {
 
     }
 
-    // only executes our human players card choices for now
-    public void executeHumanCardChoices() {
-        ICard[] cardChoices = humanPlayer.getCardSlots();
-        for (int slotNumber = 0; slotNumber < cardChoices.length; slotNumber++) {
-            ICard card = cardChoices[slotNumber];
-            if (card == null) break;    // means no cards are left to execute
-//            System.out.println("FROM Round: I am moving the robot with a slotted card");
-//            card.moveRobot(humanPlayer.robot());
-            cardChoices[slotNumber] = null;   // card is executed, remove it from the slot
-        }
-        removeDealtCards();
-    }
-
-    private void removeDealtCards () {
-        for (Player player: players) {
-            ICard[] dealtCards = player.getReceivedCards();
-            for (int i = 0; i < dealtCards.length; i++) {
-                dealtCards[i] = null;
-            }
-
-        }
-
-    }
-
-    private ArrayList<ICard> collectAllCardsFromSlots() {
-        ArrayList<ICard> allCards = new ArrayList<>();
-        for (Player player: players) {
-            ICard[] cardSlots = player.getCardSlots();
-            for (int slotNumber = 0; slotNumber < CARD_SLOT_AMOUNT; slotNumber++) {
-                if (cardSlots[slotNumber] != null)
-                    allCards.add(cardSlots[slotNumber]);
-            }
-
-        }
-
-        return allCards;
-    }
-
-    private ArrayList<ICard> collectCardsFromSlotNumber(int slotNumber) {
-        ArrayList<ICard> cards = new ArrayList<>();
-        for (Player player: players) {
-            ICard[] slottedCards = player.getCardSlots();
-            if (slottedCards[slotNumber] != null) {
-                cards.add(slottedCards[slotNumber]);
-                slottedCards[slotNumber] = null;
-            }
-        }
-        return cards;
-    }
 
 
     public void executeRound(Timer timer) {
-        updateOpponentHUDCardSlots(); // flipping all cards to face up, game stats, etc.
-        updateRobots(); // making all robots that died the previous round alive again
 
+        System.out.println("----------------------------------------- ROUND "+(++roundNumber)+" ------------------------------------------" );
+
+        powerDownRobots();                      // power down robots that have announced powerdown
+        updateRobotsThatDiedThePreviousRound(); // making all robots that died the previous round alive again
+        checkForWinner();
         CollectCardFromSlotExecutor cardChoiceExecutor = new CollectCardFromSlotExecutor(players, boardElements, timer);
         cardChoiceExecutor.CardChoiceRoundExecutor();
 
-
     }
 
-    private void updateRobots() {
+    private void checkForWinner() {
+        int playersAlive = 0;
         for (Player player: players) {
-            player.robot().setAlive();
+            if (player.robot().livesLeft() > 0) playersAlive++;
+            if (player.robot().isWinner()) return;
+        }
+        if (playersAlive == 1) {
+            for (Player player: players) {
+                if (player.robot().livesLeft() > 0) {
+                    player.robot().getRobotViewController().hasWon();
+                    return;
+                }
+            }
         }
     }
 
 
-    private void updateOpponentHUDCardSlots() {
-        for (Player player: players)
-            player.updateOpponentCardSlotsCardsFacingUp();
+    private void powerDownRobots() {
+        for (Player player: players) {
+            if (player.robot().isPoweredDown()) {
+                player.clearCardSlots();
+                player.robot().reset(false);
+            }
+        }
+
     }
+
+    private void updateRobotsThatDiedThePreviousRound() {
+        for (Player player: players) {
+            if (player.robot().livesLeft() > 0)
+                player.robot().setAlive();
+        }
+    }
+
 
 
 }

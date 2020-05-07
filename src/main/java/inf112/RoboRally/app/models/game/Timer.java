@@ -57,4 +57,14 @@ public class Timer {
         timerIsActive = true;
         game.newRound();
     }
+
+    public boolean timerIsActive() {
+        return timerIsActive;
+    }
+
+    public void forceStartRoundIfPlayersAreReady() {
+        secondsToChooseCards = SECONDS_TO_CHOOSE_CARDS;
+        timerIsActive = false;
+        game.executeRound();
+    }
 }

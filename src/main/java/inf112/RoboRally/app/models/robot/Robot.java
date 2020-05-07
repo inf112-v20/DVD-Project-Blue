@@ -23,8 +23,9 @@ public class Robot implements IRobot {
     private int hp;
     private int lives;
     private boolean poweredDown;
+    private boolean isDead;
+    private boolean hasWon = false;
     private int flagsCaptured = 0;
-//    private int playerNumber;  // NOT NEEDED?
 
     // View controllers
     private RobotViewController robotViewController;
@@ -37,6 +38,7 @@ public class Robot implements IRobot {
         hp = MAX_HP;
         lives = STARTING_LIVES;
         poweredDown = false;
+        isDead = false;
         pos = game.getBoard().getRobotStartingPos(player.getPlayerNumber());
         START_DIRECTION = game.getBoard().getRobotStartingDirection(player.getPlayerNumber());
         direction = game.getBoard().getRobotStartingDirection(player.getPlayerNumber());
@@ -48,7 +50,6 @@ public class Robot implements IRobot {
     @Override
     public void move(int steps) {
 
-        // updating steps in accordance with board element potentially blocking path
         if (boardElements.getWall().ACTIVE)
             steps = boardElements.getWall().effectRobot(positionClone(), direction, steps);
         if (boardElements.getCornerWall().ACTIVE)
@@ -175,23 +176,26 @@ public class Robot implements IRobot {
             case FIRST_FLAG:
                 if (flagsCaptured == 0) {
                     flagsCaptured++;
-                    robotViewController.touchedFlag(flagsCaptured);
+                    robotViewController.touchedFlag();
                     System.out.println("Robot now has one flag");
                 }
+                hp = Math.max(++hp, MAX_HP);
                 pos.setNewRestartPos(pos.getX(), pos.getY());
                 break;
             case SECOND_FLAG:
                 if (flagsCaptured == 1) {
                     flagsCaptured++;
-                    robotViewController.touchedFlag(flagsCaptured);
+                    robotViewController.touchedFlag();
                 }
+                hp = Math.max(++hp, MAX_HP);
                 pos.setNewRestartPos(pos.getX(), pos.getY());
                 System.out.println("touched second flag");
                 break;
             case THIRD_FLAG:
                 if (flagsCaptured == 2) {
                     flagsCaptured++;
-                    robotViewController.touchedFlag(flagsCaptured);
+                    hasWon = true;
+                    robotViewController.hasWon();
                     System.out.println("We have a winner");
                 }
                 pos.setNewRestartPos(pos.getX(), pos.getY());
@@ -204,6 +208,7 @@ public class Robot implements IRobot {
     public void reset(boolean looseLife) {
         if (looseLife) {
             lives--;
+            isDead = true;
             robotViewController.updateViewToDead();
         }
         hp = getMAX_HP();
@@ -226,5 +231,23 @@ public class Robot implements IRobot {
                 hp = Math.max(MAX_HP, hp += 2); // discard two damage tokens
         }
         pos.setNewRestartPos(pos.getX(), pos.getY());
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void changePowerDown(boolean poweredDown, boolean gainLife) {
+        this.poweredDown = poweredDown;
+        if (gainLife) {
+            lives++;
+            if (lives > 3) lives = 3;
+        }
+        if (poweredDown) robotViewController.updateViewPoweredDown(true);
+        else             robotViewController.updateViewPoweredDown(false);
+    }
+
+    public boolean isWinner() {
+        return hasWon;
     }
 }

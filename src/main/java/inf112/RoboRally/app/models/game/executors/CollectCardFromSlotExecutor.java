@@ -37,14 +37,16 @@ public class CollectCardFromSlotExecutor {
 
             ArrayList<ICard> cards = collectCardsFromSlotNumber(slotNumber.get());
 
-            if (cards == null)
+            if (cards == null) {
+                timer.reset();
                 scheduler.shutdown(); // no more cards in slots
+            }
 
             sortCardsByPriority(cards);
 
             CardMoveExecutor cardExecutor = new CardMoveExecutor(cards, cardExecutionLatch);
             cardExecutor.executeCards();
-            System.out.println("--------------- " + (slotNumber.get() + 1) + " slot performing ------------------");
+            System.out.println("-------------------- " + (slotNumber.get() + 1) + " slot performing -----------------------");
             try {
                 cardExecutionLatch.await();
             } catch (InterruptedException e) {
@@ -63,6 +65,7 @@ public class CollectCardFromSlotExecutor {
             }
 
             if (slotNumber.incrementAndGet() == NUMBER_OF_SLOTS) {
+                turnRobotsThatWerePoweredDownOnForNextRound();
                 timer.reset();
                 scheduler.shutdown();
             }
@@ -90,6 +93,14 @@ public class CollectCardFromSlotExecutor {
         }
         if (cards.isEmpty()) return null; // no more card choices left to execute
         return cards;
+    }
+
+
+    private void turnRobotsThatWerePoweredDownOnForNextRound() {
+        for (Player player: players) {
+            if (player.robot().isPoweredDown())
+                player.robot().changePowerDown(false, true);
+        }
     }
 
 
