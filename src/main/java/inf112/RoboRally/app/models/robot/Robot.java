@@ -169,8 +169,7 @@ public class Robot implements IRobot {
             case FIRST_FLAG:
                 if (flagsCaptured == 0) {
                     flagsCaptured++;
-                    robotViewController.touchedFlag();
-                    System.out.println("Robot now has one flag");
+                    if (robotViewController != null) robotViewController.touchedFlag();
                 }
                 hp = Math.max(hp += 1, MAX_HP);
                 pos.setNewRestartPos(pos.getX(), pos.getY());
@@ -178,18 +177,16 @@ public class Robot implements IRobot {
             case SECOND_FLAG:
                 if (flagsCaptured == 1) {
                     flagsCaptured++;
-                    robotViewController.touchedFlag();
+                    if (robotViewController != null) robotViewController.touchedFlag();
                 }
                 hp = Math.max(hp += 1, MAX_HP);
                 pos.setNewRestartPos(pos.getX(), pos.getY());
-                System.out.println("touched second flag");
                 break;
             case THIRD_FLAG:
                 if (flagsCaptured == 2) {
                     flagsCaptured++;
                     hasWon = true;
-                    robotViewController.hasWon();
-                    System.out.println("We have a winner");
+                    if (robotViewController != null) robotViewController.hasWon();
                 }
                 pos.setNewRestartPos(pos.getX(), pos.getY());
                 break;
@@ -253,5 +250,9 @@ public class Robot implements IRobot {
 
     public void communicateBoardElements(BoardElements boardElements) {
         this.boardElements = boardElements;
+    }
+
+    public int flagsCaptured() {
+        return flagsCaptured;
     }
 }

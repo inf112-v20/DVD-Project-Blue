@@ -1,6 +1,7 @@
 package inf112.RoboRally.app.model;
 
 import inf112.RoboRally.app.models.cards.Rotation;
+import inf112.RoboRally.app.models.game.boardelements.flag.FlagType;
 import inf112.RoboRally.app.models.robot.Direction;
 import inf112.RoboRally.app.models.robot.Pos;
 import inf112.RoboRally.app.models.robot.Robot;
@@ -191,37 +192,70 @@ public class RobotTest {
 
     @Test
     public void robotCanCaptureFlagTest() {
-
-
+        assertEquals(0, robot.flagsCaptured());
+        robot.touchFlag(FlagType.FIRST_FLAG);
+        assertEquals(1, robot.flagsCaptured());
     }
 
     @Test
     public void robotCanCaptureFlagTwoAndThree() {
-
-
+        robot.touchFlag(FlagType.FIRST_FLAG);
+        robot.touchFlag(FlagType.SECOND_FLAG);
+        assertEquals(2, robot.flagsCaptured());
+        robot.touchFlag(FlagType.THIRD_FLAG);
+        assertEquals(3, robot.flagsCaptured());
     }
 
     @Test
     public void robotIsSetToWinnerAfterHavingCapturedFlagThree() {
-
+        robot.touchFlag(FlagType.FIRST_FLAG);
+        robot.touchFlag(FlagType.SECOND_FLAG);
+        robot.touchFlag(FlagType.THIRD_FLAG);
+        assertTrue(robot.isWinner());
     }
 
 
     @Test
     public void robotCannotCaptureFlagTwoBeforeFlagOne() {
-
-
+        robot.touchFlag(FlagType.SECOND_FLAG);
+        assertEquals(0, robot.flagsCaptured());
     }
 
     @Test
     public void robotCannotCaptureFlagThreeBeforeFlagTwo() {
+        robot.touchFlag(FlagType.FIRST_FLAG);
+        assertEquals(1, robot.flagsCaptured());
+        robot.touchFlag(FlagType.THIRD_FLAG);
+        assertEquals(1, robot.flagsCaptured());
+    }
+
+    @Test
+    public void robotGetsNewResetPositionAfterVisitingFlagOne() {
+        Pos pos = robot.pos();
+        robot.move(1);
+        assertEquals(6, pos.getX());
+        assertEquals(10, pos.getY());
+
+    }
+
+    @Test
+    public void robotGetsNewResetPositionAfterVisitingFlagTwo() {
+
+    }
+
+    @Test
+    public void robotGetsNewResetPositionAfterVisitingFlagThree() {
+
+    }
+
+    @Test
+    public void robotGainsHealthWhenVisitingAllFlags() {
 
     }
 
 
     @Test
     public void robotCanGetRepaired() {
-
 
 
     }
