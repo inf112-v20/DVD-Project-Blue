@@ -1,11 +1,14 @@
 package inf112.RoboRally.app.models.game.boardelements;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import inf112.RoboRally.app.models.robot.Direction;
 import inf112.RoboRally.app.models.robot.Pos;
 import inf112.RoboRally.app.models.robot.Robot;
 
 public class MapBounds implements IElement {
 
+    private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/Dead.wav"));
     private final int Y_LOWER_BOUND = 2;
     private final int Y_UPPER_BOUND = 15;
     private final int X_LOWER_BOUND = 4;
@@ -23,6 +26,7 @@ public class MapBounds implements IElement {
     public void effectRobotAfterCardExec(Robot robot) {
         Pos pos = robot.position();
         if (checkForYBound(pos.getY()) || checkForXBound(pos.getX()))
+            sound.play();
             robot.reset(true);
     }
 

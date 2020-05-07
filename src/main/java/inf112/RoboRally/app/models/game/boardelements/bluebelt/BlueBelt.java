@@ -13,7 +13,7 @@ public class BlueBelt implements IElement {
 
     TiledMapTileLayer layer;
     public final boolean ACTIVE;
-    private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/Hole.wav"));
+    private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/PushForward.wav"));
 
     public BlueBelt(TiledMapTileLayer layer) {
         ACTIVE = layer != null;

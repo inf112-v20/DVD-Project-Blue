@@ -1,5 +1,7 @@
 package inf112.RoboRally.app.models.robot;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import inf112.RoboRally.app.controllers.RobotViewController;
 import inf112.RoboRally.app.models.cards.Rotation;
 import inf112.RoboRally.app.models.game.Game;
@@ -10,6 +12,7 @@ import inf112.RoboRally.app.models.game.boardelements.repair.RepairType;
 
 public class Robot implements IRobot {
 
+    private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/Dead.wav"));
     private Player player;
 
     // Position
@@ -118,7 +121,10 @@ public class Robot implements IRobot {
     @Override
     public void looseHP(int hpToLoose) {
         hp -= hpToLoose;
-        if (hp <= 0) reset(true);
+        if (hp <= 0) {
+            sound.play();
+            reset(true);
+        }
     }
 
     @Override

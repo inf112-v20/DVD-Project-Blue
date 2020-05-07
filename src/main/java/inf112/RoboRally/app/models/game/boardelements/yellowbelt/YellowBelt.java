@@ -13,7 +13,7 @@ public class YellowBelt implements IElement {
 
     private TiledMapTileLayer layer;
     private final Boolean ACTIVE;
-    private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/Hole.wav"));
+    private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/PushForward.wav"));
 
     public YellowBelt(TiledMapTileLayer layer) {
         ACTIVE = layer != null;

@@ -12,7 +12,7 @@ public class Hole implements IElement {
 
     private TiledMapTileLayer layer;
     public final boolean ACTIVE;
-    private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/Hole.wav"));
+    private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/Dead.wav"));
 
     public Hole(TiledMapTileLayer tiledMapTileLayer) {
         if (tiledMapTileLayer != null) ACTIVE = true;

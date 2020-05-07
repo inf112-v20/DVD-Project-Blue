@@ -2,6 +2,7 @@ package inf112.RoboRally.app.views.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -18,6 +19,7 @@ import inf112.RoboRally.app.views.opponents.OpponentHUDTable;
 
 public class PlayerUI extends InputAdapter {
 
+    private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/PowerDown.wav"));
     private Player player; // the player who's thus UI belongs to
 
     private Table readyButtonTable;
@@ -83,6 +85,7 @@ public class PlayerUI extends InputAdapter {
             public void clicked(InputEvent event, float x, float y) {
                 if (roundIsNotInExecution()) {
                     if (powerDownButton.isChecked()) {
+                        sound.play();
                         player.setPowerDown(true, false);
                         System.out.println( "POWERDOWN IS CHECKED" );
                     } else {
