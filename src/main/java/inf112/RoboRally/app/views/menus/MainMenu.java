@@ -25,7 +25,6 @@ public class MainMenu implements Screen {
     private OrthographicCamera camera;
     private Viewport viewport;
     private Stage stage;
-    private Table table;
 
     public MainMenu(GameLauncher game) {
         this.gameLauncher = game;
@@ -37,7 +36,7 @@ public class MainMenu implements Screen {
 
     @Override
     public void show() {
-        table = new Table();
+        Table table = new Table();
         table.setFillParent(true);
         table.center();
 
@@ -47,46 +46,41 @@ public class MainMenu implements Screen {
 
         TextButton play = new Button().createTextButton("PLAY");
         TextButton lan = new Button().createTextButton("LAN");
+        TextButton testGame = new Button().createTextButton("TEST GAME");
         TextButton quit = new Button().createTextButton("QUIT");
         table.add(play);
         table.row().padTop(10);
         table.add(lan);
+        table.row().padTop(10);
+        table.add(testGame);
         table.row().padTop(10);
         table.add(quit);
 
         play.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.1f), Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-                        gameLauncher.setScreen(new SinglePlayerSettingsMenu(gameLauncher));
-                    }
-                })));
+                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.8f), Actions.run(() -> gameLauncher.setScreen(new SinglePlayerSettingsMenu(gameLauncher)))));
             }
         });
 
         lan.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.1f), Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-                        gameLauncher.setScreen(new LanMenu(gameLauncher));
-                    }
-                })));
+                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.8f), Actions.run(() -> gameLauncher.setScreen(new LanMenu(gameLauncher)))));
+            }
+        });
+
+        testGame.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.8f), Actions.run(() -> gameLauncher.setScreen(new TestGameMenu(gameLauncher)))));
             }
         });
 
         quit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-                        Gdx.app.exit();
-                    }
-                })));
+                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(() -> Gdx.app.exit())));
             }
         });
 

@@ -12,7 +12,7 @@ public class OneThreeFivePusher implements IElement {
 
     private TiledMapTileLayer layer;
     private final boolean ACTIVE;
-    private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/Hole.wav"));
+    private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/Pusher.wav"));
 
     public OneThreeFivePusher(TiledMapTileLayer layer) {
         ACTIVE = layer != null;

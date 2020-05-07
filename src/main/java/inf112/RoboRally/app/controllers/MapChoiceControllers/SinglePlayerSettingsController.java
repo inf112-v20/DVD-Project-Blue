@@ -40,5 +40,8 @@ public class SinglePlayerSettingsController {
         return playerCount;
     }
 
+    public void setPlayerCountTo1() {
+        playerCount = 1;
+    }
 
 }

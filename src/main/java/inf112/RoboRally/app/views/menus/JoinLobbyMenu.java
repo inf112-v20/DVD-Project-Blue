@@ -48,12 +48,20 @@ public class JoinLobbyMenu implements Screen {
         background.setFilter(Linear, Linear);
         table.setBackground(new TextureRegionDrawable(background));
 
+        Label playerLabel = new Label("ENTER YOUR NAME:", SKIN);
+        TextField playerName = new TextField("", SKIN);
+        playerName.setMessageText("NAME");
+
         Label ipAddressLabel = new Label("ENTER IP ADDRESS:", SKIN);
         TextField ipAddress = new TextField("", SKIN);
         ipAddress.setMessageText("IP");
+
         TextButton joinGame = new Button().createTextButton("JOIN");
         TextButton goBack = new Button().createTextButton("GO BACK");
 
+        table.add(playerLabel).padRight(70);
+        table.add(playerName).width(750).center();
+        table.row();
         table.add(ipAddressLabel).padBottom(25).padRight(20);
         table.add(ipAddress).width(500).padBottom(25);
         table.row();
@@ -67,7 +75,7 @@ public class JoinLobbyMenu implements Screen {
                     @Override
                     public void run() {
                         try {
-                            gameLauncher.setScreen(new LobbyMenu(gameLauncher, false));
+                            gameLauncher.setScreen(new LobbyMenu(gameLauncher, false, playerName.getText()));
                             System.out.println("JOINED");
                             System.out.println(ipAddress.getText());
                             System.out.println(PORT);

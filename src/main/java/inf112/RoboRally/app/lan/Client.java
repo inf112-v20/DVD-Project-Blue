@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class Client {
+public class Client implements Runnable{
 
     private static final String IP = "127.0.0.1";
     private static final int PORT = 1337;
@@ -79,6 +79,17 @@ public class Client {
         } catch (IOException e) {
             e.getStackTrace();
             System.out.println(e);
+        }
+    }
+
+    @Override
+    public void run() {
+
+        try {
+            clientInit("127.0.0.1");
+        } catch (IOException e) {
+            System.out.println("serverInit error: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }
