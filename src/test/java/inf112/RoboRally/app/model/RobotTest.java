@@ -66,9 +66,6 @@ public class RobotTest {
         assertEquals(3, robot.livesLeft());
     }
 
-    @Test
-    public void
-
 
     @Test
     public void testRobotRotation() {
@@ -156,7 +153,38 @@ public class RobotTest {
 
 
     @Test
-    public void robotMovesOneStepInDirectionTest() {
+    public void robotCanBeResetToInitialPositionTest() {
+
+        Pos pos = robot.pos();
+        assertEquals(5, pos.getX());
+        assertEquals(10, pos.getY());
+
+        robot.move(5);
+        robot.rotate(Rotation.LEFT);
+        robot.move(3);
+        assertEquals(10, pos.getX());
+        assertEquals(13, pos.getY());
+
+        robot.reset(false);
+        assertEquals(5, pos.getX());
+        assertEquals(10, pos.getY());
+
+    }
+
+
+    @Test
+    public void robotCanBeMovedOneStepInDirectionTest() {
+
+        assertEquals(5, robot.pos().getX());
+        // this method is called when elements such as pushers and conveyor belts push the robot
+        // and pushes the robots regardless of what direction the robot is pointing towards
+        robot.moveOneStepInDirection(Direction.RIGHT);
+        assertEquals(6, robot.pos().getX());
+
+        robot.moveOneStepInDirection(Direction.DOWN);
+        robot.moveOneStepInDirection(Direction.DOWN);
+
+        assertEquals(8, robot.pos().getY());
 
     }
 
@@ -164,16 +192,51 @@ public class RobotTest {
     @Test
     public void robotCanCaptureFlagTest() {
 
+
     }
 
     @Test
-    public void robotCanCapture() {
-        
+    public void robotCanCaptureFlagTwoAndThree() {
+
+
+    }
+
+    @Test
+    public void robotIsSetToWinnerAfterHavingCapturedFlagThree() {
+
     }
 
 
     @Test
     public void robotCannotCaptureFlagTwoBeforeFlagOne() {
+
+
+    }
+
+    @Test
+    public void robotCannotCaptureFlagThreeBeforeFlagTwo() {
+
+    }
+
+
+    @Test
+    public void robotCanGetRepaired() {
+
+
+
+    }
+
+    @Test
+    public void robotGetsRepairedBy() {
+
+
+
+    }
+
+
+    @Test
+    public void robotGetsRepairedTwoHpBySingleWrenchAndHammerRepairType() {
+
 
     }
 

@@ -145,19 +145,19 @@ public class Robot implements IRobot {
         switch (direction) {
             case DOWN:
                 pos.updateY(-1);
-                robotViewController.updateYCord(pos.getY());
+                if (robotViewController != null) robotViewController.updateYCord(pos.getY());
                 break;
             case UP:
                 pos.updateY(1);
-                robotViewController.updateYCord(pos.getY());
+                if (robotViewController != null) robotViewController.updateYCord(pos.getY());
                 break;
             case LEFT:
                 pos.updateX(-1);
-                robotViewController.updateXCord(pos.getX());
+                if (robotViewController != null) robotViewController.updateXCord(pos.getX());
                 break;
             case RIGHT:
                 pos.updateX(1);
-                robotViewController.updateXCord(pos.getX());
+                if (robotViewController != null) robotViewController.updateXCord(pos.getX());
                 break;
             default:
                 throw new IllegalArgumentException("Robot is told to move in '"+direction+"', which is not supported");
@@ -172,7 +172,7 @@ public class Robot implements IRobot {
                     robotViewController.touchedFlag();
                     System.out.println("Robot now has one flag");
                 }
-                hp = Math.max(++hp, MAX_HP);
+                hp = Math.max(hp += 1, MAX_HP);
                 pos.setNewRestartPos(pos.getX(), pos.getY());
                 break;
             case SECOND_FLAG:
@@ -180,7 +180,7 @@ public class Robot implements IRobot {
                     flagsCaptured++;
                     robotViewController.touchedFlag();
                 }
-                hp = Math.max(++hp, MAX_HP);
+                hp = Math.max(hp += 1, MAX_HP);
                 pos.setNewRestartPos(pos.getX(), pos.getY());
                 System.out.println("touched second flag");
                 break;
@@ -221,7 +221,7 @@ public class Robot implements IRobot {
     public void repair(RepairType repair) {
         switch (repair) {
             case WRENCH:
-                hp = Math.max(MAX_HP, hp++); // discard three damage tokens
+                hp = Math.max(MAX_HP, hp += 1); // discard one damage tokens
             case WRENCH_AND_HAMMER:
                 hp = Math.max(MAX_HP, hp += 2); // discard two damage tokens
         }
