@@ -21,7 +21,7 @@ public class Round {
         botPlayersChooseCards();
     }
 
-    public void botPlayersChooseCards() {
+    private void botPlayersChooseCards() {
         for (Player player: players) {
             if (player.isBotPlayer())
                 player.botPlayerChooseCardsForCardSlots();
@@ -66,6 +66,8 @@ public class Round {
                 }
             }
         }
+
+
     }
 
 
@@ -76,6 +78,7 @@ public class Round {
                 player.robot().reset(false);
             }
         }
+
 
     }
 
