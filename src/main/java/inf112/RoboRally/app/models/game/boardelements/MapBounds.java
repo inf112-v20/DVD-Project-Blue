@@ -57,7 +57,7 @@ public class MapBounds implements IElement {
     }
 
     private boolean checkForXBound(int x) {
-        return x == X_LOWER_BOUND || x == X_UPPER_BOUND;
+        return x <= X_LOWER_BOUND || x >= X_UPPER_BOUND;
     }
 
     private int checkForBoundMovingRight(Pos pos, int steps) {
@@ -77,7 +77,7 @@ public class MapBounds implements IElement {
     }
 
     private boolean checkForYBound(int y) {
-        return y == Y_LOWER_BOUND || y == Y_UPPER_BOUND;
+        return y <= Y_LOWER_BOUND || y >= Y_UPPER_BOUND;
     }
 
     private int checkForBoundMovingUp(Pos pos, int steps) {
