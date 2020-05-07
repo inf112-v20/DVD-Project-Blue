@@ -18,7 +18,7 @@ public class Timer {
     private int secondsToChooseCards;
 
     public Timer(Game game) {
-        SECONDS_TO_CHOOSE_CARDS = 60;
+        SECONDS_TO_CHOOSE_CARDS = 30;
         secondsToChooseCards = SECONDS_TO_CHOOSE_CARDS;
         timerIsActive = true;
         this.game = game;

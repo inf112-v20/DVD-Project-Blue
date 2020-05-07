@@ -17,7 +17,6 @@ public class OpponentHUDTable {
         opponentTable.setFillParent(true);
         int numberOfPlayers = player.getNumberOfPlayersInGame();
         huds = new OpponentHUD[numberOfPlayers];
-        System.out.println(numberOfPlayers);
         for (int playerNumber = 0; playerNumber < numberOfPlayers; playerNumber++) {
             Player opponentPlayer = player.getOpponentPlayer(playerNumber);
             if (!opponentPlayer.equals(player)) {
