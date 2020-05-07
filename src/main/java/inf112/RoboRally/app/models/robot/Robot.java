@@ -220,7 +220,7 @@ public class Robot implements IRobot {
             }
 
         }
-        player.resetCards();
+        if (player != null) player.resetCards();
 
     }
 
