@@ -11,7 +11,6 @@ import inf112.RoboRally.app.models.game.boardelements.repair.RepairType;
 
 public class Robot implements IRobot {
 
-    private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/Dead.wav"));
     // player ownership
     private Player player;
 
@@ -118,10 +117,7 @@ public class Robot implements IRobot {
     @Override
     public void looseHP(int hpToLoose) {
         hp -= hpToLoose;
-        if (hp <= 0) {
-            sound.play();
-            reset(true);
-        }
+        if (hp <= 0) reset(true);
     }
 
     public void gainHP(int hpToGain) {
