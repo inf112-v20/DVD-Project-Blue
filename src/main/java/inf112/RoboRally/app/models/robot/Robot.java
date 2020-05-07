@@ -114,6 +114,10 @@ public class Robot implements IRobot {
         if (hp <= 0) reset(true);
     }
 
+    public void gainHP(int hpToGain) {
+        hp = Math.min(hp += hpToGain, MAX_HP);
+    }
+
     @Override
     public int getHP() {
         return hp;
@@ -171,7 +175,7 @@ public class Robot implements IRobot {
                     flagsCaptured++;
                     if (robotViewController != null) robotViewController.touchedFlag();
                 }
-                hp = Math.max(hp += 1, MAX_HP);
+                gainHP(1);
                 pos.setNewRestartPos(pos.getX(), pos.getY());
                 break;
             case SECOND_FLAG:
@@ -179,7 +183,7 @@ public class Robot implements IRobot {
                     flagsCaptured++;
                     if (robotViewController != null) robotViewController.touchedFlag();
                 }
-                hp = Math.max(hp += 1, MAX_HP);
+                gainHP(1);
                 pos.setNewRestartPos(pos.getX(), pos.getY());
                 break;
             case THIRD_FLAG:
@@ -188,6 +192,7 @@ public class Robot implements IRobot {
                     hasWon = true;
                     if (robotViewController != null) robotViewController.hasWon();
                 }
+                gainHP(1);
                 pos.setNewRestartPos(pos.getX(), pos.getY());
                 break;
         }
@@ -218,9 +223,11 @@ public class Robot implements IRobot {
     public void repair(RepairType repair) {
         switch (repair) {
             case WRENCH:
-                hp = Math.max(MAX_HP, hp += 1); // discard one damage tokens
+                gainHP(1);
+                break;
             case WRENCH_AND_HAMMER:
-                hp = Math.max(MAX_HP, hp += 2); // discard two damage tokens
+                gainHP(2);
+                break;
         }
         pos.setNewRestartPos(pos.getX(), pos.getY());
     }

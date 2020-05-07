@@ -2,6 +2,7 @@ package inf112.RoboRally.app.model;
 
 import inf112.RoboRally.app.models.cards.Rotation;
 import inf112.RoboRally.app.models.game.boardelements.flag.FlagType;
+import inf112.RoboRally.app.models.game.boardelements.repair.RepairType;
 import inf112.RoboRally.app.models.robot.Direction;
 import inf112.RoboRally.app.models.robot.Pos;
 import inf112.RoboRally.app.models.robot.Robot;
@@ -235,43 +236,120 @@ public class RobotTest {
         robot.move(1);
         assertEquals(6, pos.getX());
         assertEquals(10, pos.getY());
+        robot.touchFlag(FlagType.FIRST_FLAG); // touches flag at position (6, 10) - reset position set here
+        robot.move(5);
+        assertEquals(11, pos.getX());
+        assertEquals(10, pos.getY());
+        robot.reset(false);
+        // gets reset back to position where flag was touched
+        assertEquals(6, pos.getX());
+        assertEquals(10, pos.getY());
+
 
     }
 
     @Test
     public void robotGetsNewResetPositionAfterVisitingFlagTwo() {
+        Pos pos = robot.pos();
+        robot.move(-2);
+        assertEquals(3, pos.getX());
+        assertEquals(10, pos.getY());
+        robot.touchFlag(FlagType.SECOND_FLAG); // touches flag at position (3, 10) - reset position set here
+        robot.move(-1);
+        assertEquals(2, pos.getX());
+        assertEquals(10, pos.getY());
+        robot.reset(false);
+        // gets reset back to position where flag was touched
+        assertEquals(3, pos.getX());
+        assertEquals(10, pos.getY());
 
     }
 
     @Test
     public void robotGetsNewResetPositionAfterVisitingFlagThree() {
+        Pos pos = robot.pos();
+        robot.rotate(Rotation.LEFT);
+        robot.move(10);
+        assertEquals(5, pos.getX());
+        assertEquals(20, pos.getY());
+        robot.touchFlag(FlagType.THIRD_FLAG);
+        robot.move(-5);
+        assertEquals(5, pos.getX());
+        assertEquals(15, pos.getY());
+        robot.reset(false);
+        assertEquals(5, pos.getX());
+        assertEquals(20, pos.getY());
 
     }
 
     @Test
     public void robotGainsHealthWhenVisitingAllFlags() {
-
+        robot.looseHP(5);
+        robot.touchFlag(FlagType.THIRD_FLAG);
+        assertEquals(6, robot.getHP());
+        robot.touchFlag(FlagType.SECOND_FLAG);
+        assertEquals(7, robot.getHP());
+        robot.touchFlag(FlagType.THIRD_FLAG);
+        assertEquals(8, robot.getHP());
     }
 
 
     @Test
-    public void robotCanGetRepaired() {
-
-
-    }
-
-    @Test
-    public void robotGetsRepairedBy() {
-
-
-
+    public void robotCannotGainMoreThanMaxHPWhenTouchingFlag() {
+        assertEquals(10, robot.getHP());
+        robot.touchFlag(FlagType.THIRD_FLAG);
+        assertEquals(10, robot.getHP());
+        robot.touchFlag(FlagType.SECOND_FLAG);
+        assertEquals(10, robot.getHP());
+        robot.touchFlag(FlagType.THIRD_FLAG);
+        assertEquals(10, robot.getHP());
     }
 
 
     @Test
-    public void robotGetsRepairedTwoHpBySingleWrenchAndHammerRepairType() {
+    public void robotGainsOneHealthWhenTouchingWrenchRepairType() {
+        robot.looseHP(2);
+        robot.repair(RepairType.WRENCH);
+        assertEquals(9, robot.getHP());
+    }
 
 
+
+    @Test
+    public void robotGainsTwoHealthWhenTouchingWrenchAndHammerRepairType() {
+        robot.looseHP(2);
+        robot.repair(RepairType.WRENCH_AND_HAMMER);
+        assertEquals(10, robot.getHP());
+
+    }
+
+    @Test
+    public void robotGetsNewResetPositionWhenTouchingSingleWrenchRepairType() {
+        robot.move(3);
+        assertEquals(8, robot.pos().getX());
+        assertEquals(10, robot.pos().getY());
+        robot.repair(RepairType.WRENCH);
+        robot.move(3);
+        assertEquals(11, robot.pos().getX());
+        assertEquals(10, robot.pos().getY());
+        robot.reset(false);
+        assertEquals(8, robot.pos().getX());
+        assertEquals(10, robot.pos().getY());
+
+    }
+
+    @Test
+    public void robotGetsNewResetPositionWhenTouchingWrenchAndHammerRepairType() {
+        robot.move(-1);
+        assertEquals(4, robot.pos().getX());
+        assertEquals(10, robot.pos().getY());
+        robot.repair(RepairType.WRENCH);
+        robot.move(10);
+        assertEquals(14, robot.pos().getX());
+        assertEquals(10, robot.pos().getY());
+        robot.reset(false);
+        assertEquals(4, robot.pos().getX());
+        assertEquals(10, robot.pos().getY());
     }
 
 
