@@ -21,7 +21,7 @@ public class CardFactoryTest {
         int numberOfGenerations = 50;
         for (int i = 0; i < numberOfGenerations; i++) {
             assertEquals(true, cardFactory.randomCard() instanceof ICard);
-            assertEquals(true, cardFactory.randomCard().priority() >= 0);
+            assertEquals(true, cardFactory.randomCard().priority() >= 0 && cardFactory.randomCard().priority() <= 2000);
             assertEquals(true, cardFactory.randomCard().getFileName() instanceof String);
         }
 

@@ -41,31 +41,33 @@ public class Robot implements IRobot {
     @Override
     public void move(int steps) {
 
-        if (boardElements.getWall().ACTIVE)
-            steps = boardElements.getWall().effectRobot(positionClone(), direction, steps);
-        if (boardElements.getCornerWall().ACTIVE)
-            steps = boardElements.getCornerWall().effectRobot(positionClone(), direction, steps);
-        if (boardElements.getHole().ACTIVE)
-            steps = boardElements.getHole().effectRobotSteps(positionClone(), direction, steps);
-        if (boardElements.getMapBounds().ACTIVE)
-            steps = boardElements.getMapBounds().effectRobotSteps(positionClone(), direction, steps);
+        if (boardElements != null) {
+            if (boardElements.getWall().ACTIVE)
+                steps = boardElements.getWall().effectRobot(positionClone(), direction, steps);
+            if (boardElements.getCornerWall().ACTIVE)
+                steps = boardElements.getCornerWall().effectRobot(positionClone(), direction, steps);
+            if (boardElements.getHole().ACTIVE)
+                steps = boardElements.getHole().effectRobotSteps(positionClone(), direction, steps);
+            if (boardElements.getMapBounds().ACTIVE)
+                steps = boardElements.getMapBounds().effectRobotSteps(positionClone(), direction, steps);
+        }
 
         switch (direction) {
             case UP:
                 pos.updateY(steps);
-                robotViewController.updateYCord(pos.getY());
+                if (robotViewController != null) robotViewController.updateYCord(pos.getY());
                 break;
             case DOWN:
                 pos.updateY(-steps);
-                robotViewController.updateYCord(pos.getY());
+                if (robotViewController != null) robotViewController.updateYCord(pos.getY());
                 break;
             case RIGHT:
                 pos.updateX(steps);
-                robotViewController.updateXCord(pos.getX());
+                if (robotViewController != null) robotViewController.updateXCord(pos.getX());
                 break;
             case LEFT:
                 pos.updateX(-steps);
-                robotViewController.updateXCord(pos.getX());
+                if (robotViewController != null) robotViewController.updateXCord(pos.getX());
                 break;
             default:
                 throw new IllegalStateException("robot has direction '"+direction+"', which is supported");
@@ -90,11 +92,11 @@ public class Robot implements IRobot {
             default:
                 throw new IllegalArgumentException("Robot is told to rotate '"+rotation+"', which is not supported");
         }
-        robotViewController.getRobotView().updateDirection(rotation);
+        if (robotViewController != null) robotViewController.getRobotView().updateDirection(rotation);
     }
 
 
-    public Pos position() {
+    public Pos pos() {
         return pos;
     }
 
@@ -200,12 +202,16 @@ public class Robot implements IRobot {
         if (looseLife) {
             lives--;
             isDead = true;
-            robotViewController.updateViewToDead();
+            if (robotViewController != null)
+                robotViewController.updateViewToDead();
         }
         hp = getMAX_HP();
         pos.restart();
-        robotViewController.updateXCord(pos.getX());
-        robotViewController.updateYCord(pos.getY());
+        if (robotViewController != null) {
+            robotViewController.updateXCord(pos.getX());
+            robotViewController.updateYCord(pos.getY());
+        }
+
     }
 
 
@@ -233,8 +239,12 @@ public class Robot implements IRobot {
             lives++;
             if (lives > 3) lives = 3;
         }
-        if (poweredDown) robotViewController.updateViewPoweredDown(true);
-        else             robotViewController.updateViewPoweredDown(false);
+        if (poweredDown) {
+            if (robotViewController != null) robotViewController.updateViewPoweredDown(true);
+        }
+        else            {
+            if (robotViewController != null) robotViewController.updateViewPoweredDown(false);
+        }
     }
 
     public boolean isWinner() {

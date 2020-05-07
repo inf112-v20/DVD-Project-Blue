@@ -71,4 +71,37 @@ public class PosTest {
         }
     }
 
+
+    @Test
+    public void positionResetToInitialValues() {
+        // test that position remembers values initialized with and can be reset
+        pos.updateX(10);
+        pos.updateY(-3);
+        assertEquals(18, pos.getX());
+        assertEquals(2, pos.getY());
+        pos.restart();
+        assertEquals(8, pos.getX());
+        assertEquals(5, pos.getY());
+    }
+
+    @Test
+    public void positionResetValueCanBeChanged() {
+        pos.updateX(1000);
+        pos.updateY(10000);
+        assertEquals(1008, pos.getX());
+        assertEquals(10005, pos.getY());
+        pos.restart();
+        assertEquals(8, pos.getX());
+        assertEquals(5, pos.getY());
+        pos.setNewRestartPos(17, -88);
+        pos.updateX(1);
+        pos.updateY(3);
+        assertEquals(9, pos.getX());
+        assertEquals(8, pos.getY());
+        pos.restart();
+        assertEquals(17, pos.getX());
+        assertEquals(-88, pos.getY());
+
+    }
+
 }

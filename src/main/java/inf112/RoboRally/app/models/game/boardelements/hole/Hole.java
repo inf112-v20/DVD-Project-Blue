@@ -151,7 +151,7 @@ public class Hole implements IElement {
 
     @Override
     public void effectRobotAfterCardExec(Robot robot) {
-        Pos pos = robot.position();
+        Pos pos = robot.pos();
         int x = pos.getX(), y = pos.getY();
         if (checkForHole(x, y, HoleType.SINGLE_HOLE)) {
             sound.play();

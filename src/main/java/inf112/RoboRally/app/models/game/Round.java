@@ -37,8 +37,6 @@ public class Round {
     }
 
     public void dealCards () {
-//        System.out.println("FROM Round: Sure thing. Lets do it one more time.");
-//        removeDealtCards(); // does not do anything the first round
         for (Player player : players) {
             for (int i = 0; i < player.numberOfReceivedCards(); i++) {
                 ICard card = cardFactory.randomCard();

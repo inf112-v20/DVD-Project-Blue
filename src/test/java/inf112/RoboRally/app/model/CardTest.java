@@ -7,7 +7,7 @@ import inf112.RoboRally.app.models.cards.Rotation;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class CardTest {
 
@@ -44,9 +44,9 @@ public class CardTest {
 
     @Test
     public void orderingOfCardsByPriority() {
-        assertEquals(true, rotateLeft.priority() < twoStepForward.priority());
-        assertEquals(true, uTurn.priority() < reverseCard.priority());
-        assertEquals(false, rotateRight.priority() < twoStepForward.priority());
+        assertTrue(rotateLeft.priority() < twoStepForward.priority());
+        assertTrue(uTurn.priority() < reverseCard.priority());
+        assertFalse(rotateRight.priority() < twoStepForward.priority());
     }
 
 }

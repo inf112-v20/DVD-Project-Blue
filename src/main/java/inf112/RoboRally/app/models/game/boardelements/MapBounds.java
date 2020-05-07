@@ -21,7 +21,7 @@ public class MapBounds implements IElement {
 
     @Override
     public void effectRobotAfterCardExec(Robot robot) {
-        Pos pos = robot.position();
+        Pos pos = robot.pos();
         if (checkForYBound(pos.getY()) || checkForXBound(pos.getX()))
             robot.reset(true);
     }

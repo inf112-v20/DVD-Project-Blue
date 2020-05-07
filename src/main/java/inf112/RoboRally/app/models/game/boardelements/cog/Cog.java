@@ -26,7 +26,7 @@ public class Cog implements IElement {
 
     @Override
     public void effectRobotAfterCardExec(Robot robot) {
-        Pos pos = robot.position();
+        Pos pos = robot.pos();
         int x = pos.getX(), y = pos.getY();
         if (checkCogType(x, y, CogType.ROTATE_RIGHT)) {
             robot.rotate(Rotation.RIGHT);

@@ -4,12 +4,11 @@ import inf112.RoboRally.app.models.cards.CardFactory;
 import inf112.RoboRally.app.models.cards.ICard;
 import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.models.robot.Direction;
-import inf112.RoboRally.app.models.robot.IRobot;
 import inf112.RoboRally.app.models.robot.Pos;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class PlayerTest {
 
@@ -25,30 +24,30 @@ public class PlayerTest {
     @Test
     public void constructorTest() {
         assertEquals(0, player.getPlayerNumber());
-        assertEquals(true, player.robot() instanceof IRobot);
-        assertEquals(true, player.getDealtCards() instanceof ICard[]);
-        assertEquals(true, player.getCardSlots() instanceof ICard[]);
+        assertNotNull(player.robot());
+        assertNotNull(player.getDealtCards());
+        assertNotNull(player.getCardSlots());
         assertEquals(player.getDealtCards().length, player.numberOfReceivedCards());
         assertEquals(player.getCardSlots().length, player.numberOfCardSlots());
         assertEquals(5, player.numberOfCardSlots());
         assertEquals(9, player.numberOfReceivedCards());
-        assertEquals(true, player.isBotPlayer()); // players are bots unless told otherwise
+        assertTrue(player.isBotPlayer()); // players are bots unless told otherwise
 
     }
 
     @Test
     public void playerStartsWithNoCards() {
         for (ICard card: player.getDealtCards())
-            assertEquals(null, card);
+            assertNull(card);
         for (ICard card: player.getCardSlots())
-            assertEquals(null, card);
+            assertNull(card);
 
     }
 
     @Test
     public void testPlayerCanBeDealtACard() {
         player.receiveCard(0, cardFactory.randomCard());
-        assertEquals(false, player.getDealtCards()[0] == null);
+        assertNotNull(player.getDealtCards()[0]);
 
     }
 
@@ -58,7 +57,7 @@ public class PlayerTest {
             player.receiveCard(i, cardFactory.randomCard());
 
         for (ICard card: player.getDealtCards()) {
-            assertEquals(false, card == null);
+            assertNotNull(card);
         }
     }
 
@@ -71,7 +70,29 @@ public class PlayerTest {
 
         player.botPlayerChooseCardsForCardSlots();
         for (ICard card: player.getCardSlots())
-            assertEquals(true, card != null);
+            assertNotNull(card);
+
+    }
+
+
+    @Test
+    public void playerClearCardsTest() {
+
+        // player must receive cards first - player must have cards too choose from
+        for (int i = 0; i < player.numberOfReceivedCards(); i++)
+            player.receiveCard(i, cardFactory.randomCard());
+
+        player.botPlayerChooseCardsForCardSlots();
+        for (ICard card: player.getCardSlots())
+            assertNotNull(card);
+
+        player.resetCards();
+
+        for (ICard card: player.getCardSlots())
+            assertNull(card);
+        for (ICard card: player.getDealtCards())
+            assertNull(card);
+
 
     }
 
