@@ -5,6 +5,7 @@ import inf112.RoboRally.app.models.cards.ForwardCard;
 import inf112.RoboRally.app.models.cards.ICard;
 import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.models.game.Round;
+import inf112.RoboRally.app.models.game.boardelements.flag.FlagType;
 import inf112.RoboRally.app.models.robot.Direction;
 import inf112.RoboRally.app.models.robot.Pos;
 import org.junit.Before;
@@ -76,8 +77,41 @@ public class RoundTest {
     }
 
     @Test
-    public void test() {
-        
+    public void deadRobotsWithMoreLivesLeftSetAliveAgainTest() {
+        Player player = players[0];
+        player.robot().looseHP(10);
+        assertTrue(player.robot().isDead());
+        round.updateRobotsThatDiedThePreviousRound();
+        assertFalse(player.robot().isDead());
     }
+
+    @Test
+    public void noWinnerIsFoundTest() {
+        assertFalse(round.checkForWinner());
+    }
+
+    @Test
+    public void winnerIsFoundWhenPlayerHasThreeFlagsTest() {
+        Player player = players[0];
+        player.robot().touchFlag(FlagType.FIRST_FLAG);
+        player.robot().touchFlag(FlagType.SECOND_FLAG);
+        player.robot().touchFlag(FlagType.THIRD_FLAG);
+        assertTrue(round.checkForWinner());
+    }
+
+    @Test
+    public void winnerIsFoundWhenAllOtherRobotsHaveZeroLivesLeft() {
+        Player playerThatIsAlive = players[0];
+        for (Player player: players) {
+            if (!player.equals(playerThatIsAlive)) {
+                player.robot().looseHP(10);
+                player.robot().looseHP(10);
+                player.robot().looseHP(10);
+            }
+        }
+        assertTrue(round.checkForWinner());
+        assertTrue(playerThatIsAlive.robot().isWinner());
+    }
+
 
 }

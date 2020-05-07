@@ -45,29 +45,28 @@ public class Round {
         System.out.println("----------------------------------------- ROUND "+(++roundNumber)+" ------------------------------------------" );
 
         activePowerDownIfPlayerAnnouncesPowerDown();                      // power down robots that have announced powerdown
-        updateRobotsThatDiedThePreviousRound(); // making all robots that died the previous round alive again
-        checkForWinner();
+        updateRobotsThatDiedThePreviousRound();                           // making all robots that died the previous round alive again
+        if (checkForWinner()) return;
         CollectCardFromSlotExecutor cardChoiceExecutor = new CollectCardFromSlotExecutor(players, registrationPhaseEffects, timer);
         cardChoiceExecutor.CardChoiceRoundExecutor();
 
     }
 
-    public void checkForWinner() {
+    public boolean checkForWinner() {
         int playersAlive = 0;
         for (Player player: players) {
             if (player.robot().livesLeft() > 0) playersAlive++;
-            if (player.robot().isWinner()) return; // robot is registered with three flags
+            if (player.robot().isWinner()) return true; // robot is registered with three flags
         }
         if (playersAlive == 1) { // only one player alive, we have a winner
             for (Player player: players) {
                 if (player.robot().livesLeft() > 0) {
-                    player.robot().getRobotViewController().hasWon();
-                    return;
+                    player.robot().setToWinner();
+                    return true;
                 }
             }
         }
-
-
+        return false;
     }
 
 
@@ -84,7 +83,7 @@ public class Round {
 
     public void updateRobotsThatDiedThePreviousRound() {
         for (Player player: players) {
-            if (player.robot().livesLeft() > 0)
+            if (player.robot().isDead() && player.robot().livesLeft() > 0)
                 player.robot().setAlive();
         }
     }

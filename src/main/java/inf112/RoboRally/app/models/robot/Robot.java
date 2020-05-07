@@ -221,7 +221,8 @@ public class Robot implements IRobot {
 
 
     public void setAlive() {
-        robotViewController.updateViewToAlive();
+        isDead = false;
+        if (robotViewController != null) robotViewController.updateViewToAlive();
     }
 
     public void repair(RepairType repair) {
@@ -265,5 +266,10 @@ public class Robot implements IRobot {
 
     public int flagsCaptured() {
         return flagsCaptured;
+    }
+
+    public void setToWinner() {
+        hasWon = true;
+        if (robotViewController != null) robotViewController.hasWon();
     }
 }
