@@ -1,121 +1,117 @@
 package inf112.RoboRally.app.model;
 
 import inf112.RoboRally.app.controllers.MapChoiceControllers.SinglePlayerSettingsController;
+import inf112.RoboRally.app.models.cards.ForwardCard;
 import inf112.RoboRally.app.models.cards.ICard;
-import inf112.RoboRally.app.models.game.Game;
 import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.models.game.Round;
+import inf112.RoboRally.app.models.game.boardelements.flag.FlagType;
+import inf112.RoboRally.app.models.robot.Direction;
+import inf112.RoboRally.app.models.robot.Pos;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class RoundTest {
 
-    private Round round;
-    private Game game;
+    private SinglePlayerSettingsController settings;
+    private ICard moveForwardThreeCard;
     private Player[] players;
+    private Round round;
 
     @Before
     public void setup() {
-        SinglePlayerSettingsController settings = new SinglePlayerSettingsController();
-        // four players
-        for (int i = 0; i < 2; i++)
-            settings.choosePlayerCount();
-        game = new Game(settings);
-        round = game.round();
-        players = game.players();
-    }
 
-    @Test
-    public void constructorTest() {
-        assertEquals(false, round == null);
-        assertEquals(true, round instanceof Round);
-    }
-
-
-
-    @Test
-    public void eachPlayerGetsDealtACard() {
-        round.dealCards();
-        for (Player player: players) {
-            ICard card = player.getReceivedCards()[0];
-            assertEquals(true, player == card.getPlayer());
-            assertEquals(false, card == null);
-            assertEquals(true, player.getReceivedCards()[0] instanceof ICard);
+        moveForwardThreeCard = new ForwardCard(3, 1000);
+        settings = new SinglePlayerSettingsController();
+        settings.incrementPlayerCount();
+        settings.incrementPlayerCount();
+        players = new Player[settings.getPlayerCount()];
+        for (int playerNumber = 0; playerNumber < settings.getPlayerCount(); playerNumber++) {
+            Pos startPos = settings.getMap().getRobotStartingPos(playerNumber);
+            Direction startDir = settings.getMap().getRobotStartingDirection(playerNumber);
+            players[playerNumber] = new Player(playerNumber, startPos, startDir);
         }
-
+        round = new Round(players);
     }
 
-
     @Test
-    public void eachPlayerGetsDealtTheCorrectNumberOfCards() {
-        round.dealCards();
+    public void testRoundDealsCardsToAllPlayers() {
         for (Player player: players) {
-            ICard[] receivedCards = player.getReceivedCards();
-            for (int i = 0; i < player.numberOfReceivedCards(); i++) {
-                ICard card = receivedCards[i];
-                assertEquals(true, player == card.getPlayer());
-                assertEquals(false, card == null);
-                assertEquals(true, card instanceof ICard);
+            for (ICard card: player.getDealtCards()) {
+                assertNull(card);
             }
         }
-        for (Player player: players) {
-            //player.robot().looseHP();
-            //player.robot().looseHP();
-        }
-        // each player has lost two HP, therefore, the last two cards should now be null
         round.dealCards();
         for (Player player: players) {
-            ICard[] receivedCards = player.getReceivedCards();
-            assertEquals(true,receivedCards.length != player.numberOfReceivedCards());
-            for (int i = 0; i < receivedCards.length; i++) {
-                ICard card = receivedCards[i];
-                if (i < 7) {
-                    assertEquals(true, card != null);
-                    assertEquals(true, card instanceof ICard);
-                }
-                else if (i == 9 || i == 8)
-                    assertEquals(true, card == null);
+            for (ICard card: player.getDealtCards()) {
+                assertNotNull(card);
             }
         }
+    }
+
+    @Test
+    public void testPlayersCardChoicesIsClearedAndRobotIsResetAfterPowerDown() {
+        round.dealCards(); // player gets cards
+        Player player = players[0];
+        player.botPlayerChooseCardsForCardSlots(); // player fills up card slots
+
+        moveForwardThreeCard.setPlayer(player);
+        assertEquals(5, player.robot().pos().getX()); // start/reset position
+        moveForwardThreeCard.moveRobot();
+        assertEquals(8, player.robot().pos().getX()); // player has moved away from reset position
+
+        // bot player have made card choices
+        for (ICard card: player.getCardSlots())
+            assertNotNull(card);
+
+        player.setPowerDown(true, true);
+        round.activePowerDownIfPlayerAnnouncesPowerDown();
+        assertEquals(5, player.robot().pos().getX()); // back to reset because of powerdown
+
+        // all card slots are null after powerdown
+        for (ICard card: player.getCardSlots())
+            assertNull(card);
 
     }
 
+    @Test
+    public void deadRobotsWithMoreLivesLeftSetAliveAgainTest() {
+        Player player = players[0];
+        player.robot().looseHP(10);
+        assertTrue(player.robot().isDead());
+        round.updateRobotsThatDiedThePreviousRound();
+        assertFalse(player.robot().isDead());
+    }
 
+    @Test
+    public void noWinnerIsFoundTest() {
+        assertFalse(round.checkForWinner());
+    }
 
-//    @Test
-//    public void cardExecutionTest() {
-//        CardFactory cardFactory = new CardFactory();
-//        for (Player player: players) {
-//            ICard[] cardSlots = player.getCardSlots();
-//            for (int i = 0; i < player.numberOfCardSlots(); i++) {
-//                cardSlots[i] = cardFactory.randomCard();
-//                cardSlots[i].setPlayer(player);
-//            }
-//
-//        }
-//        Pos[] initPositions = new Pos[4];
-//        for (int i = 0; i < players.length; i++) {
-//            int x = players[i].robot().position().getX();
-//            int y = players[i].robot().position().getY();
-//            initPositions[i] = new Pos(x, y);
-////            System.out.println(initPositions[i].getX()+", "+initPositions[i].getY());
-//        }
-//        round.executeCardChoicesDepriecated();
-//        int differentPositionCount = 0;
-//        for (int i = 0; i < players.length; i++) {
-//            System.out.println(initPositions[i].getX()+", "+initPositions[i].getY());
-//            if (initPositions[i] != players[i].robot().position())
-//                differentPositionCount++;
-//        }
-//        // tests that more than two players will have moved to new positions, theoretically it
-//        // is possible that every player can perform a move sequence to its initial position.
-//        // Therefore, it only checks that at least to robots have moved to different positions.
-//        // But you could change the value '3' to '4', and tests still pass 99/100 times.
-//        assertEquals(true, differentPositionCount >= 3);
-//    }
+    @Test
+    public void winnerIsFoundWhenPlayerHasThreeFlagsTest() {
+        Player player = players[0];
+        player.robot().touchFlag(FlagType.FIRST_FLAG);
+        player.robot().touchFlag(FlagType.SECOND_FLAG);
+        player.robot().touchFlag(FlagType.THIRD_FLAG);
+        assertTrue(round.checkForWinner());
+    }
 
+    @Test
+    public void winnerIsFoundWhenAllOtherRobotsHaveZeroLivesLeft() {
+        Player playerThatIsAlive = players[0];
+        for (Player player: players) {
+            if (!player.equals(playerThatIsAlive)) {
+                player.robot().looseHP(10);
+                player.robot().looseHP(10);
+                player.robot().looseHP(10);
+            }
+        }
+        assertTrue(round.checkForWinner());
+        assertTrue(playerThatIsAlive.robot().isWinner());
+    }
 
 
 }

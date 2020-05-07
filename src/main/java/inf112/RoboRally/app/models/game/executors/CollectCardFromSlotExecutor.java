@@ -20,12 +20,12 @@ public class CollectCardFromSlotExecutor {
     private AtomicInteger slotNumber = new AtomicInteger(0);
     private final int NUMBER_OF_SLOTS = 5;
     private Player[] players;
-    private IElement[] boardElements;
+    private IElement[] registrationPhaseEffects;
     private Timer timer; // access to timer in game for reset when round execution is complete
 
-    public CollectCardFromSlotExecutor(Player[] players, IElement[] boardElements, Timer timer) {
+    public CollectCardFromSlotExecutor(Player[] players, IElement[] boardEffects, Timer timer) {
         this.players = players;
-        this.boardElements = boardElements;
+        this.registrationPhaseEffects = boardEffects;
         this.timer = timer;
     }
 
@@ -37,14 +37,16 @@ public class CollectCardFromSlotExecutor {
 
             ArrayList<ICard> cards = collectCardsFromSlotNumber(slotNumber.get());
 
-            if (cards == null)
+            if (cards == null) {
+                timer.reset();
                 scheduler.shutdown(); // no more cards in slots
+            }
 
             sortCardsByPriority(cards);
 
             CardMoveExecutor cardExecutor = new CardMoveExecutor(cards, cardExecutionLatch);
             cardExecutor.executeCards();
-            System.out.println("--------------- " + (slotNumber.get() + 1) + " slot performing ------------------");
+            System.out.println("-------------------- " + (slotNumber.get() + 1) + " slot performing -----------------------");
             try {
                 cardExecutionLatch.await();
             } catch (InterruptedException e) {
@@ -53,7 +55,7 @@ public class CollectCardFromSlotExecutor {
 
             CountDownLatch boardElementLatch = new CountDownLatch(1);
 
-            BoardElementExecutor boardElementExecutor = new BoardElementExecutor(players, slotNumber.get(), boardElements, boardElementLatch);
+            BoardElementExecutor boardElementExecutor = new BoardElementExecutor(players, slotNumber.get(), registrationPhaseEffects, boardElementLatch);
             boardElementExecutor.executeBoardElements();
 
             try {
@@ -63,6 +65,7 @@ public class CollectCardFromSlotExecutor {
             }
 
             if (slotNumber.incrementAndGet() == NUMBER_OF_SLOTS) {
+                turnRobotsThatWerePoweredDownOnForNextRound();
                 timer.reset();
                 scheduler.shutdown();
             }
@@ -90,6 +93,14 @@ public class CollectCardFromSlotExecutor {
         }
         if (cards.isEmpty()) return null; // no more card choices left to execute
         return cards;
+    }
+
+
+    private void turnRobotsThatWerePoweredDownOnForNextRound() {
+        for (Player player: players) {
+            if (player.robot().isPoweredDown())
+                player.robot().changePowerDown(false, true);
+        }
     }
 
 

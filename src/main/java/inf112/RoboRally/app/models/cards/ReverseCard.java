@@ -25,7 +25,6 @@ public class ReverseCard implements ICard {
 
     @Override
     public void moveRobot() {
-//        System.out.println("FROM ReverseCard: I am moving the robot");
         player.robot().move(STEPS_TO_MOVE);
     }
 

@@ -63,7 +63,7 @@ public class CornerWall {
             return 0;
 
         for (int step = 1; step <= steps; step++) {
-            pos.setX(1);
+            pos.updateX(1);
             if (checkForCornerWall(pos.getX(), y, CornerWallType.TOP_LEFT) || checkForCornerWall(pos.getX(), y, CornerWallType.BOTTOM_LEFT))
                 return step;
             else if (checkForCornerWall(pos.getX()-1, y, CornerWallType.TOP_RIGHT) || checkForCornerWall(pos.getX()-1, y, CornerWallType.BOTTOM_RIGHT) )
@@ -81,7 +81,7 @@ public class CornerWall {
             return 0;
 
         for (int step = 1; step <= steps; step++) {
-            pos.setX(1);
+            pos.updateX(1);
             if (checkForCornerWall(pos.getX(), y, CornerWallType.TOP_RIGHT) || checkForCornerWall(pos.getX(), y, CornerWallType.BOTTOM_RIGHT))
                 return step;
             else if (checkForCornerWall(pos.getX()+1, y, CornerWallType.TOP_LEFT) || checkForCornerWall(pos.getX()+1, y, CornerWallType.BOTTOM_LEFT) )
@@ -99,7 +99,7 @@ public class CornerWall {
             return 0;
 
         for (int step = 1; step <= steps; step++) {
-            pos.setY(1);
+            pos.updateY(1);
             if ( checkForCornerWall(x, pos.getY(), CornerWallType.BOTTOM_LEFT) || checkForCornerWall(x, pos.getY(), CornerWallType.BOTTOM_RIGHT) )
                 return step;
             else if ( checkForCornerWall(x, pos.getY()-1, CornerWallType.TOP_LEFT) || checkForCornerWall(x, pos.getY()-1, CornerWallType.TOP_RIGHT) )
@@ -118,7 +118,7 @@ public class CornerWall {
             return 0;
 
         for (int step = 1; step <= steps; step++) {
-            pos.setY(1);
+            pos.updateY(1);
             if ( checkForCornerWall(x, pos.getY(), CornerWallType.TOP_LEFT) || checkForCornerWall(x, pos.getY(), CornerWallType.TOP_RIGHT) )
                 return step;
             else if ( checkForCornerWall(x, pos.getY()+1, CornerWallType.BOTTOM_LEFT) || checkForCornerWall(x, pos.getY()+1, CornerWallType.BOTTOM_RIGHT) )

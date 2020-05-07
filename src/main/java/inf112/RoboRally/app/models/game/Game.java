@@ -4,6 +4,9 @@ import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 import inf112.RoboRally.app.controllers.MapChoiceControllers.SinglePlayerSettingsController;
 import inf112.RoboRally.app.models.board.Board;
 import inf112.RoboRally.app.models.game.boardelements.BoardElements;
+import inf112.RoboRally.app.models.robot.Direction;
+import inf112.RoboRally.app.models.robot.Pos;
+import inf112.RoboRally.app.models.robot.Robot;
 
 public class Game {
 
@@ -31,21 +34,41 @@ public class Game {
     private Timer timer;
 
     public Game(SinglePlayerSettingsController settings) {
+
+        // setting up the board
         board = settings.getMap();
-        timer = new Timer(this);
         tiledMapLoader = new TiledMapLoader(board.tiledMapFile());
+        timer = new Timer(this);
         boardElements = new BoardElements(tiledMapLoader);
+
+        // setting up players
         players = new Player[settings.getPlayerCount()];
-        for (int nPlayer = 0; nPlayer < settings.getPlayerCount(); nPlayer++)
-            players[nPlayer] = new Player(this, nPlayer);
+        for (int playerNumber = 0; playerNumber < settings.getPlayerCount(); playerNumber++) {
+            Pos startingPos = board.getRobotStartingPos(playerNumber);
+            Direction startingDir = board.getRobotStartingDirection(playerNumber);
+            players[playerNumber] = new Player(playerNumber, startingPos, startingDir);
+        }
+
+        // opponent players must be known to each player in order to set up opponentHuds
+        // opponent players are only known after each player have been initialized
+        for (Player player: players) {
+            player.setOpponentPlayers(players);
+            player.setupBoardElements(boardElements);
+            player.setupRobotView();
+        }
+
         players[humanPlayerNumberChoice].setAsHumanPlayer();
         humanPlayer = players[humanPlayerNumberChoice];
+
+        boardElements.setupRobotShootOtherRobotChecker(allRobotsInGame());
+
+        // starting the game
         gameCardController = new GameCardController(this);
-        
-        round = new Round(this);
+        round = new Round(players);
         startFirstRound();
 
     }
+
 
     public Board getBoard() {
         return board;
@@ -76,36 +99,45 @@ public class Game {
     }
 
     public void startFirstRound() {
-        round.startNewRound();
-        setupPlayerUIsNewGame();
+        round.dealCardsAndBotsChooseCards();
+        setupPlayerUIsNewRound();
     }
 
 
     public void newRound() {
-        clearAllCards();
-        round.startNewRound();
-        setupPlayerUIForNewRound();
+        resetPlayerCards();
+        round.dealCardsAndBotsChooseCards();
+        setupPlayerUIsNewRound();
+        giveReceivedCardsToPlayersForNewRound();
     }
 
-    private void setupPlayerUIForNewRound() {
+    private void giveReceivedCardsToPlayersForNewRound() {
         for (Player player: players)
-            player.setupUIForNewRound();
+            player.getPlayerUI().getReceivedCardsForThisRound();
     }
 
-    private void clearAllCards() {
-        for (Player player: players) {
-            player.clearAllCards();
-        }
+    private void resetPlayerCards() {
+        for (Player player: players)
+            player.resetCards();
     }
+
+
+
+    private void updateOpponentHUDCardSlots() {
+        for (Player player: players)
+            player.updateOpponentCardSlots(true);
+    }
+
 
     public void executeRound() {
         for (Player player: players) {
             player.setupCardsForRoundExecution();
         }
-        round.executeRound(timer);
+        updateOpponentHUDCardSlots();
+        round.executeRound(timer, boardElements.boardEffects());
     }
 
-    public void setupPlayerUIsNewGame() {
+    public void setupPlayerUIsNewRound() {
         for (Player player: players) {
             player.setupUI();
         }
@@ -118,4 +150,15 @@ public class Game {
     public Timer getTimer() {
         return timer;
     }
+
+
+    private Robot[] allRobotsInGame() {
+        Robot[] robots = new Robot[players.length];
+        for (int playerNumber = 0; playerNumber < robots.length; playerNumber++) {
+            robots[playerNumber] = players[playerNumber].robot();
+        }
+        return robots;
+    }
+
+
 }

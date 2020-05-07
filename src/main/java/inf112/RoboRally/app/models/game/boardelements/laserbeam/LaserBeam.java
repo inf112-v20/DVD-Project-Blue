@@ -25,7 +25,7 @@ public class LaserBeam implements IElement {
 
     @Override
     public void effectRobotAfterCardExec(Robot robot) {
-        Pos pos = robot.position();
+        Pos pos = robot.pos();
         int x = pos.getX(), y = pos.getY();
         if (checkForLaserBeam(x, y, LaserBeamType.SINGLE_LASER_VERTICAL)) {
             robot.looseHP(1);

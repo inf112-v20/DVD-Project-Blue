@@ -31,11 +31,10 @@ public class ForwardCard implements ICard {
 
     @Override
     public void moveRobot() {
-//        System.out.println("FROM ForwardCard: I am moving the robot");
         player.robot().move(STEPS_TO_MOVE);
     }
 
-
+    @Override
     public void setPlayer(Player player) {
         this.player = player;
     }

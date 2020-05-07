@@ -22,7 +22,7 @@ public class Flag implements IElement {
 
     @Override
     public void effectRobotAfterCardExec(Robot robot) {
-        Pos pos = robot.position();
+        Pos pos = robot.pos();
         int x = pos.getX(), y = pos.getY();
         if (checkFlagType(x, y, FlagType.FIRST_FLAG))
             robot.touchFlag(FlagType.FIRST_FLAG);

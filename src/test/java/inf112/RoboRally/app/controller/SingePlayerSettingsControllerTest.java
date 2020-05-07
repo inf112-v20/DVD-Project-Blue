@@ -31,7 +31,7 @@ public class SingePlayerSettingsControllerTest {
     public void changingAmountOfPlayers() {
         //increments amount of players one player at a time
         for (int i = 0; i < 3; i++)
-            settings.choosePlayerCount();
+            settings.incrementPlayerCount();
         assertEquals(5, settings.getPlayerCount());
     }
 
@@ -40,7 +40,7 @@ public class SingePlayerSettingsControllerTest {
         // eight is max amount of players
         // incrementing amount of players more than eight times will wrap back around to default player count
         for (int i = 0; i < 10; i++)
-            settings.choosePlayerCount();
+            settings.incrementPlayerCount();
         assertEquals(5, settings.getPlayerCount());
     }
 

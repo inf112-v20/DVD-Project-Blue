@@ -13,6 +13,7 @@ import inf112.RoboRally.app.models.game.boardelements.repair.Repair;
 import inf112.RoboRally.app.models.game.boardelements.twofourpusher.TwoFourPusher;
 import inf112.RoboRally.app.models.game.boardelements.wall.Wall;
 import inf112.RoboRally.app.models.game.boardelements.yellowbelt.YellowBelt;
+import inf112.RoboRally.app.models.robot.Robot;
 
 public class BoardElements {
 
@@ -29,12 +30,14 @@ public class BoardElements {
     private Flag flag;
     private Repair repair;
     private LaserBeam laserBeam;
+    private RobotShootOtherRobotChecker robotShootOtherRobotChecker;
 
     IElement[] elementsThatEffectRobot;
 
     public BoardElements(TiledMapLoader tiledMapLoader) {
         // elements that effect robot after cards
         mapBounds = new MapBounds();
+        robotShootOtherRobotChecker = new RobotShootOtherRobotChecker();
         pushTwoFour = new TwoFourPusher( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("pusher") );
         pushOneThreeFive = new OneThreeFivePusher( ( TiledMapTileLayer ) tiledMapLoader.getMap().getLayers().get("pusher") );
         laserBeam = new LaserBeam( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("laserBeam") );
@@ -46,7 +49,7 @@ public class BoardElements {
         wall = new Wall( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("wall") );
         hole = new Hole( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("hole") );
         cornerWall = new CornerWall( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("doubleWall") );
-        elementsThatEffectRobot = new IElement[11];
+        elementsThatEffectRobot = new IElement[12];
         elementsThatEffectRobot[0] = hole;
         elementsThatEffectRobot[1] = mapBounds;
         elementsThatEffectRobot[2] = blueBelt;
@@ -56,8 +59,9 @@ public class BoardElements {
         elementsThatEffectRobot[6] = pushOneThreeFive;
         elementsThatEffectRobot[7] = cog;
         elementsThatEffectRobot[8] = laserBeam;
-        elementsThatEffectRobot[9] = flag;
-        elementsThatEffectRobot[10] = repair;
+        elementsThatEffectRobot[9] = robotShootOtherRobotChecker;
+        elementsThatEffectRobot[10] = flag;
+        elementsThatEffectRobot[11] = repair;
 
     }
 
@@ -80,5 +84,9 @@ public class BoardElements {
 
     public MapBounds getMapBounds() {
         return mapBounds;
+    }
+
+    public void setupRobotShootOtherRobotChecker(Robot[] allRobotsInGame) {
+        robotShootOtherRobotChecker.setRobots(allRobotsInGame);
     }
 }

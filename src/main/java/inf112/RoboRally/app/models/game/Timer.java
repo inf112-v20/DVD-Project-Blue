@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class Timer {
 
-    final private Skin SKIN = new Skin(Gdx.files.internal("ButtonSkin/button-ui.json"));
+    final private Skin SKIN = new Skin(Gdx.files.internal("assets/ButtonSkin/button-ui.json"));
     private Table timeTable;
     private Label timeLabel;
 
@@ -18,7 +18,7 @@ public class Timer {
     private int secondsToChooseCards;
 
     public Timer(Game game) {
-        SECONDS_TO_CHOOSE_CARDS = 30;
+        SECONDS_TO_CHOOSE_CARDS = 60;
         secondsToChooseCards = SECONDS_TO_CHOOSE_CARDS;
         timerIsActive = true;
         this.game = game;
@@ -56,5 +56,15 @@ public class Timer {
     public void reset() {
         timerIsActive = true;
         game.newRound();
+    }
+
+    public boolean timerIsActive() {
+        return timerIsActive;
+    }
+
+    public void forceStartRoundIfPlayerIsReady() {
+        secondsToChooseCards = SECONDS_TO_CHOOSE_CARDS;
+        timerIsActive = false;
+        game.executeRound();
     }
 }

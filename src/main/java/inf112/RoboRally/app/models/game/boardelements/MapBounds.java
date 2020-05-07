@@ -21,7 +21,7 @@ public class MapBounds implements IElement {
 
     @Override
     public void effectRobotAfterCardExec(Robot robot) {
-        Pos pos = robot.position();
+        Pos pos = robot.pos();
         if (checkForYBound(pos.getY()) || checkForXBound(pos.getX()))
             robot.reset(true);
     }
@@ -50,19 +50,19 @@ public class MapBounds implements IElement {
 
     private int checkForBoundMovingLeft(Pos pos, int steps) {
         for (int step = 1; step <= steps; step++) {
-            pos.setX(-1);
+            pos.updateX(-1);
             if (checkForXBound(pos.getX())) return step;
         }
         return steps;
     }
 
     private boolean checkForXBound(int x) {
-        return x == X_LOWER_BOUND || x == X_UPPER_BOUND;
+        return x <= X_LOWER_BOUND || x >= X_UPPER_BOUND;
     }
 
     private int checkForBoundMovingRight(Pos pos, int steps) {
         for (int step = 1; step <= steps; step++) {
-            pos.setX(1);
+            pos.updateX(1);
             if (checkForXBound(pos.getX())) return step;
         }
         return steps;
@@ -70,19 +70,19 @@ public class MapBounds implements IElement {
 
     private int checkForBoundMovingDown(Pos pos, int steps) {
         for (int step = 1; step <= steps; step++) {
-            pos.setY(-1);
+            pos.updateY(-1);
             if (checkForYBound(pos.getY())) return step;
         }
         return steps;
     }
 
     private boolean checkForYBound(int y) {
-        return y == Y_LOWER_BOUND || y == Y_UPPER_BOUND;
+        return y <= Y_LOWER_BOUND || y >= Y_UPPER_BOUND;
     }
 
     private int checkForBoundMovingUp(Pos pos, int steps) {
         for (int step = 1; step <= steps; step++) {
-            pos.setY(1);
+            pos.updateY(1);
             if (checkForYBound(pos.getY())) return step;
         }
         return steps;

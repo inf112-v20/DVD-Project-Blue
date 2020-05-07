@@ -39,7 +39,7 @@ public class Hole implements IElement {
     private int checkForHolesMovingLeft(Pos pos, int steps) {
         int y = pos.getY();
         for (int step = 1; step <= steps; step++) {
-            pos.setX(-1);
+            pos.updateX(-1);
             if (checkForHole(pos.getX(), y, HoleType.SINGLE_HOLE)) return step;
             else if (checkForHole(pos.getX(), y, HoleType.BIG_HOLE_LEFT_TOP)) return step;
             else if (checkForHole(pos.getX(), y, HoleType.BIG_HOLE_RIGHT_TOP)) return step;
@@ -65,7 +65,7 @@ public class Hole implements IElement {
     private int checkForHolesMovingRight(Pos pos, int steps) {
         int y = pos.getY();
         for (int step = 1; step <= steps; step++) {
-            pos.setX(1);
+            pos.updateX(1);
             if (checkForHole(pos.getX(), y, HoleType.SINGLE_HOLE)) return step;
             else if (checkForHole(pos.getX(), y, HoleType.BIG_HOLE_LEFT_TOP)) return step;
             else if (checkForHole(pos.getX(), y, HoleType.BIG_HOLE_RIGHT_TOP)) return step;
@@ -91,7 +91,7 @@ public class Hole implements IElement {
     private int checkForHolesMovingDown(Pos pos, int steps) {
         int x = pos.getX();
         for (int step = 1; step <= steps; step++) {
-            pos.setY(-1);
+            pos.updateY(-1);
             if (checkForHole(x, pos.getY(), HoleType.SINGLE_HOLE)) return step;
             else if (checkForHole(x, pos.getY(), HoleType.BIG_HOLE_LEFT_TOP)) return step;
             else if (checkForHole(x, pos.getY(), HoleType.BIG_HOLE_RIGHT_TOP)) return step;
@@ -117,7 +117,7 @@ public class Hole implements IElement {
     private int checkForHolesMovingUp(Pos pos, int steps) {
         int x = pos.getX();
         for (int step = 1; step <= steps; step++) {
-            pos.setY(1);
+            pos.updateY(1);
             if (checkForHole(x, pos.getY(), HoleType.SINGLE_HOLE)) return step;
             else if (checkForHole(x, pos.getY(), HoleType.BIG_HOLE_LEFT_TOP)) return step;
             else if (checkForHole(x, pos.getY(), HoleType.BIG_HOLE_RIGHT_TOP)) return step;
@@ -151,7 +151,7 @@ public class Hole implements IElement {
 
     @Override
     public void effectRobotAfterCardExec(Robot robot) {
-        Pos pos = robot.position();
+        Pos pos = robot.pos();
         int x = pos.getX(), y = pos.getY();
         if (checkForHole(x, y, HoleType.SINGLE_HOLE)) {
             sound.play();

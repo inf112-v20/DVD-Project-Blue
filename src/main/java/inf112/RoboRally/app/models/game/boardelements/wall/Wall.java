@@ -68,7 +68,7 @@ public class Wall {
         else if (checkForWall(pos.getX()-1, y, WallType.RIGHTSIDE))   return 0;
 
         for (int step = 1; step <= steps; step++) {
-            pos.setX(-1);
+            pos.updateX(-1);
             if (checkForWall(pos.getX(), y, WallType.LEFTSIDE))                return step;
             else if (checkForWall(pos.getX() - 1, y , WallType.RIGHTSIDE))   return step;
 
@@ -85,7 +85,7 @@ public class Wall {
         else if (checkForWall(pos.getX()+1, y, WallType.LEFTSIDE))   return 0;
 
         for (int step = 1; step <= steps; step++) {
-            pos.setX(1);
+            pos.updateX(1);
             if (checkForWall(pos.getX(), y, WallType.RIGHTSIDE)) return step;
             else if (checkForWall(pos.getX() + 1, y , WallType.LEFTSIDE)) return step;
         }
@@ -101,7 +101,7 @@ public class Wall {
         else if (checkForWall(x, pos.getY()-1, WallType.TOPSIDE))   return 0;
 
         for (int step = 1; step <= steps; step++) {
-            pos.setY(-1);
+            pos.updateY(-1);
             if (checkForWall(x, pos.getY(), WallType.DOWNSIDE))                return step;
             else if (checkForWall(x, pos.getY() - 1 , WallType.TOPSIDE))  return step;
 
@@ -118,7 +118,7 @@ public class Wall {
         else if (checkForWall(x, pos.getY()+1, WallType.DOWNSIDE)) return 0;
 
         for (int step = 1; step <= steps; step++) {
-            pos.setY(1);
+            pos.updateY(1);
             if (checkForWall(x, pos.getY(), WallType.TOPSIDE))                return step;
             else if (checkForWall(x, pos.getY() + 1 , WallType.DOWNSIDE))  return step;
 
