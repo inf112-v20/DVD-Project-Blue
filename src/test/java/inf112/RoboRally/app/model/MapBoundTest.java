@@ -17,7 +17,7 @@ public class MapBoundTest {
     private Robot robot;
 
     @Before
-    public void setup() {
+    public void setUp() {
         robot = new Robot(new Pos(6, 6), Direction.RIGHT);
         bounds = new MapBounds();
     }

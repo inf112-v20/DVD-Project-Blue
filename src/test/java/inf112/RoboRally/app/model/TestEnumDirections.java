@@ -11,7 +11,7 @@ public class TestEnumDirections {
     private Direction direction;
 
     @Before
-    public void setup() {
+    public void setUp() {
         direction = Direction.LEFT;
     }
 

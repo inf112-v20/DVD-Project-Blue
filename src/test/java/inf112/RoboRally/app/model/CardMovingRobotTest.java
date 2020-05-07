@@ -22,7 +22,7 @@ public class CardMovingRobotTest {
     private ICard uTurn;
 
     @Before
-    public void setup() {
+    public void setUp() {
         player = new Player(0, new Pos(15, 15), Direction.RIGHT);
         threeStepForward = new ForwardCard(3, 1900);
         threeStepForward.setPlayer(player);

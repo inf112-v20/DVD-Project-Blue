@@ -13,7 +13,7 @@ public class PosTest {
     private Pos pos;
 
     @Before
-    public void setup() {
+    public void setUp() {
         pos = new Pos(8,5);
     }
 

@@ -16,7 +16,7 @@ public class PlayerTest {
     private CardFactory cardFactory;
 
     @Before
-    public void setup() {
+    public void setUp() {
         cardFactory = new CardFactory();
         player = new Player(0, new Pos(5,5), Direction.RIGHT);
     }
