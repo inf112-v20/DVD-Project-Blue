@@ -28,6 +28,7 @@ public class Player {
         this.playerNumber = playerNumber;
         name = "PLAYER" + (playerNumber+1);
         robot = new Robot(robotStartingPos, robotStartingDirection);
+        robot.setPlayer(this);
         isHuman = false;
     }
 

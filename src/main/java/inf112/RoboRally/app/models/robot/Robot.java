@@ -2,11 +2,15 @@ package inf112.RoboRally.app.models.robot;
 
 import inf112.RoboRally.app.controllers.RobotViewController;
 import inf112.RoboRally.app.models.cards.Rotation;
+import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.models.game.boardelements.BoardElements;
 import inf112.RoboRally.app.models.game.boardelements.flag.FlagType;
 import inf112.RoboRally.app.models.game.boardelements.repair.RepairType;
 
 public class Robot implements IRobot {
+
+    // player ownership
+    private Player player;
 
     // Position
     private Direction direction;
@@ -216,6 +220,7 @@ public class Robot implements IRobot {
             }
 
         }
+        player.resetCards();
 
     }
 
@@ -271,5 +276,9 @@ public class Robot implements IRobot {
     public void setToWinner() {
         hasWon = true;
         if (robotViewController != null) robotViewController.hasWon();
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }
