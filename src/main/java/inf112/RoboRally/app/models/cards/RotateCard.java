@@ -28,7 +28,6 @@ public class RotateCard implements ICard {
 
     @Override
     public void moveRobot() {
-//        System.out.println("FROM RotateCard: I am moving the robot");
         player.robot().rotate(ROTATION);
     }
 

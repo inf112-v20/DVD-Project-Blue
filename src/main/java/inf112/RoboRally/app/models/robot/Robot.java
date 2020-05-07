@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import inf112.RoboRally.app.controllers.RobotViewController;
 import inf112.RoboRally.app.models.cards.Rotation;
-import inf112.RoboRally.app.models.game.Game;
 import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.models.game.boardelements.BoardElements;
 import inf112.RoboRally.app.models.game.boardelements.flag.FlagType;
@@ -13,16 +12,16 @@ import inf112.RoboRally.app.models.game.boardelements.repair.RepairType;
 public class Robot implements IRobot {
 
     private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/Dead.wav"));
+    // player ownership
     private Player player;
 
     // Position
-    private final Direction START_DIRECTION;
     private Direction direction;
     private volatile Pos pos;
 
     // Game stats
     private final int MAX_HP = 10;
-    private final int STARTING_LIVES = 3;
+    private final int MAX_LIVES = 3;
     private int hp;
     private int lives;
     private boolean poweredDown;
@@ -36,48 +35,46 @@ public class Robot implements IRobot {
     // Board elements for robot interaction
     private BoardElements boardElements;
 
-    public Robot(Player player, Game game) {
-        this.player = player;
+    public Robot(Pos startingPos, Direction startingDir) {
         hp = MAX_HP;
-        lives = STARTING_LIVES;
+        lives = MAX_LIVES;
         poweredDown = false;
         isDead = false;
-        pos = game.getBoard().getRobotStartingPos(player.getPlayerNumber());
-        START_DIRECTION = game.getBoard().getRobotStartingDirection(player.getPlayerNumber());
-        direction = game.getBoard().getRobotStartingDirection(player.getPlayerNumber());
-        robotViewController = new RobotViewController(player.getPlayerNumber(), pos, direction);
-        boardElements = game.getBoardElements();
+        pos = startingPos;
+        direction = startingDir;
     }
 
 
     @Override
     public void move(int steps) {
 
-        if (boardElements.getWall().ACTIVE)
-            steps = boardElements.getWall().effectRobot(positionClone(), direction, steps);
-        if (boardElements.getCornerWall().ACTIVE)
-            steps = boardElements.getCornerWall().effectRobot(positionClone(), direction, steps);
-        if (boardElements.getHole().ACTIVE)
-            steps = boardElements.getHole().effectRobotSteps(positionClone(), direction, steps);
-        if (boardElements.getMapBounds().ACTIVE)
-            steps = boardElements.getMapBounds().effectRobotSteps(positionClone(), direction, steps);
+        if (boardElements != null) {
+            if (boardElements.getWall().ACTIVE)
+                steps = boardElements.getWall().effectRobot(positionClone(), direction, steps);
+            if (boardElements.getCornerWall().ACTIVE)
+                steps = boardElements.getCornerWall().effectRobot(positionClone(), direction, steps);
+            if (boardElements.getHole().ACTIVE)
+                steps = boardElements.getHole().effectRobotSteps(positionClone(), direction, steps);
+            if (boardElements.getMapBounds().ACTIVE)
+                steps = boardElements.getMapBounds().effectRobotSteps(positionClone(), direction, steps);
+        }
 
         switch (direction) {
             case UP:
-                pos.setY(steps);
-                robotViewController.updateYCord(pos.getY());
+                pos.updateY(steps);
+                if (robotViewController != null) robotViewController.updateYCord(pos.getY());
                 break;
             case DOWN:
-                pos.setY(-steps);
-                robotViewController.updateYCord(pos.getY());
+                pos.updateY(-steps);
+                if (robotViewController != null) robotViewController.updateYCord(pos.getY());
                 break;
             case RIGHT:
-                pos.setX(steps);
-                robotViewController.updateXCord(pos.getX());
+                pos.updateX(steps);
+                if (robotViewController != null) robotViewController.updateXCord(pos.getX());
                 break;
             case LEFT:
-                pos.setX(-steps);
-                robotViewController.updateXCord(pos.getX());
+                pos.updateX(-steps);
+                if (robotViewController != null) robotViewController.updateXCord(pos.getX());
                 break;
             default:
                 throw new IllegalStateException("robot has direction '"+direction+"', which is supported");
@@ -102,11 +99,11 @@ public class Robot implements IRobot {
             default:
                 throw new IllegalArgumentException("Robot is told to rotate '"+rotation+"', which is not supported");
         }
-        robotViewController.getRobotView().updateDirection(rotation);
+        if (robotViewController != null) robotViewController.getRobotView().updateDirection(rotation);
     }
 
 
-    public Pos position() {
+    public Pos pos() {
         return pos;
     }
 
@@ -125,6 +122,10 @@ public class Robot implements IRobot {
             sound.play();
             reset(true);
         }
+    }
+
+    public void gainHP(int hpToGain) {
+        hp = Math.min(hp += hpToGain, MAX_HP);
     }
 
     @Override
@@ -157,20 +158,20 @@ public class Robot implements IRobot {
     public void moveOneStepInDirection(Direction direction) {
         switch (direction) {
             case DOWN:
-                pos.setY(-1);
-                robotViewController.updateYCord(pos.getY());
+                pos.updateY(-1);
+                if (robotViewController != null) robotViewController.updateYCord(pos.getY());
                 break;
             case UP:
-                pos.setY(1);
-                robotViewController.updateYCord(pos.getY());
+                pos.updateY(1);
+                if (robotViewController != null) robotViewController.updateYCord(pos.getY());
                 break;
             case LEFT:
-                pos.setX(-1);
-                robotViewController.updateXCord(pos.getX());
+                pos.updateX(-1);
+                if (robotViewController != null) robotViewController.updateXCord(pos.getX());
                 break;
             case RIGHT:
-                pos.setX(1);
-                robotViewController.updateXCord(pos.getX());
+                pos.updateX(1);
+                if (robotViewController != null) robotViewController.updateXCord(pos.getX());
                 break;
             default:
                 throw new IllegalArgumentException("Robot is told to move in '"+direction+"', which is not supported");
@@ -182,59 +183,67 @@ public class Robot implements IRobot {
             case FIRST_FLAG:
                 if (flagsCaptured == 0) {
                     flagsCaptured++;
-                    robotViewController.touchedFlag();
-                    System.out.println("Robot now has one flag");
+                    if (robotViewController != null) robotViewController.touchedFlag();
                 }
-                hp = Math.max(++hp, MAX_HP);
+                gainHP(1);
                 pos.setNewRestartPos(pos.getX(), pos.getY());
                 break;
             case SECOND_FLAG:
                 if (flagsCaptured == 1) {
                     flagsCaptured++;
-                    robotViewController.touchedFlag();
+                    if (robotViewController != null) robotViewController.touchedFlag();
                 }
-                hp = Math.max(++hp, MAX_HP);
+                gainHP(1);
                 pos.setNewRestartPos(pos.getX(), pos.getY());
-                System.out.println("touched second flag");
                 break;
             case THIRD_FLAG:
                 if (flagsCaptured == 2) {
                     flagsCaptured++;
                     hasWon = true;
-                    robotViewController.hasWon();
-                    System.out.println("We have a winner");
+                    if (robotViewController != null) robotViewController.hasWon();
                 }
+                gainHP(1);
                 pos.setNewRestartPos(pos.getX(), pos.getY());
                 break;
         }
     }
 
 
-    // used when robot is dead
     public void reset(boolean looseLife) {
         if (looseLife) {
             lives--;
             isDead = true;
-            robotViewController.updateViewToDead();
+            if (robotViewController != null)
+                robotViewController.updateViewToDead();
         }
-        hp = getMAX_HP();
-        player.clearCardSlots();
-        pos.restart();
-        robotViewController.updateXCord(pos.getX());
-        robotViewController.updateYCord(pos.getY());
+        if (lives > 0) {
+
+            hp = getMAX_HP();
+            pos.restart();
+            if (robotViewController != null) {
+                robotViewController.updateXCord(pos.getX());
+                robotViewController.updateYCord(pos.getY());
+            }
+
+        }
+        if (player != null) player.resetCards();
+
     }
 
 
     public void setAlive() {
-        robotViewController.updateViewToAlive();
+        isDead = false;
+        if (robotViewController != null) robotViewController.updateViewToAlive();
     }
 
     public void repair(RepairType repair) {
         switch (repair) {
             case WRENCH:
-                hp = Math.max(MAX_HP, hp++); // discard three damage tokens
+                gainHP(1);
+                break;
             case WRENCH_AND_HAMMER:
-                hp = Math.max(MAX_HP, hp += 2); // discard two damage tokens
+                gainHP(2);
+                break;
         }
         pos.setNewRestartPos(pos.getX(), pos.getY());
     }
@@ -245,15 +254,37 @@ public class Robot implements IRobot {
 
     public void changePowerDown(boolean poweredDown, boolean gainLife) {
         this.poweredDown = poweredDown;
-        if (gainLife) {
-            lives++;
-            if (lives > 3) lives = 3;
+        if (gainLife) lives = Math.min(MAX_LIVES, lives += 1);
+        if (poweredDown) {
+            if (robotViewController != null) robotViewController.updateViewPoweredDown(true);
         }
-        if (poweredDown) robotViewController.updateViewPoweredDown(true);
-        else             robotViewController.updateViewPoweredDown(false);
+        else            {
+            if (robotViewController != null) robotViewController.updateViewPoweredDown(false);
+        }
     }
 
     public boolean isWinner() {
         return hasWon;
+    }
+
+    public void setupRobotViewController(int playerNumber) {
+        robotViewController = new RobotViewController(playerNumber, pos, direction);
+    }
+
+    public void communicateBoardElements(BoardElements boardElements) {
+        this.boardElements = boardElements;
+    }
+
+    public int flagsCaptured() {
+        return flagsCaptured;
+    }
+
+    public void setToWinner() {
+        hasWon = true;
+        if (robotViewController != null) robotViewController.hasWon();
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

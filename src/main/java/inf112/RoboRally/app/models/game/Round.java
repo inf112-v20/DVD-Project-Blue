@@ -5,23 +5,15 @@ import inf112.RoboRally.app.models.cards.ICard;
 import inf112.RoboRally.app.models.game.boardelements.IElement;
 import inf112.RoboRally.app.models.game.executors.CollectCardFromSlotExecutor;
 
-/*
-Next delivery
- */
+
 public class Round {
 
     private CardFactory cardFactory = new CardFactory();
     private Player[] players;
-    private Player humanPlayer;
-    private final int CARD_SLOT_AMOUNT;
-    private IElement[] boardElements;
-    private int roundNumber = 0; // only used for system.out
+    private int roundNumber = 0; // only used as debug message for system.out
 
-    public Round(Game game) {
-        this.players = game.players();
-        this.humanPlayer = game.getHumanPlayer();
-        this.boardElements = game.getBoardElements().boardEffects();
-        CARD_SLOT_AMOUNT = humanPlayer.numberOfCardSlots();
+    public Round(Player[] players) {
+        this.players = players;
     }
 
     public void dealCardsAndBotsChooseCards() {
@@ -32,13 +24,11 @@ public class Round {
     private void botPlayersChooseCards() {
         for (Player player: players) {
             if (player.isBotPlayer())
-                player.botPlayerChooseCards();
+                player.botPlayerChooseCardsForCardSlots();
         }
     }
 
     public void dealCards () {
-//        System.out.println("FROM Round: Sure thing. Lets do it one more time.");
-//        removeDealtCards(); // does not do anything the first round
         for (Player player : players) {
             for (int i = 0; i < player.numberOfReceivedCards(); i++) {
                 ICard card = cardFactory.randomCard();
@@ -50,36 +40,37 @@ public class Round {
 
 
 
-    public void executeRound(Timer timer) {
+    public void executeRound(Timer timer, IElement[] registrationPhaseEffects) {
 
         System.out.println("----------------------------------------- ROUND "+(++roundNumber)+" ------------------------------------------" );
 
-        powerDownRobots();                      // power down robots that have announced powerdown
-        updateRobotsThatDiedThePreviousRound(); // making all robots that died the previous round alive again
-        checkForWinner();
-        CollectCardFromSlotExecutor cardChoiceExecutor = new CollectCardFromSlotExecutor(players, boardElements, timer);
+        activePowerDownIfPlayerAnnouncesPowerDown();                      // power down robots that have announced powerdown
+        updateRobotsThatDiedThePreviousRound();                           // making all robots that died the previous round alive again
+        if (checkForWinner()) return;
+        CollectCardFromSlotExecutor cardChoiceExecutor = new CollectCardFromSlotExecutor(players, registrationPhaseEffects, timer);
         cardChoiceExecutor.CardChoiceRoundExecutor();
 
     }
 
-    private void checkForWinner() {
+    public boolean checkForWinner() {
         int playersAlive = 0;
         for (Player player: players) {
             if (player.robot().livesLeft() > 0) playersAlive++;
-            if (player.robot().isWinner()) return;
+            if (player.robot().isWinner()) return true; // robot is registered with three flags
         }
-        if (playersAlive == 1) {
+        if (playersAlive == 1) { // only one player alive, we have a winner
             for (Player player: players) {
                 if (player.robot().livesLeft() > 0) {
-                    player.robot().getRobotViewController().hasWon();
-                    return;
+                    player.robot().setToWinner();
+                    return true;
                 }
             }
         }
+        return false;
     }
 
 
-    private void powerDownRobots() {
+    public void activePowerDownIfPlayerAnnouncesPowerDown() {
         for (Player player: players) {
             if (player.robot().isPoweredDown()) {
                 player.clearCardSlots();
@@ -87,11 +78,12 @@ public class Round {
             }
         }
 
+
     }
 
-    private void updateRobotsThatDiedThePreviousRound() {
+    public void updateRobotsThatDiedThePreviousRound() {
         for (Player player: players) {
-            if (player.robot().livesLeft() > 0)
+            if (player.robot().isDead() && player.robot().livesLeft() > 0)
                 player.robot().setAlive();
         }
     }

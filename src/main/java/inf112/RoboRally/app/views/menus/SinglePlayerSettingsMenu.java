@@ -76,7 +76,7 @@ public class SinglePlayerSettingsMenu implements Screen {
         playersButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                playersButton.getLabel().setText(gameLauncher.settings().choosePlayerCount());
+                playersButton.getLabel().setText(gameLauncher.settings().incrementPlayerCount());
             }
         });
 

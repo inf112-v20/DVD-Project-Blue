@@ -26,7 +26,7 @@ public class OneThreeFivePusher implements IElement {
 
     @Override
     public void effectRobotAfterCardExec(Robot robot) {
-        Pos pos = robot.position();
+        Pos pos = robot.pos();
         int x = pos.getX(), y = pos.getY();
         if (checkForPusher(x, y, OneThreeFivePusherType.PUSH_DOWN)) {
             robot.moveOneStepInDirection(Direction.DOWN);

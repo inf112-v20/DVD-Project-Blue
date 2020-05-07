@@ -27,7 +27,7 @@ public class GameScreenCards extends InputAdapter {
     public GameScreenCards(Player player) {
         numberOfCardSlots = player.numberOfCardSlots();
         amountOfReceivedCards = player.numberOfReceivedCards();
-        receivedCards = new ReceivedCards(player.getReceivedCards());
+        receivedCards = new ReceivedCards(player.getDealtCards());
         cardSlots = new CardSlots(player.getCardSlots(), player.numberOfCardSlots());
         setUpCardSlotTableListener();
         setUpDragAndDrop();

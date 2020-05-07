@@ -1,22 +1,22 @@
 package inf112.RoboRally.app.model;
 
-import inf112.RoboRally.app.models.cards.ForwardCard;
-import inf112.RoboRally.app.models.cards.ReverseCard;
-import inf112.RoboRally.app.models.cards.RotateCard;
-import inf112.RoboRally.app.models.cards.Rotation;
+import inf112.RoboRally.app.models.cards.*;
+import inf112.RoboRally.app.models.game.Player;
+import inf112.RoboRally.app.models.robot.Direction;
+import inf112.RoboRally.app.models.robot.Pos;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class CardTest {
 
-    private ForwardCard oneStepForward;
-    private ForwardCard twoStepForward;
-    private ReverseCard reverseCard;
-    private RotateCard rotateLeft;
-    private RotateCard rotateRight;
-    private RotateCard uTurn;
+    private ICard oneStepForward;
+    private ICard twoStepForward;
+    private ICard reverseCard;
+    private ICard rotateLeft;
+    private ICard rotateRight;
+    private ICard uTurn;
 
     @Before
     public void setup() {
@@ -44,9 +44,16 @@ public class CardTest {
 
     @Test
     public void orderingOfCardsByPriority() {
-        assertEquals(true, rotateLeft.priority() < twoStepForward.priority());
-        assertEquals(true, uTurn.priority() < reverseCard.priority());
-        assertEquals(false, rotateRight.priority() < twoStepForward.priority());
+        assertTrue(rotateLeft.priority() < twoStepForward.priority());
+        assertTrue(uTurn.priority() < reverseCard.priority());
+        assertFalse(rotateRight.priority() < twoStepForward.priority());
+    }
+
+    @Test
+    public void setPlayerOwnerShipTest() {
+        Player p = new Player(0, new Pos(0, 0), Direction.RIGHT);
+        oneStepForward.setPlayer(p);
+        assertSame(p, oneStepForward.getPlayer());
     }
 
 }

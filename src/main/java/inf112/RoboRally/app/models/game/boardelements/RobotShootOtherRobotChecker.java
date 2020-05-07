@@ -17,7 +17,7 @@ public class RobotShootOtherRobotChecker implements IElement {
 
     @Override
     public void effectRobotAfterCardExec(Robot robot) {
-        Pos robotPos = robot.position();
+        Pos robotPos = robot.pos();
 
         if (!robot.isPoweredDown() && !robot.isDead())
             robot.getRobotViewController().timeToShoot(true);
@@ -26,7 +26,7 @@ public class RobotShootOtherRobotChecker implements IElement {
 
             // the robot cant shoot itself, and the shooting robot cannot be powered down
             if (!enemyRobot.equals(robot) && !enemyRobot.isPoweredDown()) {
-               Pos enemyRobotPos = enemyRobot.position();
+               Pos enemyRobotPos = enemyRobot.pos();
 
                if (enemyRobotPos.getX() == robotPos.getX()) {
 

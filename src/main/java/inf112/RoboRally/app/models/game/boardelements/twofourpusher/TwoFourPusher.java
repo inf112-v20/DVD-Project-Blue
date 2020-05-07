@@ -27,7 +27,7 @@ public class TwoFourPusher implements IElement {
 
     @Override
     public void effectRobotAfterCardExec(Robot robot) {
-        Pos pos = robot.position();
+        Pos pos = robot.pos();
         int x = pos.getX(); int y = pos.getY();
         if (checkForPusher(x, y, TwoFourPusherType.TWO_FOUR_PUSH_DOWN)) {
             robot.moveOneStepInDirection(Direction.DOWN);

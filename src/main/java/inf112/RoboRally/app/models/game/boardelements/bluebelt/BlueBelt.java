@@ -27,7 +27,7 @@ public class BlueBelt implements IElement {
 
     @Override
     public void effectRobotAfterCardExec(Robot robot) {
-        Pos pos = robot.position();
+        Pos pos = robot.pos();
         int x = pos.getX(), y = pos.getY();
         if (checkForBlueBelt(x,y, BlueBeltType.PUSH_UP) && checkForBlueBelt(x, y+1, BlueBeltType.UP_AND_DOWN_TO_RIGHT)) {
             robot.rotate(Rotation.RIGHT);

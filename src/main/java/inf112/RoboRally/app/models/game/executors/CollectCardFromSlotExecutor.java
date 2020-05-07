@@ -20,12 +20,12 @@ public class CollectCardFromSlotExecutor {
     private AtomicInteger slotNumber = new AtomicInteger(0);
     private final int NUMBER_OF_SLOTS = 5;
     private Player[] players;
-    private IElement[] boardElements;
+    private IElement[] registrationPhaseEffects;
     private Timer timer; // access to timer in game for reset when round execution is complete
 
-    public CollectCardFromSlotExecutor(Player[] players, IElement[] boardElements, Timer timer) {
+    public CollectCardFromSlotExecutor(Player[] players, IElement[] boardEffects, Timer timer) {
         this.players = players;
-        this.boardElements = boardElements;
+        this.registrationPhaseEffects = boardEffects;
         this.timer = timer;
     }
 
@@ -55,7 +55,7 @@ public class CollectCardFromSlotExecutor {
 
             CountDownLatch boardElementLatch = new CountDownLatch(1);
 
-            BoardElementExecutor boardElementExecutor = new BoardElementExecutor(players, slotNumber.get(), boardElements, boardElementLatch);
+            BoardElementExecutor boardElementExecutor = new BoardElementExecutor(players, slotNumber.get(), registrationPhaseEffects, boardElementLatch);
             boardElementExecutor.executeBoardElements();
 
             try {

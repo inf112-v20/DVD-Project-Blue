@@ -27,7 +27,7 @@ public class YellowBelt implements IElement {
 
     @Override
     public void effectRobotAfterCardExec(Robot robot) {
-        Pos pos = robot.position();
+        Pos pos = robot.pos();
         int x = pos.getX(), y = pos.getY();
 
         if (checkYellowBeltType(x, y, YellowBeltType.PUSH_DOWN)) {

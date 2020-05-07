@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.GameLauncher;
+import inf112.RoboRally.app.models.game.Game;
 import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.views.card.GameScreenCards;
 import inf112.RoboRally.app.views.menus.Button;
@@ -21,6 +22,7 @@ public class PlayerUI extends InputAdapter {
 
     private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/PowerDown.wav"));
     private Player player; // the player who's thus UI belongs to
+    private Game game;     // for letting the game know this player is ready
 
     private Table readyButtonTable;
     private TextButton readyButton;
@@ -112,7 +114,7 @@ public class PlayerUI extends InputAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (roundIsNotInExecution()) {
-                    player.getGame().getTimer().forceStartRoundIfPlayersAreReady();
+                    game.getTimer().forceStartRoundIfPlayerIsReady();
                 }
             }
         });
@@ -138,13 +140,10 @@ public class PlayerUI extends InputAdapter {
         return generateCardsTable;
     }
 
-    private void setTimerToZeroAndStartRoundWhenReadyButtonPressed() {
-
-    }
 
     private boolean roundIsNotInExecution() {
         // is the timer is active, the time su currently counting down -> not in round register phase
-        return player.getGame().getTimer().timerIsActive();
+        return game.getTimer().timerIsActive();
     }
 
     public void updateOpponentCardSlots(boolean cardsFacingUp) {
@@ -157,14 +156,6 @@ public class PlayerUI extends InputAdapter {
         gameScreenCards.clearReceivedCards();
     }
 
-    public void clearAllCardsBeforeGettingNewCards() {
-        getReceivedCardsForThisRound();
-    }
-
-    public void clearCardSlotCardsOnScreen() {
-        gameScreenCards.clearCardsInSlots();
-    }
-
     public void getReceivedCardsForThisRound() {
         player.clearCardSlots();
         gameScreenCards.clearAllCards();
@@ -174,5 +165,10 @@ public class PlayerUI extends InputAdapter {
 
         stage.addActor(gameScreenCards.getReceivedCardsTable());
         updateOpponentCardSlots(false);
+    }
+
+
+    public void setupConnectionToGameClass(Game game) {
+        this.game = game;
     }
 }

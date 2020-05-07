@@ -22,7 +22,7 @@
 //    public void setUp() {
 //        settingsController = new SinglePlayerSettingsController();
 //        for (int i = 0; i < 6; i++)
-//            settingsController.choosePlayerCount();
+//            settingsController.getPlayerCount();
 //        game = new Game(settingsController);
 //    }
 //
@@ -80,7 +80,7 @@
 //            Player player = players[nPlayer];
 //            Robot robot = player.robot();
 //            Pos pos = settingsController.getMap().getRobotStartingPos(nPlayer);
-//            assertEquals(pos, robot.position());
+//            assertEquals(pos, robot.pos());
 //        }
 //    }
 //
