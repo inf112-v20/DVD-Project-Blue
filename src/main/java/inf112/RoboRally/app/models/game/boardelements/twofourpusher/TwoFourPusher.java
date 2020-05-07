@@ -12,7 +12,7 @@ public class TwoFourPusher implements IElement {
 
     private TiledMapTileLayer layer;
     public final boolean ACTIVE;
-    private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/Hole.wav"));
+    private final Sound sound = Gdx.audio.newSound(Gdx.files.internal("assets/Sound/Pusher.wav"));
 
     public TwoFourPusher(TiledMapTileLayer layer) {
         if (layer != null) ACTIVE = true;

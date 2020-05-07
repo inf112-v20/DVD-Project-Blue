@@ -33,10 +33,12 @@ public class LobbyMenu implements Screen {
     private Server server;
     private Client client;
     private boolean host;
+    private String name;
 
-    public LobbyMenu(GameLauncher game, boolean host) throws IOException {
+    public LobbyMenu(GameLauncher game, boolean host, String name) throws IOException {
         this.gameLauncher = game;
         this.host = host;
+        this.name = name;
         camera = new OrthographicCamera();
         viewport = new FitViewport(GameLauncher.GAME_WIDTH, GameLauncher.GAME_HEIGHT, camera);
         stage = new Stage(viewport);
@@ -57,19 +59,30 @@ public class LobbyMenu implements Screen {
         background.setFilter(Linear, Linear);
         table.setBackground(new TextureRegionDrawable(background));
 
+        Label mapNameLabel = new Label("Map: ", SKIN);
+        Label mapName = new Label(gameLauncher.currentMapName, SKIN);
+        Label hostLabel = new Label("HOST:", SKIN);
+        Label hostNameLable = new Label("", SKIN);
+        Label playerNameLabel = new Label("PLAYER: ", SKIN);
+        Label playerName = new Label("", SKIN);
+
         if (host) {
-            try {
-                server.serverInit();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            new Thread(server).start();
+            hostNameLable.setText(name);
         } else {
-            try {
-                client.clientInit("127.0.0.1");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            new Thread(client).start();
+            playerName.setText(name);
         }
+
+
+        table.add(mapNameLabel);
+        table.add(mapName).width(600);
+        table.row().padTop(30);
+        table.add(hostLabel).padRight(70);
+        table.add(hostNameLable).width(600);
+        table.row().padTop(30);
+        table.add(playerNameLabel).padRight(70);
+        table.add(playerName).width(600);
 
         stage.addActor(table);
         stage.getRoot().getColor().a = 0;
@@ -78,7 +91,7 @@ public class LobbyMenu implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         gameLauncher.batch.begin();
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1));

@@ -1,5 +1,7 @@
 package inf112.RoboRally.app.lan;
 
+import org.lwjgl.Sys;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -8,7 +10,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class Server {
+public class Server implements Runnable{
 
     private static int PORT = 1337;
     private static int[] ID = {1, 2, 3, 4, 5, 6, 7, 8};
@@ -53,5 +55,20 @@ public class Server {
 
     public static int updateALL() {
         return 1;
+    }
+
+    @Override
+    public void run() {
+
+        try {
+            serverInit();
+        } catch (IOException e) {
+            System.out.println("serverInit error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public static int[] getID() {
+        return ID;
     }
 }
