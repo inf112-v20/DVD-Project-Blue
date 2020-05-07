@@ -64,7 +64,7 @@ public class Game {
 
         // starting the game
         gameCardController = new GameCardController(this);
-        round = new Round(this);
+        round = new Round(players);
         startFirstRound();
 
     }
@@ -134,7 +134,7 @@ public class Game {
             player.setupCardsForRoundExecution();
         }
         updateOpponentHUDCardSlots();
-        round.executeRound(timer);
+        round.executeRound(timer, boardElements.boardEffects());
     }
 
     public void setupPlayerUIsNewRound() {

@@ -125,7 +125,7 @@ public class CardMovingRobotTest {
         assertEquals(12, robotPos.getX());
         assertEquals(17, robotPos.getY());
 
-        
+
     }
 
 
