@@ -32,7 +32,7 @@ public class GameCardController {
     }
 
     public ICard[] getReceivedPlayerCards() {
-        return humanPlayer.getReceivedCards();
+        return humanPlayer.getDealtCards();
     }
 
     public void setCardSlotsFromUserInput(ICardDragAndDrop[] cardsFromView) {

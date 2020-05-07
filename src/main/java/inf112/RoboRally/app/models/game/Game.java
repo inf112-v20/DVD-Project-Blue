@@ -4,6 +4,8 @@ import inf112.RoboRally.app.controllers.CardControllers.GameCardController;
 import inf112.RoboRally.app.controllers.MapChoiceControllers.SinglePlayerSettingsController;
 import inf112.RoboRally.app.models.board.Board;
 import inf112.RoboRally.app.models.game.boardelements.BoardElements;
+import inf112.RoboRally.app.models.robot.Direction;
+import inf112.RoboRally.app.models.robot.Pos;
 import inf112.RoboRally.app.models.robot.Robot;
 
 public class Game {
@@ -35,14 +37,26 @@ public class Game {
 
         // setting up the board
         board = settings.getMap();
-        timer = new Timer(this);
         tiledMapLoader = new TiledMapLoader(board.tiledMapFile());
+        timer = new Timer(this);
         boardElements = new BoardElements(tiledMapLoader);
 
         // setting up players
         players = new Player[settings.getPlayerCount()];
-        for (int nPlayer = 0; nPlayer < settings.getPlayerCount(); nPlayer++)
-            players[nPlayer] = new Player(this, nPlayer);
+        for (int playerNumber = 0; playerNumber < settings.getPlayerCount(); playerNumber++) {
+            Pos startingPos = board.getRobotStartingPos(playerNumber);
+            Direction startingDir = board.getRobotStartingDirection(playerNumber);
+            players[playerNumber] = new Player(playerNumber, startingPos, startingDir);
+        }
+
+        // opponent players must be known to each player in order to set up opponentHuds
+        // opponent players are only known after each player have been initialized
+        for (Player player: players) {
+            player.setOpponentPlayers(players);
+            player.setupBoardElements(boardElements);
+            player.setupRobotView();
+        }
+
         players[humanPlayerNumberChoice].setAsHumanPlayer();
         humanPlayer = players[humanPlayerNumberChoice];
 
@@ -109,9 +123,9 @@ public class Game {
 
 
 
-    private void updateOpponentHUDCardSlots(boolean cardsFacingUp) {
+    private void updateOpponentHUDCardSlots() {
         for (Player player: players)
-            player.updateOpponentCardSlots(cardsFacingUp);
+            player.updateOpponentCardSlots(true);
     }
 
 
@@ -119,7 +133,7 @@ public class Game {
         for (Player player: players) {
             player.setupCardsForRoundExecution();
         }
-        updateOpponentHUDCardSlots(true);
+        updateOpponentHUDCardSlots();
         round.executeRound(timer);
     }
 
@@ -145,4 +159,6 @@ public class Game {
         }
         return robots;
     }
+
+
 }

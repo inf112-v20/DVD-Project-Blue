@@ -33,7 +33,7 @@ public class SinglePlayerSettingsController {
             playerCount = MIN_PLAYERS;
     }
 
-    public int choosePlayerCount() {
+    public int incrementPlayerCount() {
         maxPlayersOnCurrentMap = getMap().amountOfPlayerSupportedOnThisMap();
         if (playerCount < maxPlayersOnCurrentMap) playerCount++;
         else                  playerCount = MIN_PLAYERS;

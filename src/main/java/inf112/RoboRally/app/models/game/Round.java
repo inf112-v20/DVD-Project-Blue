@@ -32,7 +32,7 @@ public class Round {
     private void botPlayersChooseCards() {
         for (Player player: players) {
             if (player.isBotPlayer())
-                player.botPlayerChooseCards();
+                player.botPlayerChooseCardsForCardSlots();
         }
     }
 

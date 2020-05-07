@@ -49,6 +49,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
 
         playerUI = game.getHumanPlayer().getPlayerUI();
+        playerUI.setupConnectionToGameClass(game);
         timer = game.getTimer();
         stage.addActor(timer.getTimeTable());
 

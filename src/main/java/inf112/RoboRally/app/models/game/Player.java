@@ -1,6 +1,9 @@
 package inf112.RoboRally.app.models.game;
 
 import inf112.RoboRally.app.models.cards.ICard;
+import inf112.RoboRally.app.models.game.boardelements.BoardElements;
+import inf112.RoboRally.app.models.robot.Direction;
+import inf112.RoboRally.app.models.robot.Pos;
 import inf112.RoboRally.app.models.robot.Robot;
 import inf112.RoboRally.app.views.card.ICardDragAndDrop;
 import inf112.RoboRally.app.views.player.PlayerUI;
@@ -17,16 +20,14 @@ public class Player {
     private ICard[] receivedCards = new ICard[NUMBER_OF_CARDS_TO_RECEIVE];
     private ICard[] cardSlots = new ICard[NUMBER_OF_CARD_SLOTS];
 
-    private Game game;
-    private PlayerUI playerUI;
-    private int numberOfPlayersInGame;
 
-    public Player(Game game, int playerNumber) {
+    private PlayerUI playerUI;
+    private Player[] playersInGame;
+
+    public Player(int playerNumber, Pos robotStartingPos, Direction robotStartingDirection) {
         this.playerNumber = playerNumber;
         name = "PLAYER" + (playerNumber+1);
-        this.game = game;
-        this.numberOfPlayersInGame = game.players().length;
-        robot = new Robot(this, game);
+        robot = new Robot(robotStartingPos, robotStartingDirection);
         isHuman = false;
     }
 
@@ -39,7 +40,7 @@ public class Player {
         return cardSlots[slotNumber];
     }
 
-    public ICard[] getReceivedCards() {
+    public ICard[] getDealtCards() {
         return receivedCards;
     }
 
@@ -71,25 +72,13 @@ public class Player {
         return !isHuman;
     }
 
-    // only chooses one card for now
-    public void botPlayerChooseCards() {
+    // chooses the first available cards
+    public void botPlayerChooseCardsForCardSlots() {
         for (ICard card: receivedCards) {
             if (card != null) {
                 fillPlayerCardSlot(card);
                 }
             }
-    }
-
-
-    // puts card in the first empty slot
-    private void putReceivedCardInCardSlot(ICard card) {
-        for (int slotNumber = 0; slotNumber < cardSlots.length; slotNumber++) {
-            if (cardSlots[slotNumber] == null) {
-                cardSlots[slotNumber] = card;
-                System.out.println(card.getFileName()+", "+card.priority());
-                return;
-            }
-        }
     }
 
     public void setCardSlotsFromUserInput(ICardDragAndDrop[] cardsFromView) {
@@ -125,24 +114,12 @@ public class Player {
     }
 
     public int getNumberOfPlayersInGame() {
-        return numberOfPlayersInGame;
+        return playersInGame.length;
     }
-
-    public Game getGame() {
-        return game;
-    }
-
 
     public String getName() {
         return name;
     }
-
-    public void clearAllCards() {
-        clearCardSlots();
-        clearReceivedCards();
-        playerUI.clearAllCardsBeforeGettingNewCards();
-    }
-
 
     private void clearReceivedCards() {
         for (int receivedCardNumber = 0; receivedCardNumber < numberOfReceivedCards(); receivedCardNumber++) {
@@ -161,10 +138,6 @@ public class Player {
         playerUI.setupCardsForRoundExecution();
     }
 
-    public void clearCardSlotsOnScreen() {
-        playerUI.clearCardSlotCardsOnScreen();
-    }
-
     public void resetCards() {
         cardSlots = new ICard[numberOfCardSlots()];
         receivedCards = new ICard[numberOfReceivedCards()];
@@ -172,5 +145,22 @@ public class Player {
 
     public void setPowerDown(boolean powerDown, boolean gainLife) {
         robot.changePowerDown(powerDown, gainLife);
+    }
+
+    public void setOpponentPlayers(Player[] playersInGame) {
+        this.playersInGame = playersInGame;
+    }
+
+    public Player getOpponentPlayer(int playerNumber) {
+        return playersInGame[playerNumber];
+    }
+
+
+    public void setupBoardElements(BoardElements boardElements) {
+        robot.communicateBoardElements(boardElements);
+    }
+
+    public void setupRobotView() {
+        robot.setupRobotViewController(playerNumber);
     }
 }

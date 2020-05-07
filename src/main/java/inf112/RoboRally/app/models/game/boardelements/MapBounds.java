@@ -50,7 +50,7 @@ public class MapBounds implements IElement {
 
     private int checkForBoundMovingLeft(Pos pos, int steps) {
         for (int step = 1; step <= steps; step++) {
-            pos.setX(-1);
+            pos.updateX(-1);
             if (checkForXBound(pos.getX())) return step;
         }
         return steps;
@@ -62,7 +62,7 @@ public class MapBounds implements IElement {
 
     private int checkForBoundMovingRight(Pos pos, int steps) {
         for (int step = 1; step <= steps; step++) {
-            pos.setX(1);
+            pos.updateX(1);
             if (checkForXBound(pos.getX())) return step;
         }
         return steps;
@@ -70,7 +70,7 @@ public class MapBounds implements IElement {
 
     private int checkForBoundMovingDown(Pos pos, int steps) {
         for (int step = 1; step <= steps; step++) {
-            pos.setY(-1);
+            pos.updateY(-1);
             if (checkForYBound(pos.getY())) return step;
         }
         return steps;
@@ -82,7 +82,7 @@ public class MapBounds implements IElement {
 
     private int checkForBoundMovingUp(Pos pos, int steps) {
         for (int step = 1; step <= steps; step++) {
-            pos.setY(1);
+            pos.updateY(1);
             if (checkForYBound(pos.getY())) return step;
         }
         return steps;

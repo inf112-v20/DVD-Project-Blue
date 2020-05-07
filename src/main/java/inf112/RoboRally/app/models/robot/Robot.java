@@ -2,18 +2,13 @@ package inf112.RoboRally.app.models.robot;
 
 import inf112.RoboRally.app.controllers.RobotViewController;
 import inf112.RoboRally.app.models.cards.Rotation;
-import inf112.RoboRally.app.models.game.Game;
-import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.models.game.boardelements.BoardElements;
 import inf112.RoboRally.app.models.game.boardelements.flag.FlagType;
 import inf112.RoboRally.app.models.game.boardelements.repair.RepairType;
 
 public class Robot implements IRobot {
 
-    private Player player;
-
     // Position
-    private final Direction START_DIRECTION;
     private Direction direction;
     private volatile Pos pos;
 
@@ -33,17 +28,13 @@ public class Robot implements IRobot {
     // Board elements for robot interaction
     private BoardElements boardElements;
 
-    public Robot(Player player, Game game) {
-        this.player = player;
+    public Robot(Pos startingPos, Direction startingDir) {
         hp = MAX_HP;
         lives = STARTING_LIVES;
         poweredDown = false;
         isDead = false;
-        pos = game.getBoard().getRobotStartingPos(player.getPlayerNumber());
-        START_DIRECTION = game.getBoard().getRobotStartingDirection(player.getPlayerNumber());
-        direction = game.getBoard().getRobotStartingDirection(player.getPlayerNumber());
-        robotViewController = new RobotViewController(player.getPlayerNumber(), pos, direction);
-        boardElements = game.getBoardElements();
+        pos = startingPos;
+        direction = startingDir;
     }
 
 
@@ -61,19 +52,19 @@ public class Robot implements IRobot {
 
         switch (direction) {
             case UP:
-                pos.setY(steps);
+                pos.updateY(steps);
                 robotViewController.updateYCord(pos.getY());
                 break;
             case DOWN:
-                pos.setY(-steps);
+                pos.updateY(-steps);
                 robotViewController.updateYCord(pos.getY());
                 break;
             case RIGHT:
-                pos.setX(steps);
+                pos.updateX(steps);
                 robotViewController.updateXCord(pos.getX());
                 break;
             case LEFT:
-                pos.setX(-steps);
+                pos.updateX(-steps);
                 robotViewController.updateXCord(pos.getX());
                 break;
             default:
@@ -151,19 +142,19 @@ public class Robot implements IRobot {
     public void moveOneStepInDirection(Direction direction) {
         switch (direction) {
             case DOWN:
-                pos.setY(-1);
+                pos.updateY(-1);
                 robotViewController.updateYCord(pos.getY());
                 break;
             case UP:
-                pos.setY(1);
+                pos.updateY(1);
                 robotViewController.updateYCord(pos.getY());
                 break;
             case LEFT:
-                pos.setX(-1);
+                pos.updateX(-1);
                 robotViewController.updateXCord(pos.getX());
                 break;
             case RIGHT:
-                pos.setX(1);
+                pos.updateX(1);
                 robotViewController.updateXCord(pos.getX());
                 break;
             default:
@@ -212,7 +203,6 @@ public class Robot implements IRobot {
             robotViewController.updateViewToDead();
         }
         hp = getMAX_HP();
-        player.clearCardSlots();
         pos.restart();
         robotViewController.updateXCord(pos.getX());
         robotViewController.updateYCord(pos.getY());
@@ -249,5 +239,13 @@ public class Robot implements IRobot {
 
     public boolean isWinner() {
         return hasWon;
+    }
+
+    public void setupRobotViewController(int playerNumber) {
+        robotViewController = new RobotViewController(playerNumber, pos, direction);
+    }
+
+    public void communicateBoardElements(BoardElements boardElements) {
+        this.boardElements = boardElements;
     }
 }
