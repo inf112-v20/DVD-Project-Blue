@@ -44,7 +44,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         // setting up the game and board
         game = new Game(gameLauncher.settings());
-        robotViews = new RobotView[game.getGameCardController().numberOfPlayers()];
+        robotViews = new RobotView[game.getNumberOfPlayers()];
         TiledMap tiledMap = game.setUpMadLoader().getMap();
 
 
