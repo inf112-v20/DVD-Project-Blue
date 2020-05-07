@@ -20,9 +20,11 @@ public class CardFactoryTest {
     public void testCardGeneration() {
         int numberOfGenerations = 50;
         for (int i = 0; i < numberOfGenerations; i++) {
+
             assertNotNull(cardFactory.randomCard());
             assertTrue(cardFactory.randomCard().priority() >= 0 && cardFactory.randomCard().priority() <= 2000);
             assertNotNull(cardFactory.randomCard().getFileName());
+
         }
 
     }

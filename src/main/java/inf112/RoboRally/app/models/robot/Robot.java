@@ -206,11 +206,15 @@ public class Robot implements IRobot {
             if (robotViewController != null)
                 robotViewController.updateViewToDead();
         }
-        hp = getMAX_HP();
-        pos.restart();
-        if (robotViewController != null) {
-            robotViewController.updateXCord(pos.getX());
-            robotViewController.updateYCord(pos.getY());
+        if (lives > 0) {
+
+            hp = getMAX_HP();
+            pos.restart();
+            if (robotViewController != null) {
+                robotViewController.updateXCord(pos.getX());
+                robotViewController.updateYCord(pos.getY());
+            }
+
         }
 
     }

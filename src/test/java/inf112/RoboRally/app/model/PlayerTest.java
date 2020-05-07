@@ -22,9 +22,9 @@ public class PlayerTest {
     }
 
     @Test
-    public void constructorTest() {
+    public void constructorCardTest() {
+
         assertEquals(0, player.getPlayerNumber());
-        assertNotNull(player.robot());
         assertNotNull(player.getDealtCards());
         assertNotNull(player.getCardSlots());
         assertEquals(player.getDealtCards().length, player.numberOfReceivedCards());
@@ -32,6 +32,16 @@ public class PlayerTest {
         assertEquals(5, player.numberOfCardSlots());
         assertEquals(9, player.numberOfReceivedCards());
         assertTrue(player.isBotPlayer()); // players are bots unless told otherwise
+
+    }
+
+    @Test
+    public void constructorRobotTest() {
+
+        assertNotNull(player.robot());
+        assertEquals(5, player.robot().pos().getX());
+        assertEquals(5, player.robot().pos().getY());
+        assertEquals(Direction.RIGHT, player.robot().direction());
 
     }
 
@@ -95,6 +105,28 @@ public class PlayerTest {
 
 
     }
+
+    @Test
+    public void playerGetsDealtLessCardsAfterRobotLoosesHP() {
+        player.getDealtCards();
+        assertEquals(9, player.numberOfReceivedCards());
+        player.resetCards();
+        player.robot().looseHP(5);
+        player.getDealtCards();
+        assertEquals(5, player.numberOfReceivedCards());
+
+    }
+
+    @Test
+    public void playerDoesNotGetDealtAnyCardsWhenRobotIsDead() {
+        player.robot().looseHP(10);
+        player.robot().looseHP(10);
+        player.robot().looseHP(10);
+        player.getDealtCards();
+        assertEquals(0, player.numberOfReceivedCards());
+    }
+
+
 
 
 
