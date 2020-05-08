@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.model;
+package inf112.RoboRally.app.cards;
 
 import inf112.RoboRally.app.models.cards.CardFactory;
 import org.junit.Before;

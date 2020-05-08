@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.model;
+package inf112.RoboRally.app.game;
 
 import inf112.RoboRally.app.views.menus.singleplayersettingscontroller.SinglePlayerSettingsController;
 import inf112.RoboRally.app.models.cards.ForwardCard;

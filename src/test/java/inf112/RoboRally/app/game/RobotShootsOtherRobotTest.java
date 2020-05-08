@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.model;
+package inf112.RoboRally.app.game;
 
 import inf112.RoboRally.app.models.game.boardelements.RobotShootOtherRobotChecker;
 import inf112.RoboRally.app.models.robot.Direction;

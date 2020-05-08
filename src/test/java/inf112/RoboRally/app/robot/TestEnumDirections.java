@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.model;
+package inf112.RoboRally.app.robot;
 
 import inf112.RoboRally.app.models.robot.Direction;
 import org.junit.Before;

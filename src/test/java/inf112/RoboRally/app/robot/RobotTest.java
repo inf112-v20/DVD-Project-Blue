@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.model;
+package inf112.RoboRally.app.robot;
 
 import inf112.RoboRally.app.models.cards.Rotation;
 import inf112.RoboRally.app.models.game.boardelements.flag.FlagType;
