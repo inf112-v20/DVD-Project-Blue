@@ -29,21 +29,21 @@ public class MapBoundTest {
 
     @Test
     public void testNothingHappensWhenRobotIsInsideBoundsTest() {
-        bounds.effectRobotAfterCardExec(robot);
+        bounds.effectRobotInRegistrationPhase(robot);
         assertFalse(robot.isDead());
     }
 
     @Test
     public void robotIsDeadWhenMovingOutOfLowerXBound() {
         robot.move(-5);
-        bounds.effectRobotAfterCardExec(robot);
+        bounds.effectRobotInRegistrationPhase(robot);
         assertTrue(robot.isDead());
     }
 
     @Test
     public void robotIsDeadWhenMovingOutBoundsUpperXBound() {
         robot.move(20);
-        bounds.effectRobotAfterCardExec(robot);
+        bounds.effectRobotInRegistrationPhase(robot);
         assertTrue(robot.isDead());
     }
 
@@ -51,7 +51,7 @@ public class MapBoundTest {
     public void robotIsDeadWhenMovingOutBoundsLowerYBound() {
         robot.rotate(Rotation.RIGHT);
         robot.move(20); // moving down
-        bounds.effectRobotAfterCardExec(robot);
+        bounds.effectRobotInRegistrationPhase(robot);
         assertTrue(robot.isDead());
     }
 
@@ -59,7 +59,7 @@ public class MapBoundTest {
     public void robotIsDeadWhenMovingOutBoundsUpperYBound() {
         robot.rotate(Rotation.LEFT);
         robot.move(25); // moving up
-        bounds.effectRobotAfterCardExec(robot);
+        bounds.effectRobotInRegistrationPhase(robot);
         assertTrue(robot.isDead());
     }
 

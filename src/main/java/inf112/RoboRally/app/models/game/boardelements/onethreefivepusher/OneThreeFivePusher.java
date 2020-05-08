@@ -3,12 +3,12 @@ package inf112.RoboRally.app.models.game.boardelements.onethreefivepusher;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import inf112.RoboRally.app.models.game.boardelements.IElement;
+import inf112.RoboRally.app.models.game.boardelements.IRegistrationPhaseElement;
 import inf112.RoboRally.app.models.robot.Direction;
 import inf112.RoboRally.app.models.robot.Pos;
 import inf112.RoboRally.app.models.robot.Robot;
 
-public class OneThreeFivePusher implements IElement {
+public class OneThreeFivePusher implements IRegistrationPhaseElement {
 
     private TiledMapTileLayer layer;
     private final boolean ACTIVE;
@@ -19,13 +19,9 @@ public class OneThreeFivePusher implements IElement {
         this.layer = layer;
     }
 
-    @Override
-    public int effectRobotSteps(int steps) {
-        return 0;
-    }
 
     @Override
-    public void effectRobotAfterCardExec(Robot robot) {
+    public void effectRobotInRegistrationPhase(Robot robot) {
         Pos pos = robot.pos();
         int x = pos.getX(), y = pos.getY();
         if (checkForPusher(x, y, OneThreeFivePusherType.PUSH_DOWN)) {

@@ -4,12 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.RoboRally.app.models.cards.Rotation;
-import inf112.RoboRally.app.models.game.boardelements.IElement;
+import inf112.RoboRally.app.models.game.boardelements.IRegistrationPhaseElement;
 import inf112.RoboRally.app.models.robot.Direction;
 import inf112.RoboRally.app.models.robot.Pos;
 import inf112.RoboRally.app.models.robot.Robot;
 
-public class BlueBelt implements IElement {
+public class BlueBelt implements IRegistrationPhaseElement {
 
     TiledMapTileLayer layer;
     public final boolean ACTIVE;
@@ -21,12 +21,7 @@ public class BlueBelt implements IElement {
     }
 
     @Override
-    public int effectRobotSteps(int steps) {
-        return 0;
-    }
-
-    @Override
-    public void effectRobotAfterCardExec(Robot robot) {
+    public void effectRobotInRegistrationPhase(Robot robot) {
         Pos pos = robot.pos();
         int x = pos.getX(), y = pos.getY();
         if (checkForBlueBelt(x,y, BlueBeltType.PUSH_UP) && checkForBlueBelt(x, y+1, BlueBeltType.UP_AND_DOWN_TO_RIGHT)) {

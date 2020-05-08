@@ -1,12 +1,10 @@
 package inf112.RoboRally.app.models.game.boardelements;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import inf112.RoboRally.app.models.robot.Direction;
 import inf112.RoboRally.app.models.robot.Pos;
 import inf112.RoboRally.app.models.robot.Robot;
 
-public class MapBounds implements IElement {
+public class MapBounds implements IRegistrationPhaseElement {
 
     private final int Y_LOWER_BOUND = 2;
     private final int Y_UPPER_BOUND = 15;
@@ -14,15 +12,9 @@ public class MapBounds implements IElement {
     private final int X_UPPER_BOUND = 21;
     public final boolean ACTIVE = true;
 
-    public MapBounds() {}
 
     @Override
-    public int effectRobotSteps(int steps) {
-        return 0;
-    }
-
-    @Override
-    public void effectRobotAfterCardExec(Robot robot) {
+    public void effectRobotInRegistrationPhase(Robot robot) {
         Pos pos = robot.pos();
         if (checkForYBound(pos.getY()) || checkForXBound(pos.getX())) robot.reset(true);
     }

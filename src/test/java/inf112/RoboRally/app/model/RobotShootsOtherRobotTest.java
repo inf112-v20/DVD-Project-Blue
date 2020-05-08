@@ -30,12 +30,12 @@ public class RobotShootsOtherRobotTest {
 
         // the first robot did not get shot by the second robot
         assertEquals(10, robot1.getHP());
-        shootChecker.effectRobotAfterCardExec(robot1);
+        shootChecker.effectRobotInRegistrationPhase(robot1);
         assertEquals(10, robot1.getHP());
 
         // the second robot did not get shot by the first robot
         assertEquals(10, robot2.getHP());
-        shootChecker.effectRobotAfterCardExec(robot1);
+        shootChecker.effectRobotInRegistrationPhase(robot1);
         assertEquals(10, robot2.getHP());
     }
 
@@ -48,12 +48,12 @@ public class RobotShootsOtherRobotTest {
 
         // the first robot did not get shot by the second robot
         assertEquals(10, robot1.getHP());
-        shootChecker.effectRobotAfterCardExec(robot1);
+        shootChecker.effectRobotInRegistrationPhase(robot1);
         assertEquals(10, robot1.getHP());
 
         // the second robot did not get shot by the first robot
         assertEquals(10, robot2.getHP());
-        shootChecker.effectRobotAfterCardExec(robot1);
+        shootChecker.effectRobotInRegistrationPhase(robot1);
         assertEquals(10, robot2.getHP());
     }
 
@@ -67,7 +67,7 @@ public class RobotShootsOtherRobotTest {
 
         // the first robot got shot by the second robot
         assertEquals(10, robot1.getHP());
-        shootChecker.effectRobotAfterCardExec(robot1);
+        shootChecker.effectRobotInRegistrationPhase(robot1);
         assertEquals(9, robot1.getHP());
 
     }
@@ -82,7 +82,7 @@ public class RobotShootsOtherRobotTest {
 
         // the first robot got shot by the second robot
         assertEquals(10, robot1.getHP());
-        shootChecker.effectRobotAfterCardExec(robot1);
+        shootChecker.effectRobotInRegistrationPhase(robot1);
         assertEquals(9, robot1.getHP());
 
     }
@@ -97,12 +97,12 @@ public class RobotShootsOtherRobotTest {
 
         // the first robot got shot by the second robot
         assertEquals(10, robot1.getHP());
-        shootChecker.effectRobotAfterCardExec(robot1);
+        shootChecker.effectRobotInRegistrationPhase(robot1);
         assertEquals(9, robot1.getHP());
 
         // the second robot got shot by the first robot
         assertEquals(10, robot2.getHP());
-        shootChecker.effectRobotAfterCardExec(robot2);
+        shootChecker.effectRobotInRegistrationPhase(robot2);
         assertEquals(9, robot2.getHP());
     }
 
@@ -115,14 +115,14 @@ public class RobotShootsOtherRobotTest {
 
         // the second robot got shot by the first robot
         assertEquals(10, robot2.getHP());
-        shootChecker.effectRobotAfterCardExec(robot2);
+        shootChecker.effectRobotInRegistrationPhase(robot2);
         assertEquals(9, robot2.getHP());
 
         robot1.changePowerDown(true, true);
         assertTrue(robot1.isPoweredDown());
 
         // the second robot did not get shot when first robot was powered down
-        shootChecker.effectRobotAfterCardExec(robot2);
+        shootChecker.effectRobotInRegistrationPhase(robot2);
         assertEquals(9, robot2.getHP());
     }
 
@@ -135,13 +135,13 @@ public class RobotShootsOtherRobotTest {
 
         // the first robot got shot by the second robot
         assertEquals(10, robot1.getHP());
-        shootChecker.effectRobotAfterCardExec(robot1);
+        shootChecker.effectRobotInRegistrationPhase(robot1);
         assertEquals(9, robot1.getHP());
 
         robot1.changePowerDown(true, true);
 
         assertEquals(10, robot1.getHP()); // replenishes HP when powerdown announced
-        shootChecker.effectRobotAfterCardExec(robot1);
+        shootChecker.effectRobotInRegistrationPhase(robot1);
         assertEquals(9, robot1.getHP());
     }
 
@@ -154,12 +154,12 @@ public class RobotShootsOtherRobotTest {
 
         // robot1 shot robot2
         assertEquals(10, robot2.getHP());
-        shootChecker.effectRobotAfterCardExec(robot2);
+        shootChecker.effectRobotInRegistrationPhase(robot2);
         assertEquals(9, robot2.getHP());
 
         // robot1 dies
         robot1.looseHP(10);
-        shootChecker.effectRobotAfterCardExec(robot2);
+        shootChecker.effectRobotInRegistrationPhase(robot2);
 
         // robot2 did not get shot again after robot1 died
         assertEquals(9, robot2.getHP());

@@ -3,12 +3,12 @@ package inf112.RoboRally.app.models.game.boardelements.twofourpusher;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import inf112.RoboRally.app.models.game.boardelements.IElement;
+import inf112.RoboRally.app.models.game.boardelements.IRegistrationPhaseElement;
 import inf112.RoboRally.app.models.robot.Direction;
 import inf112.RoboRally.app.models.robot.Pos;
 import inf112.RoboRally.app.models.robot.Robot;
 
-public class TwoFourPusher implements IElement {
+public class TwoFourPusher implements IRegistrationPhaseElement {
 
     private TiledMapTileLayer layer;
     public final boolean ACTIVE;
@@ -20,13 +20,9 @@ public class TwoFourPusher implements IElement {
         this.layer = layer;
     }
 
-    // not used for this
-    public int effectRobotSteps(int steps) {
-        return -1;
-    }
 
     @Override
-    public void effectRobotAfterCardExec(Robot robot) {
+    public void effectRobotInRegistrationPhase(Robot robot) {
         Pos pos = robot.pos();
         int x = pos.getX(); int y = pos.getY();
         if (checkForPusher(x, y, TwoFourPusherType.TWO_FOUR_PUSH_DOWN)) {

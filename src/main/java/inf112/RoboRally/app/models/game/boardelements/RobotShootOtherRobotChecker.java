@@ -4,17 +4,12 @@ import inf112.RoboRally.app.models.robot.Direction;
 import inf112.RoboRally.app.models.robot.Pos;
 import inf112.RoboRally.app.models.robot.Robot;
 
-public class RobotShootOtherRobotChecker implements IElement {
+public class RobotShootOtherRobotChecker implements IRegistrationPhaseElement {
 
     private Robot[] robots;
 
     @Override
-    public int effectRobotSteps(int steps) {
-        return 0;
-    }
-
-    @Override
-    public void effectRobotAfterCardExec(Robot robot) {
+    public void effectRobotInRegistrationPhase(Robot robot) {
         Pos robotPos = robot.pos();
 
         for (Robot enemyRobot: robots) {

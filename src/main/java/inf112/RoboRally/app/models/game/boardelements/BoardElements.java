@@ -32,7 +32,7 @@ public class BoardElements {
     private LaserBeam laserBeam;
     private RobotShootOtherRobotChecker robotShootOtherRobotChecker;
 
-    IElement[] elementsThatEffectRobot;
+    IRegistrationPhaseElement[] elementsThatEffectRobot;
 
     public BoardElements(TiledMapLoader tiledMapLoader) {
         // elements that effect robot after cards
@@ -49,7 +49,7 @@ public class BoardElements {
         wall = new Wall( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("wall") );
         hole = new Hole( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("hole") );
         cornerWall = new CornerWall( (TiledMapTileLayer) tiledMapLoader.getMap().getLayers().get("doubleWall") );
-        elementsThatEffectRobot = new IElement[12];
+        elementsThatEffectRobot = new IRegistrationPhaseElement[12];
         elementsThatEffectRobot[0] = hole;
         elementsThatEffectRobot[1] = mapBounds;
         elementsThatEffectRobot[2] = blueBelt;
@@ -78,7 +78,7 @@ public class BoardElements {
     }
 
 
-    public IElement[] boardEffects() {
+    public IRegistrationPhaseElement[] boardEffects() {
         return elementsThatEffectRobot;
     }
 

@@ -4,7 +4,7 @@ import inf112.RoboRally.app.models.cards.ICard;
 import inf112.RoboRally.app.models.cards.SortCardByPriority;
 import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.models.game.Timer;
-import inf112.RoboRally.app.models.game.boardelements.IElement;
+import inf112.RoboRally.app.models.game.boardelements.IRegistrationPhaseElement;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,10 +20,10 @@ public class RoundPhaseExecutor {
     private AtomicInteger slotNumber = new AtomicInteger(0);
     private final int NUMBER_OF_SLOTS = 5;
     private Player[] players;
-    private IElement[] registrationPhaseEffects;
+    private IRegistrationPhaseElement[] registrationPhaseEffects;
     private Timer timer; // access to timer in game for reset when round execution is complete
 
-    public RoundPhaseExecutor(Player[] players, IElement[] boardEffects, Timer timer) {
+    public RoundPhaseExecutor(Player[] players, IRegistrationPhaseElement[] boardEffects, Timer timer) {
         this.players = players;
         this.registrationPhaseEffects = boardEffects;
         this.timer = timer;
