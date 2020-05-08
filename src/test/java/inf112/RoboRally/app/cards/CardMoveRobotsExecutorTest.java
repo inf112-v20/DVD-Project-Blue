@@ -126,7 +126,54 @@ public class CardMoveRobotsExecutorTest {
 
     }
 
-    
+    @Test
+    public void testThatOnlyCardsThatAreGivenToCardMovementExecutorIsUsed() {
+        ArrayList<ICard> cards = new ArrayList<>();
+        cards.add(oneStepForward);
+        cards.add(twoStepForward);
+
+        CountDownLatch cardExecutionLatch = new CountDownLatch(1);
+        cardMoveRobotExecutor = new CardMoveRobotExecutor(cards, cardExecutionLatch);
+
+        // player1 initial position
+        assertEquals(4, player1.robot().pos().getX());
+        assertEquals(4, player1.robot().pos().getY());
+
+        // player2 initial position
+        assertEquals(4, player2.robot().pos().getX());
+        assertEquals(6, player2.robot().pos().getY());
+
+        // player3 initial position
+        assertEquals(4, player3.robot().pos().getX());
+        assertEquals(8, player3.robot().pos().getY());
+
+        // player4 initial direction
+        assertEquals(Direction.RIGHT, player4.robot().direction());
+
+        // execution taking place
+        cardMoveRobotExecutor.executeCards();
+
+        try {
+            cardExecutionLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // player1 new position
+        assertEquals(5, player1.robot().pos().getX());
+        assertEquals(4, player1.robot().pos().getY());
+
+        // player2 new position
+        assertEquals(6, player2.robot().pos().getX());
+        assertEquals(6, player2.robot().pos().getY());
+
+        // player3 still at initial position
+        assertEquals(4, player3.robot().pos().getX());
+        assertEquals(8, player3.robot().pos().getY());
+
+        // player4 still looking in initial direction
+        assertEquals(Direction.RIGHT, player4.robot().direction());
+    }
 
 
 }
