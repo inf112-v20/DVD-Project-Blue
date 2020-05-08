@@ -16,9 +16,9 @@ public class Game {
     private Round round;
 
     // players
-    private int humanPlayerNumberChoice = 0; // player1 hardcoded as human player for now
+    private int humanPlayerNumberChoice = 0; // player1 given as human player for now
     private Player[] players;
-    private Player humanPlayer; // player 1 is given as human player for now
+    private Player humanPlayer;
 
     //MapLoader
     private TiledMapLoader tiledMapLoader;
