@@ -78,3 +78,89 @@ Shown below is a screenshot of the current project board
 
 ![Project board](https://github.com/inf112-v20/DVD-Project-Blue/blob/master/deliverables/UML/ProjectBoardOblig4.PNG?raw=true)
 
+## Task 2
+The fourth delivery is the final delivery and the result should therefore be a complete game. Now the player 
+of the game should be able to select the amount of AI-players it want to play against. However, the AI-players 
+select the cards randomly and are not considered as smart.
+
+Since last time we wanted to set up a server such that the player could play against other human players 
+through a LAN. Unfortunately, we did not manage to implement this before the deadline. This part of the 
+project has been challenging and we must admit that we should have started earlier. By starting earlier we 
+could have faced the challenges while still having time to fix them. The implementation of LAN is really 
+something we wished to accomplish and we talked about it in an early stage of the project. However,  even 
+though the player could not play through a LAN, we have learned a lot and the written code has not been for 
+nothing. This is something we will take with us in future game development projects. Furthermore, the elements 
+on the board interacts with the player on the board. This is essential in order to create a complete game. There
+ are now communication between the user, controllers, cards and players of the game. 
+ 
+ In this delivery we have prioritized to complete the ability to play against other, and consider this as part 
+ of the MVP. A complete game should have this option and it’s the main reason for the MVP consideration.
+ 
+ **User stories**
+ 
+ **_User stoy number 1_**
+ 
+ I want to be able to choose the amount of robot-players to play against
+ 
+ _Task:_
+ 
+ Implement a method such that the player could choose the amount robot AI
+ 
+ _Acceptance requirements:_
+ 
+ A player should be able to choose the amount of players by clicking “player count” in the menu. 
+ 
+ **_User story number 2_**
+ 
+  I want to be able to win
+  
+ _Task:_
+ 
+  Implement a method that indicates whenever a player has won the game
+  
+ _Acceptance requirements:_
+ 
+ The player should be able to win the game if it has collected all the flags and has remaining health points (hp). 
+ 
+ **_User story number 3_**
+ 
+ I want to able to see when I die
+ 
+ _Task:_
+ 
+ Implement a method that indicates when the player have no lives left and the game is over.
+ 
+ _Acceptance requirements:_
+ 
+ The player should visually see when its own player dies, both on the board and in the player hub, 
+ so that it knows when to restart the game.
+ 
+ **_User story number 4_**
+ 
+  I want to hear sound effects
+  
+ _Task:_
+ 
+ Add on soundtrack when the players locations meets the location of an item
+ 
+ _Acceptance requirements:_
+ 
+ The player should be able to hear a sound when hitting an item on the board, i.e., a laser or a hole 
+ 
+ **Bugs**
+ 
+ ###Task 3
+ 
+ Shown below is the respective class-diagram:
+ 
+ **How to run the program**
+ 
+ The game is run by running Main in the inf112.RoboRally.app folder. When running _Main_, 
+ a new window will appear and the player is shown a menu with four different choices. 
+ _Play_, _lan_, _test game_ and _quit_. When selecting play, the player can choose which game 
+ board/map it wants and the amount of players it want to play against. It would have 
+ been possible to play against other human players by clicking the Lan button. When 
+ clicking Start, the selected map appears and the player gets to drag and drop cards 
+ from the right side of the board. The player has also the opportunity to change cards 
+ by clicking the Cards button. When the player has selected the preferred cards the game
+  begin by clicking on the Ready-button. 
