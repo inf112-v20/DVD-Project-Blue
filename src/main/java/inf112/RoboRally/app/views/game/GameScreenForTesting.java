@@ -12,6 +12,7 @@ import inf112.RoboRally.app.GameLauncher;
 import inf112.RoboRally.app.models.cards.Rotation;
 import inf112.RoboRally.app.models.game.Game;
 import inf112.RoboRally.app.models.game.Player;
+import inf112.RoboRally.app.models.game.Timer;
 import inf112.RoboRally.app.views.player.PlayerUI;
 import inf112.RoboRally.app.views.robot.RobotView;
 
@@ -27,6 +28,8 @@ public class GameScreenForTesting extends InputAdapter implements Screen {
     private Player[] players;
     private RobotView[] robotViews;
 
+    private Timer timer;
+
 
     public GameScreenForTesting(GameLauncher launcher) {
         // rendering stuff
@@ -41,6 +44,7 @@ public class GameScreenForTesting extends InputAdapter implements Screen {
         robotViews = new RobotView[1];
         TiledMap tiledMap = game.setUpMadLoader().getMap();
         playerUI = game.getHumanPlayer().getPlayerUI();
+
 
         // rendering, camera, and input processors
         mapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1/256f);
@@ -72,8 +76,6 @@ public class GameScreenForTesting extends InputAdapter implements Screen {
         mapRenderer.render();
 
         gameLauncher.batch.setProjectionMatrix(playerUI.getStage().getCamera().combined);
-        playerUI.getStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1));
-        playerUI.getStage().draw();
 
         gameLauncher.batch.end();
 
