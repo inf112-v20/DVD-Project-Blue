@@ -48,7 +48,7 @@ public class Round {
         updateRobotsThatDiedThePreviousRound();                           // making all robots that died the previous round alive again
         if (checkForWinner()) return;
         RoundPhaseExecutor cardChoiceExecutor = new RoundPhaseExecutor(players, registrationPhaseEffects, timer);
-        cardChoiceExecutor.CardChoiceRoundExecutor();
+        cardChoiceExecutor.roundPhaseExecutor();
 
     }
 

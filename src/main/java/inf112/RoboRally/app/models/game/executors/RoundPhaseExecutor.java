@@ -30,7 +30,9 @@ public class RoundPhaseExecutor {
     }
 
 
-    public void CardChoiceRoundExecutor() {
+
+
+    public void roundPhaseExecutor() {
         Runnable collectCards = () -> {
 
             CountDownLatch cardExecutionLatch = new CountDownLatch(1);
@@ -55,18 +57,20 @@ public class RoundPhaseExecutor {
 
             CountDownLatch boardElementLatch = new CountDownLatch(1);
 
-            BoardElementRegistrationExecutor boardElementExecutor = new BoardElementRegistrationExecutor(players, slotNumber.get(), registrationPhaseEffects, boardElementLatch);
-            boardElementExecutor.executeBoardElements();
-
-            try {
-                boardElementLatch.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if (registrationPhaseEffects != null) {
+                BoardElementRegistrationExecutor boardElementExecutor = new BoardElementRegistrationExecutor(players, slotNumber.get(), registrationPhaseEffects, boardElementLatch);
+                boardElementExecutor.executeBoardElements();
+                try {
+                    boardElementLatch.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+
 
             if (slotNumber.incrementAndGet() == NUMBER_OF_SLOTS) {
                 turnRobotsThatWerePoweredDownOnForNextRound();
-                timer.reset();
+                if (timer != null) timer.reset();
                 scheduler.shutdown();
             }
         };
