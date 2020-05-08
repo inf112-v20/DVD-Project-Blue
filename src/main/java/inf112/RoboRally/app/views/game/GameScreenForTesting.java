@@ -72,6 +72,8 @@ public class GameScreenForTesting extends InputAdapter implements Screen {
         mapRenderer.render();
 
         gameLauncher.batch.setProjectionMatrix(playerUI.getStage().getCamera().combined);
+        playerUI.getStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1));
+        playerUI.getStage().draw();
 
         gameLauncher.batch.end();
 
