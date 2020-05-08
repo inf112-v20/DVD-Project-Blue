@@ -3,7 +3,6 @@ package inf112.RoboRally.app.views.game;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -13,12 +12,8 @@ import inf112.RoboRally.app.GameLauncher;
 import inf112.RoboRally.app.models.cards.Rotation;
 import inf112.RoboRally.app.models.game.Game;
 import inf112.RoboRally.app.models.game.Player;
-import inf112.RoboRally.app.models.game.boardelements.BoardElements;
-import inf112.RoboRally.app.models.game.executors.BoardElementRegistrationExecutor;
 import inf112.RoboRally.app.views.player.PlayerUI;
 import inf112.RoboRally.app.views.robot.RobotView;
-
-import java.util.concurrent.CountDownLatch;
 
 public class GameScreenForTesting extends InputAdapter implements Screen {
 
@@ -31,12 +26,6 @@ public class GameScreenForTesting extends InputAdapter implements Screen {
     private PlayerUI playerUI;
     private Player[] players;
     private RobotView[] robotViews;
-
-    // setting up effects on the board
-    boolean boardEffectsActive;
-    BoardElements boardElements;
-    BoardElementRegistrationExecutor boardElementExec;
-    CountDownLatch boardEffectsLatch;
 
 
     public GameScreenForTesting(GameLauncher launcher) {
@@ -97,18 +86,6 @@ public class GameScreenForTesting extends InputAdapter implements Screen {
         robotViews[playerNumber] = players[playerNumber].robot().getRobotViewController().getRobotView();
         RobotView robotView = robotViews[playerNumber];
         robotView.draw(gameLauncher.batch);
-        String PATH = "assets/smallrobot/player";
-        if (robotView.isDeadThisRound()) {
-            robotView.setTexture(new Texture(PATH + playerNumber +"dead.png"));
-        } else if (robotView.isPoweredDown()) {
-            robotView.setTexture(new Texture(PATH + playerNumber +"powrdown.png"));
-        } else if (robotView.hasWon()) {
-            robotView.setTexture(new Texture(PATH + playerNumber +"won.png"));
-        } else if (robotView.flagCaptures() > 0) {
-            robotView.setTexture(new Texture(PATH + playerNumber +"flag" + robotView.flagCaptures() +".png"));
-        } else {
-            robotView.setTexture(new Texture(PATH + playerNumber +".png"));
-        }
         gameLauncher.batch.end();
     }
 
@@ -139,34 +116,17 @@ public class GameScreenForTesting extends InputAdapter implements Screen {
 
     @Override
     public boolean keyUp(int keycode) {
-        if (!boardEffectsActive) {
-            if (keycode == Input.Keys.UP) {
-                players[0].robot().move(1);
-            } else if (keycode == Input.Keys.DOWN) {
-                players[0].robot().move(-1);
-            } else if (keycode == Input.Keys.LEFT) {
-                players[0].robot().rotate(Rotation.LEFT);
-            } else if (keycode == Input.Keys.RIGHT) {
-                players[0].robot().rotate(Rotation.RIGHT);
-            } else if (keycode == Input.Keys.S) {
-                boardEffectsActive = true;
-                setUpBoardEffectExecutor();
-                try {
-                    boardEffectsLatch.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                boardEffectsActive = false;
-            }
+        if (keycode == Input.Keys.UP) {
+            players[0].robot().move(1);
+        } else if (keycode == Input.Keys.DOWN) {
+            players[0].robot().move(-1);
+        } else if (keycode == Input.Keys.LEFT) {
+            players[0].robot().rotate(Rotation.LEFT);
+        } else if (keycode == Input.Keys.RIGHT) {
+            players[0].robot().rotate(Rotation.RIGHT);
         }
         return super.keyUp(keycode);
     }
 
-    private void setUpBoardEffectExecutor() {
-        boardEffectsLatch = new CountDownLatch(1);
-        boardElements = new BoardElements(game.setUpMadLoader());
-        boardElements.setupRobotShootOtherRobotChecker(game.allRobotsInGame());
-        boardElementExec = new BoardElementRegistrationExecutor(game.players(), 0, boardElements.boardEffects(), boardEffectsLatch);
-        boardElementExec.executeBoardElements();
-    }
+
 }
