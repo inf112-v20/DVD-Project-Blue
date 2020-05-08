@@ -78,7 +78,7 @@ Shown below is a screenshot of the current project board
 
 ![Project board](https://github.com/inf112-v20/DVD-Project-Blue/blob/master/deliverables/UML/ProjectBoardOblig4.PNG?raw=true)
 
-## Task 2
+### Part 2
 The fourth delivery is the final delivery and the result should therefore be a complete game. Now the player 
 of the game should be able to select the amount of AI-players it want to play against. However, the AI-players 
 select the cards randomly and are not considered as smart.
@@ -149,7 +149,7 @@ on the board interacts with the player on the board. This is essential in order 
  
  **Bugs**
  
- ###Task 3
+ ### Part 3
  
  Shown below is the respective class-diagram:
  
@@ -157,10 +157,11 @@ on the board interacts with the player on the board. This is essential in order 
  
  The game is run by running Main in the inf112.RoboRally.app folder. When running _Main_, 
  a new window will appear and the player is shown a menu with four different choices. 
- _Play_, _lan_, _test game_ and _quit_. When selecting play, the player can choose which game 
+ _Play_, _lan_, _test game_ and _quit_. When selecting _play_, the player can choose which game 
  board/map it wants and the amount of players it want to play against. It would have 
- been possible to play against other human players by clicking the Lan button. When 
- clicking Start, the selected map appears and the player gets to drag and drop cards 
+ been possible to play against other human players by clicking the _Lan_ button. When 
+ clicking _Start_, the selected map appears and the player gets to drag and drop cards 
  from the right side of the board. The player has also the opportunity to change cards 
- by clicking the Cards button. When the player has selected the preferred cards the game
-  begin by clicking on the Ready-button. 
+ by clicking the _Cards_ button. When the player has selected the preferred cards the game
+  begin by clicking on the _Ready_-button. 
+  
