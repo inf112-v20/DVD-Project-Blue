@@ -75,19 +75,19 @@ public enum YellowBeltType {
             return 52;
         }
     },
-    YELLOW_1 {
+    LEFT_TURN_INTO_DOWN {
         @Override
         public int getTileId() {
             return 59;
         }
     },
-    YELLOW_2 {
+    LEFT_TURN_INTO_LEFT {
         @Override
         public int getTileId() {
             return 60;
         }
     },
-    YELLOW_3 {
+    LEFT_TURN_INTO_RIGHT {
         @Override
         public int getTileId() {
             return 67;
@@ -99,7 +99,7 @@ public enum YellowBeltType {
             return 68;
         }
     },
-    YELLOW_5 {
+    RIGHT_TURN_INTO_RIGHT {
         @Override
         public int getTileId() { return 61; }
     },
@@ -111,7 +111,7 @@ public enum YellowBeltType {
         @Override
         public int getTileId() { return 69; }
     },
-    YELLOW_8 {
+    RIGHT_TURN_INTO_LEFT {
         @Override
         public int getTileId() { return 70; }
     },

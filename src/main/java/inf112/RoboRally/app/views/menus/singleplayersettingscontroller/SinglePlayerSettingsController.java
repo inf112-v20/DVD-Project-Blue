@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.controllers.settingscontroller;
+package inf112.RoboRally.app.views.menus.singleplayersettingscontroller;
 
 import inf112.RoboRally.app.models.board.Board;
 

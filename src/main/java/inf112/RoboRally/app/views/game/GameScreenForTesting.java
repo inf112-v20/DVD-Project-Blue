@@ -13,8 +13,12 @@ import inf112.RoboRally.app.GameLauncher;
 import inf112.RoboRally.app.models.cards.Rotation;
 import inf112.RoboRally.app.models.game.Game;
 import inf112.RoboRally.app.models.game.Player;
+import inf112.RoboRally.app.models.game.boardelements.BoardElements;
+import inf112.RoboRally.app.models.game.executors.BoardElementRegistrationExecutor;
 import inf112.RoboRally.app.views.player.PlayerUI;
 import inf112.RoboRally.app.views.robot.RobotView;
+
+import java.util.concurrent.CountDownLatch;
 
 public class GameScreenForTesting extends InputAdapter implements Screen {
 
@@ -28,6 +32,13 @@ public class GameScreenForTesting extends InputAdapter implements Screen {
     private Player[] players;
     private RobotView[] robotViews;
 
+    // setting up effects on the board
+    boolean boardEffectsActive;
+    BoardElements boardElements;
+    BoardElementRegistrationExecutor boardElementExec;
+    CountDownLatch boardEffectsLatch;
+
+
     public GameScreenForTesting(GameLauncher launcher) {
         // rendering stuff
         this.gameLauncher = launcher;
@@ -40,9 +51,9 @@ public class GameScreenForTesting extends InputAdapter implements Screen {
         game = new Game(gameLauncher.settings());
         robotViews = new RobotView[1];
         TiledMap tiledMap = game.setUpMadLoader().getMap();
-
         playerUI = game.getHumanPlayer().getPlayerUI();
 
+        // rendering, camera, and input processors
         mapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1/256f);
         camera.setToOrtho(false, 26, 15);
         mapRenderer.setView(camera);
@@ -128,15 +139,34 @@ public class GameScreenForTesting extends InputAdapter implements Screen {
 
     @Override
     public boolean keyUp(int keycode) {
-        if (keycode == Input.Keys.UP) {
-            players[0].robot().move(1);
-        } else if (keycode == Input.Keys.DOWN) {
-            players[0].robot().move(-1);
-        } else if (keycode == Input.Keys.LEFT) {
-            players[0].robot().rotate(Rotation.LEFT);
-        } else if (keycode == Input.Keys.RIGHT) {
-            players[0].robot().rotate(Rotation.RIGHT);
+        if (!boardEffectsActive) {
+            if (keycode == Input.Keys.UP) {
+                players[0].robot().move(1);
+            } else if (keycode == Input.Keys.DOWN) {
+                players[0].robot().move(-1);
+            } else if (keycode == Input.Keys.LEFT) {
+                players[0].robot().rotate(Rotation.LEFT);
+            } else if (keycode == Input.Keys.RIGHT) {
+                players[0].robot().rotate(Rotation.RIGHT);
+            } else if (keycode == Input.Keys.S) {
+                boardEffectsActive = true;
+                setUpBoardEffectExecutor();
+                try {
+                    boardEffectsLatch.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                boardEffectsActive = false;
+            }
         }
         return super.keyUp(keycode);
+    }
+
+    private void setUpBoardEffectExecutor() {
+        boardEffectsLatch = new CountDownLatch(1);
+        boardElements = new BoardElements(game.setUpMadLoader());
+        boardElements.setupRobotShootOtherRobotChecker(game.allRobotsInGame());
+        boardElementExec = new BoardElementRegistrationExecutor(game.players(), 0, boardElements.boardEffects(), boardEffectsLatch);
+        boardElementExec.executeBoardElements();
     }
 }

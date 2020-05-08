@@ -1,6 +1,6 @@
 package inf112.RoboRally.app.model;
 
-import inf112.RoboRally.app.controllers.settingscontroller.SinglePlayerSettingsController;
+import inf112.RoboRally.app.views.menus.singleplayersettingscontroller.SinglePlayerSettingsController;
 import inf112.RoboRally.app.models.cards.ForwardCard;
 import inf112.RoboRally.app.models.cards.ICard;
 import inf112.RoboRally.app.models.game.Player;
