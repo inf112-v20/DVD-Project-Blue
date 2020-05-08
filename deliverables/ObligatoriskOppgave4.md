@@ -152,6 +152,7 @@ on the board interacts with the player on the board. This is essential in order 
  ### Part 3
  
  Shown below is the respective class-diagram:
+![UML diagram](https://github.com/inf112-v20/DVD-Project-Blue/blob/master/deliverables/UML/ObligatoriskOppgave4UML.png?raw=true)
  
  **How to run the program**
  
