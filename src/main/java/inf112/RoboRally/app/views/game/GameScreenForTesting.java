@@ -3,6 +3,7 @@ package inf112.RoboRally.app.views.game;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -44,7 +45,9 @@ public class GameScreenForTesting extends InputAdapter implements Screen {
         robotViews = new RobotView[1];
         TiledMap tiledMap = game.setUpMadLoader().getMap();
         playerUI = game.getHumanPlayer().getPlayerUI();
-
+        playerUI.setupConnectionToGameClass(game);
+        timer = game.getTimer();
+        stage.addActor(timer.getTimeTable());
 
         // rendering, camera, and input processors
         mapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1/256f);
@@ -76,6 +79,8 @@ public class GameScreenForTesting extends InputAdapter implements Screen {
         mapRenderer.render();
 
         gameLauncher.batch.setProjectionMatrix(playerUI.getStage().getCamera().combined);
+        playerUI.getStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1));
+        playerUI.getStage().draw();
 
         gameLauncher.batch.end();
 
@@ -88,6 +93,22 @@ public class GameScreenForTesting extends InputAdapter implements Screen {
         robotViews[playerNumber] = players[playerNumber].robot().getRobotViewController().getRobotView();
         RobotView robotView = robotViews[playerNumber];
         robotView.draw(gameLauncher.batch);
+        String PATH = "assets/smallrobot/player";
+        if (robotView.isDeadThisRound()) {
+            robotView.setTexture(new Texture(PATH+playerNumber+"dead.png"));
+        }
+        else if ( robotView.isPoweredDown() ) {
+            robotView.setTexture(new Texture(PATH+playerNumber+"powrdown.png"));
+        }
+        else if ( robotView.hasWon() ) {
+            robotView.setTexture(new Texture(PATH+playerNumber+"won.png"));
+        }
+        else if ( robotView.flagCaptures() > 0 ) {
+            robotView.setTexture(new Texture(PATH+playerNumber+"flag" + robotView.flagCaptures() +".png"));
+        }
+        else {
+            robotView.setTexture(new Texture(PATH+playerNumber+".png"));
+        }
         gameLauncher.batch.end();
     }
 

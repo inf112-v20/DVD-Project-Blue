@@ -27,6 +27,7 @@ public class RoundPhaseExecutor {
         this.players = players;
         this.registrationPhaseEffects = boardEffects;
         this.timer = timer;
+        System.out.println("getting here");
     }
 
 

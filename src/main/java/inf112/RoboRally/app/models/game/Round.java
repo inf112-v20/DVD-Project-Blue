@@ -58,7 +58,7 @@ public class Round {
             if (player.robot().livesLeft() > 0) playersAlive++;
             if (player.robot().isWinner()) return true; // robot is registered with three flags
         }
-        if (playersAlive == 1) { // only one player alive, we have a winner
+        if (playersAlive == 1 && players.length > 1) { // only one player alive, we have a winner
             for (Player player: players) {
                 if (player.robot().livesLeft() > 0) {
                     player.robot().setToWinner();
