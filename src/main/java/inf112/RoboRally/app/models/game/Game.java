@@ -1,6 +1,6 @@
 package inf112.RoboRally.app.models.game;
 
-import inf112.RoboRally.app.controllers.settingscontroller.SinglePlayerSettingsController;
+import inf112.RoboRally.app.views.menus.singleplayersettingscontroller.SinglePlayerSettingsController;
 import inf112.RoboRally.app.models.board.Board;
 import inf112.RoboRally.app.models.game.boardelements.BoardElements;
 import inf112.RoboRally.app.models.robot.Direction;
@@ -139,7 +139,7 @@ public class Game {
     }
 
 
-    private Robot[] allRobotsInGame() {
+    public Robot[] allRobotsInGame() {
         Robot[] robots = new Robot[players.length];
         for (int playerNumber = 0; playerNumber < robots.length; playerNumber++) {
             robots[playerNumber] = players[playerNumber].robot();
