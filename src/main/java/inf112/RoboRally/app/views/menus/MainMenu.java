@@ -46,7 +46,7 @@ public class MainMenu implements Screen {
 
         TextButton play = new Button().createTextButton("PLAY");
         TextButton lan = new Button().createTextButton("LAN");
-        TextButton testGame = new Button().createTextButton("WALL TEST");
+        TextButton testGame = new Button().createTextButton("PLAYGROUND");
         TextButton quit = new Button().createTextButton("QUIT");
         table.add(play);
         table.row().padTop(10);
