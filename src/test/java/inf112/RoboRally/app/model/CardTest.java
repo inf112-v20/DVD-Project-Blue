@@ -19,7 +19,7 @@ public class CardTest {
     private ICard uTurn;
 
     @Before
-    public void setup() {
+    public void setUp() {
         oneStepForward = new ForwardCard(1, 1000);
         twoStepForward = new ForwardCard(2, 1200);
         reverseCard = new ReverseCard(650);

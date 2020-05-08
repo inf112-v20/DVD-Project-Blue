@@ -16,7 +16,7 @@ public class RobotTest {
     private Robot robot;
 
     @Before
-    public void setup() {
+    public void setUp() {
         robot = new Robot(new Pos(5, 10), Direction.RIGHT);
     }
 

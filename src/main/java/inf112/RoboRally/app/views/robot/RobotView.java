@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import inf112.RoboRally.app.models.cards.Rotation;
-import inf112.RoboRally.app.models.robot.Direction;
 import inf112.RoboRally.app.models.robot.Pos;
 
 public class RobotView extends Sprite {
@@ -22,7 +21,7 @@ public class RobotView extends Sprite {
     private float targetY;
 
 
-    public RobotView(Sprite sprite, Pos startPos, Direction startDirection) {
+    public RobotView(Sprite sprite, Pos startPos) {
         super(sprite);
         setRotation(270.0f);
         setStartPosition(startPos);
@@ -80,10 +79,6 @@ public class RobotView extends Sprite {
     }
 
 
-    public void setStartDirection() {
-        setRotation(270.0f);
-    }
-
 
     public void setStartPosition(Pos startPos) {
         setX( (startPos.getX() * TILE_WIDTH_PX) );
@@ -130,7 +125,4 @@ public class RobotView extends Sprite {
         timeToShoot = shoot;
     }
 
-    public boolean getTimeToShoot() {
-        return timeToShoot;
-    }
 }

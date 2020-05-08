@@ -1,8 +1,5 @@
 package inf112.RoboRally.app.models.robot;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
-import inf112.RoboRally.app.controllers.RobotViewController;
 import inf112.RoboRally.app.models.cards.Rotation;
 import inf112.RoboRally.app.models.game.Player;
 import inf112.RoboRally.app.models.game.boardelements.BoardElements;
@@ -252,6 +249,7 @@ public class Robot implements IRobot {
         this.poweredDown = poweredDown;
         if (gainLife) lives = Math.min(MAX_LIVES, lives += 1);
         if (poweredDown) {
+            hp = MAX_HP;
             if (robotViewController != null) robotViewController.updateViewPoweredDown(true);
         }
         else            {
@@ -264,7 +262,7 @@ public class Robot implements IRobot {
     }
 
     public void setupRobotViewController(int playerNumber) {
-        robotViewController = new RobotViewController(playerNumber, pos, direction);
+        robotViewController = new RobotViewController(playerNumber, pos);
     }
 
     public void communicateBoardElements(BoardElements boardElements) {

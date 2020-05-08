@@ -8,8 +8,6 @@ public class RobotShootOtherRobotChecker implements IElement {
 
     private Robot[] robots;
 
-    public RobotShootOtherRobotChecker() {}
-
     @Override
     public int effectRobotSteps(int steps) {
         return 0;
@@ -19,26 +17,21 @@ public class RobotShootOtherRobotChecker implements IElement {
     public void effectRobotAfterCardExec(Robot robot) {
         Pos robotPos = robot.pos();
 
-        if (!robot.isPoweredDown() && !robot.isDead())
-            robot.getRobotViewController().timeToShoot(true);
-
         for (Robot enemyRobot: robots) {
 
-            // the robot cant shoot itself, and the shooting robot cannot be powered down
-            if (!enemyRobot.equals(robot) && !enemyRobot.isPoweredDown()) {
+            // the robot cant shoot itself, and the shooting robot cannot be powered down or dead
+            if (!enemyRobot.equals(robot) && !enemyRobot.isPoweredDown() && !enemyRobot.isDead()) {
                Pos enemyRobotPos = enemyRobot.pos();
 
                if (enemyRobotPos.getX() == robotPos.getX()) {
 
                    // enemyRobot is directly above robot and looking down -> enemyRobot shoots robot
                    if (enemyRobotPos.getY() > robotPos.getY() && enemyRobot.direction() == Direction.DOWN) {
-                       System.out.println("robot got shot");
                        robot.looseHP(1);
                    }
 
                    // enemyRobot is directly below robot and looking up -> enemyRobot shoots robot
                    else if (enemyRobotPos.getY() < robotPos.getY() && enemyRobot.direction() == Direction.UP) {
-                       System.out.println("robot got shot");
                        robot.looseHP(1);
                    }
                }
@@ -46,13 +39,11 @@ public class RobotShootOtherRobotChecker implements IElement {
 
                    // enemyRobot is directly to the left of robot and looking right -> enemyRobot shoots robot
                    if (enemyRobotPos.getX() < robotPos.getX() && enemyRobot.direction() == Direction.RIGHT ) {
-                       System.out.println("robot got shot");
                        robot.looseHP(1);
                    }
 
                    // enemyRobot is directly to the right of robot and looking left -> enemyRobot shoots robot
                    else if (enemyRobotPos.getX() > robotPos.getX() && enemyRobot.direction() == Direction.LEFT) {
-                       System.out.println("robot got shot");
                        robot.looseHP(1);
                    }
 

@@ -21,7 +21,7 @@ public class RoundTest {
     private Round round;
 
     @Before
-    public void setup() {
+    public void setUp() {
 
         moveForwardThreeCard = new ForwardCard(3, 1000);
         settings = new SinglePlayerSettingsController();
