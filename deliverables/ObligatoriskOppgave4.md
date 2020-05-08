@@ -15,7 +15,7 @@ methodology in our current situation. Due to the pandemic, the physical meetings
 The project board has therefore played an even more important role throughout the project as it has 
 kept the group members updated at all times. When dealing with a more unstable situation, a project 
 board is a simple way for all the group members to check the projects progress. In order to communicate 
-face to face and arrange group meetings we still benefit from using Microsoft Teams. 
+face to face and arrange group meetings we still benefit from using Microsoft Teams.
 
 As Kanban has been our selected project methodology since the second delivery, we acknowledge  
 that the group could have benefited from trying out the other project methodologies presented in 
@@ -51,7 +51,7 @@ have foreseen the absence of one group member, however we could have created a t
 The communication between the group member have been somewhat stable throughout the period. However, 
 he pandemic has naturally changed the group dynamic. As it was no longer possible to meet physically, 
 the weekly group meetings we use to have at Realfagsbygget had to be done online. This affected the 
-communication truly more than anticipated. It is important to mention that INF112 is not the only course 
+communication more than anticipated. It is important to mention that INF112 is not the only course 
 this semester that demands a high workload, and the weekly communication between the group members are 
 naturally dependent on the other course activities such as assignments and evaluations. 
 
@@ -79,9 +79,7 @@ Shown below is a screenshot of the current project board
 ![Project board](https://github.com/inf112-v20/DVD-Project-Blue/blob/master/deliverables/UML/ProjectBoardOblig4.PNG?raw=true)
 
 ### Part 2
-The fourth delivery is the final delivery and the result should therefore be a complete game. Now the player 
-of the game should be able to select the amount of AI-players it want to play against. However, the AI-players 
-select the cards randomly and are not considered as smart.
+The fourth delivery is the final delivery and we wanted to deliver a complete game. We were unfortunately not able to live up to our ambition as two important qualities are missing: a smart AI-player and LAN functionality. The game rules are implemented, but the AI-player in the single player mode chooses cards at random, and poses no real challenge.
 
 Since last time we wanted to set up a server such that the player could play against other human players 
 through a LAN. Unfortunately, we did not manage to implement this before the deadline. This part of the 
@@ -91,7 +89,7 @@ something we wished to accomplish and we talked about it in an early stage of th
 though the player could not play through a LAN, we have learned a lot and the written code has not been for 
 nothing. This is something we will take with us in future game development projects. Furthermore, the elements 
 on the board interacts with the player on the board. This is essential in order to create a complete game. There
- are now communication between the user, controllers, cards and players of the game. 
+ are now communication between the user, cards and players and elements on the board in the game. This was heavily prioritized, and deemed necessary to implement before the start on AI and LAN could start. 
  
  In this delivery we have prioritized to complete the ability to play against other, and consider this as part 
  of the MVP. A complete game should have this option and it’s the main reason for the MVP consideration.
@@ -147,7 +145,44 @@ on the board interacts with the player on the board. This is essential in order 
  
  The player should be able to hear a sound when hitting an item on the board, i.e., a laser or a hole 
  
+  **_User story number 5_**
+ 
+  I want to play in LAN against my friends
+  
+ _Task:_
+ 
+ Add LAN functionality and protocols so that players can play against friends
+ 
+ _Acceptance requirements:_
+ 
+ Humans are able to connect via LAN and can play a complete game of Robo Rally against each other.
+ 
+   **_User story number 6_**
+ 
+  I want to play on single player mode against a smart AI
+  
+ _Task:_
+ 
+ Implement a competetive and smart AI-player that understands all rules of the game
+ 
+ _Acceptance requirements:_
+ 
+ The single player mode features smart AI-players that are fun to play, and have clear purpose and strategy in terms of winning the game.
+ 
+   **_User story number 7_**
+ 
+  I want to be able interact with the different elements on the board with my robot
+  
+ _Task:_
+ 
+ Implement the effects in the game of Robo Rally on the board that a robot is effected by
+ 
+ _Acceptance requirements:_
+ 
+Every element on each board has an effect on the robots on the board.
+ 
  **Bugs**
+ One important bug in this game is that the player must manually press _CARDS_ at the beginning of every round in order to fetch his cards, and clear the card slots from the previous round.
  
  ### Part 3
  
@@ -158,11 +193,14 @@ on the board interacts with the player on the board. This is essential in order 
  
  The game is run by running Main in the inf112.RoboRally.app folder. When running _Main_, 
  a new window will appear and the player is shown a menu with four different choices. 
- _Play_, _lan_, _test game_ and _quit_. When selecting _play_, the player can choose which game 
+ _Play_, _lan_, and _quit_. When selecting _play_, the player can choose which game 
  board/map it wants and the amount of players it want to play against. It would have 
  been possible to play against other human players by clicking the _Lan_ button. When 
  clicking _Start_, the selected map appears and the player gets to drag and drop cards 
  from the right side of the board. The player has also the opportunity to change cards 
  by clicking the _Cards_ button. When the player has selected the preferred cards the game
   begin by clicking on the _Ready_-button. 
+  
+  Automatic tests exists in the test folder. The automatic testing does not cover meny options and interaction on the board, as we were not able to acquire the knowledge needed to configure tests for the libgdx framework. Allthough the majority of developing for this delivery was still driven by the completion of manual tests. The main menu contains a button _PlAYGROUND_.
+  The user can then choose any of the supported maps and roam around with a robot. The robot can be moved around the map, and walls will block its path. To test the registration phase of the board effects a player can choose a sequence of cards, or only one card and press _READY_. If the robot stands on any of the elements they will effect the robot.
   
