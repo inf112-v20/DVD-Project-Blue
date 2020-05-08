@@ -77,7 +77,4 @@ public class OpponentHUDCard {
         return cardGroup;
     }
 
-    public Image getCardImage() {
-        return cardImage;
-    }
 }

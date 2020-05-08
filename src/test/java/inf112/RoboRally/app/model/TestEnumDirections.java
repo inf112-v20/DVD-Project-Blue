@@ -25,13 +25,5 @@ public class TestEnumDirections {
         assertEquals(Direction.RIGHT, direction.rotateRight().rotateRight());
     }
 
-    @Test
-    public void testCellNumberDirection() {
-        assertEquals(1, direction.CellDirectionNumber());
-    }
 
-    @Test
-    public void testCellDirectionNumberAfterRotation() {
-        assertEquals(4, direction.rotateRight().CellDirectionNumber());
-    }
 }

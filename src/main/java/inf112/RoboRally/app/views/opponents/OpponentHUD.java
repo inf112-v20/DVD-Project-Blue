@@ -15,7 +15,6 @@ public class OpponentHUD {
 
     // game stats
     private Player player;
-    private int opponentNumber;
     private int life;
     private int hp;
     private boolean isPoweredDown;
@@ -36,7 +35,6 @@ public class OpponentHUD {
 
     public OpponentHUD(Player player, boolean cardsFacingUp) {
         this.player = player;
-        opponentNumber = player.getPlayerNumber();
         life = player.robot().livesLeft();
         hp = player.robot().getHP();
         isPoweredDown = player.robot().isPoweredDown();

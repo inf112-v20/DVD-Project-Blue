@@ -16,7 +16,7 @@ public class Game {
     private Round round;
 
     // players
-    private int humanPlayerNumberChoice = 0; // player1 given as human player for now
+    private int humanPlayerNumberChoice = 0; // player1 given as human player
     private Player[] players;
     private Player humanPlayer;
 
@@ -77,17 +77,10 @@ public class Game {
         return humanPlayer;
     }
 
-    public Round round() {
-        return round;
-    }
-
     public TiledMapLoader setUpMadLoader() {
         return tiledMapLoader;
     }
 
-    public Player getPlayer(int playerNumber) {
-        return players[playerNumber];
-    }
 
     public void startFirstRound() {
         round.dealCardsAndBotsChooseCards();
