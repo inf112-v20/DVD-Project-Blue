@@ -37,7 +37,6 @@ public class Tricksy extends Board {
         super();
         super.setRobotStartPositions(startRobotPositions);
         super.setRobotStartDirections(startRobotDirections);
-//        super.setRobotStartVectors(startRobotVectors);
         super.setFilePath(path+FILE_NAME);
         super.setMapName(NAME);
     }

@@ -12,8 +12,8 @@ public class IslandKing extends Board {
     private final String FILE_NAME = "IslandKing";
 
     private Pos[] startRobotPositions = {
-            new Pos(6, 8),
             new Pos(6, 9),
+            new Pos(6, 8),
             new Pos(6, 11),
             new Pos(6, 6),
             new Pos(6, 13),
@@ -37,7 +37,6 @@ public class IslandKing extends Board {
         super();
         super.setRobotStartPositions(startRobotPositions);
         super.setRobotStartDirections(startRobotDirections);
-//        super.setRobotStartVectors(startRobotVectors);
         super.setFilePath(path+FILE_NAME);
         super.setMapName(NAME);
     }

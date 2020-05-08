@@ -74,12 +74,12 @@ public class RoundPhaseExecutor {
     }
 
 
-    private void sortCardsByPriority(ArrayList<ICard> allCardsFromSlots) {
+    public void sortCardsByPriority(ArrayList<ICard> allCardsFromSlots) {
         Collections.sort(allCardsFromSlots, new SortCardByPriority());
     }
 
 
-    private ArrayList<ICard> collectCardsFromSlotNumber(int slotNumber) {
+    public ArrayList<ICard> collectCardsFromSlotNumber(int slotNumber) {
         ArrayList<ICard> cards = new ArrayList<>();
         for (Player player: players) {
 
@@ -96,7 +96,7 @@ public class RoundPhaseExecutor {
     }
 
 
-    private void turnRobotsThatWerePoweredDownOnForNextRound() {
+    public void turnRobotsThatWerePoweredDownOnForNextRound() {
         for (Player player: players) {
             if (player.robot().isPoweredDown())
                 player.robot().changePowerDown(false, true);

@@ -19,17 +19,6 @@ public class VaultAssault extends Board {
             new Pos(8, 3)
     };
 
-//    private Vector2[] startRobotVectors = {
-//            new Vector2(5, 9),
-//            new Vector2(5, 8),
-//            new Vector2(6, 11),
-//            new Vector2(6, 6),
-//            new Vector2(7, 13),
-//            new Vector2(7, 4),
-//            new Vector2(8, 14),
-//            new Vector2(8, 3)
-//    };
-
     private Direction[] startRobotDirections = {
             Direction.RIGHT,
             Direction.RIGHT,
@@ -45,7 +34,6 @@ public class VaultAssault extends Board {
         super();
         super.setRobotStartPositions(startRobotPositions);
         super.setRobotStartDirections(startRobotDirections);
-//        super.setRobotStartVectors(startRobotVectors);
         super.setFilePath(path+FILE_NAME);
         super.setMapName(NAME);
     }

@@ -12,8 +12,8 @@ public class ChopShopChallenge extends Board {
     public final String FILE_NAME = "ChopShopChallenge";
 
     private Pos[] startRobotPosition = {
-            new Pos(6, 8),
             new Pos(6, 9),
+            new Pos(6, 8),
             new Pos(6, 11),
             new Pos(6, 6),
             new Pos(6, 13),
@@ -21,17 +21,6 @@ public class ChopShopChallenge extends Board {
             new Pos(6, 14),
             new Pos(6, 3)
     };
-
-//    private Vector2[] startRobotVectors = {
-//            new Vector2(6, 8),
-//            new Vector2(6, 9),
-//            new Vector2(6, 11),
-//            new Vector2(6, 6),
-//            new Vector2(6, 13),
-//            new Vector2(6, 4),
-//            new Vector2(6, 14),
-//            new Vector2(6, 3)
-//    };
 
     private Direction[] startRobotDirections = {
             Direction.RIGHT,
@@ -48,7 +37,6 @@ public class ChopShopChallenge extends Board {
         super();
         super.setRobotStartPositions(startRobotPosition);
         super.setRobotStartDirections(startRobotDirections);
-//        super.setRobotStartVectors(startRobotVectors);
         super.setFilePath(path+FILE_NAME);
         super.setMapName(NAME);
     }
